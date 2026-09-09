@@ -1,0 +1,302 @@
+[
+  {
+    "id": "R-LOCAL",
+    "requirement": "Local Chrome browser interface plus loopback companion; daily launcher; actual Mac Developer source",
+    "owner_phases": [
+      0,
+      1,
+      3,
+      4,
+      14
+    ],
+    "acceptance": "Cold launch, local origin protection, occupied port and runtime recovery; user acceptance",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-COURSES",
+    "requirement": "Add courses and terms throughout education; edit, archive and reopen; isolate data",
+    "owner_phases": [
+      5,
+      13
+    ],
+    "acceptance": "Second course and archive/reopen; cross-course retrieval negative cases",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-INPUTS",
+    "requirement": "Repeated batch screenshots, pasted text, notes, native/scanned PDF, DOCX, DRM-free EPUB imports",
+    "owner_phases": [
+      6
+    ],
+    "acceptance": "Known-answer fixtures for every format; repeated imports, duplicates and updates; cancellation and corrupt/oversized files",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-ORIGINALS",
+    "requirement": "Immutable originals, checksums, source versions and page/paragraph/region/ebook anchors",
+    "owner_phases": [
+      6,
+      7
+    ],
+    "acceptance": "Hashes unchanged; every derived item opens the correct source version and location",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-CORRECTION",
+    "requirement": "Review and correct extraction; version revisions and mark affected derivatives stale",
+    "owner_phases": [
+      6,
+      9
+    ],
+    "acceptance": "Correction survives restart; affected activities flagged, unrelated data preserved",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-READING",
+    "requirement": "Original and reflowed reading, search, annotations, bookmarks, density and source navigation",
+    "owner_phases": [
+      7
+    ],
+    "acceptance": "Reading-order/table limitations visible; repeated phrase anchors; keyboard and large-document checks",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-TUTOR",
+    "requirement": "Documented ChatGPT account connection mediated by local companion; sign-in/out and limits",
+    "owner_phases": [
+      0,
+      8
+    ],
+    "acceptance": "Official route evidence in 0.3; actual account call, rejected/expired credentials, limits and logout in 8.1",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-GROUNDING",
+    "requirement": "Selected-course retrieval; separate instructor requirements, source text, user writing and tutor explanations",
+    "owner_phases": [
+      8,
+      9
+    ],
+    "acceptance": "Versioned grounding rubric, unknown/conflicting evidence, correct-course isolation and navigable anchors",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-LEARNING",
+    "requirement": "College-level explanation, application, prediction, retrieval, hints, teach-back and spaced review",
+    "owner_phases": [
+      9,
+      12
+    ],
+    "acceptance": "Independent recall/application exercises; meaningful scoring; assumptions and caveats retained",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-PROGRESS",
+    "requirement": "Save attempts, schedules, unfinished drafts and exact reading/audio/activity positions",
+    "owner_phases": [
+      4,
+      7,
+      9,
+      10
+    ],
+    "acceptance": "Interrupt/close/reopen; no duplicate credit; no mastery inferred solely from reading time",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-NARRATION",
+    "requirement": "Natural narration of exact extracted text, distinct from paraphrased explanation",
+    "owner_phases": [
+      10
+    ],
+    "acceptance": "Real long-passage audio; source fidelity/pronunciation and human listening acceptance",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-PLAYBACK",
+    "requirement": "Pause, seek, speed, sentence replay/alignment, bookmarks, listening queues and cached audio",
+    "owner_phases": [
+      10
+    ],
+    "acceptance": "Seek/restart offsets; timing alignment; offline replay makes zero generation requests",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-VOICE",
+    "requirement": "Explicit microphone, editable recognition, spoken teach-back, interruption then passage resume",
+    "owner_phases": [
+      10
+    ],
+    "acceptance": "Actual microphone grant/deny/revoke, device loss, self-trigger prevention, cancel/network failure",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-OFFLINE",
+    "requirement": "Prepared local reading/search/notes/activities/audio/visual assets and saved progress without network",
+    "owner_phases": [
+      7,
+      10,
+      13
+    ],
+    "acceptance": "Disconnected cold launch, readiness manifest, incomplete pack rejected, local-service outage recovery",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-INFERENCE",
+    "requirement": "Fresh cloud tutoring requires network; fresh local inference conditional on explicit selection and validated models",
+    "owner_phases": [
+      0,
+      8,
+      13
+    ],
+    "acceptance": "Capability matrix distinguishes cached responses; no false availability; selected local model separately tested",
+    "classification": "required-capability-boundary; fresh-local-tutor conditional"
+  },
+  {
+    "id": "R-BACKUP",
+    "requirement": "Portable private-data backup/restore with manifest/checksums, preview and conflict recovery; exclude credentials",
+    "owner_phases": [
+      13
+    ],
+    "acceptance": "Clean-directory restore matches records/hashes; corruption, interruption, version and traversal negatives",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-ACCESS",
+    "requirement": "ADHD/neurodivergent support: easy start/resume, short optional sessions, adjustable density/motion/audio and pacing",
+    "owner_phases": [
+      2,
+      4,
+      7,
+      9
+    ],
+    "acceptance": "User flows and interrupted-session review; no fixed learning-style or guaranteed grade/clinical claims",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-A11Y",
+    "requirement": "WCAG 2.2 AA, keyboard/focus, readable text outside canvas, reduced motion, no required voice or 3D navigation",
+    "owner_phases": [
+      2,
+      4,
+      7,
+      10,
+      12,
+      14
+    ],
+    "acceptance": "Automated plus manual keyboard/screen-reader checks; contrast, window sizes, motion-disabled equivalents",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-VISUALS",
+    "requirement": "React 2D interface, selective 2.5D and subject-correct interactive R3F/Three.js aids; WebGL2 baseline",
+    "owner_phases": [
+      2,
+      12
+    ],
+    "acceptance": "Approved instructional purpose; real GPU action/state, 2D equivalent, context loss and reduced-quality performance",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-POLICY",
+    "requirement": "COMM 110 prohibits AI-generated outlines and sources/citations; support learning/practice and preserve user writing",
+    "owner_phases": [
+      5,
+      8,
+      11
+    ],
+    "acceptance": "Prohibited-request evaluation and unchanged user-authored export; no generated graded outline/citation",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-COURSE_RULES",
+    "requirement": "Source-linked requirements, conflicts and revisions; missing official details remain unknown",
+    "owner_phases": [
+      5,
+      11
+    ],
+    "acceptance": "Compare original course evidence, timezone/relative-week fixtures, no invented duration/date/tolerance",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-PRESENTATION",
+    "requirement": "PQP practice, synchronized media review, timer/recording, user-authored cue cards and visual-aid inspection",
+    "owner_phases": [
+      11
+    ],
+    "acceptance": "PQP category fixtures; actual question; timestamp persistence; timer and recording recovery; no inferred grade",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-MODULES",
+    "requirement": "Versioned domain contracts and capability registration support future subject modules",
+    "owner_phases": [
+      1,
+      4,
+      12,
+      13
+    ],
+    "acceptance": "Synthetic second module; disable/re-enable and version mismatch; no unrelated table mutations",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-PRIVACY",
+    "requirement": "Separate source and private learning data; loopback/origin/path controls; documents are untrusted data",
+    "owner_phases": [
+      1,
+      4,
+      6,
+      8,
+      13
+    ],
+    "acceptance": "No credentials/private course content staged; reject traversal, embedded scripts and prompt injection",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-PROVIDERS",
+    "requirement": "Provider-neutral tutoring/audio contracts; subscription, API billing and speech capabilities distinct",
+    "owner_phases": [
+      0,
+      3,
+      8,
+      10
+    ],
+    "acceptance": "No paid substitution, budget/limit handling, unavailable state, credentials never in browser or logs",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-WORKFLOW",
+    "requirement": "Approved phases only, ordered steps, 100% required checks, evidence audit, commit/push/remote confirmation, explicit phase stop",
+    "owner_phases": [
+      0,
+      1,
+      14
+    ],
+    "acceptance": "Transition rehearsals and real evidence; no zero/missing/skipped/flaky pass; every approval attributable",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-PERFORMANCE",
+    "requirement": "Responsive study while importing and playing audio; concrete reference-device budgets",
+    "owner_phases": [
+      0,
+      7,
+      10,
+      12,
+      13,
+      14
+    ],
+    "acceptance": "Repeatable interaction/launch/frame/audio and concurrent workload measurements",
+    "classification": "required-v1"
+  },
+  {
+    "id": "R-HISTORY",
+    "requirement": "GitHub only for public source repository and version history; all tests and audits local",
+    "owner_phases": [
+      0,
+      1,
+      14
+    ],
+    "acceptance": "Per-step remote commit exists; no CI, hosting, issue/project or PR gate; private evidence excluded",
+    "classification": "required-v1"
+  }
+]
