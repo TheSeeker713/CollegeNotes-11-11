@@ -1,8 +1,8 @@
 {
   "phase": 0,
-  "phase_status": "active",
+  "phase_status": "awaiting_user_review",
   "step": "0.4",
-  "step_status": "checkpoint_pending",
+  "step_status": "complete",
   "approval": {
     "date": "2026-09-09",
     "scope": "entire Phase 0, routine checks, fixes, minimal administration, repository creation, per-step commits and pushes",
@@ -14,11 +14,13 @@
     "0.1": "complete",
     "0.2": "complete",
     "0.3": "complete",
-    "0.4": "checkpoint_pending"
+    "0.4": "complete"
   },
   "checkpoints": {
     "0.1": "9aac47b1c215309edf03966cfaac238ed45aadb9",
     "0.2": "bb1bb5a23f593d88959b171523a8343abd02e56a",
-    "0.3": "e15d3a0b16d6956ded4538611563c38a88c75c4f"
-  }
+    "0.3": "e15d3a0b16d6956ded4538611563c38a88c75c4f",
+    "0.4": "a30903be4aaf8225ae5680995a4581570cf85751"
+  },
+  "next_action": "STOP: await explicit user approval before Phase 1"
 }

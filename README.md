@@ -7,3 +7,5 @@ The approved execution plan has phases 0–14. Phase 0 is authorized by the owne
 Planning records live in `phase0/`; durable status lives in `project-state/`. The original execution plan and supporting references are preserved privately under `.local/references/` with hashes. Read them and the current state before resuming. User instructions take precedence, followed by the full plan, supporting memory, then historical research.
 
 GitHub is version history only. No Actions, hosting, boards, issues, or pull-request approval workflow. Private course materials, credentials, recordings, machine details and detailed evidence stay outside public history. The complete scaffold belongs to Phase 1, design to Phase 2, dependency installation to Phase 3.
+
+Phase 0 steps are complete and awaiting user review. Start with [review packet](phase0/review.md), [checkpoint closeout](phase0/closeout.md) and [bootstrap rules](phase0/bootstrap-rules.md). No Phase 1 work is authorized.
