@@ -1,0 +1,469 @@
+{
+  "status": "decision only; install in Phase 3 after phase approvals",
+  "checked": "2026-09-09",
+  "runtime": {
+    "name": "node",
+    "version": "24.21.0",
+    "platform": "darwin-arm64",
+    "license": "MIT plus bundled third-party notices",
+    "source": "https://nodejs.org/dist/index.json"
+  },
+  "package_manager": "npm@12.0.2",
+  "browser": "Google Chrome Stable on the reference Mac; installed baseline privately inventoried; re-record exact build for every hardware test",
+  "packages": [
+    {
+      "name": "react",
+      "version": "19.2.8",
+      "license": "MIT",
+      "engines": {
+        "node": ">=0.10.0"
+      },
+      "source": "https://registry.npmjs.org/react/latest"
+    },
+    {
+      "name": "react-dom",
+      "version": "19.2.8",
+      "license": "MIT",
+      "peerDependencies": {
+        "react": "^19.2.8"
+      },
+      "source": "https://registry.npmjs.org/react-dom/latest"
+    },
+    {
+      "name": "vite",
+      "version": "8.2.2",
+      "license": "MIT",
+      "engines": {
+        "node": "^20.19.0 || >=22.12.0"
+      },
+      "peerDependencies": {
+        "tsx": "^4.8.1",
+        "jiti": ">=1.21.0",
+        "less": "^4.0.0",
+        "sass": "^1.70.0",
+        "yaml": "^2.4.2",
+        "stylus": ">=0.54.8",
+        "terser": "^5.16.0",
+        "esbuild": "^0.27.0 || ^0.28.0",
+        "sugarss": "^5.0.0",
+        "@types/node": "^20.19.0 || >=22.12.0",
+        "sass-embedded": "^1.70.0",
+        "@vitejs/devtools": "^0.4.0 || ^0.5.0"
+      },
+      "peerDependenciesMeta": {
+        "tsx": {
+          "optional": true
+        },
+        "jiti": {
+          "optional": true
+        },
+        "less": {
+          "optional": true
+        },
+        "sass": {
+          "optional": true
+        },
+        "yaml": {
+          "optional": true
+        },
+        "stylus": {
+          "optional": true
+        },
+        "terser": {
+          "optional": true
+        },
+        "esbuild": {
+          "optional": true
+        },
+        "sugarss": {
+          "optional": true
+        },
+        "@types/node": {
+          "optional": true
+        },
+        "sass-embedded": {
+          "optional": true
+        },
+        "@vitejs/devtools": {
+          "optional": true
+        }
+      },
+      "source": "https://registry.npmjs.org/vite/latest"
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "version": "6.1.1",
+      "license": "MIT",
+      "engines": {
+        "node": "^20.19.0 || >=22.12.0"
+      },
+      "peerDependencies": {
+        "vite": "^8.0.0",
+        "oxc-transform-react": "^0.145.0",
+        "@rolldown/plugin-babel": "^0.1.7 || ^0.2.0",
+        "babel-plugin-react-compiler": "^1.0.0"
+      },
+      "peerDependenciesMeta": {
+        "oxc-transform-react": {
+          "optional": true
+        },
+        "@rolldown/plugin-babel": {
+          "optional": true
+        },
+        "babel-plugin-react-compiler": {
+          "optional": true
+        }
+      },
+      "source": "https://registry.npmjs.org/@vitejs/plugin-react/latest"
+    },
+    {
+      "name": "@react-three/fiber",
+      "version": "9.7.0",
+      "license": "MIT",
+      "peerDependencies": {
+        "expo": ">=43.0",
+        "react": ">=19 <19.3",
+        "three": ">=0.156",
+        "expo-gl": ">=11.0",
+        "react-dom": ">=19 <19.3",
+        "expo-asset": ">=8.4",
+        "react-native": ">=0.78",
+        "expo-file-system": ">=11.0"
+      },
+      "peerDependenciesMeta": {
+        "expo": {
+          "optional": true
+        },
+        "expo-gl": {
+          "optional": true
+        },
+        "react-dom": {
+          "optional": true
+        },
+        "expo-asset": {
+          "optional": true
+        },
+        "react-native": {
+          "optional": true
+        },
+        "expo-file-system": {
+          "optional": true
+        }
+      },
+      "source": "https://registry.npmjs.org/@react-three/fiber/latest"
+    },
+    {
+      "name": "fastify",
+      "version": "5.12.3",
+      "license": "MIT",
+      "source": "https://registry.npmjs.org/fastify/latest"
+    },
+    {
+      "name": "better-sqlite3",
+      "version": "13.0.3",
+      "license": "MIT",
+      "engines": {
+        "node": ">=22"
+      },
+      "source": "https://registry.npmjs.org/better-sqlite3/latest"
+    },
+    {
+      "name": "pdfjs-dist",
+      "version": "6.3.289",
+      "license": "Apache-2.0",
+      "engines": {
+        "node": ">=22.13.0 || >=24"
+      },
+      "source": "https://registry.npmjs.org/pdfjs-dist/latest"
+    },
+    {
+      "name": "tesseract.js",
+      "version": "7.0.0",
+      "license": "Apache-2.0",
+      "source": "https://registry.npmjs.org/tesseract.js/latest"
+    },
+    {
+      "name": "epubjs",
+      "version": "0.3.93",
+      "license": "BSD-2-Clause",
+      "source": "https://registry.npmjs.org/epubjs/latest"
+    },
+    {
+      "name": "mammoth",
+      "version": "1.12.2",
+      "license": "BSD-2-Clause",
+      "engines": {
+        "node": ">=12.0.0"
+      },
+      "source": "https://registry.npmjs.org/mammoth/latest"
+    },
+    {
+      "name": "vitest",
+      "version": "5.0.0",
+      "license": "MIT",
+      "engines": {
+        "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+      },
+      "peerDependencies": {
+        "vite": "^6.4.0 || ^7.0.0 || ^8.0.0",
+        "jsdom": "*",
+        "happy-dom": "*",
+        "@vitest/ui": "5.0.0",
+        "@types/node": "^22.0.0 || >=24.0.0",
+        "@edge-runtime/vm": "*",
+        "@opentelemetry/api": "^1.9.0",
+        "@vitest/coverage-v8": "5.0.0",
+        "@vitest/browser-preview": "5.0.0",
+        "@vitest/coverage-istanbul": "5.0.0",
+        "@vitest/browser-playwright": "5.0.0",
+        "@vitest/browser-webdriverio": "^5.0.0-beta.5 || >=5.0.0"
+      },
+      "peerDependenciesMeta": {
+        "vite": {
+          "optional": false
+        },
+        "jsdom": {
+          "optional": true
+        },
+        "happy-dom": {
+          "optional": true
+        },
+        "@vitest/ui": {
+          "optional": true
+        },
+        "@types/node": {
+          "optional": true
+        },
+        "@edge-runtime/vm": {
+          "optional": true
+        },
+        "@opentelemetry/api": {
+          "optional": true
+        },
+        "@vitest/coverage-v8": {
+          "optional": true
+        },
+        "@vitest/browser-preview": {
+          "optional": true
+        },
+        "@vitest/coverage-istanbul": {
+          "optional": true
+        },
+        "@vitest/browser-playwright": {
+          "optional": true
+        },
+        "@vitest/browser-webdriverio": {
+          "optional": true
+        }
+      },
+      "source": "https://registry.npmjs.org/vitest/latest"
+    },
+    {
+      "name": "@testing-library/react",
+      "version": "16.3.3",
+      "license": "MIT",
+      "engines": {
+        "node": ">=18"
+      },
+      "peerDependencies": {
+        "react": "^18.0.0 || ^19.0.0",
+        "react-dom": "^18.0.0 || ^19.0.0",
+        "@types/react": "^18.0.0 || ^19.0.0",
+        "@types/react-dom": "^18.0.0 || ^19.0.0",
+        "@testing-library/dom": "^10.0.0"
+      },
+      "peerDependenciesMeta": {
+        "@types/react": {
+          "optional": true
+        },
+        "@types/react-dom": {
+          "optional": true
+        }
+      },
+      "source": "https://registry.npmjs.org/@testing-library/react/latest"
+    },
+    {
+      "name": "@testing-library/dom",
+      "version": "10.4.1",
+      "license": "MIT",
+      "engines": {
+        "node": ">=18"
+      },
+      "source": "https://registry.npmjs.org/@testing-library/dom/latest"
+    },
+    {
+      "name": "@testing-library/jest-dom",
+      "version": "7.0.1",
+      "license": "MIT",
+      "engines": {
+        "npm": ">=6",
+        "node": ">=22",
+        "yarn": ">=1"
+      },
+      "peerDependencies": {
+        "vitest": ">= 0.32",
+        "@testing-library/dom": ">=10 <11"
+      },
+      "peerDependenciesMeta": {
+        "vitest": {
+          "optional": true
+        }
+      },
+      "source": "https://registry.npmjs.org/@testing-library/jest-dom/latest"
+    },
+    {
+      "name": "@playwright/test",
+      "version": "1.63.0",
+      "license": "Apache-2.0",
+      "engines": {
+        "node": ">=20"
+      },
+      "source": "https://registry.npmjs.org/@playwright/test/latest"
+    },
+    {
+      "name": "@axe-core/playwright",
+      "version": "4.13.0",
+      "license": "MPL-2.0",
+      "peerDependencies": {
+        "playwright-core": ">= 1.0.0"
+      },
+      "source": "https://registry.npmjs.org/@axe-core/playwright/latest"
+    },
+    {
+      "name": "eslint",
+      "version": "10.10.0",
+      "license": "MIT",
+      "engines": {
+        "node": "^20.19.0 || ^22.13.0 || >=24"
+      },
+      "peerDependencies": {
+        "jiti": "*"
+      },
+      "peerDependenciesMeta": {
+        "jiti": {
+          "optional": true
+        }
+      },
+      "source": "https://registry.npmjs.org/eslint/latest"
+    },
+    {
+      "name": "typescript-eslint",
+      "version": "8.70.0",
+      "license": "MIT",
+      "engines": {
+        "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+      },
+      "peerDependencies": {
+        "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0",
+        "typescript": ">=4.8.4 <6.1.0"
+      },
+      "source": "https://registry.npmjs.org/typescript-eslint/latest"
+    },
+    {
+      "name": "@types/react",
+      "version": "19.2.18",
+      "license": "MIT",
+      "peerDependencies": {},
+      "source": "https://registry.npmjs.org/@types/react/latest"
+    },
+    {
+      "name": "@types/react-dom",
+      "version": "19.2.7",
+      "license": "MIT",
+      "peerDependencies": {
+        "@types/react": "^19.2.0"
+      },
+      "source": "https://registry.npmjs.org/@types/react-dom/latest"
+    },
+    {
+      "name": "@types/three",
+      "version": "0.185.4",
+      "license": "MIT",
+      "peerDependencies": {},
+      "source": "https://registry.npmjs.org/@types/three/latest"
+    },
+    {
+      "name": "@types/better-sqlite3",
+      "version": "9.6.0",
+      "license": "MIT",
+      "peerDependencies": {},
+      "source": "https://registry.npmjs.org/@types/better-sqlite3/latest"
+    },
+    {
+      "name": "npm",
+      "version": "12.0.2",
+      "license": "Artistic-2.0",
+      "engines": {
+        "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+      },
+      "source": "https://registry.npmjs.org/npm/latest"
+    },
+    {
+      "name": "typescript",
+      "version": "6.0.3",
+      "license": "Apache-2.0",
+      "engines": {
+        "node": ">=14.17"
+      },
+      "source": "https://registry.npmjs.org/typescript/6.0.3"
+    },
+    {
+      "name": "three",
+      "version": "0.185.1",
+      "license": "MIT",
+      "source": "https://registry.npmjs.org/three/0.185.1"
+    },
+    {
+      "name": "@types/node",
+      "version": "24.13.3",
+      "license": "MIT",
+      "peerDependencies": {},
+      "source": "https://registry.npmjs.org/@types/node/24.13.3"
+    },
+    {
+      "name": "jsdom",
+      "version": "30.0.1",
+      "license": "MIT",
+      "engines": {
+        "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+      },
+      "peerDependencies": {
+        "canvas": "^3.2.3"
+      },
+      "peerDependenciesMeta": {
+        "canvas": {
+          "optional": true
+        }
+      },
+      "source": "https://registry.npmjs.org/jsdom/30.0.1"
+    },
+    {
+      "name": "playwright-core",
+      "version": "1.63.0",
+      "license": "Apache-2.0",
+      "engines": {
+        "node": ">=20"
+      },
+      "source": "https://registry.npmjs.org/playwright-core/1.63.0"
+    },
+    {
+      "name": "@eslint/js",
+      "version": "10.0.1",
+      "license": "MIT",
+      "engines": {
+        "node": "^20.19.0 || ^22.13.0 || >=24"
+      },
+      "peerDependencies": {
+        "eslint": "^10.0.0"
+      },
+      "peerDependenciesMeta": {
+        "eslint": {
+          "optional": true
+        }
+      },
+      "source": "https://registry.npmjs.org/@eslint/js/10.0.1"
+    }
+  ],
+  "downloads_authorized_now": false,
+  "models_installed": false
+}
