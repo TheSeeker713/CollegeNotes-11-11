@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "phase": 1,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "1.1",
+      "title": "create source and documentation structure",
+      "prerequisites": [
+        "0.4"
+      ],
+      "work": "create Section 3's directories and meaningful placeholders; separate source, personal data, and private evidence paths. Add the selected workspace/package metadata without installing dependencies.",
+      "deliverables": "full directory scaffold and ownership notes.",
+      "source_checks": "required paths exist; all relative links resolve; private paths are ignored; no premature feature code or dependency install; duplicate project root absent. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-1.1-01",
+          "description": "required paths exist",
+          "check_ids": [
+            "CHK-1.1-01"
+          ]
+        },
+        {
+          "id": "AC-1.1-02",
+          "description": "all relative links resolve",
+          "check_ids": [
+            "CHK-1.1-02"
+          ]
+        },
+        {
+          "id": "AC-1.1-03",
+          "description": "private paths are ignored",
+          "check_ids": [
+            "CHK-1.1-03"
+          ]
+        },
+        {
+          "id": "AC-1.1-04",
+          "description": "no premature feature code or dependency install",
+          "check_ids": [
+            "CHK-1.1-04"
+          ]
+        },
+        {
+          "id": "AC-1.1-05",
+          "description": "duplicate project root absent.",
+          "check_ids": [
+            "CHK-1.1-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-1.1-01",
+          "description": "required paths exist",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.1-02",
+          "description": "all relative links resolve",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.1-03",
+          "description": "private paths are ignored",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.1-04",
+          "description": "no premature feature code or dependency install",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.1-05",
+          "description": "duplicate project root absent.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-1.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "1.2",
+      "title": "create AGENTS.md and operating guides",
+      "prerequisites": [
+        "1.1"
+      ],
+      "work": "write every guide in Section 4, include exact phase-stop and 100% rules, and document tool-specific instruction loading for the user's selected coding tools. Keep one authoritative workflow rather than conflicting copies.",
+      "deliverables": "AGENTS.md, operating guides, instruction-loading checklist.",
+      "source_checks": "root rules link to all guides; scenarios covering failed tests, failed push, phase boundary, user defect, and lost context produce the correct permitted action; no guide delegates approval to GitHub or the agent. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-1.2-01",
+          "description": "root rules link to all guides",
+          "check_ids": [
+            "CHK-1.2-01"
+          ]
+        },
+        {
+          "id": "AC-1.2-02",
+          "description": "scenarios covering failed tests, failed push, phase boundary, user defect, and lost context produce the correct permitted action",
+          "check_ids": [
+            "CHK-1.2-02"
+          ]
+        },
+        {
+          "id": "AC-1.2-03",
+          "description": "no guide delegates approval to GitHub or the agent.",
+          "check_ids": [
+            "CHK-1.2-03"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-1.2-01",
+          "description": "root rules link to all guides",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.2-02",
+          "description": "scenarios covering failed tests, failed push, phase boundary, user defect, and lost context produce the correct permitted action",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.2-03",
+          "description": "no guide delegates approval to GitHub or the agent.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-1.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "1.3",
+      "title": "create phase manifests and durable project state",
+      "prerequisites": [
+        "1.2"
+      ],
+      "work": "translate all 60 numbered steps into per-phase specifications, criterion IDs, prerequisite IDs, required check lists, and state records. Implement lightweight document/state validation using available local tooling; no application dependency installation.",
+      "deliverables": "manifests, state schema, approval/defect record formats, requirement-to-step matrix.",
+      "source_checks": "IDs unique; prerequisites ordered; every phase has four steps and an approval boundary; every requirement maps to implementation and acceptance; fabricated approval entries absent. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-1.3-01",
+          "description": "IDs unique",
+          "check_ids": [
+            "CHK-1.3-01"
+          ]
+        },
+        {
+          "id": "AC-1.3-02",
+          "description": "prerequisites ordered",
+          "check_ids": [
+            "CHK-1.3-02"
+          ]
+        },
+        {
+          "id": "AC-1.3-03",
+          "description": "every phase has four steps and an approval boundary",
+          "check_ids": [
+            "CHK-1.3-03"
+          ]
+        },
+        {
+          "id": "AC-1.3-04",
+          "description": "every requirement maps to implementation and acceptance",
+          "check_ids": [
+            "CHK-1.3-04"
+          ]
+        },
+        {
+          "id": "AC-1.3-05",
+          "description": "fabricated approval entries absent.",
+          "check_ids": [
+            "CHK-1.3-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-1.3-01",
+          "description": "IDs unique",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.3-02",
+          "description": "prerequisites ordered",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.3-03",
+          "description": "every phase has four steps and an approval boundary",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.3-04",
+          "description": "every requirement maps to implementation and acceptance",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.3-05",
+          "description": "fabricated approval entries absent.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-1.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "1.4",
+      "title": "rehearse the workflow and audit scaffold",
+      "prerequisites": [
+        "1.3"
+      ],
+      "work": "exercise the state protocol on clearly labeled synthetic records: failed step, missing test, user rejection, interrupted agent, and failed push. Prepare setup/testing guide placeholders for Phase 3.",
+      "deliverables": "scaffold audit, workflow rehearsal evidence, handoff packet.",
+      "source_checks": "invalid transitions rejected; no next-phase activation without approval; fixture results never mixed with real project results; all scaffold checks pass. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-1.4-01",
+          "description": "invalid transitions rejected",
+          "check_ids": [
+            "CHK-1.4-01"
+          ]
+        },
+        {
+          "id": "AC-1.4-02",
+          "description": "no next-phase activation without approval",
+          "check_ids": [
+            "CHK-1.4-02"
+          ]
+        },
+        {
+          "id": "AC-1.4-03",
+          "description": "fixture results never mixed with real project results",
+          "check_ids": [
+            "CHK-1.4-03"
+          ]
+        },
+        {
+          "id": "AC-1.4-04",
+          "description": "all scaffold checks pass.",
+          "check_ids": [
+            "CHK-1.4-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-1.4-01",
+          "description": "invalid transitions rejected",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.4-02",
+          "description": "no next-phase activation without approval",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.4-03",
+          "description": "fixture results never mixed with real project results",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-1.4-04",
+          "description": "all scaffold checks pass.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-1.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

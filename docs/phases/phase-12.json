@@ -1,0 +1,467 @@
+{
+  "schema_version": 1,
+  "phase": 12,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "12.1",
+      "title": "implement the interactive-visual component contract",
+      "prerequisites": [
+        "11.4"
+      ],
+      "work": "define inputs, authoritative calculation/state, user actions, explanation text, sources, keyboard controls, reduced-motion behavior and saved state for visual aids. Implement a 2D relationship/sequence component aligned with current coursework.",
+      "deliverables": "reusable visual-aid API and first validated 2D component.",
+      "source_checks": "state/action fixtures; labels and units; keyboard equivalents; serialize/restore; source links; predictable transitions. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-12.1-01",
+          "description": "state/action fixtures",
+          "check_ids": [
+            "CHK-12.1-01"
+          ]
+        },
+        {
+          "id": "AC-12.1-02",
+          "description": "labels and units",
+          "check_ids": [
+            "CHK-12.1-02"
+          ]
+        },
+        {
+          "id": "AC-12.1-03",
+          "description": "keyboard equivalents",
+          "check_ids": [
+            "CHK-12.1-03"
+          ]
+        },
+        {
+          "id": "AC-12.1-04",
+          "description": "serialize/restore",
+          "check_ids": [
+            "CHK-12.1-04"
+          ]
+        },
+        {
+          "id": "AC-12.1-05",
+          "description": "source links",
+          "check_ids": [
+            "CHK-12.1-05"
+          ]
+        },
+        {
+          "id": "AC-12.1-06",
+          "description": "predictable transitions.",
+          "check_ids": [
+            "CHK-12.1-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-12.1-01",
+          "description": "state/action fixtures",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.1-02",
+          "description": "labels and units",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.1-03",
+          "description": "keyboard equivalents",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.1-04",
+          "description": "serialize/restore",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.1-05",
+          "description": "source links",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.1-06",
+          "description": "predictable transitions.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-12.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "12.2",
+      "title": "implement coordinated 2D/2.5D exploration",
+      "prerequisites": [
+        "12.1"
+      ],
+      "work": "add selectable annotations, linked views, scrubbable process explanation, prediction and comparison; use meaningful depth only when it improves hierarchy.",
+      "deliverables": "high-fidelity interactive explanation experience.",
+      "source_checks": "synchronized views; correct outcome after manipulation; no motion-required comprehension; pause/scrub; performance budget; interaction produces a learning-relevant change. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-12.2-01",
+          "description": "synchronized views",
+          "check_ids": [
+            "CHK-12.2-01"
+          ]
+        },
+        {
+          "id": "AC-12.2-02",
+          "description": "correct outcome after manipulation",
+          "check_ids": [
+            "CHK-12.2-02"
+          ]
+        },
+        {
+          "id": "AC-12.2-03",
+          "description": "no motion-required comprehension",
+          "check_ids": [
+            "CHK-12.2-03"
+          ]
+        },
+        {
+          "id": "AC-12.2-04",
+          "description": "pause/scrub",
+          "check_ids": [
+            "CHK-12.2-04"
+          ]
+        },
+        {
+          "id": "AC-12.2-05",
+          "description": "performance budget",
+          "check_ids": [
+            "CHK-12.2-05"
+          ]
+        },
+        {
+          "id": "AC-12.2-06",
+          "description": "interaction produces a learning-relevant change.",
+          "check_ids": [
+            "CHK-12.2-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-12.2-01",
+          "description": "synchronized views",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.2-02",
+          "description": "correct outcome after manipulation",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.2-03",
+          "description": "no motion-required comprehension",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.2-04",
+          "description": "pause/scrub",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.2-05",
+          "description": "performance budget",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.2-06",
+          "description": "interaction produces a learning-relevant change.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-12.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "12.3",
+      "title": "implement one instructionally justified R3F aid",
+      "prerequisites": [
+        "12.2"
+      ],
+      "work": "implement the Phase 2 approved subject aid, such as an audience-view visual-aid legibility inspector when appropriate to COMM 110. Use generated geometry or minimal licensed objects; camera/object manipulation must serve the learning question. Do not invent a spatial lesson solely to justify 3D.",
+      "deliverables": "embedded interactive WebGL2 aid with conventional controls and an equivalent accessible explanation. WebGPU enhancement is optional and cannot delay the baseline.",
+      "source_checks": "correct manipulation and state; real GPU rendering; WebGL2 support detection; context loss/recovery; no-GPU alternative; frame-time budget on the Mac; no background render loop when inactive. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-12.3-01",
+          "description": "correct manipulation and state",
+          "check_ids": [
+            "CHK-12.3-01"
+          ]
+        },
+        {
+          "id": "AC-12.3-02",
+          "description": "real GPU rendering",
+          "check_ids": [
+            "CHK-12.3-02"
+          ]
+        },
+        {
+          "id": "AC-12.3-03",
+          "description": "WebGL2 support detection",
+          "check_ids": [
+            "CHK-12.3-03"
+          ]
+        },
+        {
+          "id": "AC-12.3-04",
+          "description": "context loss/recovery",
+          "check_ids": [
+            "CHK-12.3-04"
+          ]
+        },
+        {
+          "id": "AC-12.3-05",
+          "description": "no-GPU alternative",
+          "check_ids": [
+            "CHK-12.3-05"
+          ]
+        },
+        {
+          "id": "AC-12.3-06",
+          "description": "frame-time budget on the Mac",
+          "check_ids": [
+            "CHK-12.3-06"
+          ]
+        },
+        {
+          "id": "AC-12.3-07",
+          "description": "no background render loop when inactive.",
+          "check_ids": [
+            "CHK-12.3-07"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-12.3-01",
+          "description": "correct manipulation and state",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.3-02",
+          "description": "real GPU rendering",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.3-03",
+          "description": "WebGL2 support detection",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.3-04",
+          "description": "context loss/recovery",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.3-05",
+          "description": "no-GPU alternative",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.3-06",
+          "description": "frame-time budget on the Mac",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.3-07",
+          "description": "no background render loop when inactive.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-12.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "12.4",
+      "title": "integrate visuals with tutoring and saved activities",
+      "prerequisites": [
+        "12.3"
+      ],
+      "work": "permit the tutor to reference approved component actions through validated data, synchronize explanation/narration, and save the learner's experiment/prediction state.",
+      "deliverables": "reusable visual learning integration.",
+      "source_checks": "invalid actions rejected; no arbitrary generated code execution; narration describes actual state; restart restores interaction; integrated 2D/3D/voice performance; phase audit. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-12.4-01",
+          "description": "invalid actions rejected",
+          "check_ids": [
+            "CHK-12.4-01"
+          ]
+        },
+        {
+          "id": "AC-12.4-02",
+          "description": "no arbitrary generated code execution",
+          "check_ids": [
+            "CHK-12.4-02"
+          ]
+        },
+        {
+          "id": "AC-12.4-03",
+          "description": "narration describes actual state",
+          "check_ids": [
+            "CHK-12.4-03"
+          ]
+        },
+        {
+          "id": "AC-12.4-04",
+          "description": "restart restores interaction",
+          "check_ids": [
+            "CHK-12.4-04"
+          ]
+        },
+        {
+          "id": "AC-12.4-05",
+          "description": "integrated 2D/3D/voice performance",
+          "check_ids": [
+            "CHK-12.4-05"
+          ]
+        },
+        {
+          "id": "AC-12.4-06",
+          "description": "phase audit.",
+          "check_ids": [
+            "CHK-12.4-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-12.4-01",
+          "description": "invalid actions rejected",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.4-02",
+          "description": "no arbitrary generated code execution",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.4-03",
+          "description": "narration describes actual state",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.4-04",
+          "description": "restart restores interaction",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.4-05",
+          "description": "integrated 2D/3D/voice performance",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-12.4-06",
+          "description": "phase audit.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-12.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

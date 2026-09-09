@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "phase": 0,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Explicit owner authorization",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "0.1",
+      "title": "establish the real project destination and version bootstrap",
+      "prerequisites": [],
+      "work": "inspect the actual Mac model, processor, RAM, OS, free space, browser and installed developer tools using read-only checks. Resolve the Developer directory and existing-project conflicts. Confirm the GitHub owner and acceptable repository slug; CollegeNotes-11-11 is proposed, while the displayed app name remains CollegeNotes{11:11}. Create only the minimal project administration container, local Git history, ignore rules, and remote needed to checkpoint planning work.",
+      "deliverables": "environment inventory, resolved path, bootstrap README/ignore rules, initial phase-state record, minimal version-history setup. This is the prerequisite for per-step history; the application scaffold remains Phase 1.",
+      "source_checks": "verify this is the Mac rather than a remote container; verify destination and no overwritten work; inspect public staged content for private data; verify Git identity/remote; checkpoint and confirm initial push. Unresolved machine access or repository naming blocks this step.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-0.1-01",
+          "description": "verify this is the Mac rather than a remote container",
+          "check_ids": [
+            "CHK-0.1-01"
+          ]
+        },
+        {
+          "id": "AC-0.1-02",
+          "description": "verify destination and no overwritten work",
+          "check_ids": [
+            "CHK-0.1-02"
+          ]
+        },
+        {
+          "id": "AC-0.1-03",
+          "description": "inspect public staged content for private data",
+          "check_ids": [
+            "CHK-0.1-03"
+          ]
+        },
+        {
+          "id": "AC-0.1-04",
+          "description": "verify Git identity/remote",
+          "check_ids": [
+            "CHK-0.1-04"
+          ]
+        },
+        {
+          "id": "AC-0.1-05",
+          "description": "checkpoint and confirm initial push. Unresolved machine access or repository naming blocks this step.",
+          "check_ids": [
+            "CHK-0.1-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-0.1-01",
+          "description": "verify this is the Mac rather than a remote container",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.1-02",
+          "description": "verify destination and no overwritten work",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.1-03",
+          "description": "inspect public staged content for private data",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.1-04",
+          "description": "verify Git identity/remote",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.1-05",
+          "description": "checkpoint and confirm initial push. Unresolved machine access or repository naming blocks this step.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-0.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "0.2",
+      "title": "freeze product requirements and acceptance mapping",
+      "prerequisites": [
+        "0.1"
+      ],
+      "work": "assign requirement IDs to local operation, courses, imports, source fidelity, learning interactions, ChatGPT connection, voice, offline behavior, backups, accessibility, and module expansion. Separate required v1 behavior from exclusions. Inventory supplied course material and missing syllabus/rubrics.",
+      "deliverables": "requirements register, scope boundaries, course-input inventory, mapping to phases in this plan.",
+      "source_checks": "every user requirement maps to an owner phase; no VR/AR/world scope remains; private and public data are distinguished; missing evidence is explicitly marked; no phase references are dangling. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-0.2-01",
+          "description": "every user requirement maps to an owner phase",
+          "check_ids": [
+            "CHK-0.2-01"
+          ]
+        },
+        {
+          "id": "AC-0.2-02",
+          "description": "no VR/AR/world scope remains",
+          "check_ids": [
+            "CHK-0.2-02"
+          ]
+        },
+        {
+          "id": "AC-0.2-03",
+          "description": "private and public data are distinguished",
+          "check_ids": [
+            "CHK-0.2-03"
+          ]
+        },
+        {
+          "id": "AC-0.2-04",
+          "description": "missing evidence is explicitly marked",
+          "check_ids": [
+            "CHK-0.2-04"
+          ]
+        },
+        {
+          "id": "AC-0.2-05",
+          "description": "no phase references are dangling.",
+          "check_ids": [
+            "CHK-0.2-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-0.2-01",
+          "description": "every user requirement maps to an owner phase",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.2-02",
+          "description": "no VR/AR/world scope remains",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.2-03",
+          "description": "private and public data are distinguished",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.2-04",
+          "description": "missing evidence is explicitly marked",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.2-05",
+          "description": "no phase references are dangling.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-0.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "0.3",
+      "title": "select the stack and provider strategy",
+      "prerequisites": [
+        "0.2"
+      ],
+      "work": "validate the proposed stack against the Mac and current official documentation. Pin compatible versions and licenses in a decision record. Define ChatGPT sign-in route, permitted cloud budget, narration/recognition candidates, and offline inference expectations. Select one package manager and supported browser target.",
+      "deliverables": "stack lock decision, architecture/data-flow specification, provider capability matrix, budget constraints, installation manifest for Phase 3.",
+      "source_checks": "compatibility and license evidence for selected tools; no unsupported subscription/API equivalence; exact offline/online boundaries; no paid dependency or model download without budget/storage agreement. If the mandated account route cannot be supported, resolve that requirement with the user before production. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-0.3-01",
+          "description": "compatibility and license evidence for selected tools",
+          "check_ids": [
+            "CHK-0.3-01"
+          ]
+        },
+        {
+          "id": "AC-0.3-02",
+          "description": "no unsupported subscription/API equivalence",
+          "check_ids": [
+            "CHK-0.3-02"
+          ]
+        },
+        {
+          "id": "AC-0.3-03",
+          "description": "exact offline/online boundaries",
+          "check_ids": [
+            "CHK-0.3-03"
+          ]
+        },
+        {
+          "id": "AC-0.3-04",
+          "description": "no paid dependency or model download without budget/storage agreement. If the mandated account route cannot be supported, resolve that requirement with the user before production.",
+          "check_ids": [
+            "CHK-0.3-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-0.3-01",
+          "description": "compatibility and license evidence for selected tools",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.3-02",
+          "description": "no unsupported subscription/API equivalence",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.3-03",
+          "description": "exact offline/online boundaries",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.3-04",
+          "description": "no paid dependency or model download without budget/storage agreement. If the mandated account route cannot be supported, resolve that requirement with the user before production.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-0.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "0.4",
+      "title": "specify performance, acceptance, and bootstrap rules",
+      "prerequisites": [
+        "0.3"
+      ],
+      "work": "define concrete initial budgets and required hardware verification; document the execution rules in Section 1 as the bootstrap authority until Phase 1 creates AGENTS.md. Set default targets: ordinary local interactions respond within 200 ms at the 95th percentile; local launch within 5 seconds on the agreed reference Mac; embedded 3D targets 60 fps and must sustain at least 30 fps in its approved reduced-quality mode. Establish repeatable fixtures and measurement conditions. Voice latency/model capacity budgets must be selected from Phase 0 hardware/provider evidence and subsequently measured in Phase 10.",
+      "deliverables": "measurable acceptance register, risk/blocker register, Phase 0 audit and review packet.",
+      "source_checks": "every budget has workload/device/measurement method; each unresolved decision has a blocking phase; phase and checkpoint rules match user instructions; all four step records complete. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-0.4-01",
+          "description": "every budget has workload/device/measurement method",
+          "check_ids": [
+            "CHK-0.4-01"
+          ]
+        },
+        {
+          "id": "AC-0.4-02",
+          "description": "each unresolved decision has a blocking phase",
+          "check_ids": [
+            "CHK-0.4-02"
+          ]
+        },
+        {
+          "id": "AC-0.4-03",
+          "description": "phase and checkpoint rules match user instructions",
+          "check_ids": [
+            "CHK-0.4-03"
+          ]
+        },
+        {
+          "id": "AC-0.4-04",
+          "description": "all four step records complete.",
+          "check_ids": [
+            "CHK-0.4-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-0.4-01",
+          "description": "every budget has workload/device/measurement method",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.4-02",
+          "description": "each unresolved decision has a blocking phase",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.4-03",
+          "description": "phase and checkpoint rules match user instructions",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-0.4-04",
+          "description": "all four step records complete.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-0.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

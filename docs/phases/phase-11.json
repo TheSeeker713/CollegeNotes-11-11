@@ -1,0 +1,425 @@
+{
+  "schema_version": 1,
+  "phase": 11,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "11.1",
+      "title": "build PQP learning and practice",
+      "prerequisites": [
+        "10.4"
+      ],
+      "work": "implement course-grounded explanations and practice observations; let the user classify and write their own Praise, Question, Polish responses.",
+      "deliverables": "COMM 110 PQP activity set.",
+      "source_checks": "category/rationale fixtures; actual question requirement; word-count feedback without invented maximum; original writing preserved; policy boundaries. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-11.1-01",
+          "description": "category/rationale fixtures",
+          "check_ids": [
+            "CHK-11.1-01"
+          ]
+        },
+        {
+          "id": "AC-11.1-02",
+          "description": "actual question requirement",
+          "check_ids": [
+            "CHK-11.1-02"
+          ]
+        },
+        {
+          "id": "AC-11.1-03",
+          "description": "word-count feedback without invented maximum",
+          "check_ids": [
+            "CHK-11.1-03"
+          ]
+        },
+        {
+          "id": "AC-11.1-04",
+          "description": "original writing preserved",
+          "check_ids": [
+            "CHK-11.1-04"
+          ]
+        },
+        {
+          "id": "AC-11.1-05",
+          "description": "policy boundaries.",
+          "check_ids": [
+            "CHK-11.1-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-11.1-01",
+          "description": "category/rationale fixtures",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.1-02",
+          "description": "actual question requirement",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.1-03",
+          "description": "word-count feedback without invented maximum",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.1-04",
+          "description": "original writing preserved",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.1-05",
+          "description": "policy boundaries.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-11.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "11.2",
+      "title": "build synchronized speech review",
+      "prerequisites": [
+        "11.1"
+      ],
+      "work": "import or record practice video/audio; align transcript and annotations; replay selected moments; attach user observations to timestamps.",
+      "deliverables": "predominantly 2D speech-analysis workspace.",
+      "source_checks": "supported media/error handling; seek alignment; annotations survive edits/restart; local-only storage; transcript correction; no false claims about visual delivery from audio alone. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-11.2-01",
+          "description": "supported media/error handling",
+          "check_ids": [
+            "CHK-11.2-01"
+          ]
+        },
+        {
+          "id": "AC-11.2-02",
+          "description": "seek alignment",
+          "check_ids": [
+            "CHK-11.2-02"
+          ]
+        },
+        {
+          "id": "AC-11.2-03",
+          "description": "annotations survive edits/restart",
+          "check_ids": [
+            "CHK-11.2-03"
+          ]
+        },
+        {
+          "id": "AC-11.2-04",
+          "description": "local-only storage",
+          "check_ids": [
+            "CHK-11.2-04"
+          ]
+        },
+        {
+          "id": "AC-11.2-05",
+          "description": "transcript correction",
+          "check_ids": [
+            "CHK-11.2-05"
+          ]
+        },
+        {
+          "id": "AC-11.2-06",
+          "description": "no false claims about visual delivery from audio alone.",
+          "check_ids": [
+            "CHK-11.2-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-11.2-01",
+          "description": "supported media/error handling",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.2-02",
+          "description": "seek alignment",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.2-03",
+          "description": "annotations survive edits/restart",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.2-04",
+          "description": "local-only storage",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.2-05",
+          "description": "transcript correction",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.2-06",
+          "description": "no false claims about visual delivery from audio alone.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-11.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "11.3",
+      "title": "build rehearsal, cue cards, and visual-aid inspection",
+      "prerequisites": [
+        "11.2"
+      ],
+      "work": "display user-authored notes, timing, recording, adjustable cue progression and slide readability inspection. Enable spoken practice questions using the tutor. Follow actual course timing/template rules when supplied.",
+      "deliverables": "practical rehearsal tools.",
+      "source_checks": "accurate timer; start/stop/cancel recording; cue control; clipping/reflow; notes not rewritten; missing speech durations remain unconfigured rather than guessed. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-11.3-01",
+          "description": "accurate timer",
+          "check_ids": [
+            "CHK-11.3-01"
+          ]
+        },
+        {
+          "id": "AC-11.3-02",
+          "description": "start/stop/cancel recording",
+          "check_ids": [
+            "CHK-11.3-02"
+          ]
+        },
+        {
+          "id": "AC-11.3-03",
+          "description": "cue control",
+          "check_ids": [
+            "CHK-11.3-03"
+          ]
+        },
+        {
+          "id": "AC-11.3-04",
+          "description": "clipping/reflow",
+          "check_ids": [
+            "CHK-11.3-04"
+          ]
+        },
+        {
+          "id": "AC-11.3-05",
+          "description": "notes not rewritten",
+          "check_ids": [
+            "CHK-11.3-05"
+          ]
+        },
+        {
+          "id": "AC-11.3-06",
+          "description": "missing speech durations remain unconfigured rather than guessed.",
+          "check_ids": [
+            "CHK-11.3-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-11.3-01",
+          "description": "accurate timer",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.3-02",
+          "description": "start/stop/cancel recording",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.3-03",
+          "description": "cue control",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.3-04",
+          "description": "clipping/reflow",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.3-05",
+          "description": "notes not rewritten",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.3-06",
+          "description": "missing speech durations remain unconfigured rather than guessed.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-11.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "11.4",
+      "title": "integrate course requirements and practice history",
+      "prerequisites": [
+        "11.3"
+      ],
+      "work": "connect preparation tasks, source-access checklist, rehearsal attempts and user observations. Export the user's notes or practice records without generating prohibited outlines/citations.",
+      "deliverables": "complete COMM 110 learning module.",
+      "source_checks": "requirement traceability; exports match user content; distinct practice/assignment status; complete module regression; full phase audit. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-11.4-01",
+          "description": "requirement traceability",
+          "check_ids": [
+            "CHK-11.4-01"
+          ]
+        },
+        {
+          "id": "AC-11.4-02",
+          "description": "exports match user content",
+          "check_ids": [
+            "CHK-11.4-02"
+          ]
+        },
+        {
+          "id": "AC-11.4-03",
+          "description": "distinct practice/assignment status",
+          "check_ids": [
+            "CHK-11.4-03"
+          ]
+        },
+        {
+          "id": "AC-11.4-04",
+          "description": "complete module regression",
+          "check_ids": [
+            "CHK-11.4-04"
+          ]
+        },
+        {
+          "id": "AC-11.4-05",
+          "description": "full phase audit.",
+          "check_ids": [
+            "CHK-11.4-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-11.4-01",
+          "description": "requirement traceability",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.4-02",
+          "description": "exports match user content",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.4-03",
+          "description": "distinct practice/assignment status",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.4-04",
+          "description": "complete module regression",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-11.4-05",
+          "description": "full phase audit.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-11.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,411 @@
+{
+  "schema_version": 1,
+  "phase": 6,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "6.1",
+      "title": "implement repeated imports and immutable originals",
+      "prerequisites": [
+        "5.4"
+      ],
+      "work": "support pasted text, notes and file batches; assign course/source labels; retain originals, checksums and import jobs; detect duplicates and updated versions.",
+      "deliverables": "import inbox.",
+      "source_checks": "repeated/batch imports; duplicate detection without deleting updates; cancellation; unsupported/oversized/corrupt file handling; originals unchanged. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-6.1-01",
+          "description": "repeated/batch imports",
+          "check_ids": [
+            "CHK-6.1-01"
+          ]
+        },
+        {
+          "id": "AC-6.1-02",
+          "description": "duplicate detection without deleting updates",
+          "check_ids": [
+            "CHK-6.1-02"
+          ]
+        },
+        {
+          "id": "AC-6.1-03",
+          "description": "cancellation",
+          "check_ids": [
+            "CHK-6.1-03"
+          ]
+        },
+        {
+          "id": "AC-6.1-04",
+          "description": "unsupported/oversized/corrupt file handling",
+          "check_ids": [
+            "CHK-6.1-04"
+          ]
+        },
+        {
+          "id": "AC-6.1-05",
+          "description": "originals unchanged.",
+          "check_ids": [
+            "CHK-6.1-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-6.1-01",
+          "description": "repeated/batch imports",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.1-02",
+          "description": "duplicate detection without deleting updates",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.1-03",
+          "description": "cancellation",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.1-04",
+          "description": "unsupported/oversized/corrupt file handling",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.1-05",
+          "description": "originals unchanged.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-6.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "6.2",
+      "title": "implement text-native PDF, DOCX, and EPUB extraction",
+      "prerequisites": [
+        "6.1"
+      ],
+      "work": "extract structured passages and metadata; retain page, paragraph or ebook-location anchors; isolate embedded active content.",
+      "deliverables": "searchable native document content and source viewer links.",
+      "source_checks": "known-answer fixtures for each format; headings/reading-order verification; malformed archives rejected; no embedded script execution; anchor navigation accuracy. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-6.2-01",
+          "description": "known-answer fixtures for each format",
+          "check_ids": [
+            "CHK-6.2-01"
+          ]
+        },
+        {
+          "id": "AC-6.2-02",
+          "description": "headings/reading-order verification",
+          "check_ids": [
+            "CHK-6.2-02"
+          ]
+        },
+        {
+          "id": "AC-6.2-03",
+          "description": "malformed archives rejected",
+          "check_ids": [
+            "CHK-6.2-03"
+          ]
+        },
+        {
+          "id": "AC-6.2-04",
+          "description": "no embedded script execution",
+          "check_ids": [
+            "CHK-6.2-04"
+          ]
+        },
+        {
+          "id": "AC-6.2-05",
+          "description": "anchor navigation accuracy.",
+          "check_ids": [
+            "CHK-6.2-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-6.2-01",
+          "description": "known-answer fixtures for each format",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.2-02",
+          "description": "headings/reading-order verification",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.2-03",
+          "description": "malformed archives rejected",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.2-04",
+          "description": "no embedded script execution",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.2-05",
+          "description": "anchor navigation accuracy.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-6.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "6.3",
+      "title": "implement image and scanned-PDF OCR",
+      "prerequisites": [
+        "6.2"
+      ],
+      "work": "render scanned PDF pages, OCR them and screenshots locally, retain image-region anchors and uncertainty markers; keep the UI responsive with background jobs.",
+      "deliverables": "screenshot/scanned-document extraction.",
+      "source_checks": "handwritten/low-resolution cases show limitations; required numeric facts match fixtures or require correction; page order; offline worker assets; cancellation/recovery; no confidence score treated as proof. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-6.3-01",
+          "description": "handwritten/low-resolution cases show limitations",
+          "check_ids": [
+            "CHK-6.3-01"
+          ]
+        },
+        {
+          "id": "AC-6.3-02",
+          "description": "required numeric facts match fixtures or require correction",
+          "check_ids": [
+            "CHK-6.3-02"
+          ]
+        },
+        {
+          "id": "AC-6.3-03",
+          "description": "page order",
+          "check_ids": [
+            "CHK-6.3-03"
+          ]
+        },
+        {
+          "id": "AC-6.3-04",
+          "description": "offline worker assets",
+          "check_ids": [
+            "CHK-6.3-04"
+          ]
+        },
+        {
+          "id": "AC-6.3-05",
+          "description": "cancellation/recovery",
+          "check_ids": [
+            "CHK-6.3-05"
+          ]
+        },
+        {
+          "id": "AC-6.3-06",
+          "description": "no confidence score treated as proof.",
+          "check_ids": [
+            "CHK-6.3-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-6.3-01",
+          "description": "handwritten/low-resolution cases show limitations",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.3-02",
+          "description": "required numeric facts match fixtures or require correction",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.3-03",
+          "description": "page order",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.3-04",
+          "description": "offline worker assets",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.3-05",
+          "description": "cancellation/recovery",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.3-06",
+          "description": "no confidence score treated as proof.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-6.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "6.4",
+      "title": "implement correction and derivative invalidation",
+      "prerequisites": [
+        "6.3"
+      ],
+      "work": "present original beside extracted text; allow corrections; version the extraction; mark dependent activities stale when source meaning changes.",
+      "deliverables": "verified content pipeline.",
+      "source_checks": "corrections persist; old versions traceable; affected derivatives marked; unaffected data retained; all import-format regression and interrupted-import scenarios. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-6.4-01",
+          "description": "corrections persist",
+          "check_ids": [
+            "CHK-6.4-01"
+          ]
+        },
+        {
+          "id": "AC-6.4-02",
+          "description": "old versions traceable",
+          "check_ids": [
+            "CHK-6.4-02"
+          ]
+        },
+        {
+          "id": "AC-6.4-03",
+          "description": "affected derivatives marked",
+          "check_ids": [
+            "CHK-6.4-03"
+          ]
+        },
+        {
+          "id": "AC-6.4-04",
+          "description": "unaffected data retained",
+          "check_ids": [
+            "CHK-6.4-04"
+          ]
+        },
+        {
+          "id": "AC-6.4-05",
+          "description": "all import-format regression and interrupted-import scenarios.",
+          "check_ids": [
+            "CHK-6.4-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-6.4-01",
+          "description": "corrections persist",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.4-02",
+          "description": "old versions traceable",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.4-03",
+          "description": "affected derivatives marked",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.4-04",
+          "description": "unaffected data retained",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-6.4-05",
+          "description": "all import-format regression and interrupted-import scenarios.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-6.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

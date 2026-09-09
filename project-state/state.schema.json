@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CollegeNotes planning state",
+  "type": "object",
+  "required": ["schema_version", "phase", "phase_status", "step", "step_status", "pass_id", "pass_closed", "authorization_ref", "authorized_phases_this_pass", "phase_3_authorized", "steps", "checkpoints", "phase_completion", "manual_acceptances", "blockers", "next_action"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "phase": {"type": "integer", "minimum": 0, "maximum": 14},
+    "phase_status": {"enum": ["awaiting_approval", "active", "awaiting_user_review", "repairing", "accepted"]},
+    "step": {"type": "string", "pattern": "^(?:[0-9]|1[0-4])\\.[1-4]$"},
+    "step_status": {"enum": ["not_started", "in_progress", "verifying", "repairing", "auditing", "checkpoint_pending", "complete", "blocked"]},
+    "pass_id": {"type": "string", "minLength": 1},
+    "pass_closed": {"type": "boolean"},
+    "authorization_ref": {"type": "string", "minLength": 1},
+    "authorized_phases_this_pass": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 14}, "minItems": 1},
+    "phase_3_authorized": {"const": false},
+    "steps": {"type": "object", "additionalProperties": {"enum": ["not_started", "in_progress", "verifying", "repairing", "auditing", "checkpoint_pending", "complete", "blocked"]}},
+    "checkpoints": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{40}$"}},
+    "phase_completion": {"type": "object", "additionalProperties": {"enum": ["not_started", "in_progress", "complete", "blocked"]}},
+    "manual_acceptances": {"type": "array", "items": {"type": "object", "required": ["phase", "approval_ref", "candidate_commit"], "properties": {"phase": {"type": "integer"}, "approval_ref": {"type": "string"}, "candidate_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}}}},
+    "blockers": {"type": "array", "items": {"type": "object", "required": ["id", "step", "reason", "resolution"], "properties": {"id": {"type": "string"}, "step": {"type": "string"}, "reason": {"type": "string"}, "resolution": {"type": "string"}}}},
+    "next_action": {"type": "string", "minLength": 1}
+  }
+}

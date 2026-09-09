@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "verify:planning": "node scripts/validate-project.mjs"
+  },
   "description": "CollegeNotes{11:11} — local learning workspace; scaffold only",
   "packageManager": "npm@12.0.2",
   "engines": {

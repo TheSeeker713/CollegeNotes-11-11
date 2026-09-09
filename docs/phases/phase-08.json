@@ -1,0 +1,425 @@
+{
+  "schema_version": 1,
+  "phase": 8,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "8.1",
+      "title": "implement official ChatGPT account connection",
+      "prerequisites": [
+        "7.4"
+      ],
+      "work": "implement the Phase 0 selected documented route in the local companion; expose sign-in/out, availability, limit/error states and user-controlled connection. Keep credentials out of browser content and source history.",
+      "deliverables": "real account connection, not only a mock login screen.",
+      "source_checks": "actual sign-in and minimal authorized request; sign-out; expired/rejected credentials; unavailable account/limits; no secret logging. Authentication interaction may require the user. If unavailable, stop the affected step; do not substitute paid API access silently. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-8.1-01",
+          "description": "actual sign-in and minimal authorized request",
+          "check_ids": [
+            "CHK-8.1-01"
+          ]
+        },
+        {
+          "id": "AC-8.1-02",
+          "description": "sign-out",
+          "check_ids": [
+            "CHK-8.1-02"
+          ]
+        },
+        {
+          "id": "AC-8.1-03",
+          "description": "expired/rejected credentials",
+          "check_ids": [
+            "CHK-8.1-03"
+          ]
+        },
+        {
+          "id": "AC-8.1-04",
+          "description": "unavailable account/limits",
+          "check_ids": [
+            "CHK-8.1-04"
+          ]
+        },
+        {
+          "id": "AC-8.1-05",
+          "description": "no secret logging. Authentication interaction may require the user. If unavailable, stop the affected step",
+          "check_ids": [
+            "CHK-8.1-05"
+          ]
+        },
+        {
+          "id": "AC-8.1-06",
+          "description": "do not substitute paid API access silently.",
+          "check_ids": [
+            "CHK-8.1-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-8.1-01",
+          "description": "actual sign-in and minimal authorized request",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.1-02",
+          "description": "sign-out",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.1-03",
+          "description": "expired/rejected credentials",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.1-04",
+          "description": "unavailable account/limits",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.1-05",
+          "description": "no secret logging. Authentication interaction may require the user. If unavailable, stop the affected step",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.1-06",
+          "description": "do not substitute paid API access silently.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-8.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "8.2",
+      "title": "implement scoped source retrieval",
+      "prerequisites": [
+        "8.1"
+      ],
+      "work": "retrieve selected-course/passages through local search, construct bounded context, and return navigable source anchors. Separate instructor requirements from textbook explanations.",
+      "deliverables": "grounded tutor context pipeline.",
+      "source_checks": "correct-course isolation; supporting passage retrieved; missing evidence triggers an explicit gap; misleading document instructions cannot alter agent permissions; deleted sources excluded. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-8.2-01",
+          "description": "correct-course isolation",
+          "check_ids": [
+            "CHK-8.2-01"
+          ]
+        },
+        {
+          "id": "AC-8.2-02",
+          "description": "supporting passage retrieved",
+          "check_ids": [
+            "CHK-8.2-02"
+          ]
+        },
+        {
+          "id": "AC-8.2-03",
+          "description": "missing evidence triggers an explicit gap",
+          "check_ids": [
+            "CHK-8.2-03"
+          ]
+        },
+        {
+          "id": "AC-8.2-04",
+          "description": "misleading document instructions cannot alter agent permissions",
+          "check_ids": [
+            "CHK-8.2-04"
+          ]
+        },
+        {
+          "id": "AC-8.2-05",
+          "description": "deleted sources excluded.",
+          "check_ids": [
+            "CHK-8.2-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-8.2-01",
+          "description": "correct-course isolation",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.2-02",
+          "description": "supporting passage retrieved",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.2-03",
+          "description": "missing evidence triggers an explicit gap",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.2-04",
+          "description": "misleading document instructions cannot alter agent permissions",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.2-05",
+          "description": "deleted sources excluded.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-8.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "8.3",
+      "title": "implement structured tutoring and safe activity output",
+      "prerequisites": [
+        "8.2"
+      ],
+      "work": "implement explain/example/hint/check-understanding actions, validate structured outputs, and enforce course-specific prohibited generation boundaries. Show original source beside explanations.",
+      "deliverables": "tutoring interface and versioned evaluation set.",
+      "source_checks": "accurate citations/anchors; unsupported claims identified in evaluation; invalid output rejected; prompt-injection fixtures; course-policy cases; provider timeouts and cancellation. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-8.3-01",
+          "description": "accurate citations/anchors",
+          "check_ids": [
+            "CHK-8.3-01"
+          ]
+        },
+        {
+          "id": "AC-8.3-02",
+          "description": "unsupported claims identified in evaluation",
+          "check_ids": [
+            "CHK-8.3-02"
+          ]
+        },
+        {
+          "id": "AC-8.3-03",
+          "description": "invalid output rejected",
+          "check_ids": [
+            "CHK-8.3-03"
+          ]
+        },
+        {
+          "id": "AC-8.3-04",
+          "description": "prompt-injection fixtures",
+          "check_ids": [
+            "CHK-8.3-04"
+          ]
+        },
+        {
+          "id": "AC-8.3-05",
+          "description": "course-policy cases",
+          "check_ids": [
+            "CHK-8.3-05"
+          ]
+        },
+        {
+          "id": "AC-8.3-06",
+          "description": "provider timeouts and cancellation.",
+          "check_ids": [
+            "CHK-8.3-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-8.3-01",
+          "description": "accurate citations/anchors",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.3-02",
+          "description": "unsupported claims identified in evaluation",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.3-03",
+          "description": "invalid output rejected",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.3-04",
+          "description": "prompt-injection fixtures",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.3-05",
+          "description": "course-policy cases",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.3-06",
+          "description": "provider timeouts and cancellation.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-8.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "8.4",
+      "title": "implement availability, usage and tutor-session persistence",
+      "prerequisites": [
+        "8.3"
+      ],
+      "work": "retain selected context and unfinished questions; show online/offline capabilities, provider choice and approved usage limits; provide explicit retry after connection recovery.",
+      "deliverables": "complete text tutor workflow.",
+      "source_checks": "budget/limit handling; no request replay duplication; session restore; no cloud request in offline mode; real-provider smoke and complete tutor evaluation regression. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-8.4-01",
+          "description": "budget/limit handling",
+          "check_ids": [
+            "CHK-8.4-01"
+          ]
+        },
+        {
+          "id": "AC-8.4-02",
+          "description": "no request replay duplication",
+          "check_ids": [
+            "CHK-8.4-02"
+          ]
+        },
+        {
+          "id": "AC-8.4-03",
+          "description": "session restore",
+          "check_ids": [
+            "CHK-8.4-03"
+          ]
+        },
+        {
+          "id": "AC-8.4-04",
+          "description": "no cloud request in offline mode",
+          "check_ids": [
+            "CHK-8.4-04"
+          ]
+        },
+        {
+          "id": "AC-8.4-05",
+          "description": "real-provider smoke and complete tutor evaluation regression.",
+          "check_ids": [
+            "CHK-8.4-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-8.4-01",
+          "description": "budget/limit handling",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.4-02",
+          "description": "no request replay duplication",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.4-03",
+          "description": "session restore",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.4-04",
+          "description": "no cloud request in offline mode",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-8.4-05",
+          "description": "real-provider smoke and complete tutor evaluation regression.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-8.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

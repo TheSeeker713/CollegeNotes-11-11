@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "phase": 4,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "4.1",
+      "title": "implement navigation and design primitives",
+      "prerequisites": [
+        "3.4"
+      ],
+      "work": "build the approved shell, course context, keyboard navigation, panels, notifications, density and motion settings.",
+      "deliverables": "navigable application with honest empty states.",
+      "source_checks": "route/focus behavior; keyboard-only navigation; responsive layouts; contrast/accessibility; settings persistence; no invented content. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-4.1-01",
+          "description": "route/focus behavior",
+          "check_ids": [
+            "CHK-4.1-01"
+          ]
+        },
+        {
+          "id": "AC-4.1-02",
+          "description": "keyboard-only navigation",
+          "check_ids": [
+            "CHK-4.1-02"
+          ]
+        },
+        {
+          "id": "AC-4.1-03",
+          "description": "responsive layouts",
+          "check_ids": [
+            "CHK-4.1-03"
+          ]
+        },
+        {
+          "id": "AC-4.1-04",
+          "description": "contrast/accessibility",
+          "check_ids": [
+            "CHK-4.1-04"
+          ]
+        },
+        {
+          "id": "AC-4.1-05",
+          "description": "settings persistence",
+          "check_ids": [
+            "CHK-4.1-05"
+          ]
+        },
+        {
+          "id": "AC-4.1-06",
+          "description": "no invented content.",
+          "check_ids": [
+            "CHK-4.1-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-4.1-01",
+          "description": "route/focus behavior",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.1-02",
+          "description": "keyboard-only navigation",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.1-03",
+          "description": "responsive layouts",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.1-04",
+          "description": "contrast/accessibility",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.1-05",
+          "description": "settings persistence",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.1-06",
+          "description": "no invented content.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-4.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "4.2",
+      "title": "implement local database and file ownership",
+      "prerequisites": [
+        "4.1"
+      ],
+      "work": "create migrations, core IDs, transactions, file metadata, application-data directory selection, and data-access interfaces.",
+      "deliverables": "versioned persistence foundation.",
+      "source_checks": "create/read/update/delete contracts; rollback on failed transaction; fresh and upgraded database; file references survive restart; private data outside Git. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-4.2-01",
+          "description": "create/read/update/delete contracts",
+          "check_ids": [
+            "CHK-4.2-01"
+          ]
+        },
+        {
+          "id": "AC-4.2-02",
+          "description": "rollback on failed transaction",
+          "check_ids": [
+            "CHK-4.2-02"
+          ]
+        },
+        {
+          "id": "AC-4.2-03",
+          "description": "fresh and upgraded database",
+          "check_ids": [
+            "CHK-4.2-03"
+          ]
+        },
+        {
+          "id": "AC-4.2-04",
+          "description": "file references survive restart",
+          "check_ids": [
+            "CHK-4.2-04"
+          ]
+        },
+        {
+          "id": "AC-4.2-05",
+          "description": "private data outside Git.",
+          "check_ids": [
+            "CHK-4.2-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-4.2-01",
+          "description": "create/read/update/delete contracts",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.2-02",
+          "description": "rollback on failed transaction",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.2-03",
+          "description": "fresh and upgraded database",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.2-04",
+          "description": "file references survive restart",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.2-05",
+          "description": "private data outside Git.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-4.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "4.3",
+      "title": "implement local service boundaries and job lifecycle",
+      "prerequisites": [
+        "4.2"
+      ],
+      "work": "bind the service to loopback; restrict allowed origins; protect privileged local requests; validate inputs/paths; introduce resumable jobs with cancellation and progress.",
+      "deliverables": "local API and job queue contracts.",
+      "source_checks": "reject unexpected origins and path traversal; validate malformed inputs; cancel/retry safely; no duplicate work after restart; errors preserve source files. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-4.3-01",
+          "description": "reject unexpected origins and path traversal",
+          "check_ids": [
+            "CHK-4.3-01"
+          ]
+        },
+        {
+          "id": "AC-4.3-02",
+          "description": "validate malformed inputs",
+          "check_ids": [
+            "CHK-4.3-02"
+          ]
+        },
+        {
+          "id": "AC-4.3-03",
+          "description": "cancel/retry safely",
+          "check_ids": [
+            "CHK-4.3-03"
+          ]
+        },
+        {
+          "id": "AC-4.3-04",
+          "description": "no duplicate work after restart",
+          "check_ids": [
+            "CHK-4.3-04"
+          ]
+        },
+        {
+          "id": "AC-4.3-05",
+          "description": "errors preserve source files.",
+          "check_ids": [
+            "CHK-4.3-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-4.3-01",
+          "description": "reject unexpected origins and path traversal",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.3-02",
+          "description": "validate malformed inputs",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.3-03",
+          "description": "cancel/retry safely",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.3-04",
+          "description": "no duplicate work after restart",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.3-05",
+          "description": "errors preserve source files.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-4.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "4.4",
+      "title": "implement exact session resumption",
+      "prerequisites": [
+        "4.3"
+      ],
+      "work": "persist active course, route, current task, drafts, and settings; implement recovery notices without discarding work.",
+      "deliverables": "first complete resume workflow.",
+      "source_checks": "close/reopen restoration; interrupted write recovery; invalid saved route fallback; integrated shell/storage/job regression. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-4.4-01",
+          "description": "close/reopen restoration",
+          "check_ids": [
+            "CHK-4.4-01"
+          ]
+        },
+        {
+          "id": "AC-4.4-02",
+          "description": "interrupted write recovery",
+          "check_ids": [
+            "CHK-4.4-02"
+          ]
+        },
+        {
+          "id": "AC-4.4-03",
+          "description": "invalid saved route fallback",
+          "check_ids": [
+            "CHK-4.4-03"
+          ]
+        },
+        {
+          "id": "AC-4.4-04",
+          "description": "integrated shell/storage/job regression.",
+          "check_ids": [
+            "CHK-4.4-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-4.4-01",
+          "description": "close/reopen restoration",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.4-02",
+          "description": "interrupted write recovery",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.4-03",
+          "description": "invalid saved route fallback",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.4-04",
+          "description": "integrated shell/storage/job regression.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-4.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

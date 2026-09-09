@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "phase": 5,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "5.1",
+      "title": "implement course and term management",
+      "prerequisites": [
+        "4.4"
+      ],
+      "work": "create, edit, archive and reopen courses; retain instructor metadata and per-course module settings.",
+      "deliverables": "reusable course collection.",
+      "source_checks": "independent course data; archive preserves history; duplicate names allowed with distinct IDs; deletion confirmation and linked-data behavior. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-5.1-01",
+          "description": "independent course data",
+          "check_ids": [
+            "CHK-5.1-01"
+          ]
+        },
+        {
+          "id": "AC-5.1-02",
+          "description": "archive preserves history",
+          "check_ids": [
+            "CHK-5.1-02"
+          ]
+        },
+        {
+          "id": "AC-5.1-03",
+          "description": "duplicate names allowed with distinct IDs",
+          "check_ids": [
+            "CHK-5.1-03"
+          ]
+        },
+        {
+          "id": "AC-5.1-04",
+          "description": "deletion confirmation and linked-data behavior.",
+          "check_ids": [
+            "CHK-5.1-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-5.1-01",
+          "description": "independent course data",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.1-02",
+          "description": "archive preserves history",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.1-03",
+          "description": "duplicate names allowed with distinct IDs",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.1-04",
+          "description": "deletion confirmation and linked-data behavior.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-5.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "5.2",
+      "title": "implement source-linked requirements",
+      "prerequisites": [
+        "5.1"
+      ],
+      "work": "record deadlines, relative weeks, word counts, rubric criteria, source requirements, and AI-use restrictions with evidence anchors and conflict states.",
+      "deliverables": "requirements desk and verification workflow.",
+      "source_checks": "no invented absolute dates; Central Time conversion against fixtures; edited announcement retains previous version; unresolved conflict visible. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-5.2-01",
+          "description": "no invented absolute dates",
+          "check_ids": [
+            "CHK-5.2-01"
+          ]
+        },
+        {
+          "id": "AC-5.2-02",
+          "description": "Central Time conversion against fixtures",
+          "check_ids": [
+            "CHK-5.2-02"
+          ]
+        },
+        {
+          "id": "AC-5.2-03",
+          "description": "edited announcement retains previous version",
+          "check_ids": [
+            "CHK-5.2-03"
+          ]
+        },
+        {
+          "id": "AC-5.2-04",
+          "description": "unresolved conflict visible.",
+          "check_ids": [
+            "CHK-5.2-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-5.2-01",
+          "description": "no invented absolute dates",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.2-02",
+          "description": "Central Time conversion against fixtures",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.2-03",
+          "description": "edited announcement retains previous version",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.2-04",
+          "description": "unresolved conflict visible.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-5.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "5.3",
+      "title": "initialize COMM 110 from verified materials",
+      "prerequisites": [
+        "5.2"
+      ],
+      "work": "import the supplied announcements/PQP material privately; capture the full syllabus, rubric, calendar and outline sample when provided; verify extracted requirements with source images.",
+      "deliverables": "source-verified initial class and explicit missing-material checklist.",
+      "source_checks": "screenshot-to-record comparison; PQP and word-count accuracy; AI restrictions represented; missing duration/date/rubric details remain unknown. Audit and checkpoint. Missing inputs block only criteria that require them; do not claim a complete syllabus was imported.",
+      "amendments": [
+        "CHANGE-INPUTS: the original thirteen screenshots and private syllabus/rubrics are not development prerequisites; use historical transcription as context and safe fixtures. User imports actual course documents in the finished app; unknown details remain unconfigured."
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-5.3-01",
+          "description": "screenshot-to-record comparison",
+          "check_ids": [
+            "CHK-5.3-01"
+          ]
+        },
+        {
+          "id": "AC-5.3-02",
+          "description": "PQP and word-count accuracy",
+          "check_ids": [
+            "CHK-5.3-02"
+          ]
+        },
+        {
+          "id": "AC-5.3-03",
+          "description": "AI restrictions represented",
+          "check_ids": [
+            "CHK-5.3-03"
+          ]
+        },
+        {
+          "id": "AC-5.3-04",
+          "description": "missing duration/date/rubric details remain unknown.  Missing inputs block only criteria that require them",
+          "check_ids": [
+            "CHK-5.3-04"
+          ]
+        },
+        {
+          "id": "AC-5.3-05",
+          "description": "do not claim a complete syllabus was imported.",
+          "check_ids": [
+            "CHK-5.3-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-5.3-01",
+          "description": "screenshot-to-record comparison",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.3-02",
+          "description": "PQP and word-count accuracy",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.3-03",
+          "description": "AI restrictions represented",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.3-04",
+          "description": "missing duration/date/rubric details remain unknown.  Missing inputs block only criteria that require them",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.3-05",
+          "description": "do not claim a complete syllabus was imported.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-5.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "5.4",
+      "title": "connect requirements to next actions",
+      "prerequisites": [
+        "5.3"
+      ],
+      "work": "show actionable upcoming work, manual completion, review state, and source navigation; do not infer completion from opening a page.",
+      "deliverables": "useful course home.",
+      "source_checks": "correct ordering and timezone; no false completion; course switching preserves tasks; integrated course/requirements regression. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-5.4-01",
+          "description": "correct ordering and timezone",
+          "check_ids": [
+            "CHK-5.4-01"
+          ]
+        },
+        {
+          "id": "AC-5.4-02",
+          "description": "no false completion",
+          "check_ids": [
+            "CHK-5.4-02"
+          ]
+        },
+        {
+          "id": "AC-5.4-03",
+          "description": "course switching preserves tasks",
+          "check_ids": [
+            "CHK-5.4-03"
+          ]
+        },
+        {
+          "id": "AC-5.4-04",
+          "description": "integrated course/requirements regression.",
+          "check_ids": [
+            "CHK-5.4-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-5.4-01",
+          "description": "correct ordering and timezone",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.4-02",
+          "description": "no false completion",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.4-03",
+          "description": "course switching preserves tasks",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-5.4-04",
+          "description": "integrated course/requirements regression.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-5.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

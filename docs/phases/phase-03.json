@@ -1,0 +1,369 @@
+{
+  "schema_version": 1,
+  "phase": 3,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "3.1",
+      "title": "install and lock application dependencies",
+      "prerequisites": [
+        "2.4"
+      ],
+      "work": "install pinned runtime/build/UI/storage dependencies; configure workspaces and environment templates with no real credentials. Reconcile any incompatibility with the Phase 0 decision record.",
+      "deliverables": "lockfile, installed toolchain, documented local configuration.",
+      "source_checks": "clean reinstall succeeds; versions match decisions; no unexpected cloud services; no secret staged; minimal application/service entry points build. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-3.1-01",
+          "description": "clean reinstall succeeds",
+          "check_ids": [
+            "CHK-3.1-01"
+          ]
+        },
+        {
+          "id": "AC-3.1-02",
+          "description": "versions match decisions",
+          "check_ids": [
+            "CHK-3.1-02"
+          ]
+        },
+        {
+          "id": "AC-3.1-03",
+          "description": "no unexpected cloud services",
+          "check_ids": [
+            "CHK-3.1-03"
+          ]
+        },
+        {
+          "id": "AC-3.1-04",
+          "description": "no secret staged",
+          "check_ids": [
+            "CHK-3.1-04"
+          ]
+        },
+        {
+          "id": "AC-3.1-05",
+          "description": "minimal application/service entry points build.",
+          "check_ids": [
+            "CHK-3.1-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-3.1-01",
+          "description": "clean reinstall succeeds",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.1-02",
+          "description": "versions match decisions",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.1-03",
+          "description": "no unexpected cloud services",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.1-04",
+          "description": "no secret staged",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.1-05",
+          "description": "minimal application/service entry points build.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-3.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "3.2",
+      "title": "configure local test tooling",
+      "prerequisites": [
+        "3.1"
+      ],
+      "work": "install and configure unit, component, integration, browser, and accessibility tooling. Implement the Section 4 verification commands, manifests, result parser, and evidence paths.",
+      "deliverables": "runnable local verification system.",
+      "source_checks": "intentionally failing fixture fails; skipped/missing/zero-test fixtures fail the required gate; a known passing fixture passes; command failures propagate; synthetic results labeled. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-3.2-01",
+          "description": "intentionally failing fixture fails",
+          "check_ids": [
+            "CHK-3.2-01"
+          ]
+        },
+        {
+          "id": "AC-3.2-02",
+          "description": "skipped/missing/zero-test fixtures fail the required gate",
+          "check_ids": [
+            "CHK-3.2-02"
+          ]
+        },
+        {
+          "id": "AC-3.2-03",
+          "description": "a known passing fixture passes",
+          "check_ids": [
+            "CHK-3.2-03"
+          ]
+        },
+        {
+          "id": "AC-3.2-04",
+          "description": "command failures propagate",
+          "check_ids": [
+            "CHK-3.2-04"
+          ]
+        },
+        {
+          "id": "AC-3.2-05",
+          "description": "synthetic results labeled.",
+          "check_ids": [
+            "CHK-3.2-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-3.2-01",
+          "description": "intentionally failing fixture fails",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.2-02",
+          "description": "skipped/missing/zero-test fixtures fail the required gate",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.2-03",
+          "description": "a known passing fixture passes",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.2-04",
+          "description": "command failures propagate",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.2-05",
+          "description": "synthetic results labeled.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-3.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "3.3",
+      "title": "configure document and provider adapter dependencies",
+      "prerequisites": [
+        "3.2"
+      ],
+      "work": "install approved parsers and adapter SDKs; prepare bundled worker assets; define provider configuration interfaces. Document later speech-model downloads and sizes. Do not perform bulk model downloads here unless included in the approved manifest.",
+      "deliverables": "parser smoke harness, provider interface stubs, dependency/license inventory.",
+      "source_checks": "synthetic PDF/image/EPUB/DOCX samples load in the harness; worker paths resolve without CDN dependence; unavailable providers return explicit states; imported scripts do not execute. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-3.3-01",
+          "description": "synthetic PDF/image/EPUB/DOCX samples load in the harness",
+          "check_ids": [
+            "CHK-3.3-01"
+          ]
+        },
+        {
+          "id": "AC-3.3-02",
+          "description": "worker paths resolve without CDN dependence",
+          "check_ids": [
+            "CHK-3.3-02"
+          ]
+        },
+        {
+          "id": "AC-3.3-03",
+          "description": "unavailable providers return explicit states",
+          "check_ids": [
+            "CHK-3.3-03"
+          ]
+        },
+        {
+          "id": "AC-3.3-04",
+          "description": "imported scripts do not execute.",
+          "check_ids": [
+            "CHK-3.3-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-3.3-01",
+          "description": "synthetic PDF/image/EPUB/DOCX samples load in the harness",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.3-02",
+          "description": "worker paths resolve without CDN dependence",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.3-03",
+          "description": "unavailable providers return explicit states",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.3-04",
+          "description": "imported scripts do not execute.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-3.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "3.4",
+      "title": "verify reproducible local startup and audit dependencies",
+      "prerequisites": [
+        "3.3"
+      ],
+      "work": "implement developer startup/shutdown scripts, local health checks, and collision/error messages. Confirm the test environment can be recreated from the locked dependencies.",
+      "deliverables": "working development harness and setup guide.",
+      "source_checks": "clean startup, shutdown and restart; occupied port handled; local build/type/lint and harness tests pass; dependency audit findings triaged and blockers resolved. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-3.4-01",
+          "description": "clean startup, shutdown and restart",
+          "check_ids": [
+            "CHK-3.4-01"
+          ]
+        },
+        {
+          "id": "AC-3.4-02",
+          "description": "occupied port handled",
+          "check_ids": [
+            "CHK-3.4-02"
+          ]
+        },
+        {
+          "id": "AC-3.4-03",
+          "description": "local build/type/lint and harness tests pass",
+          "check_ids": [
+            "CHK-3.4-03"
+          ]
+        },
+        {
+          "id": "AC-3.4-04",
+          "description": "dependency audit findings triaged and blockers resolved.",
+          "check_ids": [
+            "CHK-3.4-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-3.4-01",
+          "description": "clean startup, shutdown and restart",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.4-02",
+          "description": "occupied port handled",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.4-03",
+          "description": "local build/type/lint and harness tests pass",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.4-04",
+          "description": "dependency audit findings triaged and blockers resolved.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-3.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

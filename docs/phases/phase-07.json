@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "phase": 7,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "7.1",
+      "title": "implement original and reflowed reading",
+      "prerequisites": [
+        "6.4"
+      ],
+      "work": "deliver PDF/EPUB viewers, structured reading view, headings, search and source-position switching.",
+      "deliverables": "readable document workspace.",
+      "source_checks": "page/location mapping; zoom and layout; keyboard navigation; large-document pagination; no lost tables/figures presented as complete text. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-7.1-01",
+          "description": "page/location mapping",
+          "check_ids": [
+            "CHK-7.1-01"
+          ]
+        },
+        {
+          "id": "AC-7.1-02",
+          "description": "zoom and layout",
+          "check_ids": [
+            "CHK-7.1-02"
+          ]
+        },
+        {
+          "id": "AC-7.1-03",
+          "description": "keyboard navigation",
+          "check_ids": [
+            "CHK-7.1-03"
+          ]
+        },
+        {
+          "id": "AC-7.1-04",
+          "description": "large-document pagination",
+          "check_ids": [
+            "CHK-7.1-04"
+          ]
+        },
+        {
+          "id": "AC-7.1-05",
+          "description": "no lost tables/figures presented as complete text.",
+          "check_ids": [
+            "CHK-7.1-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-7.1-01",
+          "description": "page/location mapping",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.1-02",
+          "description": "zoom and layout",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.1-03",
+          "description": "keyboard navigation",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.1-04",
+          "description": "large-document pagination",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.1-05",
+          "description": "no lost tables/figures presented as complete text.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-7.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "7.2",
+      "title": "implement annotations and exact reading position",
+      "prerequisites": [
+        "7.1"
+      ],
+      "work": "add highlights, notes, bookmarks, passage selection and last-position restoration tied to source versions.",
+      "deliverables": "durable reading annotations.",
+      "source_checks": "repeated phrases anchor correctly; update/correction behavior; restart at correct position; keyboard selection alternatives; annotations not silently reassigned. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-7.2-01",
+          "description": "repeated phrases anchor correctly",
+          "check_ids": [
+            "CHK-7.2-01"
+          ]
+        },
+        {
+          "id": "AC-7.2-02",
+          "description": "update/correction behavior",
+          "check_ids": [
+            "CHK-7.2-02"
+          ]
+        },
+        {
+          "id": "AC-7.2-03",
+          "description": "restart at correct position",
+          "check_ids": [
+            "CHK-7.2-03"
+          ]
+        },
+        {
+          "id": "AC-7.2-04",
+          "description": "keyboard selection alternatives",
+          "check_ids": [
+            "CHK-7.2-04"
+          ]
+        },
+        {
+          "id": "AC-7.2-05",
+          "description": "annotations not silently reassigned.",
+          "check_ids": [
+            "CHK-7.2-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-7.2-01",
+          "description": "repeated phrases anchor correctly",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.2-02",
+          "description": "update/correction behavior",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.2-03",
+          "description": "restart at correct position",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.2-04",
+          "description": "keyboard selection alternatives",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.2-05",
+          "description": "annotations not silently reassigned.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-7.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "7.3",
+      "title": "implement prepared offline reading",
+      "prerequisites": [
+        "7.2"
+      ],
+      "work": "bundle required app assets; cache selected content; make local service and browser-only cached states distinguishable; avoid runtime CDN dependencies.",
+      "deliverables": "offline core and readiness indicator.",
+      "source_checks": "disconnect network and cold-open prepared course; read/search/annotate; unavailable content labeled; local-service unavailable recovery; no false cloud availability. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-7.3-01",
+          "description": "disconnect network and cold-open prepared course",
+          "check_ids": [
+            "CHK-7.3-01"
+          ]
+        },
+        {
+          "id": "AC-7.3-02",
+          "description": "read/search/annotate",
+          "check_ids": [
+            "CHK-7.3-02"
+          ]
+        },
+        {
+          "id": "AC-7.3-03",
+          "description": "unavailable content labeled",
+          "check_ids": [
+            "CHK-7.3-03"
+          ]
+        },
+        {
+          "id": "AC-7.3-04",
+          "description": "local-service unavailable recovery",
+          "check_ids": [
+            "CHK-7.3-04"
+          ]
+        },
+        {
+          "id": "AC-7.3-05",
+          "description": "no false cloud availability.",
+          "check_ids": [
+            "CHK-7.3-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-7.3-01",
+          "description": "disconnect network and cold-open prepared course",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.3-02",
+          "description": "read/search/annotate",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.3-03",
+          "description": "unavailable content labeled",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.3-04",
+          "description": "local-service unavailable recovery",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.3-05",
+          "description": "no false cloud availability.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-7.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "7.4",
+      "title": "implement reading controls and integrated review",
+      "prerequisites": [
+        "7.3"
+      ],
+      "work": "deliver density, spacing, focus and reduced-motion controls; preserve choices; provide keyboard-accessible source/context panels.",
+      "deliverables": "polished reading workflow.",
+      "source_checks": "full keyboard use; window-size regression; restore unfinished work; reading/search responsiveness against agreed budget; offline integrated regression. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-7.4-01",
+          "description": "full keyboard use",
+          "check_ids": [
+            "CHK-7.4-01"
+          ]
+        },
+        {
+          "id": "AC-7.4-02",
+          "description": "window-size regression",
+          "check_ids": [
+            "CHK-7.4-02"
+          ]
+        },
+        {
+          "id": "AC-7.4-03",
+          "description": "restore unfinished work",
+          "check_ids": [
+            "CHK-7.4-03"
+          ]
+        },
+        {
+          "id": "AC-7.4-04",
+          "description": "reading/search responsiveness against agreed budget",
+          "check_ids": [
+            "CHK-7.4-04"
+          ]
+        },
+        {
+          "id": "AC-7.4-05",
+          "description": "offline integrated regression.",
+          "check_ids": [
+            "CHK-7.4-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-7.4-01",
+          "description": "full keyboard use",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.4-02",
+          "description": "window-size regression",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.4-03",
+          "description": "restore unfinished work",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.4-04",
+          "description": "reading/search responsiveness against agreed budget",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-7.4-05",
+          "description": "offline integrated regression.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-7.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

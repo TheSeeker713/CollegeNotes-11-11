@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "phase": 9,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "9.1",
+      "title": "implement reusable activity schemas and templates",
+      "prerequisites": [
+        "8.4"
+      ],
+      "work": "support classification, ordering, short recall, multiple choice, evidence matching, and prediction with explanation. Store sources, answer rationale and rubric separately from attempts.",
+      "deliverables": "activity engine with validated templates.",
+      "source_checks": "schema rejection; source anchors; correct scoring fixtures; ambiguous items marked for review; content correction invalidates dependent activities. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-9.1-01",
+          "description": "schema rejection",
+          "check_ids": [
+            "CHK-9.1-01"
+          ]
+        },
+        {
+          "id": "AC-9.1-02",
+          "description": "source anchors",
+          "check_ids": [
+            "CHK-9.1-02"
+          ]
+        },
+        {
+          "id": "AC-9.1-03",
+          "description": "correct scoring fixtures",
+          "check_ids": [
+            "CHK-9.1-03"
+          ]
+        },
+        {
+          "id": "AC-9.1-04",
+          "description": "ambiguous items marked for review",
+          "check_ids": [
+            "CHK-9.1-04"
+          ]
+        },
+        {
+          "id": "AC-9.1-05",
+          "description": "content correction invalidates dependent activities.",
+          "check_ids": [
+            "CHK-9.1-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-9.1-01",
+          "description": "schema rejection",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.1-02",
+          "description": "source anchors",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.1-03",
+          "description": "correct scoring fixtures",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.1-04",
+          "description": "ambiguous items marked for review",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.1-05",
+          "description": "content correction invalidates dependent activities.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-9.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "9.2",
+      "title": "implement hints and teach-back",
+      "prerequisites": [
+        "9.1"
+      ],
+      "work": "let users attempt before revealing answers, request graduated hints, and explain understanding in text; prepare the same contract for speech in Phase 10.",
+      "deliverables": "active reasoning workflow.",
+      "source_checks": "answer reveal controlled; attempts preserved; feedback addresses rubric; uncertain tutor assessment not shown as authoritative grade; retry uses a meaningful fresh attempt. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-9.2-01",
+          "description": "answer reveal controlled",
+          "check_ids": [
+            "CHK-9.2-01"
+          ]
+        },
+        {
+          "id": "AC-9.2-02",
+          "description": "attempts preserved",
+          "check_ids": [
+            "CHK-9.2-02"
+          ]
+        },
+        {
+          "id": "AC-9.2-03",
+          "description": "feedback addresses rubric",
+          "check_ids": [
+            "CHK-9.2-03"
+          ]
+        },
+        {
+          "id": "AC-9.2-04",
+          "description": "uncertain tutor assessment not shown as authoritative grade",
+          "check_ids": [
+            "CHK-9.2-04"
+          ]
+        },
+        {
+          "id": "AC-9.2-05",
+          "description": "retry uses a meaningful fresh attempt.",
+          "check_ids": [
+            "CHK-9.2-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-9.2-01",
+          "description": "answer reveal controlled",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.2-02",
+          "description": "attempts preserved",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.2-03",
+          "description": "feedback addresses rubric",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.2-04",
+          "description": "uncertain tutor assessment not shown as authoritative grade",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.2-05",
+          "description": "retry uses a meaningful fresh attempt.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-9.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "9.3",
+      "title": "implement review scheduling and evidence of progress",
+      "prerequisites": [
+        "9.2"
+      ],
+      "work": "schedule review using performance and user-adjustable workload; separate course completion from demonstrated recall; allow missed sessions without punitive streak loss.",
+      "deliverables": "review queue and learning history.",
+      "source_checks": "date/time boundary fixtures; missed-day behavior; repeat attempts; reset/undo; no mastery inferred solely from time-on-page or reading completion. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-9.3-01",
+          "description": "date/time boundary fixtures",
+          "check_ids": [
+            "CHK-9.3-01"
+          ]
+        },
+        {
+          "id": "AC-9.3-02",
+          "description": "missed-day behavior",
+          "check_ids": [
+            "CHK-9.3-02"
+          ]
+        },
+        {
+          "id": "AC-9.3-03",
+          "description": "repeat attempts",
+          "check_ids": [
+            "CHK-9.3-03"
+          ]
+        },
+        {
+          "id": "AC-9.3-04",
+          "description": "reset/undo",
+          "check_ids": [
+            "CHK-9.3-04"
+          ]
+        },
+        {
+          "id": "AC-9.3-05",
+          "description": "no mastery inferred solely from time-on-page or reading completion.",
+          "check_ids": [
+            "CHK-9.3-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-9.3-01",
+          "description": "date/time boundary fixtures",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.3-02",
+          "description": "missed-day behavior",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.3-03",
+          "description": "repeat attempts",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.3-04",
+          "description": "reset/undo",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.3-05",
+          "description": "no mastery inferred solely from time-on-page or reading completion.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-9.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "9.4",
+      "title": "implement short sessions and resumption",
+      "prerequisites": [
+        "9.3"
+      ],
+      "work": "assemble a manageable next activity, let the user continue or stop, and restore exact unfinished state across modalities.",
+      "deliverables": "integrated study sessions.",
+      "source_checks": "activity continuity; no duplicate attempt credit; keyboard/accessibility; offline prepared activity use; full study/regression evaluation. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-9.4-01",
+          "description": "activity continuity",
+          "check_ids": [
+            "CHK-9.4-01"
+          ]
+        },
+        {
+          "id": "AC-9.4-02",
+          "description": "no duplicate attempt credit",
+          "check_ids": [
+            "CHK-9.4-02"
+          ]
+        },
+        {
+          "id": "AC-9.4-03",
+          "description": "keyboard/accessibility",
+          "check_ids": [
+            "CHK-9.4-03"
+          ]
+        },
+        {
+          "id": "AC-9.4-04",
+          "description": "offline prepared activity use",
+          "check_ids": [
+            "CHK-9.4-04"
+          ]
+        },
+        {
+          "id": "AC-9.4-05",
+          "description": "full study/regression evaluation.",
+          "check_ids": [
+            "CHK-9.4-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-9.4-01",
+          "description": "activity continuity",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.4-02",
+          "description": "no duplicate attempt credit",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.4-03",
+          "description": "keyboard/accessibility",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.4-04",
+          "description": "offline prepared activity use",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-9.4-05",
+          "description": "full study/regression evaluation.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-9.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "description": "Field contracts, not real approvals or test results. Actual examples belong in explicitly synthetic fixtures.",
+  "approval_fields": ["id", "kind", "phases", "source", "quote", "pass_id when bounded", "conditions", "boundary_exception when explicitly authorized"],
+  "manual_acceptance_fields": ["phase", "approval_ref pointing to actual user decision", "candidate_commit"],
+  "defect_fields": ["id", "phase", "reported_by", "source_message", "candidate_commit", "observed", "expected", "status", "repair_commit", "retest_evidence", "resolution"],
+  "step_evidence_fields": ["step", "approved_scope", "prerequisites", "criterion_ids", "required_check_ids", "source_hashes or tested_tree", "environment", "timestamp", "commands", "exit_codes", "case_results", "artifact_paths and hashes", "counts", "audit_findings", "checkpoint_commit", "remote_receipt"],
+  "partial_handoff_fields": ["step", "status blocked or in_progress", "completed_preparation", "missing_required_evidence", "next_permitted_action", "wip_commit without completion claim"],
+  "rules": ["Never infer approval from a template", "No fabricated historical results", "Reject unrecognized state values", "Keep private details outside public records"]
+}

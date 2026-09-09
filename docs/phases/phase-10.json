@@ -1,0 +1,453 @@
+{
+  "schema_version": 1,
+  "phase": 10,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "10.1",
+      "title": "audition and implement narration providers",
+      "prerequisites": [
+        "9.4"
+      ],
+      "work": "use representative course passages to compare approved voices. Select a natural voice with the user, implement streamed generation where available, and save audio locally. Test a suitable local neural voice for offline generation if required by Phase 0.",
+      "deliverables": "verified narration adapter and voice selection.",
+      "source_checks": "real audio generation; source fidelity; pronunciation samples; measured startup/throughput on the Mac; failure handling; approved cost/download bounds. Human listening is required for the naturalness criterion. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-10.1-01",
+          "description": "real audio generation",
+          "check_ids": [
+            "CHK-10.1-01"
+          ]
+        },
+        {
+          "id": "AC-10.1-02",
+          "description": "source fidelity",
+          "check_ids": [
+            "CHK-10.1-02"
+          ]
+        },
+        {
+          "id": "AC-10.1-03",
+          "description": "pronunciation samples",
+          "check_ids": [
+            "CHK-10.1-03"
+          ]
+        },
+        {
+          "id": "AC-10.1-04",
+          "description": "measured startup/throughput on the Mac",
+          "check_ids": [
+            "CHK-10.1-04"
+          ]
+        },
+        {
+          "id": "AC-10.1-05",
+          "description": "failure handling",
+          "check_ids": [
+            "CHK-10.1-05"
+          ]
+        },
+        {
+          "id": "AC-10.1-06",
+          "description": "approved cost/download bounds. Human listening is required for the naturalness criterion.",
+          "check_ids": [
+            "CHK-10.1-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-10.1-01",
+          "description": "real audio generation",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.1-02",
+          "description": "source fidelity",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.1-03",
+          "description": "pronunciation samples",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.1-04",
+          "description": "measured startup/throughput on the Mac",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.1-05",
+          "description": "failure handling",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.1-06",
+          "description": "approved cost/download bounds. Human listening is required for the naturalness criterion.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-10.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "10.2",
+      "title": "implement synchronized reading playback",
+      "prerequisites": [
+        "10.1"
+      ],
+      "work": "sentence-level alignment, play/pause/seek/speed, bookmarks, replay and download state. Word-level alignment only if provider timestamps or validated alignment support it.",
+      "deliverables": "read-with-me controls and cached narration.",
+      "source_checks": "sentence/audio alignment; seek/speed behavior; restart at saved offset; repeated playback makes no generation request; offline cached playback. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-10.2-01",
+          "description": "sentence/audio alignment",
+          "check_ids": [
+            "CHK-10.2-01"
+          ]
+        },
+        {
+          "id": "AC-10.2-02",
+          "description": "seek/speed behavior",
+          "check_ids": [
+            "CHK-10.2-02"
+          ]
+        },
+        {
+          "id": "AC-10.2-03",
+          "description": "restart at saved offset",
+          "check_ids": [
+            "CHK-10.2-03"
+          ]
+        },
+        {
+          "id": "AC-10.2-04",
+          "description": "repeated playback makes no generation request",
+          "check_ids": [
+            "CHK-10.2-04"
+          ]
+        },
+        {
+          "id": "AC-10.2-05",
+          "description": "offline cached playback.",
+          "check_ids": [
+            "CHK-10.2-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-10.2-01",
+          "description": "sentence/audio alignment",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.2-02",
+          "description": "seek/speed behavior",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.2-03",
+          "description": "restart at saved offset",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.2-04",
+          "description": "repeated playback makes no generation request",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.2-05",
+          "description": "offline cached playback.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-10.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "10.3",
+      "title": "implement microphone capture and recognition",
+      "prerequisites": [
+        "10.2"
+      ],
+      "work": "explicit microphone controls, permission recovery, transcription, editable recognition and local recognition model when selected. Push-to-talk remains available; no wake word is required to operate core features.",
+      "deliverables": "listening and spoken input.",
+      "source_checks": "grant/deny/revoke; missing device; no permission popup loop; stop releases capture; technical-term correction; real microphone and selected offline recognition. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-10.3-01",
+          "description": "grant/deny/revoke",
+          "check_ids": [
+            "CHK-10.3-01"
+          ]
+        },
+        {
+          "id": "AC-10.3-02",
+          "description": "missing device",
+          "check_ids": [
+            "CHK-10.3-02"
+          ]
+        },
+        {
+          "id": "AC-10.3-03",
+          "description": "no permission popup loop",
+          "check_ids": [
+            "CHK-10.3-03"
+          ]
+        },
+        {
+          "id": "AC-10.3-04",
+          "description": "stop releases capture",
+          "check_ids": [
+            "CHK-10.3-04"
+          ]
+        },
+        {
+          "id": "AC-10.3-05",
+          "description": "technical-term correction",
+          "check_ids": [
+            "CHK-10.3-05"
+          ]
+        },
+        {
+          "id": "AC-10.3-06",
+          "description": "real microphone and selected offline recognition.",
+          "check_ids": [
+            "CHK-10.3-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-10.3-01",
+          "description": "grant/deny/revoke",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.3-02",
+          "description": "missing device",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.3-03",
+          "description": "no permission popup loop",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.3-04",
+          "description": "stop releases capture",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.3-05",
+          "description": "technical-term correction",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.3-06",
+          "description": "real microphone and selected offline recognition.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-10.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "10.4",
+      "title": "implement conversational interruption and teach-back",
+      "prerequisites": [
+        "10.3"
+      ],
+      "work": "connect speech input to existing tutor/study actions; interrupt narration for a question, then resume at the saved passage; prevent tutor audio feeding back as user speech.",
+      "deliverables": "integrated voice-assisted learning.",
+      "source_checks": "interruption; echo/self-trigger prevention; concurrent playback/capture; cancellation; network loss; no duplicate response; full voice and source-grounding regression. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-10.4-01",
+          "description": "interruption",
+          "check_ids": [
+            "CHK-10.4-01"
+          ]
+        },
+        {
+          "id": "AC-10.4-02",
+          "description": "echo/self-trigger prevention",
+          "check_ids": [
+            "CHK-10.4-02"
+          ]
+        },
+        {
+          "id": "AC-10.4-03",
+          "description": "concurrent playback/capture",
+          "check_ids": [
+            "CHK-10.4-03"
+          ]
+        },
+        {
+          "id": "AC-10.4-04",
+          "description": "cancellation",
+          "check_ids": [
+            "CHK-10.4-04"
+          ]
+        },
+        {
+          "id": "AC-10.4-05",
+          "description": "network loss",
+          "check_ids": [
+            "CHK-10.4-05"
+          ]
+        },
+        {
+          "id": "AC-10.4-06",
+          "description": "no duplicate response",
+          "check_ids": [
+            "CHK-10.4-06"
+          ]
+        },
+        {
+          "id": "AC-10.4-07",
+          "description": "full voice and source-grounding regression.",
+          "check_ids": [
+            "CHK-10.4-07"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-10.4-01",
+          "description": "interruption",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.4-02",
+          "description": "echo/self-trigger prevention",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.4-03",
+          "description": "concurrent playback/capture",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.4-04",
+          "description": "cancellation",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.4-05",
+          "description": "network loss",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.4-06",
+          "description": "no duplicate response",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-10.4-07",
+          "description": "full voice and source-grounding regression.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-10.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

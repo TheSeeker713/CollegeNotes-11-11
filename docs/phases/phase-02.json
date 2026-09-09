@@ -1,0 +1,343 @@
+{
+  "schema_version": 1,
+  "phase": 2,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "2.1",
+      "title": "define information architecture and main flows",
+      "prerequisites": [
+        "1.4"
+      ],
+      "work": "design course home, import inbox, reading, study, presentation practice, requirements, progress, and settings. Map first use, returning use, interruption recovery, offline use, and error recovery. Use the supplied COMM 110 content to ground examples.",
+      "deliverables": "screen map, user-flow specifications, content hierarchy.",
+      "source_checks": "each core task has an entry/exit/recovery route; resume is prominent; no essential function depends on 3D navigation or voice; draft course requirements retain source wording. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-2.1-01",
+          "description": "each core task has an entry/exit/recovery route",
+          "check_ids": [
+            "CHK-2.1-01"
+          ]
+        },
+        {
+          "id": "AC-2.1-02",
+          "description": "resume is prominent",
+          "check_ids": [
+            "CHK-2.1-02"
+          ]
+        },
+        {
+          "id": "AC-2.1-03",
+          "description": "no essential function depends on 3D navigation or voice",
+          "check_ids": [
+            "CHK-2.1-03"
+          ]
+        },
+        {
+          "id": "AC-2.1-04",
+          "description": "draft course requirements retain source wording.",
+          "check_ids": [
+            "CHK-2.1-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-2.1-01",
+          "description": "each core task has an entry/exit/recovery route",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.1-02",
+          "description": "resume is prominent",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.1-03",
+          "description": "no essential function depends on 3D navigation or voice",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.1-04",
+          "description": "draft course requirements retain source wording.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-2.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "2.2",
+      "title": "establish the visual and accessible interaction system",
+      "prerequisites": [
+        "2.1"
+      ],
+      "work": "specify typography, spacing, color/contrast, responsive layouts, density settings, focus states, reduced motion, keyboard behavior, and narration controls. Design default 2D components and clear boundaries for embedded 3D.",
+      "deliverables": "design tokens, component/state inventory, accessibility specification.",
+      "source_checks": "contrast calculations, type/line-length review, keyboard/focus specifications, touch target review, narrow-window layouts, and no motion-dependent information. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-2.2-01",
+          "description": "contrast calculations, type/line-length review, keyboard/focus specifications, touch target review, narrow-window layouts, and no motion-dependent information.",
+          "check_ids": [
+            "CHK-2.2-01"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-2.2-01",
+          "description": "contrast calculations, type/line-length review, keyboard/focus specifications, touch target review, narrow-window layouts, and no motion-dependent information.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-2.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "2.3",
+      "title": "produce high-fidelity review artifacts",
+      "prerequisites": [
+        "2.2"
+      ],
+      "work": "create linked screens or dependency-free prototypes for importing a screenshot, correcting an extraction, studying a passage, attempting PQP practice, and resuming work. Include empty, loading, error, offline, and success states. Use actual source-derived content privately and safe fixtures in public history.",
+      "deliverables": "reviewable design prototype and annotated interaction specs, including selected 3D storyboard only where instructional value exists.",
+      "source_checks": "all intended prototype controls work or are visibly identified as simulated; source labels readable; state coverage complete; no mock provider behavior represented as working integration. Checkpoint.",
+      "amendments": [
+        "AUTH-1-2: prepare design proposals and image prompts, then wait for external image generation. Keep 2.3 incomplete until images are returned and reviewable artifacts satisfy every required check."
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-2.3-01",
+          "description": "all intended prototype controls work or are visibly identified as simulated",
+          "check_ids": [
+            "CHK-2.3-01"
+          ]
+        },
+        {
+          "id": "AC-2.3-02",
+          "description": "source labels readable",
+          "check_ids": [
+            "CHK-2.3-02"
+          ]
+        },
+        {
+          "id": "AC-2.3-03",
+          "description": "state coverage complete",
+          "check_ids": [
+            "CHK-2.3-03"
+          ]
+        },
+        {
+          "id": "AC-2.3-04",
+          "description": "no mock provider behavior represented as working integration.",
+          "check_ids": [
+            "CHK-2.3-04"
+          ]
+        },
+        {
+          "id": "AC-2.3-05",
+          "description": "Generated UI images from another chat AI exist and are inspected; prompts alone do not satisfy this deliverable",
+          "check_ids": [
+            "CHK-2.3-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-2.3-01",
+          "description": "all intended prototype controls work or are visibly identified as simulated",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.3-02",
+          "description": "source labels readable",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.3-03",
+          "description": "state coverage complete",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.3-04",
+          "description": "no mock provider behavior represented as working integration.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.3-05",
+          "description": "Generated UI images from another chat AI exist and are inspected; prompts alone do not satisfy this deliverable",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-2.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "2.4",
+      "title": "audit design and prepare manual review",
+      "prerequisites": [
+        "2.3"
+      ],
+      "work": "review all screens against requirements, remove unnecessary initiation steps, verify text/audio/visual coordination, and prepare concrete user tasks. Record observations about likely friction as hypotheses, not clinical conclusions.",
+      "deliverables": "design audit, approved-design candidate, manual review checklist.",
+      "source_checks": "full flow walkthrough; information consistency; no missing critical state; rendering inspected at agreed window sizes; phase requirements covered. Checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-2.4-01",
+          "description": "full flow walkthrough",
+          "check_ids": [
+            "CHK-2.4-01"
+          ]
+        },
+        {
+          "id": "AC-2.4-02",
+          "description": "information consistency",
+          "check_ids": [
+            "CHK-2.4-02"
+          ]
+        },
+        {
+          "id": "AC-2.4-03",
+          "description": "no missing critical state",
+          "check_ids": [
+            "CHK-2.4-03"
+          ]
+        },
+        {
+          "id": "AC-2.4-04",
+          "description": "rendering inspected at agreed window sizes",
+          "check_ids": [
+            "CHK-2.4-04"
+          ]
+        },
+        {
+          "id": "AC-2.4-05",
+          "description": "phase requirements covered.",
+          "check_ids": [
+            "CHK-2.4-05"
+          ]
+        },
+        {
+          "id": "AC-2.4-06",
+          "description": "Owner reviews generated images and feedback is addressed before explicit design acceptance",
+          "check_ids": [
+            "CHK-2.4-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-2.4-01",
+          "description": "full flow walkthrough",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.4-02",
+          "description": "information consistency",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.4-03",
+          "description": "no missing critical state",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.4-04",
+          "description": "rendering inspected at agreed window sizes",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.4-05",
+          "description": "phase requirements covered.",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.4-06",
+          "description": "Owner reviews generated images and feedback is addressed before explicit design acceptance",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-2.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

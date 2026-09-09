@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "phase": 14,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "14.1",
+      "title": "package local daily use",
+      "prerequisites": [
+        "13.4"
+      ],
+      "work": "produce the approved local launcher and production build; make start/stop, health state and data location understandable; separate normal use from developer commands.",
+      "deliverables": "locally runnable application package/launcher.",
+      "source_checks": "cold launch within budget; occupied port/missing runtime; clean quit; no dependency on development server; use with network disconnected; data preserved across launch. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-14.1-01",
+          "description": "cold launch within budget",
+          "check_ids": [
+            "CHK-14.1-01"
+          ]
+        },
+        {
+          "id": "AC-14.1-02",
+          "description": "occupied port/missing runtime",
+          "check_ids": [
+            "CHK-14.1-02"
+          ]
+        },
+        {
+          "id": "AC-14.1-03",
+          "description": "clean quit",
+          "check_ids": [
+            "CHK-14.1-03"
+          ]
+        },
+        {
+          "id": "AC-14.1-04",
+          "description": "no dependency on development server",
+          "check_ids": [
+            "CHK-14.1-04"
+          ]
+        },
+        {
+          "id": "AC-14.1-05",
+          "description": "use with network disconnected",
+          "check_ids": [
+            "CHK-14.1-05"
+          ]
+        },
+        {
+          "id": "AC-14.1-06",
+          "description": "data preserved across launch.",
+          "check_ids": [
+            "CHK-14.1-06"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-14.1-01",
+          "description": "cold launch within budget",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.1-02",
+          "description": "occupied port/missing runtime",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.1-03",
+          "description": "clean quit",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.1-04",
+          "description": "no dependency on development server",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.1-05",
+          "description": "use with network disconnected",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.1-06",
+          "description": "data preserved across launch.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-14.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "14.2",
+      "title": "complete user and developer documentation",
+      "prerequisites": [
+        "14.1"
+      ],
+      "work": "write setup, adding classes, imports/corrections, study, narration/listening, offline packs, backups, recovery, updating, and module-development guides. Reconcile agent rules with the actual implemented commands and paths.",
+      "deliverables": "accurate user guide, maintenance guide, final agent handoff.",
+      "source_checks": "follow instructions in a clean local test setup; links/commands resolve; screenshots reflect final UI; limitations and data paths accurate; secrets absent. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-14.2-01",
+          "description": "follow instructions in a clean local test setup",
+          "check_ids": [
+            "CHK-14.2-01"
+          ]
+        },
+        {
+          "id": "AC-14.2-02",
+          "description": "links/commands resolve",
+          "check_ids": [
+            "CHK-14.2-02"
+          ]
+        },
+        {
+          "id": "AC-14.2-03",
+          "description": "screenshots reflect final UI",
+          "check_ids": [
+            "CHK-14.2-03"
+          ]
+        },
+        {
+          "id": "AC-14.2-04",
+          "description": "limitations and data paths accurate",
+          "check_ids": [
+            "CHK-14.2-04"
+          ]
+        },
+        {
+          "id": "AC-14.2-05",
+          "description": "secrets absent.",
+          "check_ids": [
+            "CHK-14.2-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-14.2-01",
+          "description": "follow instructions in a clean local test setup",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.2-02",
+          "description": "links/commands resolve",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.2-03",
+          "description": "screenshots reflect final UI",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.2-04",
+          "description": "limitations and data paths accurate",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.2-05",
+          "description": "secrets absent.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-14.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "14.3",
+      "title": "perform full acceptance and final audit",
+      "prerequisites": [
+        "14.2"
+      ],
+      "work": "rerun the complete required local acceptance suite against the release candidate; reconcile every v1 requirement, every phase approval, outstanding defect and source-policy boundary. No required feature may be relabeled optional to close the project.",
+      "deliverables": "final acceptance matrix, execution evidence, release-candidate checkpoint.",
+      "source_checks": "all required suites and criteria pass; all 60 step records accounted for; private data excluded; tested source matches packaged output; unresolved required gaps block completion. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-14.3-01",
+          "description": "all required suites and criteria pass",
+          "check_ids": [
+            "CHK-14.3-01"
+          ]
+        },
+        {
+          "id": "AC-14.3-02",
+          "description": "all 60 step records accounted for",
+          "check_ids": [
+            "CHK-14.3-02"
+          ]
+        },
+        {
+          "id": "AC-14.3-03",
+          "description": "private data excluded",
+          "check_ids": [
+            "CHK-14.3-03"
+          ]
+        },
+        {
+          "id": "AC-14.3-04",
+          "description": "tested source matches packaged output",
+          "check_ids": [
+            "CHK-14.3-04"
+          ]
+        },
+        {
+          "id": "AC-14.3-05",
+          "description": "unresolved required gaps block completion.",
+          "check_ids": [
+            "CHK-14.3-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-14.3-01",
+          "description": "all required suites and criteria pass",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.3-02",
+          "description": "all 60 step records accounted for",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.3-03",
+          "description": "private data excluded",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.3-04",
+          "description": "tested source matches packaged output",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.3-05",
+          "description": "unresolved required gaps block completion.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-14.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "14.4",
+      "title": "prepare and deliver final manual acceptance",
+      "prerequisites": [
+        "14.3"
+      ],
+      "work": "deliver the candidate and a concrete end-to-end test script: add class; import; correct; read; ask tutor; practice; listen; rehearse; use selected visual; disconnect; resume; backup/restore. Record feedback and repair within Phase 14, with renewed verification and checkpoints.",
+      "deliverables": "user-reviewable final build, final status and maintenance handoff. The automated portion may be ready before the user tests, but the phase remains awaiting acceptance.",
+      "source_checks": "local launch/package smoke; candidate/evidence identity; all user-reported blocking defects resolved and retested; final review record points to the exact accepted candidate. Checkpoint the final repair/acceptance record after explicit user acceptance.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-14.4-01",
+          "description": "local launch/package smoke",
+          "check_ids": [
+            "CHK-14.4-01"
+          ]
+        },
+        {
+          "id": "AC-14.4-02",
+          "description": "candidate/evidence identity",
+          "check_ids": [
+            "CHK-14.4-02"
+          ]
+        },
+        {
+          "id": "AC-14.4-03",
+          "description": "all user-reported blocking defects resolved and retested",
+          "check_ids": [
+            "CHK-14.4-03"
+          ]
+        },
+        {
+          "id": "AC-14.4-04",
+          "description": "final review record points to the exact accepted candidate. Checkpoint the final repair/acceptance record after explicit user acceptance.",
+          "check_ids": [
+            "CHK-14.4-04"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-14.4-01",
+          "description": "local launch/package smoke",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.4-02",
+          "description": "candidate/evidence identity",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.4-03",
+          "description": "all user-reported blocking defects resolved and retested",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-14.4-04",
+          "description": "final review record points to the exact accepted candidate. Checkpoint the final repair/acceptance record after explicit user acceptance.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-14.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}

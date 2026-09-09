@@ -1,0 +1,425 @@
+{
+  "schema_version": 1,
+  "phase": 13,
+  "source": {
+    "name": "CollegeNotes-Full-Project-Plan.md",
+    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+  },
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
+  "approval_boundary": true,
+  "steps": [
+    {
+      "id": "13.1",
+      "title": "build complete offline packs",
+      "prerequisites": [
+        "12.4"
+      ],
+      "work": "package selected readings, annotations, prepared activities, narration and visual assets with an exact readiness manifest. Download selected local models through explicit user-controlled preparation. Validate any required local tutor adapter here if offline fresh tutoring is included in the approved scope.",
+      "deliverables": "inspectable offline packs and clear capability states.",
+      "source_checks": "disconnected cold-start; every claimed resource accessible; incomplete downloads not ready; fresh local inference tested separately from cached responses; no remote fetch dependency. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-13.1-01",
+          "description": "disconnected cold-start",
+          "check_ids": [
+            "CHK-13.1-01"
+          ]
+        },
+        {
+          "id": "AC-13.1-02",
+          "description": "every claimed resource accessible",
+          "check_ids": [
+            "CHK-13.1-02"
+          ]
+        },
+        {
+          "id": "AC-13.1-03",
+          "description": "incomplete downloads not ready",
+          "check_ids": [
+            "CHK-13.1-03"
+          ]
+        },
+        {
+          "id": "AC-13.1-04",
+          "description": "fresh local inference tested separately from cached responses",
+          "check_ids": [
+            "CHK-13.1-04"
+          ]
+        },
+        {
+          "id": "AC-13.1-05",
+          "description": "no remote fetch dependency.",
+          "check_ids": [
+            "CHK-13.1-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-13.1-01",
+          "description": "disconnected cold-start",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.1-02",
+          "description": "every claimed resource accessible",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.1-03",
+          "description": "incomplete downloads not ready",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.1-04",
+          "description": "fresh local inference tested separately from cached responses",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.1-05",
+          "description": "no remote fetch dependency.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-13.1",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "13.2",
+      "title": "implement portable backup and safe restore",
+      "prerequisites": [
+        "13.1"
+      ],
+      "work": "export course data, files, source versions, attempts, annotations and media metadata with checksums; offer restore preview and safe conflict handling. Exclude credentials; define optional inclusion of large media/models.",
+      "deliverables": "backup/export/restore workflow.",
+      "source_checks": "clean-directory restore matches expected records and hashes; corruption rejected; interrupted restore preserves existing data; version mismatch handled; no path traversal. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-13.2-01",
+          "description": "clean-directory restore matches expected records and hashes",
+          "check_ids": [
+            "CHK-13.2-01"
+          ]
+        },
+        {
+          "id": "AC-13.2-02",
+          "description": "corruption rejected",
+          "check_ids": [
+            "CHK-13.2-02"
+          ]
+        },
+        {
+          "id": "AC-13.2-03",
+          "description": "interrupted restore preserves existing data",
+          "check_ids": [
+            "CHK-13.2-03"
+          ]
+        },
+        {
+          "id": "AC-13.2-04",
+          "description": "version mismatch handled",
+          "check_ids": [
+            "CHK-13.2-04"
+          ]
+        },
+        {
+          "id": "AC-13.2-05",
+          "description": "no path traversal.",
+          "check_ids": [
+            "CHK-13.2-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-13.2-01",
+          "description": "clean-directory restore matches expected records and hashes",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.2-02",
+          "description": "corruption rejected",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.2-03",
+          "description": "interrupted restore preserves existing data",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.2-04",
+          "description": "version mismatch handled",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.2-05",
+          "description": "no path traversal.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-13.2",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "13.3",
+      "title": "prove module extension and course isolation",
+      "prerequisites": [
+        "13.2"
+      ],
+      "work": "add a small synthetic second-course module through the documented interfaces; verify optional capability registration without editing unrelated modules. Document how future business/other courses extend templates and data.",
+      "deliverables": "extension guide and test module fixture.",
+      "source_checks": "module registration/version mismatch; disable/re-enable without data loss; no cross-course retrieval leakage; migrations preserve existing course; no arbitrary plugin execution. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-13.3-01",
+          "description": "module registration/version mismatch",
+          "check_ids": [
+            "CHK-13.3-01"
+          ]
+        },
+        {
+          "id": "AC-13.3-02",
+          "description": "disable/re-enable without data loss",
+          "check_ids": [
+            "CHK-13.3-02"
+          ]
+        },
+        {
+          "id": "AC-13.3-03",
+          "description": "no cross-course retrieval leakage",
+          "check_ids": [
+            "CHK-13.3-03"
+          ]
+        },
+        {
+          "id": "AC-13.3-04",
+          "description": "migrations preserve existing course",
+          "check_ids": [
+            "CHK-13.3-04"
+          ]
+        },
+        {
+          "id": "AC-13.3-05",
+          "description": "no arbitrary plugin execution.",
+          "check_ids": [
+            "CHK-13.3-05"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-13.3-01",
+          "description": "module registration/version mismatch",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.3-02",
+          "description": "disable/re-enable without data loss",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.3-03",
+          "description": "no cross-course retrieval leakage",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.3-04",
+          "description": "migrations preserve existing course",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.3-05",
+          "description": "no arbitrary plugin execution.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-13.3",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    },
+    {
+      "id": "13.4",
+      "title": "run integrated resilience, privacy and performance audit",
+      "prerequisites": [
+        "13.3"
+      ],
+      "work": "exercise realistic combined workloads: import while reading, audio plus visuals, interrupted jobs, low disk, provider outage, application restart, and migration. Review public history candidates for secrets/private content.",
+      "deliverables": "complete-system audit and resolved defect register.",
+      "source_checks": "agreed performance workloads; error recovery; local-origin/path protections; source-grounding regression; accessibility regression; backup/offline integration; all blockers resolved. Audit and checkpoint.",
+      "amendments": [],
+      "acceptance_criteria": [
+        {
+          "id": "AC-13.4-01",
+          "description": "agreed performance workloads",
+          "check_ids": [
+            "CHK-13.4-01"
+          ]
+        },
+        {
+          "id": "AC-13.4-02",
+          "description": "error recovery",
+          "check_ids": [
+            "CHK-13.4-02"
+          ]
+        },
+        {
+          "id": "AC-13.4-03",
+          "description": "local-origin/path protections",
+          "check_ids": [
+            "CHK-13.4-03"
+          ]
+        },
+        {
+          "id": "AC-13.4-04",
+          "description": "source-grounding regression",
+          "check_ids": [
+            "CHK-13.4-04"
+          ]
+        },
+        {
+          "id": "AC-13.4-05",
+          "description": "accessibility regression",
+          "check_ids": [
+            "CHK-13.4-05"
+          ]
+        },
+        {
+          "id": "AC-13.4-06",
+          "description": "backup/offline integration",
+          "check_ids": [
+            "CHK-13.4-06"
+          ]
+        },
+        {
+          "id": "AC-13.4-07",
+          "description": "all blockers resolved.",
+          "check_ids": [
+            "CHK-13.4-07"
+          ]
+        }
+      ],
+      "required_checks": [
+        {
+          "id": "CHK-13.4-01",
+          "description": "agreed performance workloads",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.4-02",
+          "description": "error recovery",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.4-03",
+          "description": "local-origin/path protections",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.4-04",
+          "description": "source-grounding regression",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.4-05",
+          "description": "accessibility regression",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.4-06",
+          "description": "backup/offline integration",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-13.4-07",
+          "description": "all blockers resolved.",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        }
+      ],
+      "checkpoint": {
+        "id": "CP-13.4",
+        "required": true,
+        "sequence": [
+          "gate",
+          "audit",
+          "commit",
+          "push",
+          "remote SHA confirmation"
+        ]
+      }
+    }
+  ]
+}
