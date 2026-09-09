@@ -1,6 +1,12 @@
 {
   "schema_version": 1,
   "phase": 4,
+  "theme_plan_amendment": {
+    "document": "docs/phases/theme-revision-02-through-14.md",
+    "section": "Phase 4 additions",
+    "required": true,
+    "scope": "Additive work and acceptance checks for this phase; planning only, no execution authorization"
+  },
   "source": {
     "name": "CollegeNotes-Full-Project-Plan.md",
     "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
