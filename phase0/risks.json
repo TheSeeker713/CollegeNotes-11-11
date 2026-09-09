@@ -1,0 +1,98 @@
+[
+  {
+    "id": "D01",
+    "decision": "Explicit Phase 0 review and Phase 1 approval",
+    "blocking_phase": 1,
+    "owner": "Owner",
+    "handling": "Stop after review packet; no Phase 1 work without explicit approval",
+    "status": "open"
+  },
+  {
+    "id": "D02",
+    "decision": "Exact transitive dependency/native SQLite/worker compatibility",
+    "blocking_phase": 3,
+    "owner": "Implementation and verification",
+    "handling": "Clean install/build and license/security inventory; preserve direct pins or record justified amendment",
+    "status": "open"
+  },
+  {
+    "id": "D03",
+    "decision": "Original screenshots, full syllabus, rubrics, calendar, outline sample, durations",
+    "blocking_phase": 5,
+    "owner": "Owner supplies; agent verifies",
+    "handling": "Block dependent 5.3 and 11 criteria; secondary report not primary evidence; no guessed dates",
+    "status": "open"
+  },
+  {
+    "id": "D04",
+    "decision": "Representative authorized textbook/document samples",
+    "blocking_phase": 6,
+    "owner": "Owner supplies",
+    "handling": "Synthetic fixtures first; real format/anchor verification before affected 6/7 acceptance; passages also needed in 10",
+    "status": "open"
+  },
+  {
+    "id": "D05",
+    "decision": "Actual account login, available model, quota and app-server protocol/isolation",
+    "blocking_phase": 8,
+    "owner": "Owner interaction and agent",
+    "handling": "Documented route exists; actual smoke, logout and restrictions required; if route unsupported resolve before production",
+    "status": "open"
+  },
+  {
+    "id": "D06",
+    "decision": "Natural voice preference, exact speech runtime/model hashes/licenses and download storage consent",
+    "blocking_phase": 10,
+    "owner": "Owner listening/storage choice and agent",
+    "handling": "Audition Kokoro/local recognition; no download before explicit size agreement; meet real latency/fidelity",
+    "status": "open"
+  },
+  {
+    "id": "D07",
+    "decision": "Any separate paid API speech or inference ceiling",
+    "blocking_phase": 10,
+    "owner": "Owner",
+    "handling": "New paid allowance remains $0; blocks only enabling paid adapter; local voice still must meet required naturalness",
+    "status": "open"
+  },
+  {
+    "id": "D08",
+    "decision": "Approved instructional 3D scene and actual WebGL2/GPU behavior",
+    "blocking_phase": 2,
+    "owner": "Design review and agent",
+    "handling": "Freeze purpose/workload in Phase 2; actual GPU/context-loss/frame checks in 12; no inferred support from Metal",
+    "status": "open"
+  },
+  {
+    "id": "D09",
+    "decision": "Private application-data and backup destination",
+    "blocking_phase": 4,
+    "owner": "Agent resolves user-local default; owner may choose",
+    "handling": "Resolve outside checkout in 4.2; private backups needed; Git excludes learning data",
+    "status": "open"
+  },
+  {
+    "id": "D10",
+    "decision": "Optional fresh local tutor",
+    "blocking_phase": 13,
+    "owner": "Owner if desired",
+    "handling": "Deferred from v1; no claims of fresh offline inference; explicit model/storage/cost decision required to add",
+    "status": "open"
+  },
+  {
+    "id": "D11",
+    "decision": "Physical microphone quality and recognition vocabulary",
+    "blocking_phase": 10,
+    "owner": "Owner hardware interaction and agent",
+    "handling": "Real device permission/recovery and representative speech required",
+    "status": "open"
+  },
+  {
+    "id": "D12",
+    "decision": "Public project-source license before distribution",
+    "blocking_phase": 14,
+    "owner": "Owner",
+    "handling": "Dependency licenses documented; repository visibility does not grant a license; select before packaging/distribution",
+    "status": "open"
+  }
+]

@@ -1,0 +1,162 @@
+[
+  {
+    "id": "P-INTERACT",
+    "requirement": "R-PERFORMANCE",
+    "owner_phases": [
+      7,
+      13
+    ],
+    "target": "p95 <=200 ms",
+    "device": "REF-MAC-01",
+    "workload": "100 actions per run, 3 runs: course switch, next passage, saved note, open source, local search; 3 synthetic courses / 100 documents / 10,000 passages / 1,000 attempts",
+    "method": "performance marks from input event to next painted settled result; sort all samples per action, nearest-rank p95; report each run and worst run; no averaging away failed actions",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-LAUNCH",
+    "requirement": "R-LOCAL",
+    "owner_phases": [
+      14
+    ],
+    "target": "p95 <=5 s",
+    "device": "REF-MAC-01",
+    "workload": "20 cold application launches with Chrome closed, installed production build and companion stopped; prepared 500-page course pack; network disconnected",
+    "method": "monotonic time launcher invocation to interactive restored reading position; measure end-to-end, include service startup; OS filesystem cache state documented; no developer server",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-3D",
+    "requirement": "R-VISUALS",
+    "owner_phases": [
+      12,
+      13
+    ],
+    "target": "target 60 fps; reduced mode >=30 fps in every rolling 1-second window",
+    "device": "REF-MAC-01",
+    "workload": "approved aid, initial ceiling 100k triangles/100 draw calls/32 MiB textures; 120 seconds manipulation after 10 seconds warmup; simultaneous cached narration; rendering viewport 1440x900 CSS px, DPR capped 2",
+    "method": "requestAnimationFrame intervals plus Chrome frame trace; target p95 frame time <=16.7 ms; reduced p95 <=33.3 ms and minimum rolling fps 30; list long stalls; context-loss and no-GPU checks separate",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-AUDIO-CACHE",
+    "requirement": "R-PLAYBACK",
+    "owner_phases": [
+      10,
+      13
+    ],
+    "target": "p95 <=200 ms start/pause/seek; resume offset error <=250 ms",
+    "device": "REF-MAC-01",
+    "workload": "30 trials each action on local 20-minute narration; with and without approved visual aid",
+    "method": "UI event to measured playback state/audible output using loopback recording where needed; compare saved position after restart, silence detection reviewed",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-TTS",
+    "requirement": "R-NARRATION",
+    "owner_phases": [
+      10
+    ],
+    "target": "p95 <=2 s first local audio; real-time factor <=1.0",
+    "device": "REF-MAC-01",
+    "workload": "20 fixed 150-word passages plus one 2,000-word passage; selected local voice; cached model warm; cold load reported separately",
+    "method": "time submit to first audible chunk and total generation time/audio duration; real audio and user naturalness review; no synthetic provider timings",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-STT",
+    "requirement": "R-VOICE",
+    "owner_phases": [
+      10
+    ],
+    "target": "p95 <=2 s final transcript after speech ends; WER <=15% on clear standard passage set",
+    "device": "REF-MAC-01",
+    "workload": "20 recorded 15\u201330 second passages with known reference text and 20 live microphone trials; quiet room, technical vocabulary list; transcripts editable",
+    "method": "monotonic end-of-speech to final text; WER from reviewed reference transcript; separately report technical-term errors and spontaneous-speech limitations; do not infer success from simulated microphone",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-VOICE-TURN",
+    "requirement": "R-VOICE",
+    "owner_phases": [
+      10
+    ],
+    "target": "p95 <=10 s first spoken answer; interruption stops output <=200 ms",
+    "device": "REF-MAC-01",
+    "workload": "20 spoken source-grounded questions, bounded context <=8,000 tokens, answer <=120 words, selected account model, local STT/TTS, stable network; 20 interruptions",
+    "method": "speech end to first audible answer across all stages; record RTT/downlink and rate limits; timeout/error trials reported as failures, not discarded; unavailable/offline state checked independently",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-MEMORY",
+    "requirement": "R-PERFORMANCE",
+    "owner_phases": [
+      10,
+      12,
+      13
+    ],
+    "target": "total app+dedicated Chrome processes <=4 GiB peak RSS; each speech worker <=2 GiB",
+    "device": "REF-MAC-01",
+    "workload": "15-minute mixed reading/search, 20-page 150dpi OCR batch, cached audio plus approved visual; only one inference worker; no local LLM",
+    "method": "sample per-process RSS once/second including children and dedicated Chrome profile; report peak and memory pressure; activity monitor cross-check; do not call this all-system RAM",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-DISK",
+    "requirement": "R-BACKUP",
+    "owner_phases": [
+      3,
+      10,
+      13
+    ],
+    "target": "retain >=20 GiB free before large jobs; model/runtime proposal <=2 GiB only after agreement",
+    "device": "REF-MAC-01",
+    "workload": "download preflight with exact artifacts and backup/import estimates; low-disk synthetic scenarios",
+    "method": "compare statfs free bytes with expected staging+final sizes and reserve; reject safely before write; show exact download sum; no present download authorization",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-SAVE",
+    "requirement": "R-PROGRESS",
+    "owner_phases": [
+      4,
+      7,
+      9,
+      10,
+      13
+    ],
+    "target": "0 lost committed records; 0 duplicate attempts; explicit unsaved state on failure",
+    "device": "REF-MAC-01",
+    "workload": "10 restart/interruption trials per reading/draft/activity/audio state; abrupt companion termination after commit acknowledgement",
+    "method": "compare exported IDs/content/offsets and SQLite integrity after restart; acknowledged durability verified from storage, not just UI toast",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-IMPORT",
+    "requirement": "R-INPUTS",
+    "owner_phases": [
+      6
+    ],
+    "target": "100% required known facts correct or explicitly awaiting correction; 100% original hashes retained",
+    "device": "REF-MAC-01",
+    "workload": "synthetic native and scanned PDF, PNG screenshot, text/notes, DOCX, EPUB; 20-page 150dpi OCR, duplicates/updates/malformed archives; anchors ground-truthed",
+    "method": "fixture expected text and anchors vs output; review uncertain OCR numbers/reading order; corrupted input rejected; byte hashes before/after; UI still meets interaction budget",
+    "status": "specified; not measured"
+  },
+  {
+    "id": "P-A11Y",
+    "requirement": "R-A11Y",
+    "owner_phases": [
+      2,
+      4,
+      7,
+      10,
+      12,
+      14
+    ],
+    "target": "all applicable WCAG 2.2 AA criteria pass; zero unresolved required manual cases",
+    "device": "REF-MAC-01",
+    "workload": "1440x900 and 390x844 CSS px; 200% zoom; keyboard-only, VoiceOver, reduced-motion and graphics-disabled core flows",
+    "method": "axe plus criterion-by-criterion manual review, contrast calculation and focus/reflow inspection; automated zero violations alone is insufficient",
+    "status": "specified; not measured"
+  }
+]

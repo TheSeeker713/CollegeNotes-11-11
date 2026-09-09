@@ -1,0 +1,19 @@
+# Bootstrap execution authority until Phase 1 AGENTS.md
+
+The owner’s September 9, 2026 pasted request explicitly authorizes all Phase 0 steps, routine checks/fixes, minimal administration, repository creation and per-step commits/pushes. The older “awaiting approval” statements are superseded. No earlier implementation occurred. Only the current request and subsequent user decisions establish authorization.
+
+Precedence: current user instructions, full implementation plan, supporting memory, historical research. Read private source hashes/references, current state, active step specification, latest acceptance/checkpoint ledger, local Git status and remote state at startup. Follow the full plan’s 0–14 numbering; the memory’s earlier numbering is superseded.
+
+Within an approved phase, implement its steps autonomously in order. Define required checks from the plan before work. Run every required case: 100% execution and passing, every criterion evidenced, all blocking audit findings resolved. Missing, skipped, canceled, zero-discovery and unresolved flaky results are incomplete. Never delete or weaken a failing requirement/test or silently update a visual baseline to advance. Record legitimate repairs and rerun affected checks.
+
+Use distinct implementation, verification and audit passes. No subagents are required or authorized in this run. Documentation uses substantive source, completeness and consistency review, not invented application tests. Production adds real step and integrated phase audits: inspect diffs, discovery/counts, mocks/real boundaries, report timestamps and tested source, failure paths, relevant screenshots/traces. Deterministic critical rules need negative controls; AI needs versioned rubric cases and truthful uncertainty.
+
+Checkpoint sequence: after gate/audit, verify source unchanged; commit; push; confirm intended SHA remotely; only then begin next step. Bind evidence to the staged tree and resulting commit. Failed push stays checkpoint_pending. Never claim tests ran against a future commit. Detailed logs/private evidence remain ignored; public summaries reference them. A commit cannot contain its own hash; a later closeout record may reference completed checkpoints without rewriting history.
+
+Use step states not_started, in_progress, verifying, repairing, auditing, checkpoint_pending, complete, blocked. Phase states awaiting_approval, active, awaiting_user_review, repairing, accepted. Update project-state/current.json and preserve private checkpoint commands/results. Lost context does not reset approval or erase failed evidence. Resume only the next permitted action.
+
+At each phase boundary STOP for explicit approval. Successful tests, silence or previous phase approval cannot authorize the next phase. UI/UX phases require a runnable local preview or reviewable design plus manual user testing. Reported defects reopen the same phase; repair/retest/audit/checkpoint before asking to advance. Phase 0 has no UI test requirement and ends with a review packet.
+
+GitHub is ONLY repository creation, commits, pushes and history. No Actions, hosting, boards, issues, PR gate or deployment. Preserve existing work and do not substitute a remote workspace for the Mac. Keep private sources, recordings, credentials, detailed machine information and evidence out of public Git history. No product dependency installation before Phase 3. Do not substitute paid providers, expand scope, alter budget/data handling/design direction, or begin another phase without the required user decision.
+
+Public records are checkpoint-time snapshots. After a successful final push the private ledger is the source of remote receipt evidence; a public closeout can record the four checkpoint hashes. Validate it against Git/remote rather than trusting status text. If local private references/evidence are absent in another clone, recover them from the owner instead of inventing history.
