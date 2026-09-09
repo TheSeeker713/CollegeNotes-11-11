@@ -1,7 +1,7 @@
 {
   "phase": 1,
   "phase_status": "active",
-  "step": "1.3",
+  "step": "1.4",
   "step_status": "checkpoint_pending",
   "pass_id": "PASS-2026-09-09-P1-P2",
   "authorization_ref": "AUTH-1-2",
@@ -18,8 +18,8 @@
     "0.4": "complete",
     "1.1": "complete",
     "1.2": "complete",
-    "1.3": "checkpoint_pending",
-    "1.4": "not_started",
+    "1.3": "complete",
+    "1.4": "checkpoint_pending",
     "2.1": "not_started",
     "2.2": "not_started",
     "2.3": "not_started",
@@ -79,9 +79,10 @@
     "0.3": "e15d3a0b16d6956ded4538611563c38a88c75c4f",
     "0.4": "a30903be4aaf8225ae5680995a4581570cf85751",
     "1.1": "cdb57e4f830ecb957881974ab6522957809be78e",
-    "1.2": "e2268f5d8255a6682acff70c88976fe809c2e325"
+    "1.2": "e2268f5d8255a6682acff70c88976fe809c2e325",
+    "1.3": "e0c12b32599ebdd167cf1939ad81700b6631ec48"
   },
-  "next_action": "Verify and checkpoint Step 1.1; continue Phase 1 then Phase 2 within the current pass; stop for generated design images and review before Phase 3",
+  "next_action": "Complete Phase 1 audit/checkpoint, then enter Phase 2 under AUTH-1-2; no Phase 3.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {

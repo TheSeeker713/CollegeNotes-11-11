@@ -33,7 +33,7 @@ export function evidenceGate(requiredIds,results,{sourceMatches,auditResolved,mo
  if(new Set(requiredIds).size!==requiredIds.length)errors.push('duplicate required IDs');
  if(new Set(results.map(x=>x.id)).size!==results.length)errors.push('duplicate results');
  if(results.length!==requiredIds.length)errors.push('missing or unexpected case count');
- for(const id of requiredIds){const r=results.find(x=>x.id===id);if(!r||r.status!=='passed'||r.exit_code!==0||!r.evidence_hash||r.synthetic!==(mode==='synthetic'))errors.push(`incomplete or wrong-kind evidence: ${id}`);}
+ for(const id of requiredIds){const r=results.find(x=>x.id===id);if(!r||r.status!=='passed'||r.exit_code!==0||!/^[a-f0-9]{64}$/.test(r.evidence_hash||'')||r.synthetic!==(mode==='synthetic'))errors.push(`incomplete or wrong-kind evidence: ${id}`);}
  if(results.some(x=>!requiredIds.includes(x.id)))errors.push('unexpected check ID');
  if(!sourceMatches)errors.push('stale source');
  if(!auditResolved)errors.push('unresolved audit');
