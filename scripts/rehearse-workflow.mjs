@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import {validateShape,authorizePhase,evidenceGate,transitionStep} from './state-rules.mjs';
+import {validateShape,validateAuthorizationState,authorizePhase,evidenceGate,transitionStep} from './state-rules.mjs';
 const cases=[];
 function test(id,actual,expected){cases.push({id,passed:actual===expected,expected,actual,synthetic:true});}
 const hash=crypto.createHash('sha256').update('synthetic fixture, not a product result').digest('hex');
@@ -48,7 +48,10 @@ test('invalid-phase',validateShape({...actual,phase:99},schema).length===0,false
 const absent={...actual};delete absent.authorization_ref;
 test('missing-authority-field',validateShape(absent,schema).length===0,false);
 test('invalid-checkpoint-hash',validateShape({...actual,checkpoints:{'1.1':'fake'}},schema).length===0,false);
-test('phase3-state-override-rejected',validateShape({...actual,phase_3_authorized:true},schema).length===0,false);
-const report={kind:'synthetic-workflow-rehearsal',command:'node scripts/rehearse-workflow.mjs',time:new Date().toISOString(),source_hashes:Object.fromEntries(['scripts/state-rules.mjs','scripts/rehearse-workflow.mjs','project-state/state.schema.json'].map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex')])),counts:{required:42,executed:cases.length,passed:cases.filter(x=>x.passed).length,failed:cases.filter(x=>!x.passed).length,skipped:0},cases};
+test('phase3-state-override-rejected',validateAuthorizationState({...state,authorized_phases_this_pass:[1,2],phase_3_authorized:true},approvals).length===0,false);
+test('expanded-phase-list-rejected',validateAuthorizationState({...state,authorized_phases_this_pass:[1,2,3]},approvals).length===0,false);
+const futureApprovals={entries:[{id:'SYNTHETIC-FUTURE',kind:'phase_authorization',phases:[3],source:'synthetic future message',quote:'synthetic only'}]};
+test('future-explicit-approval-supported',authorizePhase({authorization_ref:'SYNTHETIC-FUTURE',phase_3_authorized:true},3,futureApprovals,{previousComplete:true,previousAccepted:true}).allowed,true);
+const report={kind:'synthetic-workflow-rehearsal',command:'node scripts/rehearse-workflow.mjs',time:new Date().toISOString(),source_hashes:Object.fromEntries(['scripts/state-rules.mjs','scripts/rehearse-workflow.mjs','project-state/state.schema.json'].map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex')])),counts:{required:44,executed:cases.length,passed:cases.filter(x=>x.passed).length,failed:cases.filter(x=>!x.passed).length,skipped:0},cases};
 fs.mkdirSync('.local/verification',{recursive:true});fs.writeFileSync('.local/verification/workflow-rehearsal.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report.counts));
-if(cases.length!==42||cases.some(x=>!x.passed))process.exit(1);
+if(cases.length!==44||cases.some(x=>!x.passed))process.exit(1);

@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {execFileSync} from 'node:child_process';
-import {validateShape} from './state-rules.mjs';
+import {validateShape,validateAuthorizationState} from './state-rules.mjs';
 const checks=[];
 const check=(id,test,evidence)=>{let result=false;try{result=!!test();}catch(e){evidence+='; '+e.message;}checks.push({id,result:result?'pass':'fail',evidence:evidence.trim()});};
 const read=x=>JSON.parse(fs.readFileSync(x));
@@ -16,7 +16,7 @@ check('requirement_mapping',()=>mapping.length===requirements.length&&new Set(ma
 const state=read('project-state/current.json');const shapeErrors=validateShape(state,read('project-state/state.schema.json'));
 check('state_validation',()=>shapeErrors.length===0&&stepIds.includes(state.step)&&Number(state.step.split('.')[0])===state.phase&&Object.keys(state.steps).length===60&&stepIds.every(id=>id in state.steps)&&state.steps[state.step]===state.step_status&&Object.entries(state.steps).every(([id,status])=>status!=='complete'||/^[a-f0-9]{40}$/.test(state.checkpoints[id]||'')),`Actual state conforms to schema and every completed step has a checkpoint reference; ${shapeErrors.join('; ')}`);
 const approvals=read('project-state/approvals.json');
-check('attributed_approvals',()=>approvals.entries.length===3&&new Set(approvals.entries.map(x=>x.id)).size===3&&approvals.entries.every(x=>x.source&&x.quote)&&approvals.entries.some(x=>x.id===state.authorization_ref)&&state.manual_acceptances.every(a=>approvals.entries.some(x=>x.id===a.approval_ref&&x.kind==='phase_acceptance'))&&approvals.entries.find(x=>x.id==='AUTH-1-2').phases.join(',')==='1,2','Only actual initial authorization, input clarification and current dual-phase authorization recorded; no invented manual acceptance');
+check('attributed_approvals',()=>approvals.entries.length>=3&&new Set(approvals.entries.map(x=>x.id)).size===approvals.entries.length&&approvals.entries.every(x=>x.source&&x.quote)&&validateAuthorizationState(state,approvals).length===0&&state.manual_acceptances.every(a=>approvals.entries.some(x=>x.id===a.approval_ref&&x.kind==='phase_acceptance'))&&approvals.entries.find(x=>x.id==='AUTH-1-2').phases.join(',')==='1,2','Actual approval records are unique and attributed; active scope cannot exceed its authorization; future genuine decisions can be appended without inventing manual acceptance');
 const files=execFileSync('git',['ls-files','--cached','--others','--exclude-standard'],{encoding:'utf8'}).trim().split('\n').filter(Boolean);
 check('links_and_scope',()=>files.every(f=>!f.startsWith('.github/')&&!f.includes('node_modules')&&!f.startsWith('.local/'))&&files.filter(f=>f.endsWith('.md')).every(f=>[...fs.readFileSync(f,'utf8').matchAll(/\]\(([^)]+)\)/g)].every(([,target])=>target.includes('://')||target.startsWith('#')||fs.existsSync(path.resolve(path.dirname(f),target.split('#')[0]))))&&!fs.existsSync('node_modules')&&!fs.existsSync('package-lock.json'),'All local Markdown links resolve; private evidence excluded; no product dependencies or CI added');
 const source_hashes=Object.fromEntries(files.filter(f=>fs.existsSync(f)).map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex')]));

@@ -13,7 +13,7 @@
     "pass_closed": {"type": "boolean"},
     "authorization_ref": {"type": "string", "minLength": 1},
     "authorized_phases_this_pass": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 14}, "minItems": 1},
-    "phase_3_authorized": {"const": false},
+    "phase_3_authorized": {"type": "boolean"},
     "steps": {"type": "object", "additionalProperties": {"enum": ["not_started", "in_progress", "verifying", "repairing", "auditing", "checkpoint_pending", "complete", "blocked"]}},
     "checkpoints": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{40}$"}},
     "phase_completion": {"type": "object", "additionalProperties": {"enum": ["not_started", "in_progress", "complete", "blocked"]}},

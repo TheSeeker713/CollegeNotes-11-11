@@ -16,6 +16,16 @@ export function validateShape(value,schema,at='$') {
  return errors;
 }
 
+export function validateAuthorizationState(state,approvals) {
+ const auth=approvals.entries.find(x=>x.id===state.authorization_ref&&x.kind==='phase_authorization');
+ if(!auth)return ['missing phase authorization'];
+ const errors=[];
+ if(!state.authorized_phases_this_pass?.every(p=>auth.phases.includes(p)))errors.push('state expands approved phase scope');
+ if(state.phase_3_authorized&&!auth.phases.includes(3))errors.push('Phase 3 flag lacks actual authorization');
+ if(auth.pass_id&&auth.pass_id!==state.pass_id)errors.push('pass mismatch');
+ return errors;
+}
+
 export function authorizePhase(state,phase,approvals,{previousComplete=false,previousAccepted=false}={}) {
  const auth=approvals.entries.find(x=>x.id===state.authorization_ref&&x.kind==='phase_authorization');
  if(!auth||!auth.quote||!auth.source||!auth.phases.includes(phase))return {allowed:false,reason:'missing actual phase authorization'};
