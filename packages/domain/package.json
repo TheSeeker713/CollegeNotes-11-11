@@ -1,0 +1,7 @@
+{
+  "name": "@collegenotes/domain",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Versioned entity schemas and module contracts. No UI, provider SDK or direct database dependency."
+}

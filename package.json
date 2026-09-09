@@ -1,0 +1,16 @@
+{
+  "name": "collegenotes-11-11",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "CollegeNotes{11:11} — local learning workspace; scaffold only",
+  "packageManager": "npm@12.0.2",
+  "engines": {
+    "node": "24.21.0",
+    "npm": "12.0.2"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

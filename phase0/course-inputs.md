@@ -1,5 +1,7 @@
 # Course input inventory
 
+Historical Phase 0 snapshot. CHANGE-INPUTS now supersedes requests for the original thirteen screenshots and development blockers on private course documents. See [current input policy](../docs/product/input-policy.md). The user will import material through the finished application; use safe known-answer fixtures during development.
+
 Only the three planning/reference Markdown files and the current pasted request are supplied in this session. Their private originals and SHA-256 hashes are preserved in `.local/references/manifest.json`. Public history contains generic product requirements and this inventory, not private course text or attachments.
 
 | Input | Available evidence | Status / dependent phase |

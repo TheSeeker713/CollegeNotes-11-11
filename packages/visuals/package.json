@@ -1,0 +1,7 @@
+{
+  "name": "@collegenotes/visuals",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Subject-correct diagrams and selected R3F components. Each has instructional purpose, serialized state, keyboard controls and a non-graphics equivalent."
+}

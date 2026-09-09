@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "id": "AUTH-0",
+      "kind": "phase_authorization",
+      "phases": [
+        0
+      ],
+      "source": "Owner initial pasted request, 2026-09-09; original preserved privately",
+      "quote": "I explicitly authorize the entire Phase 0, including its routine checks, fixes, minimal project administration setup, repository creation, and per-step commits and pushes."
+    },
+    {
+      "id": "CHANGE-INPUTS",
+      "kind": "scope_clarification",
+      "phases": [],
+      "source": "Owner message after Phase 0 review, 2026-09-09",
+      "quote": "since you have written information about the 13 screenshots, you do not need 13 screenshots, when this app is built, i can manually import screenshots and docs, text, etc, into the module"
+    },
+    {
+      "id": "AUTH-1-2",
+      "kind": "phase_authorization",
+      "phases": [
+        1,
+        2
+      ],
+      "source": "Owner current message, 2026-09-09",
+      "quote": "For this pass and this pass only, you are authorized to implement both phase 1 and phase 2. do not implement phase 3 as phase 2 cannot be completed without the photos being generated",
+      "pass_id": "PASS-2026-09-09-P1-P2",
+      "boundary_exception": {
+        "from": 1,
+        "to": 2
+      },
+      "conditions": [
+        "Phase 1 ordered checks and checkpoints remain required",
+        "Another chat AI generates proposed UI/UX images from the prepared prompts",
+        "Phase 2 remains incomplete until images are generated, inspected and reviewed",
+        "Phase 3 is not authorized"
+      ]
+    }
+  ]
+}

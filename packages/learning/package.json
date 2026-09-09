@@ -1,0 +1,7 @@
+{
+  "name": "@collegenotes/learning",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Source-grounded activity schemas, attempts, review scheduling and learning evaluation. Respect course-specific restrictions."
+}

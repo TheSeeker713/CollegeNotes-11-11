@@ -1,0 +1,46 @@
+{
+  "phase": 1,
+  "authority": "Full plan steps 1.1–1.4 plus AUTH-1-2 and CHANGE-INPUTS",
+  "steps": [
+    {
+      "id": "1.1",
+      "checks": [
+        "required_paths",
+        "meaningful_placeholders",
+        "workspace_metadata",
+        "links_and_privacy",
+        "no_install_or_features",
+        "single_project_root"
+      ]
+    },
+    {
+      "id": "1.2",
+      "checks": [
+        "all_guides_linked",
+        "instruction_loading",
+        "workflow_scenarios",
+        "user_authority_only"
+      ]
+    },
+    {
+      "id": "1.3",
+      "checks": [
+        "sixty_ordered_steps",
+        "unique_criteria_and_checks",
+        "requirement_mapping",
+        "state_validation",
+        "attributed_approvals"
+      ]
+    },
+    {
+      "id": "1.4",
+      "checks": [
+        "negative_transition_cases",
+        "synthetic_separation",
+        "scaffold_regression",
+        "phase_audit_and_handoff"
+      ]
+    }
+  ],
+  "checkpoint_rule": "Every completed step requires passing evidence audit, commit, push and matching remote SHA before continuing."
+}

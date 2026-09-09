@@ -4,8 +4,8 @@
     "decision": "Explicit Phase 0 review and Phase 1 approval",
     "blocking_phase": 1,
     "owner": "Owner",
-    "handling": "Stop after review packet; no Phase 1 work without explicit approval",
-    "status": "open"
+    "handling": "Resolved by AUTH-1-2: owner explicitly authorized Phases 1 and 2 for this pass; Phase 3 remains prohibited",
+    "status": "resolved"
   },
   {
     "id": "D02",
@@ -17,19 +17,19 @@
   },
   {
     "id": "D03",
-    "decision": "Original screenshots, full syllabus, rubrics, calendar, outline sample, durations",
+    "decision": "Course details to populate from future user imports",
     "blocking_phase": 5,
     "owner": "Owner supplies; agent verifies",
-    "handling": "Block dependent 5.3 and 11 criteria; secondary report not primary evidence; no guessed dates",
-    "status": "open"
+    "handling": "CHANGE-INPUTS removes original screenshot and private-course-material development prerequisites. Use safe fixtures, preserve historical transcription as context, and leave unknown course facts unconfigured until user imports them",
+    "status": "superseded"
   },
   {
     "id": "D04",
     "decision": "Representative authorized textbook/document samples",
     "blocking_phase": 6,
     "owner": "Owner supplies",
-    "handling": "Synthetic fixtures first; real format/anchor verification before affected 6/7 acceptance; passages also needed in 10",
-    "status": "open"
+    "handling": "Use synthetic or redistributable known-answer samples for module verification. User supplies private textbook/documents through the completed import workflow; private sample availability does not block general development",
+    "status": "superseded"
   },
   {
     "id": "D05",

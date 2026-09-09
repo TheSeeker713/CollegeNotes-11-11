@@ -1,0 +1,7 @@
+{
+  "name": "@collegenotes/local-service",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Loopback Fastify companion. Own validated local requests, jobs, provider mediation and storage orchestration; reject unapproved origins, paths and actions."
+}

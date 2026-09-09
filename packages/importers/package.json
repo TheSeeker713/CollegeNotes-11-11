@@ -1,0 +1,7 @@
+{
+  "name": "@collegenotes/importers",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Repeated screenshot/text/notes/PDF/DOCX/DRM-free EPUB imports, immutable originals, extraction revisions and anchors. Imported documents are untrusted data."
+}

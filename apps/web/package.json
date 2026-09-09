@@ -1,0 +1,7 @@
+{
+  "name": "@collegenotes/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "React browser interface. Own navigation, rendering and accessible user interactions; use domain interfaces and local-service requests. No credentials or authoritative filesystem storage in the browser."
+}

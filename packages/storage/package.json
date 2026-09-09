@@ -1,0 +1,7 @@
+{
+  "name": "@collegenotes/storage",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Authoritative SQLite migrations and file metadata, transaction boundaries, backups and restoration. Private application data stays outside the checkout."
+}
