@@ -1,0 +1,21 @@
+# Accessibility and interaction specification
+
+All directions target WCAG 2.2 AA. The specification uses at least 4.5:1 for all normal text and 3:1 for essential control boundaries/focus contrast. Actual image colors and later rendered UI must be checked again. Contrast arithmetic alone is not an accessibility pass. [W3C contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
+
+Typography: UI 16px, secondary metadata no smaller than 14px, reading 18px default with 16–24px control, 1.65 line height and a preferred 64-character measure. At small widths the column wraps naturally rather than shrinking. A reading column never exceeds 720px; images/prose reflow at 200% zoom. Metadata remains readable, not low-opacity decoration. Heading order follows the task hierarchy.
+
+Targets: every standalone button, tab, menu item and input is at least 44×44 CSS px; compact density keeps that floor. Inline prose links retain normal flow with clear underline/focus and sufficient separation. WCAG's minimum criterion has exceptions; this proposal deliberately uses a larger standalone-control target. [W3C target guidance](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
+
+Focus: visible 3px ring with 3px offset. Keyboard order is skip link → course/navigation → source header → passage and contextual actions → optional drawer → player. All tasks work by keyboard without dragging or voice. Esc dismisses a temporary drawer/dialog and returns focus to its trigger. Dialog focus is contained while open; background content is inert. A persistent audio strip reserves layout space and cannot obscure focused content. [W3C focus guidance](https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html).
+
+Menus and tabs use native buttons and appropriate semantics. Arrow keys navigate tab choices; Tab enters/exits the group. Inputs have persistent labels; errors identify both the field and remedy. Hover tooltips have focus equivalents. Icon-only controls need accessible names; important actions have visible text. Status is always text plus optional icon, never color alone.
+
+Responsive behavior: 1440×900 reference; context drawer closes by default below 1100px, keeping 64-character reading where possible. Side navigation becomes a named menu below 768px. At 390×844 use 16px gutters, a single prose column, full-width actions when needed and Source/Notes/Tutor tabs. Correction swaps two columns for Original/Extracted tabs with independent positions. At 200% zoom all information and controls remain reachable without two-dimensional scrolling except inherently spatial source content, which also has a reflowed-text option.
+
+Motion: 120ms defaults, at most 180ms; reduced motion uses immediate state changes. No essential meaning depends on movement. No decorative animation or automatic 3D orbit. Tool panels never auto-open because the learner paused. Audio defaults off; narration never competes with another voice. When listening, optional sentence highlighting is restrained and independently switchable.
+
+Narration: play/pause, seek, speed, replay sentence, bookmark and downloaded-state text. Typing a question or choosing Ask pauses/holds narration; resume retains position. Microphone has explicit start, live recording indication and stop; permission failure offers typing and never loops prompts. A waveform cannot be the only recording indicator. Keyboard playback controls operate when focused, not global shortcuts that interfere with writing.
+
+Import/correction: normal file picker, paste and note entry accompany drag-and-drop. Batch progress is per item and cancelable. Unsaved extraction edits are explicitly identified; save failure preserves text and offers retry. Screen readers receive concise status changes, not a progress announcement every frame. Source anchors include document/title/location text.
+
+Learning feedback: offer attempt before answer reveal; preserve the user's response. No punitive streaks, unwanted countdowns or grade inference. Course restrictions prevent prohibited generation. Required empty/offline/error states are in component-states.json. Images are reviewed for these states, while keyboard, actual persistence and provider behavior must be tested later in a real implementation.

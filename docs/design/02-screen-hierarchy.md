@@ -12,7 +12,7 @@ Study hierarchy: small objective, source context, question, learner attempt, the
 
 Practice hierarchy: task selection, own writing/recording, replay and observations. PQP labels remain Praise, Question, Polish. The question field encourages an actual question. The initial practice example is clearly synthetic; it is not a graded response. Rehearsal timing can be unconfigured until the user supplies course requirements.
 
-Small windows: at 1024px hide the optional context drawer by default; at 768px collapse side navigation into an accessible menu; at 390px use one main column and separate Source / Notes / Tutor views. Keep course/source identity and Resume visible. Correction becomes Original / Extracted tabs that preserve scroll positions and edits. Reading order stays logical; no miniature desktop scaled down.
+Small windows: below 1100px hide the optional context drawer by default; below 768px collapse side navigation into an accessible menu; at 390px use one main column and separate Source / Notes / Tutor views. Keep course/source identity and Resume visible. Correction becomes Original / Extracted tabs that preserve scroll positions and edits. Reading order stays logical; no miniature desktop scaled down.
 
 Draft course rules retain available source wording and uncertainty. The historical report can inform private context, but visual samples use invented text and “Not provided yet” for unknown official requirements. The ban on COMM 110 AI-generated outlines and sources/citations is present in the practice/tutor behavior, not just a footer disclaimer.
 
