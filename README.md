@@ -1,8 +1,10 @@
 # CollegeNotes{11:11}
 
-Local, browser-first college learning application. Phase 1 scaffold and Phase 2 design preparation are authorized for the current pass. No application features or installed dependencies exist yet.
+Local, browser-first college learning application. Phase 1 is complete; Phase 2 design proposals/prompts are prepared and awaiting generated images. No application features or installed dependencies exist yet.
 
 The execution plan has phases 0–14. Read [current state](project-state/current.json), [actual approvals](project-state/approvals.json), and [course-input clarification](docs/product/input-policy.md). The current pass may proceed from Phase 1 to Phase 2 after the Phase 1 checks and checkpoints. Phase 3 is not authorized; generated design images and owner review are still required.
+
+This bounded pass has ended at Step 2.3's missing-image gate. Start the next review with the [design handoff](docs/design/README.md), [copy-ready image prompts](docs/design/06-round-one-prompts.md), and [completion/pending record](docs/phases/pass-1-2-handoff.md). Do not reuse the pass authorization to begin Phase 3.
 
 Planning records live in `phase0/`; durable status lives in `project-state/`. The original execution plan and supporting references are preserved privately under `.local/references/` with hashes. Read them and the current state before resuming. User instructions take precedence, followed by the full plan, supporting memory, then historical research.
 

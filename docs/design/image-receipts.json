@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "prompt_revision": "proposal-1",
+  "selected_direction": null,
+  "selection_source": null,
+  "generated_images": [],
+  "required_round_one": ["A", "B", "C"],
+  "required_screen_family": ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"],
+  "status": "awaiting_external_image_generation",
+  "functional_test_claims": false,
+  "owner_design_acceptance": null
+}

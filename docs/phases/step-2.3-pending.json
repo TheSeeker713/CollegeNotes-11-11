@@ -1,0 +1,18 @@
+{
+  "step": "2.3",
+  "status": "blocked",
+  "authority": "AUTH-1-2",
+  "completed_preparation": ["Standalone image-AI brief", "Three comparable design directions and copy-ready prompts", "Fourteen screen/state prompts", "Annotated visual-aid storyboard", "Image receipt format and return/review checklist"],
+  "required_rendered_artifact_checks": [
+    {"id":"CHK-2.3-01","status":"blocked","reason":"No rendered artifact exists to inspect controls or simulation labeling"},
+    {"id":"CHK-2.3-02","status":"blocked","reason":"Source-label readability must be inspected in returned images"},
+    {"id":"CHK-2.3-03","status":"blocked","reason":"State coverage is specified but actual rendered states have not been produced"},
+    {"id":"CHK-2.3-04","status":"blocked","reason":"Prompt requirements prohibit false provider claims; returned artifacts still need inspection"},
+    {"id":"CHK-2.3-05","status":"blocked","reason":"External image generation and inspection pending"}
+  ],
+  "counts": {"required":5,"executed_rendered_checks":0,"passed_rendered_checks":0,"blocked":5},
+  "step_checkpoint_complete": false,
+  "next_step_2_4": "not_started",
+  "phase_3_authorized": false,
+  "note": "A WIP commit preserves the prompt handoff; it is not a completed Step 2.3 checkpoint."
+}
