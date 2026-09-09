@@ -1,0 +1,19 @@
+{
+  "phase": 0,
+  "phase_status": "active",
+  "step": "0.1",
+  "step_status": "checkpoint_pending",
+  "approval": {
+    "date": "2026-09-09",
+    "scope": "entire Phase 0, routine checks, fixes, minimal administration, repository creation, per-step commits and pushes",
+    "reference": "owner pasted-text.txt preserved privately; manifest.json records source hash"
+  },
+  "prior_implementation": "none",
+  "next_phase_authorized": false,
+  "steps": {
+    "0.1": "checkpoint_pending",
+    "0.2": "not_started",
+    "0.3": "not_started",
+    "0.4": "not_started"
+  }
+}
