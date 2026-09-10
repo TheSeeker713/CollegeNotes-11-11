@@ -9,3 +9,7 @@ Every derivative records source version and anchor; corrections flag affected de
 Browser persistence is a rebuildable cache; authoritative personal data lives outside the checkout. Backups include manifests/checksums and exclude credentials. Offline readiness lists actual available resources. No paid fallback, fresh offline inference or general ChatGPT memory access is assumed. Changes to these boundaries require a recorded decision and affected checks.
 
 The target is a single-user macOS desktop app on the owner's MacBook; the browser is an interim local UI surface. Local embeddings and course-scoped vector indexes are required, versioned and rebuildable. OAuth credentials remain in approved macOS credential storage. Internet research is user-initiated, source-traceable and isolated from course authority and arbitrary tool execution.
+
+## Current repair pass
+
+[PROJECT-PLAN.md](../../PROJECT-PLAN.md) is the sole scope authority. AUTH-REPAIR-0-4 and AUTH-REPAIR-PUSH authorize the bounded repairs through Phase 4 and existing-repository pushes. Older pass restrictions are historical. UI/UX testing and rendered-design review belong exclusively to the owner; agents perform source audits and non-UI engineering checks. Manual acceptance remains pending through the repair implementation. Phase 5 needs the owner's green light. See [repair manifest](../phases/repair-0-4.json).

@@ -1,7 +1,7 @@
 # Scaffold and data ownership
 
-There is one project root: the verified CollegeNotes child of the native Mac Developer directory. Packages are npm workspaces, not nested projects or independent Git repositories. No dependency install or runnable product is implied.
+[PROJECT-PLAN.md](../../PROJECT-PLAN.md) controls scope; stack records and package manifests are subordinate implementation decisions. The existing installed Phase 3 stack is preserved. Source lives in this repository; personal data lives in the local Application Support directory, and private test evidence remains gitignored.
 
-Phase 0 pins remain authoritative; package manifests deliberately contain no installed dependencies. Phase 3 distributes approved direct dependencies to workspaces and creates a real lockfile. The existing system Node can run dependency-free planning checks; it is not a claim that the pinned application runtime is installed.
+Domain owns versioned neutral course/material/provider/research/index contracts. Storage owns forward-only SQLite migrations and original-file ownership. Importers own extraction and anchors; providers own capability/authentication boundaries. Learning consumes source versions. UI consumes service summaries, never credentials. Packages must not mutate another domain's tables implicitly.
 
-Source is public. Original reference documents and detailed verification live under ignored .local/. Future personal application data defaults to a separately resolved user-local Application Support directory in Step 4.2; recordings, source files and backups do not belong inside the repository. Environment paths stay private.
+No real course, imported content or connected account is seeded. See [foundation contracts](foundation-contracts.md) for this repair's boundaries.

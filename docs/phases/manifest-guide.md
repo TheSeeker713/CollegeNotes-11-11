@@ -1,3 +1,5 @@
+> Current authority: [PROJECT-PLAN.md](../../PROJECT-PLAN.md). Original numbered manifests/receipts below are historical projections; [repair manifest](repair-0-4.json) governs the current authorized repair sequence. Stale course/provider assumptions do not override the official plan. UI/UX checks remain required owner review, not agent tests.
+
 # Manifest and state protocol
 
 phase-00.json through phase-14.json retain the controlling plan's work, deliverables and required check wording for all 60 steps. Each check clause has a stable CHK ID and a matching AC criterion. CP identifies the commit/push/remote gate. Prerequisites name the previous step; phase entry separately requires actual authorization. No manifest activates itself.

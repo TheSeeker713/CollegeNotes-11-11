@@ -6,10 +6,10 @@ Before each step, freeze its acceptance/check IDs from the manifest. Implement, 
 
 After the gate, bind a source fingerprint to the evidence, commit, push and compare the remote SHA. Do not advance if push fails. Record complete only after the receipt; avoid recursive claims that a commit contains its own SHA. An incomplete design handoff can be committed as work-in-progress, explicitly without completing its step or advancing to the next one.
 
-Every phase normally ends for explicit user approval. AUTH-1-2 permits this pass to proceed from completed Phase 1 to Phase 2 without another question. This is authorization to execute, not an invented manual acceptance. Phase 3 remains forbidden. Phase 2 requires images from the other AI, rendered-design checks and user review; prompts alone do not complete it.
+Every phase normally requires user approval. The current AUTH-REPAIR-0-4 explicitly permits repair execution through Phase 4; it does not fabricate design acceptance. Owner UI/UX review follows the repair implementation, as the latest user instruction directs.
 
 Approval records quote or identify actual user messages. A validator cannot grant authority or prove a quote is authentic; the agent audits it against the conversation. GitHub cannot grant phase approval. No CI or PR gate is introduced.
 
-## Current recovery pass
+## Current repair pass
 
-AUTH-P4 authorizes Phase 4 only. Execute steps 4.1–4.4. Stop at Phase 4 completion. Do not begin Phase 5.
+[PROJECT-PLAN.md](../../PROJECT-PLAN.md) is the sole scope authority. AUTH-REPAIR-0-4 and AUTH-REPAIR-PUSH authorize the bounded repairs through Phase 4 and existing-repository pushes. Older pass restrictions are historical. UI/UX testing and rendered-design review belong exclusively to the owner; agents perform source audits and non-UI engineering checks. Manual acceptance remains pending through the repair implementation. Phase 5 needs the owner's green light. See [repair manifest](../phases/repair-0-4.json).

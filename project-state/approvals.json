@@ -177,6 +177,22 @@
         "Present available step-by-step manual tests after Phase 4; Phase 5 requires the user green light.",
         "No real provider login, paid request, new dependency or model download is included in this foundation repair."
       ]
+    },
+    {
+      "id": "AUTH-REPAIR-PUSH",
+      "kind": "repository_authorization",
+      "phases": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "source": "Owner confirmation in current Codex task, 2026-09-10, answering explicit existing-repository push request",
+      "quote": "yes do it, do not ask again",
+      "conditions": [
+        "Push Phase 0–4 repair commits, including public planning and authorization records, to existing https://github.com/TheSeeker713/CollegeNotes-11-11. No repeated push permission question in this pass."
+      ]
     }
   ]
 }

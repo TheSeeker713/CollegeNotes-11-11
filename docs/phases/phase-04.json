@@ -461,5 +461,9 @@
         ]
       }
     }
-  ]
+  ],
+  "authority": "PROJECT-PLAN.md",
+  "repair_manifest": "docs/phases/repair-0-4.json",
+  "historical_projection": true,
+  "current_review_policy": "AUTH-REPAIR-0-4: UI/UX tests belong exclusively to owner after repair implementation; preserve required checks as pending manual review."
 }

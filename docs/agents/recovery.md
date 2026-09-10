@@ -8,10 +8,10 @@ Interrupted session: read state/approvals, latest local evidence and Git/remote.
 
 Lost source/evidence: recover private originals/logs from the owner if essential. Do not reconstruct a fabricated history. This does not revive the superseded thirteen-screenshot requirement.
 
-User defect or rejected design: reopen the current phase, record the defect and exact candidate, repair/retest/audit and checkpoint. Phase boundary: stop unless a recorded user exception explicitly covers this transition. Phase 3 has no exception here.
+User defect or rejected design: reopen the current phase, record the defect and exact candidate, repair/retest/audit and checkpoint. Phase boundary: stop unless a recorded user exception explicitly covers this transition. Use the current authorization, not historical restrictions, for repair transitions.
 
 Future import/restore failure: preserve originals/existing database, identify partial job, validate checksum and schema, retry through a resumable job; never replace user data because a notification says success.
 
-## Current recovery pass
+## Current repair pass
 
-AUTH-P2-FINISH supersedes the old missing-image handoff. CHANGE-35-IMAGES retains 35 local gitignored images as full design scope. Inspect those references, reconcile inconsistencies in the canonical four-variant design/prototype, and do not generate more images. The original bounded pass stays historical. Follow current state and ordered revised-step checkpoints; do not begin Phase 3 installation.
+[PROJECT-PLAN.md](../../PROJECT-PLAN.md) is the sole scope authority. AUTH-REPAIR-0-4 and AUTH-REPAIR-PUSH authorize the bounded repairs through Phase 4 and existing-repository pushes. Older pass restrictions are historical. UI/UX testing and rendered-design review belong exclusively to the owner; agents perform source audits and non-UI engineering checks. Manual acceptance remains pending through the repair implementation. Phase 5 needs the owner's green light. See [repair manifest](../phases/repair-0-4.json).

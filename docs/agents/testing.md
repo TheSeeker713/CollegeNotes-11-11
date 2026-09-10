@@ -10,6 +10,6 @@ A mocked provider checks handling only. A static image checks composition only. 
 
 Results record commands, exit codes, case IDs, actual counts, source fingerprint, environment, timestamp, artifacts and audit findings. Recompute hashes and inspect raw evidence; do not trust an authored pass field alone. No product verification command should silently succeed without implementing its intended checks.
 
-## Current recovery pass
+## Current repair pass
 
-AUTH-P2-FINISH supersedes the old missing-image handoff. CHANGE-35-IMAGES retains 35 local gitignored images as full design scope. Inspect those references, reconcile inconsistencies in the canonical four-variant design/prototype, and do not generate more images. The original bounded pass stays historical. Follow current state and ordered revised-step checkpoints; do not begin Phase 3 installation.
+[PROJECT-PLAN.md](../../PROJECT-PLAN.md) is the sole scope authority. AUTH-REPAIR-0-4 and AUTH-REPAIR-PUSH authorize the bounded repairs through Phase 4 and existing-repository pushes. Older pass restrictions are historical. UI/UX testing and rendered-design review belong exclusively to the owner; agents perform source audits and non-UI engineering checks. Manual acceptance remains pending through the repair implementation. Phase 5 needs the owner's green light. See [repair manifest](../phases/repair-0-4.json).

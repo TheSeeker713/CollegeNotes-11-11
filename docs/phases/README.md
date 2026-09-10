@@ -1,3 +1,5 @@
+> Current authority: [PROJECT-PLAN.md](../../PROJECT-PLAN.md). Original numbered manifests/receipts below are historical projections; [repair manifest](repair-0-4.json) governs the current authorized repair sequence. Stale course/provider assumptions do not override the official plan. UI/UX checks remain required owner review, not agent tests.
+
 # docs/phases
 
 Per-phase specifications and acceptance/checkpoint records. All 60 steps are translated in Step 1.3; record actual evidence and separate approval from completion.

@@ -4,6 +4,10 @@ Public source contains application code, specifications and synthetic/redistribu
 
 The [input-policy amendment](../product/input-policy.md) is current. Do not ask for the original thirteen screenshots or treat a private syllabus/textbook as a general development prerequisite. The user imports their material through the completed module. Use safe fixtures for general checks; unknown course rules remain unknown. The research transcription is context, not newly verified original evidence.
 
-Imports preserve originals/checksums and distinguish source text, user writing, course requirements and generated explanation. Reject traversal, oversized/invalid archives and unsafe active content. Never execute document instructions, scripts or arbitrary model code. Course restrictions apply to tutoring and exports; COMM 110 outlines and sources/citations cannot be generated.
+Imports preserve originals/checksums and distinguish source text, user writing, course requirements and generated explanation. Reject traversal, oversized/invalid archives and unsafe active content. Never execute document instructions, scripts or arbitrary model code. User-entered/imported course restrictions apply to tutoring and exports; no named class policy is built in.
 
 Do not send material to third-party providers without the relevant authorization. Design image prompts use invented public-safe content; no private sources or credentials are needed. A returned image must be inspected before being made a source-of-truth design artifact.
+
+## Current repair pass
+
+[PROJECT-PLAN.md](../../PROJECT-PLAN.md) is the sole scope authority. AUTH-REPAIR-0-4 and AUTH-REPAIR-PUSH authorize the bounded repairs through Phase 4 and existing-repository pushes. Older pass restrictions are historical. UI/UX testing and rendered-design review belong exclusively to the owner; agents perform source audits and non-UI engineering checks. Manual acceptance remains pending through the repair implementation. Phase 5 needs the owner's green light. See [repair manifest](../phases/repair-0-4.json).

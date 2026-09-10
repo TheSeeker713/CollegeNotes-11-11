@@ -4,6 +4,10 @@ Codex is the coding tool used in this pass. Its documented discovery reads globa
 
 This task began outside the project; therefore the agent explicitly read the repository rules and guides after creating them. Creating AGENTS.md midway through a session does not prove automatic hot-reloading. Do not start another agent or alter global settings merely to assert a loading test. The actual path/read and guide-link checks are the evidence for this pass; automatic discovery must be checked when a future repository-root session starts.
 
-Checklist for each fresh tool session: confirm repository root; find ancestor/nested AGENTS or override files; explicitly read current project rules, state and active manifest; state the allowed phases, image-review gate and forbidden Phase 3; verify local/remote checkpoints before acting. Keep the root file small and use explicit links to guides.
+Checklist for each fresh tool session: confirm repository root; find ancestor/nested AGENTS or override files; explicitly read current project rules, state and active manifest; state the current authorized repairs, user-only UI review and Phase 5 gate; verify local/remote checkpoints before acting. Keep the root file small and use explicit links to guides.
 
 Other coding tools have not been selected or tested in this pass. Do not claim Cursor or another tool loads these files automatically. The external image-generation AI receives the standalone design brief/prompts; it needs no repo permissions or coding-agent instruction installation.
+
+## Current repair pass
+
+[PROJECT-PLAN.md](../../PROJECT-PLAN.md) is the sole scope authority. AUTH-REPAIR-0-4 and AUTH-REPAIR-PUSH authorize the bounded repairs through Phase 4 and existing-repository pushes. Older pass restrictions are historical. UI/UX testing and rendered-design review belong exclusively to the owner; agents perform source audits and non-UI engineering checks. Manual acceptance remains pending through the repair implementation. Phase 5 needs the owner's green light. See [repair manifest](../phases/repair-0-4.json).
