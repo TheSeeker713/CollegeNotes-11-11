@@ -15,12 +15,12 @@
   },
   {
     "id": "R-COURSES",
-    "requirement": "Add courses and terms throughout education; edit, archive and reopen; isolate data",
+    "requirement": "Empty user-created courses: create, rename, edit, archive, restore, export, permanently delete; enable reusable modules; no built-in real course.",
     "owner_phases": [
       5,
       13
     ],
-    "acceptance": "Second course and archive/reopen; cross-course retrieval negative cases",
+    "acceptance": "Full lifecycle and cross-course isolation; originals, local writing and backups handled explicitly.",
     "classification": "required-v1"
   },
   {
@@ -44,12 +44,12 @@
   },
   {
     "id": "R-CORRECTION",
-    "requirement": "Review and correct extraction; version revisions and mark affected derivatives stale",
+    "requirement": "Every material supports viewing original, note edits or extracted-text correction, source versions, individual/selection/course/backup export, recoverable deletion where practical and permanent deletion; backups are separate copies.",
     "owner_phases": [
       6,
       9
     ],
-    "acceptance": "Correction survives restart; affected activities flagged, unrelated data preserved",
+    "acceptance": "Source checksum unchanged; edit/delete invalidates search, embeddings, activities and AI context; deleted and other-course material cannot be retrieved; interrupted cleanup is recoverable.",
     "classification": "required-v1"
   },
   {
@@ -63,12 +63,12 @@
   },
   {
     "id": "R-TUTOR",
-    "requirement": "Documented ChatGPT account connection mediated by the local companion; explicit sign-in/out, permissions and limits",
+    "requirement": "Optional, toggleable, disconnectable and removable source-grounded tutoring through provider-neutral connections.",
     "owner_phases": [
       0,
       8
     ],
-    "acceptance": "Official route evidence in 0.3; explicit account connection, actual account call, rejected/expired credentials, limits, revocation and logout in 8.1",
+    "acceptance": "Choose provider per capability; OpenAI removal preserves local learning data; API and verified account routes tested separately.",
     "classification": "required-v1"
   },
   {
@@ -202,13 +202,13 @@
   },
   {
     "id": "R-POLICY",
-    "requirement": "COMM 110 prohibits AI-generated outlines and sources/citations; support learning/practice and preserve user writing",
+    "requirement": "Course restrictions come only from user-entered or imported evidence; preserve original source text and user writing.",
     "owner_phases": [
       5,
       8,
       11
     ],
-    "acceptance": "Prohibited-request evaluation and unchanged user-authored export; no generated graded outline/citation",
+    "acceptance": "No hard-coded class rules; untrusted imported instructions cannot change permissions or become application authority.",
     "classification": "required-v1"
   },
   {
@@ -223,11 +223,11 @@
   },
   {
     "id": "R-PRESENTATION",
-    "requirement": "PQP practice, synchronized media review, timer/recording, user-authored cue cards and visual-aid inspection",
+    "requirement": "Optional course-neutral presentation practice: recording, transcripts, timing, cue cards and user-authored feedback.",
     "owner_phases": [
       11
     ],
-    "acceptance": "PQP category fixtures; actual question; timestamp persistence; timer and recording recovery; no inferred grade",
+    "acceptance": "User-enabled module with source-linked feedback; no built-in COMM 110, PQP, syllabus or assignments.",
     "classification": "required-v1"
   },
   {
@@ -257,25 +257,25 @@
   },
   {
     "id": "R-PROVIDERS",
-    "requirement": "Provider-neutral tutoring, OAuth research and audio contracts; subscription, API billing and speech capabilities distinct; research preserves URL/date/claim provenance",
+    "requirement": "Provider identity independent of tutoring, research, embeddings, narration, transcription and realtime voice; OpenAI, xAI, Anthropic, Google and approved future adapters. API credentials and officially supported OAuth/account routes; provider/capability toggles, defaults, models, health, billing, limits, disconnect and removal.",
     "owner_phases": [
       0,
       3,
       8,
       10
     ],
-    "acceptance": "Explicit OAuth connect/revoke; user-initiated internet research records source URL, retrieval date and claim links; no paid substitution; budget/limit handling; credentials never in browser or logs",
+    "acceptance": "Secrets in approved credential store only; settings export excludes credentials; no silent paid fallback; unsupported subscription OAuth unavailable; explicit research query/provider/course/private-context consent and URL/title/date/excerpt/claim/conflict provenance.",
     "classification": "required-v1"
   },
   {
     "id": "R-WORKFLOW",
-    "requirement": "Approved phases only, ordered steps, 100% required checks, evidence audit, commit/push/remote confirmation, explicit phase stop",
+    "requirement": "PROJECT-PLAN.md is the sole human-readable scope authority; only owner changes requirements, scope, phase boundaries, providers, privacy, design and acceptance. Ordered authorized steps, evidence audits and confirmed remote checkpoints.",
     "owner_phases": [
       0,
       1,
       14
     ],
-    "acceptance": "Transition rehearsals and real evidence; no zero/missing/skipped/flaky pass; every approval attributable",
+    "acceptance": "Supporting manifests cannot authorize work. Current AUTH-REPAIR-0-4 permits repair transitions through 4; UI/UX tests are user-only and Phase 5 needs green light.",
     "classification": "required-v1"
   },
   {

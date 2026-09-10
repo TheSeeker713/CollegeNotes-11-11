@@ -1,0 +1,60 @@
+{
+  "authority": "PROJECT-PLAN.md",
+  "authorization": "AUTH-REPAIR-0-4",
+  "boundary": "Repairs only, phases 0\u20134; no Phase 5 until owner green light",
+  "ui_review": "Owner only, pending after implementation. No AI browser, rendering, accessibility or usability tests.",
+  "stages": [
+    {
+      "id": "R0",
+      "phase": 0,
+      "required_checks": [
+        "requirements match official plan",
+        "provider auth evidence classified honestly",
+        "preserve stack and budget boundaries"
+      ],
+      "checkpoint": "audit, commit, push, verify remote SHA"
+    },
+    {
+      "id": "R1",
+      "phase": 1,
+      "required_checks": [
+        "entry points use official plan",
+        "neutral domain and acceptance specifications",
+        "authorization and user-only UI review recorded"
+      ],
+      "checkpoint": "audit, commit, push, verify remote SHA"
+    },
+    {
+      "id": "R2",
+      "phase": 2,
+      "required_checks": [
+        "reviewable neutral lifecycle designs",
+        "connections and research state coverage",
+        "owner review pending, never invented"
+      ],
+      "checkpoint": "audit, commit, push, verify remote SHA"
+    },
+    {
+      "id": "R3",
+      "phase": 3,
+      "required_checks": [
+        "credential/OAuth/adapter boundary tests",
+        "types lint build unit integration evals",
+        "no dependency change or vendor SDK"
+      ],
+      "checkpoint": "audit, commit, push, verify remote SHA"
+    },
+    {
+      "id": "R4",
+      "phase": 4,
+      "required_checks": [
+        "forward-only migration preserves v8 data",
+        "neutral lifecycle/provider/research/embedding foundations",
+        "routes and recovery foundations",
+        "privacy isolation and removal audit",
+        "manual review and production report"
+      ],
+      "checkpoint": "audit, commit, push, verify remote SHA"
+    }
+  ]
+}

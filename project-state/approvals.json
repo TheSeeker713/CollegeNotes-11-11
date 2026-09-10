@@ -155,6 +155,28 @@
         "The separate impact and repair proposal is limited to worked Phases 0–4",
         "No repair phase or future phase is authorized"
       ]
+    },
+    {
+      "id": "AUTH-REPAIR-0-4",
+      "kind": "phase_authorization",
+      "phases": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "source": "Owner numbered instructions in current Codex task, 2026-09-10",
+      "quote": "You will implement the full phase impact and repair plan running through all Phases 0-4.",
+      "pass_id": "PASS-2026-09-10-REPAIR-0-4",
+      "conditions": [
+        "Read the full official plan, agent rules, and impact/repair plan.",
+        "Implement the impact and repair plan through Phases 0–4; transitions within that repair pass are authorized.",
+        "Write a full production report in docs after Phase 4 implementation.",
+        "UI/UX testing is manual user testing only; AI agents are not allowed to test UI/UX.",
+        "Present available step-by-step manual tests after Phase 4; Phase 5 requires the user green light.",
+        "No real provider login, paid request, new dependency or model download is included in this foundation repair."
+      ]
     }
   ]
 }

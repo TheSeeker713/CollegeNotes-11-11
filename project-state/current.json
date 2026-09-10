@@ -3,12 +3,16 @@
   "phase_status": "awaiting_approval",
   "step": "4.1",
   "step_status": "blocked",
-  "pass_id": "PASS-2026-09-09-P4",
-  "authorization_ref": "AUTH-P4",
+  "pass_id": "PASS-2026-09-10-REPAIR-0-4",
+  "authorization_ref": "AUTH-REPAIR-0-4",
   "authorized_phases_this_pass": [
+    0,
+    1,
+    2,
+    3,
     4
   ],
-  "phase_3_authorized": false,
+  "phase_3_authorized": true,
   "next_phase_authorized": false,
   "steps": {
     "0.1": "complete",
@@ -94,9 +98,9 @@
     "4.3": "4e2b407877fafa22dc017794a81d38257894126a",
     "4.4": "2997861407d6a6e8a4b455e99f141ebd0be1027f"
   },
-  "next_action": "Owner reviews PROJECT-PLAN.md and docs/plans/PHASE-0-4-REVISION-IMPACT.md. No application code, dependency, provider login, or phase repair may begin without a new explicit authorization.",
+  "next_action": "Phase 0 repair local checkpoint pending owner authorization of GitHub push after automatic approval review rejection. Do not advance to Phase 1 until remote SHA confirmed.",
   "schema_version": 1,
-  "pass_closed": true,
+  "pass_closed": false,
   "phase_completion": {
     "0": "complete",
     "1": "complete",
@@ -116,14 +120,7 @@
       "candidate_commit": "e406973f9a2e08514014d90ae022a0c1155c03e7"
     }
   ],
-  "blockers": [
-    {
-      "id": "BLOCK-P4-DESKTOP-SCOPE",
-      "step": "4.1",
-      "reason": "Phases 0–4 were planned under malformed course-specific and single-provider assumptions. Phase 4 cannot be accepted against the revised official plan.",
-      "resolution": "Obtain owner approval of the official plan, then obtain separate authorization for the affected repair stage described in docs/plans/PHASE-0-4-REVISION-IMPACT.md."
-    }
-  ],
+  "blockers": [],
   "historical_checkpoints": {
     "0.1": "9aac47b1c215309edf03966cfaac238ed45aadb9",
     "0.2": "bb1bb5a23f593d88959b171523a8343abd02e56a",
@@ -135,5 +132,17 @@
     "1.4": "cc562a72d6fc659b01f52cf13b60faa42262db22",
     "2.1": "acd375555e4042aa482bc0ea2c578052e668bbb3",
     "2.2": "e8d23bc34e698098e1533d6cdfc7467e8dcedf82"
+  },
+  "repair": {
+    "authorization_ref": "AUTH-REPAIR-0-4",
+    "stages": {
+      "0": "checkpoint_pending",
+      "1": "not_started",
+      "2": "not_started",
+      "3": "not_started",
+      "4": "not_started"
+    },
+    "manual_review": "pending_owner",
+    "checkpoints": {}
   }
 }
