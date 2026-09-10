@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  COURSE_MODULES,
+  type ModuleSelection,
   DEFAULT_APPEARANCE,
   DEFAULT_CARD_LAYOUT,
   NAV_DESTINATIONS,
@@ -20,6 +22,7 @@ import {
 import { applyAppearance, readStoredAppearance } from '@collegenotes/ui';
 import type { ProviderDefinition } from '@collegenotes/providers/contracts';
 import { api } from './client';
+import { CourseManager } from './CourseManager';
 
 const NAV_LABEL: Record<string, string> = {
   home: 'Home',
@@ -45,6 +48,9 @@ export function App() {
   const [draft, setDraft] = useState('');
   const [notice, setNotice] = useState<string | null>(null);
   const [courseName, setCourseName] = useState('');
+  const [courseDescription, setCourseDescription] = useState('');
+  const [modules, setModules] = useState<ModuleSelection[] | null>(null);
+  const [modulesCourseId, setModulesCourseId] = useState<string | null>(null);
   const [online, setOnline] = useState(false);
   const [initialized, setInitialized] = useState(false);
   const [draftCourseId, setDraftCourseId] = useState<string | null>(null);
@@ -119,9 +125,12 @@ export function App() {
     const layoutEdit = layoutEdits.current;
     setLayout({ order: [...DEFAULT_CARD_LAYOUT.order], pinned: [] });
     setMove(null);
+    setModules(null);
+    setModulesCourseId(courseId);
     setDraftCourseId(courseId);
     setDraft(courseId ? localDrafts.current.get(courseId) ?? '' : '');
     if (courseId) {
+      void api.courses.modules(courseId).then(value => { if (!cancelled) setModules(value); }).catch(() => { if (!cancelled) setNotice('Module selections could not be loaded. Reopen this course to retry.'); });
       void api.layouts.get(courseId).then((value) => { if (!cancelled && layoutEdits.current === layoutEdit) setLayout(value); }).catch(() => { if (!cancelled) setNotice('Layout could not be loaded.'); });
       if (!localDrafts.current.has(courseId)) void api.drafts.get(`note:${courseId}`).then((row) => {
         if (!cancelled && draftEdits.current === edit) setDraft(row?.body ?? '');
@@ -161,9 +170,11 @@ export function App() {
     if (creatingCourse) return;
     setCreatingCourse(true);
     try {
-      const created = await api.courses.create(courseName);
+      const created = await api.courses.create(courseName, courseDescription);
       setCourses((current) => [...current, created]);
       setCourseName('');
+      setCourseDescription('');
+      setOnline(true);
       syncRoute({ name: 'home', courseId: created.id });
     } catch { setNotice('Course could not be saved. Your entered name is preserved; try again when the local service is available.'); }
     finally { setCreatingCourse(false); }
@@ -211,10 +222,12 @@ export function App() {
   const empty = courses.length === 0;
   const screen = route.name;
 
-  const cards = useMemo(() => layout.order.map((id) => (
+  const enabledModules = modulesCourseId === courseId ? modules?.filter(m => m.enabled).map(m => m.moduleId) ?? [] : [];
+  const cardModules = { source: 'reading', notes: 'notes', study: 'study', listen: 'audio' } as const;
+  const cards = useMemo(() => layout.order.filter(id => enabledModules.includes(cardModules[id])).map((id) => (
     <article key={id} className="glass glass-card" data-card={id} data-pinned={layout.pinned.includes(id) ? 'true' : 'false'}>
       <header>
-        <h2>{id}</h2>
+        <h2>{{ source: 'Reading', notes: 'Your notes', study: 'Study', listen: 'Audio' }[id]}</h2>
         <div className="actions">
           <button type="button" data-handle={id} onKeyDown={(event) => onCardKey(event, id)}>Move</button>
           <button type="button" onClick={() => void persistLayout(togglePin(layout, id))}>{layout.pinned.includes(id) ? 'Unpin' : 'Pin'}</button>
@@ -233,18 +246,19 @@ export function App() {
           }} />
         </label>
       ) : (
-        <p>{id === 'source' ? 'No source is open yet.' : 'Nothing here yet. This screen stays empty until you add your own material.'}</p>
+        <p>{id === 'source' ? 'Reading is selected for this course. Import and reading tools arrive in later phases.' : 'Selected for this course. This tool is not available in the current build.'}</p>
       )}
     </article>
-  )), [layout, draft, courseId, move, draftCourseId]);
+  )), [layout, draft, courseId, move, draftCourseId, modules, modulesCourseId]);
 
   return (
     <>
       <a className="skip" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus(); }}>Skip to main content</a>
-      <div className="preview-strip">CollegeNotes local workspace · no cloud account</div>
+      <div className="preview-strip"><span className="status-dot" aria-hidden="true" /> Your private learning workspace <span>Stored on this Mac</span></div>
       <div className="app-shell">
         <aside id="navigation" className={menuOpen ? 'open' : undefined} aria-label="Main navigation" onKeyDown={(event) => { if (event.key === 'Escape') { setMenuOpen(false); document.getElementById('menu')?.focus(); } }}>
-          <div className="brand">CollegeNotes<small>{'{11:11}'}</small></div>
+          <div className="brand"><span className="brand-symbol" aria-hidden="true">cn.</span>CollegeNotes<small>A little structure. More room to learn.</small></div>
+          <p className="nav-caption">Workspace</p>
           {NAV_DESTINATIONS.map((id) => (
             <a
               key={id}
@@ -252,50 +266,41 @@ export function App() {
               aria-current={screen === id || (id === 'home' && screen === 'firstuse') ? 'page' : undefined}
               onClick={(event) => { event.preventDefault(); goNav(id); }}
             >
-              {NAV_LABEL[id]}
+              <span>{NAV_LABEL[id]}</span><span className="nav-arrow" aria-hidden="true">↗</span>
             </a>
           ))}
         </aside>
         <div className="content">
           <div className="topbar">
             <button id="menu" type="button" aria-expanded={menuOpen} aria-controls="navigation" onClick={() => setMenuOpen((value) => !value)}>Menu</button>
-            <span>{appearance.theme} · {appearance.mode}</span>
+            <span className="breadcrumb">Workspace <span aria-hidden="true">/</span> {course?.name ?? NAV_LABEL[screen] ?? 'New course'}</span><a className="appearance-link" href="#/settings">{appearance.theme === 'botanical' ? 'Botanical' : 'Brutalist'} · {appearance.mode === 'dark' ? 'Dark' : 'Light'}</a>
           </div>
           {!online && initialized ? <p className="notice" role="status">Local service unavailable. Reopen or reload after starting it. Unsaved writing stays in this window.</p> : null}
           {notice ? <p className="notice" role="status">{notice}</p> : null}
           <main id="main" tabIndex={-1} data-recovered={recovered ? 'true' : 'false'}>
             {!initialized ? <p role="status">Loading your local workspace…</p> : null}
             {initialized && (screen === 'firstuse' || (empty && screen === 'home')) ? (
-              <section>
-                <p className="eyebrow">Start here</p>
-                <h1>Add your first course</h1>
+              <section className="welcome-panel glass">
+                <p className="eyebrow">A fresh page</p>
+                <h1>{empty ? 'Make room for your next idea.' : 'Start a new course.'}</h1>
                 <p>Only a name is required. Courses start empty. You choose what to add.</p>
                 <form className="form-stack" onSubmit={(event) => void addCourse(event)}>
                   <label>
                     Course name
-                    <input value={courseName} onChange={(event) => setCourseName(event.target.value)} required />
+                    <input value={courseName} maxLength={200} placeholder="What are you learning?" onChange={(event) => setCourseName(event.target.value)} required disabled={creatingCourse} />
                   </label>
-                  <button type="submit" disabled={creatingCourse}>{creatingCourse ? 'Saving course…' : 'Create course'}</button>
+                  <label>Description <span className="optional">Optional</span><textarea rows={3} maxLength={10000} value={courseDescription} disabled={creatingCourse} onChange={event=>setCourseDescription(event.target.value)} placeholder="A short description, in your own words." /></label>
+                  <button className="primary" type="submit" disabled={creatingCourse || !courseName.trim()}>{creatingCourse ? 'Saving course…' : 'Create course'}</button>
                 </form>
               </section>
             ) : null}
             {screen === 'home' && course ? (
-              <section>
-                <p className="eyebrow">{course.name}</p>
-                <h1>Continue where you stopped.</h1>
-                <p>Resume is ready when you have a saved task. No generated course facts.</p>
-                <div className="actions">
-                  <a className="button" href={`#/courses/${course.id}/sources`}>Open sources</a>
-                </div>
+              <section className="course-home glass">
+                <div className="page-heading"><div><p className="eyebrow">Your course · {course.id.slice(-8)}</p><h1>{course.name}</h1><p>{course.description || 'Your space to collect ideas and make sense of what you learn.'}</p></div><a className="button" href="#/courses">Manage course</a></div>
+                <div className="course-home-footer"><span className="badge">Local workspace</span><span>{modules === null ? 'Loading module selections…' : enabledModules.length ? COURSE_MODULES.filter(m=>enabledModules.includes(m.id)).map(m=>m.label).join(' · ') : 'No modules selected yet'}</span><span>No account required</span></div>
               </section>
             ) : null}
-            {screen === 'courses' ? (
-              <section><h1>Your courses</h1><p>{courses.length ? 'Open a course to continue your local work.' : 'No courses yet. Create an empty course to get started.'}</p>
-                <a className="button" href="#/courses/new">Create course</a>
-                <ul>{courses.map((item) => <li key={item.id}><a href={`#/courses/${item.id}`}>{item.name}</a></li>)}</ul>
-                <p>Course editing, archive, export and deletion are not available in this build yet.</p>
-              </section>
-            ) : null}
+            {initialized ? <div hidden={screen !== 'courses' && !(screen === 'home' && !course && !empty)}><CourseManager active={screen === 'courses' || (screen === 'home' && !course && !empty)} onCollection={setCourses} /></div> : null}
             {screen === 'connections' ? (
               <section><h1>Connections</h1><p>{connectionCount === null ? 'Loading local connection information…' : connectionCount === 0 ? 'No services connected. Your local courses work without an AI account.' : `${connectionCount} saved connection configurations. Live authentication is not available in this build.`}</p>
                 <p>OpenAI is optional. Adding, toggling, disconnecting and removing services will be available with provider connections.</p>
@@ -315,13 +320,13 @@ export function App() {
             {screen === 'sources' ? (
               <section>
                 <h1>Sources</h1>
-                <p>No sources yet. Import arrives in a later phase. Your empty list is honest.</p>
+                <p>Material import and source management arrive in Phase 6. Your course notes are available from Home when Notes is enabled.</p>
               </section>
             ) : null}
             {['study', 'practice', 'requirements', 'progress'].includes(screen) ? (
               <section>
                 <h1>{NAV_LABEL[screen]}</h1>
-                <p>Nothing recorded yet. Unknown course facts stay unknown.</p>
+                <p>This tool is planned for a later phase. Manage your course to select the modules you want to use.</p>
               </section>
             ) : null}
             {screen === 'settings' ? (
@@ -360,12 +365,13 @@ export function App() {
             ) : null}
             {course && (screen === 'home' || screen === 'study') ? (
               <section>
-                <h2>Workspace cards</h2>
-                <p>{move ? `Moving ${move.card}. Arrows move, Enter places, Escape cancels.` : 'Enter on Move starts keyboard arrange.'}</p>
+                <h2>Your workspace</h2>
+                {!enabledModules.length && <div className="empty-panel glass"><h3>Choose how you want to work.</h3><p>Enable Notes to begin writing locally, or select other modules for later. Saved work stays with the course when you turn a module off.</p><a className="button primary" href="#/courses">Choose course modules</a></div>}
+                {cards.length > 0 && <p className="help-text">{move ? `Moving ${move.card}. Arrows move, Enter places, Escape cancels.` : 'Arrange your workspace: focus Move and press Enter, then use the arrow keys.'}</p>}
                 <div className="actions">
                   <button type="button" onClick={() => { setMove(null); void persistLayout({ order: [...DEFAULT_CARD_LAYOUT.order], pinned: layout.pinned }); }}>Reset layout</button>
                 </div>
-                <div className="card-row" data-count="4">{cards}</div>
+                <div className="card-row" data-count={cards.length}>{cards}</div>
               </section>
             ) : null}
           </main>

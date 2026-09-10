@@ -1,0 +1,27 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+const baseline = '83e43d96c06788ff7f03fa0d91a7e3bd69c3497d';
+const read = (f) => fs.readFileSync(f, 'utf8');
+const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
+const checks = [];
+function check(id, test) { let passed = false; try { passed = Boolean(test()); } catch { /* audit failure */ } checks.push({id, passed}); }
+check('official_scope_dependencies_and_schema_unchanged', () => ['PROJECT-PLAN.md','docs/plans/PHASE-0-4-REVISION-IMPACT.md','package-lock.json','packages/storage/src/migrations.ts'].every(f => read(f) === execFileSync('git',['show',`${baseline}:${f}`],{encoding:'utf8'})));
+check('historical_phase5_projection_preserved', () => read('docs/phases/phase-05-historical.json') === execFileSync('git',['show',`${baseline}:docs/phases/phase-05.json`],{encoding:'utf8'}));
+const state = JSON.parse(read('project-state/current.json'));
+check('actual_authorization_and_future_boundary', () => state.authorization_ref === 'AUTH-P5' && state.authorized_phases_this_pass.join(',') === '5' && !state.next_phase_authorized && Object.entries(state.steps).filter(([id]) => Number(id.split('.')[0]) > 5).every(([,status]) => status === 'not_started'));
+const files = execFileSync('git',['ls-files','--cached','--others','--exclude-standard','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);
+check('private_artifacts_excluded', () => files.every(f => !f.startsWith('.local/') && !f.startsWith('Design/assets/') && !/\.(sqlite|db|pem|key)$/.test(f) && !f.startsWith('.github/')));
+check('no_embedded_real_course', () => files.filter(f => /^(apps|packages)\/.*\/src\/.*\.(ts|tsx)$/.test(f)).every(f => !/COMM\s*110|\bPQP\b/.test(read(f))));
+const report = JSON.parse(read('.local/verification/phase5/5.4/report.json'));
+check('all_nine_engineering_gates_passed', () => report.results.length === 9 && report.results.every(r => r.passed && r.exit === 0) && report.sourceUnchanged);
+check('tested_implementation_identity', () => Object.entries(report.sourceHashes).filter(([f]) => /^(apps|packages|tests|scripts)\//.test(f)).every(([f,h]) => sha(fs.readFileSync(f)) === h));
+const tests = read('tests/integration/courses.test.ts') + read('tests/integration/course-transfer.test.ts');
+check('required_engineering_case_ids_present', () => ['5.1-01','5.1-02','5.1-03','5.1-04','5.2-01','5.2-02','5.2-03','5.2-04','5.3-01','5.3-02','5.3-03','5.3-04','5.3-05','5.4-03','5.4-04'].every(id => tests.includes(`CHK-${id}`)));
+check('CHK-5.4-01_lifecycle_source_wiring', () => ['api.courses.edit','api.courses.archive','api.courses.restore','api.courses.export','api.courses.delete','backupsAcknowledged','deletion_incomplete_retry'].every(s => (read('apps/web/src/CourseManager.tsx')+read('apps/web/src/client.ts')).includes(s)));
+check('CHK-5.4-02_module_availability_source_wiring', () => ['Planned · selection saved for later','m.available','setModule'].every(s => read('apps/web/src/CourseManager.tsx').includes(s)) && read('apps/web/src/App.tsx').includes('enabledModules.includes(cardModules[id])'));
+const result = { baseline, time:new Date().toISOString(), checks, boundaries:'Source inspection and engineering evidence audit only. This does not render, interact with, or test UI/UX and cannot establish owner visual acceptance.' };
+fs.mkdirSync('.local/verification/phase5',{recursive:true});
+if (fs.existsSync('.local/verification/phase5/audit.json')) fs.renameSync('.local/verification/phase5/audit.json', `.local/verification/phase5/audit-previous-${Date.now()}.json`);
+fs.writeFileSync('.local/verification/phase5/audit.json',JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify(result,null,2)); if(checks.some(c=>!c.passed))process.exit(1);

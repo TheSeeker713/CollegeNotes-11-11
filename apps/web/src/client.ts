@@ -1,12 +1,15 @@
 import type { Connection, ProviderDefinition } from '@collegenotes/providers/contracts';
-import type { Appearance, CardLayout, Course, Draft, Job, SessionState } from '@collegenotes/domain';
+import type { Appearance, CardLayout, Course, ModuleSelection, CourseModuleId, Draft, Job, SessionState } from '@collegenotes/domain';
 
 const BASE = 'http://127.0.0.1:4781';
 const headers = { 'content-type': 'application/json', 'x-cn-client': 'collegenotes-web' };
 
 async function send<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, { ...init, headers: { ...headers, ...(init?.headers ?? {}) } });
-  if (!res.ok) throw new Error(`http_${res.status}`);
+  if (!res.ok) {
+    const error = await res.json().catch(() => null) as { error?: string } | null;
+    throw new Error(error?.error ?? `http_${res.status}`);
+  }
   return res.json() as Promise<T>;
 }
 
@@ -26,7 +29,15 @@ export const api = {
   },
   courses: {
     list: () => req<Course[]>('/courses'),
-    create: (name: string) => req<Course>('/courses', { method: 'POST', body: JSON.stringify({ name }) })
+    collection: () => req<Course[]>('/course-collection'),
+    create: (name: string, description = '') => req<Course>('/courses', { method: 'POST', body: JSON.stringify({ name, description }) }),
+    edit: (id: string, name: string, description: string) => req<Course>(`/courses/${id}`, { method: 'PUT', body: JSON.stringify({ name, description }) }),
+    archive: (id: string) => req<Course>(`/courses/${id}/archive`, { method: 'POST' }),
+    restore: (id: string) => req<Course>(`/courses/${id}/restore`, { method: 'POST' }),
+    export: async (id: string) => { await writes; return req<unknown>(`/courses/${id}/export`); },
+    delete: (id: string, confirmation: string, backupsAcknowledged: boolean) => req<{ deleted: true }>(`/courses/${id}`, { method: 'DELETE', body: JSON.stringify({ confirmation, backupsAcknowledged }) }),
+    modules: (id: string) => req<ModuleSelection[]>(`/courses/${id}/modules`),
+    setModule: (id: string, moduleId: CourseModuleId, enabled: boolean) => req<ModuleSelection[]>(`/courses/${id}/modules/${moduleId}`, { method: 'PUT', body: JSON.stringify({ enabled }) })
   },
   appearance: {
     get: () => req<Appearance>('/appearance'),

@@ -3,6 +3,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import { courseModules, setCourseModule, openStore, createCourse, courseCollection, editCourse, archiveCourse, setDraft, getDraft, storeOriginal, readOriginal, setLayout, getLayout, listCourses } from '@collegenotes/storage';
+import { DEFAULT_APPEARANCE } from '@collegenotes/domain';
+import { getAppearance, setAppearance } from '@collegenotes/storage';
 import { createService } from '../../apps/local-service/src/index.js';
 const dirs: string[] = [];
 function fixture() { const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cn-course-')); dirs.push(dir); return openStore(dir); }
@@ -69,4 +71,34 @@ describe('Phase 5.2 course modules', () => {
     expect(s.db.prepare('select count(*) as n from connections').get()).toEqual({n:0});
     expect(s.db.prepare('select count(*) as n from capability_assignments').get()).toEqual({n:0}); s.db.close();
   });
+});
+
+it('CHK-5.4-03 course switching and appearance changes preserve isolated notes/layouts through restart', () => {
+  let s = fixture(); const dir = s.dataDir; const a = createCourse(s,'A'); const b = createCourse(s,'B');
+  setDraft(s,{key:`note:${a.id}`,courseId:a.id,body:'A words'}); setDraft(s,{key:`note:${b.id}`,courseId:b.id,body:'B words'});
+  setLayout(s,a.id,{order:['notes','source','study','listen'],pinned:['notes']});
+  setLayout(s,b.id,{order:['listen','study','source','notes'],pinned:['listen']});
+  for (const theme of ['botanical','brutalist'] as const) for (const mode of ['light','dark'] as const) {
+    setAppearance(s,{...DEFAULT_APPEARANCE,theme,mode});
+    expect(getDraft(s,`note:${a.id}`)?.body).toBe('A words'); expect(getDraft(s,`note:${b.id}`)?.body).toBe('B words');
+    expect(getLayout(s,a.id).pinned).toEqual(['notes']); expect(getLayout(s,b.id).pinned).toEqual(['listen']);
+  }
+  s.db.close(); s=openStore(dir); expect(getAppearance(s).theme).toBe('brutalist'); expect(getAppearance(s).mode).toBe('dark');
+  expect(getDraft(s,`note:${a.id}`)?.body).toBe('A words'); expect(getLayout(s,b.id).pinned).toEqual(['listen']); s.db.close();
+});
+it('CHK-5.4-04 integrated course lifecycle through loopback service preserves independent course', async () => {
+  const s=fixture(); const app=createService(s);
+  const a=(await app.inject({method:'POST',url:'/courses',payload:{name:'Lifecycle',description:'Start'}})).json();
+  const b=(await app.inject({method:'POST',url:'/courses',payload:{name:'Keep'}})).json();
+  expect((await app.inject({method:'PUT',url:`/courses/${a.id}`,payload:{name:'Renamed',description:'Edited'}})).statusCode).toBe(200);
+  expect((await app.inject({method:'PUT',url:`/courses/${a.id}/modules/notes`,payload:{enabled:true}})).statusCode).toBe(200);
+  expect((await app.inject({method:'PUT',url:'/drafts',payload:{key:`note:${a.id}`,courseId:a.id,body:'Saved writing'}})).statusCode).toBe(200);
+  expect((await app.inject({method:'POST',url:`/courses/${a.id}/archive`})).statusCode).toBe(200);
+  expect((await app.inject({method:'GET',url:'/courses'})).json().map((c:{id:string})=>c.id)).toEqual([b.id]);
+  expect((await app.inject({method:'POST',url:`/courses/${a.id}/restore`})).statusCode).toBe(200);
+  const bundle=(await app.inject({method:'GET',url:`/courses/${a.id}/export`})).json(); expect(bundle.data.records.drafts[0].body).toBe('Saved writing');
+  expect((await app.inject({method:'DELETE',url:`/courses/${a.id}`,payload:{confirmation:'Renamed',backupsAcknowledged:true}})).statusCode).toBe(200);
+  expect((await app.inject({method:'GET',url:`/drafts/${encodeURIComponent(`note:${a.id}`)}`})).json()).toBeNull();
+  expect((await app.inject({method:'GET',url:'/courses'})).json()[0].id).toBe(b.id);
+  await app.close();s.db.close();
 });

@@ -76,6 +76,7 @@ export function setSession(store: Store, session: SessionState): SessionState {
 
 export function getDraft(store: Store, key: string): Draft | null {
   const row = store.db.prepare('select key, course_id as courseId, body, updated_at as updatedAt from drafts where key = ?').get(key) as Draft | undefined;
+  if (row?.courseId && !store.db.prepare('select id from courses where id=? and trashed_at is null').get(row.courseId)) return null;
   return row ?? null;
 }
 

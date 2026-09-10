@@ -1,5 +1,6 @@
 import { createId, type Job } from '@collegenotes/domain';
 import {
+  requireCourse,
   checksum,
   findJobByFingerprint,
   getJob,
@@ -14,6 +15,7 @@ export function fingerprintFor(courseId: string, digest: string): string {
 }
 
 export function ingestBuffer(store: Store, courseId: string, filename: string, buffer: Buffer): Job {
+  requireCourse(store, courseId, true);
   const digest = checksum(buffer);
   const fingerprint = fingerprintFor(courseId, digest);
   const existing = findJobByFingerprint(store, fingerprint);
@@ -52,6 +54,7 @@ export function cancelJob(store: Store, id: string): Job {
 export function retryJob(store: Store, id: string, load: () => Buffer, filename: string): Job {
   const job = getJob(store, id);
   if (!job) throw Object.assign(new Error('not_found'), { code: 'not_found' });
+  requireCourse(store, job.courseId, true);
   if (job.status === 'completed') return job;
   const running: Job = { ...job, status: 'running', error: null, progress: 0 };
   updateJob(store, running);
