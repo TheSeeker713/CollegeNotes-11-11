@@ -125,7 +125,8 @@
     {
       "id": "OWNER-P5-UI-REVIEW",
       "step": "5.4",
-      "reason": "Engineering is complete. Visual fidelity, UI/UX and accessibility acceptance require owner manual testing; no acceptance is inferred from Phase 5 authorization."
+      "reason": "Engineering is complete. Visual fidelity, UI/UX and accessibility acceptance require owner manual testing; no acceptance is inferred from Phase 5 authorization.",
+      "resolution": "Owner follows the saved manual guide and reports acceptance or defects; repair defects within Phase 5. Phase 6 requires separate authorization."
     }
   ],
   "historical_checkpoints": {

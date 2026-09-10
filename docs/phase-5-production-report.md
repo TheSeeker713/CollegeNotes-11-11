@@ -106,6 +106,8 @@ The 16 new integration cases cover empty initialization, edits, duplicate identi
 
 Evidence is retained locally under `.local/verification/phase5/`. `verify-phase5.mjs` captures command output, case counts and tested source hashes. `audit-phase5.mjs` independently compares official scope, migration history, lockfile, historical projection, future-phase state, private-file exclusions, tested implementation identity and required engineering case IDs. Initial lint failures were corrected and their logs retained. The audit's initial binary-file hash comparison incorrectly decoded binary fixtures; it was corrected to hash raw bytes, its failed output retained, and the audit rerun successfully.
 
+A documentation-only closeout initially omitted the blocker schema's required resolution field. Planning validation caught it; the failed report was retained, the state record corrected, and planning validation rerun before the corrective closeout checkpoint. The tested application was unchanged.
+
 No Playwright, browser, screenshot, rendered-design, accessibility or usability tests were run by an agent. Required owner checks are documented rather than silently passed or skipped inside the engineering suite.
 
 ## Ordered checkpoints
