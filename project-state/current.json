@@ -1,8 +1,8 @@
 {
   "phase": 5,
-  "phase_status": "active",
+  "phase_status": "awaiting_user_review",
   "step": "5.4",
-  "step_status": "checkpoint_pending",
+  "step_status": "complete",
   "pass_id": "PASS-2026-09-10-P5",
   "authorization_ref": "AUTH-P5",
   "authorized_phases_this_pass": [
@@ -34,7 +34,7 @@
     "5.1": "complete",
     "5.2": "complete",
     "5.3": "complete",
-    "5.4": "checkpoint_pending",
+    "5.4": "complete",
     "6.1": "not_started",
     "6.2": "not_started",
     "6.3": "not_started",
@@ -95,18 +95,19 @@
     "4.4": "2997861407d6a6e8a4b455e99f141ebd0be1027f",
     "5.1": "1baf631f967dcadc7a0b9d664bf6b731ab84e4d4",
     "5.2": "b0ecb619604a6ac9f134359cc4c7b951e530d7f8",
-    "5.3": "fdde803093aa972e9c341f50a31a625418aa16cf"
+    "5.3": "fdde803093aa972e9c341f50a31a625418aa16cf",
+    "5.4": "dd800cd004945d9359534f8dffc095aaf00677f7"
   },
-  "next_action": "Push and confirm Phase 5.4 engineering checkpoint, then deliver owner-only manual review. Phase 6 is not authorized.",
+  "next_action": "Owner tests the Phase 5 candidate with docs/phase-5-manual-tests.md. Repair reported Phase 5 defects; do not start Phase 6 without a separate owner instruction.",
   "schema_version": 1,
-  "pass_closed": false,
+  "pass_closed": true,
   "phase_completion": {
     "0": "complete",
     "1": "complete",
     "2": "complete",
     "3": "complete",
     "4": "in_progress",
-    "5": "in_progress"
+    "5": "complete"
   },
   "manual_acceptances": [
     {
@@ -120,7 +121,13 @@
       "candidate_commit": "e406973f9a2e08514014d90ae022a0c1155c03e7"
     }
   ],
-  "blockers": [],
+  "blockers": [
+    {
+      "id": "OWNER-P5-UI-REVIEW",
+      "step": "5.4",
+      "reason": "Engineering is complete. Visual fidelity, UI/UX and accessibility acceptance require owner manual testing; no acceptance is inferred from Phase 5 authorization."
+    }
+  ],
   "historical_checkpoints": {
     "0.1": "9aac47b1c215309edf03966cfaac238ed45aadb9",
     "0.2": "bb1bb5a23f593d88959b171523a8343abd02e56a",
@@ -222,5 +229,14 @@
       "quote": "Is the GUI intended to look this bad at this phase?",
       "status": "unresolved owner visual acceptance; source improvements in Phase 5; no agent UI tests"
     }
-  ]
+  ],
+  "phase5_delivery": {
+    "implementation_candidate": "dd800cd004945d9359534f8dffc095aaf00677f7",
+    "implementation_status": "engineering_complete",
+    "manual_acceptance": "pending_owner_only",
+    "production_report": "docs/phase-5-production-report.md",
+    "manual_guide": "docs/phase-5-manual-tests.md",
+    "tested_implementation_files": 112,
+    "verified_remote_sha": "dd800cd004945d9359534f8dffc095aaf00677f7"
+  }
 }
