@@ -1,9 +1,9 @@
 # Phase 3 report — CollegeNotes{11:11}
 
-**Pass:** `PASS-2026-09-09-P3`  
-**Authorization:** AUTH-P3 — owner: “implement phase 3. stop at phase 3 completion, and write a full report saved as a .md file in Docs folder.”  
-**Phase 2 candidate accepted:** `6eef455680d40a44c23025d6f0b1a246f0f1696f` (ACCEPT-P2)  
-**Phase 4:** not authorized. This report ends the Phase 3 pass.
+- **Pass:** `PASS-2026-09-09-P3`
+- **Authorization:** AUTH-P3 — owner: “implement phase 3. stop at phase 3 completion, and write a full report saved as a .md file in Docs folder.”
+- **Phase 2 candidate accepted:** `6eef455680d40a44c23025d6f0b1a246f0f1696f` (ACCEPT-P2)
+- **Phase 4:** not authorized. This report ends the Phase 3 pass.
 
 ## What Phase 3 is
 
@@ -16,7 +16,7 @@ Phase 3 installs the **pinned local toolchain** and proves the empty product can
 | 3.1 | Install and lock application dependencies | `db8949819b6f1470a291036e7a67461400c62e4e` |
 | 3.2 | Configure local test tooling | `057ed16d594bbbf3eade5e2b3d5a26e1f6e72304` |
 | 3.3 | Document and provider adapter dependencies | `93a38a7e736ff3ff6116b5b9c4a98aa0073871e2` |
-| 3.4 | Reproducible local startup and dependency audit | *(bound in the 3.4 closeout commit)* |
+| 3.4 | Reproducible local startup and dependency audit | `e406973f9a2e08514014d90ae022a0c1155c03e7` |
 
 Pinned runtime used for all product commands: **Node v24.21.0** and **npm 12.0.2**, isolated at `.local/runtime/node/` (gitignored). System Node 26 is not used.
 

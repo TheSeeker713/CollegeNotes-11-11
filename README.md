@@ -1,6 +1,6 @@
 # CollegeNotes{11:11}
 
-Local, browser-first college learning application. Phases 0–2 are complete. Phase 3 (pinned toolchain, tests, parsers, local startup) is the active authorized phase. Do not begin Phase 4.
+Local, browser-first college learning application. Phases 0–3 are complete. Do not begin Phase 4 until explicitly authorized. Phase 3 report: [docs/phase-3-report.md](docs/phase-3-report.md).
 
 The execution plan has phases 0–14. Read [current state](project-state/current.json), [actual approvals](project-state/approvals.json), and [course-input clarification](docs/product/input-policy.md).
 
