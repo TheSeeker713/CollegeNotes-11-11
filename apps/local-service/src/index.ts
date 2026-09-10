@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import { parseAppearance, parseCardLayout, type SessionState } from '@collegenotes/domain';
 import {
   createCourse,
+  exportCourse, deleteCourse,
   courseModules, setCourseModule,
   courseCollection, courseInput, editCourse, archiveCourse, requireCourse, CourseError,
   defaultDataDir,
@@ -88,6 +89,12 @@ export function createService(store?: Store) {
     const params = request.params as { id: string; moduleId: string };
     return setCourseModule(opened, params.id, params.moduleId, (request.body as { enabled?: unknown } | null)?.enabled);
   });
+  app.get('/courses/:id/export', async (request, reply) => {
+    const id = (request.params as { id: string }).id;
+    const result = exportCourse(opened, id);
+    return reply.header('content-disposition', `attachment; filename="course-${result.data.course.id}.json"`).send(result);
+  });
+  app.delete('/courses/:id', async (request) => deleteCourse(opened, (request.params as { id: string }).id, request.body));
   app.get('/course-collection', async () => courseCollection(opened));
   app.post('/courses', async (request) => {
     const input = courseInput(request.body);

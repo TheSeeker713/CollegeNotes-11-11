@@ -26,3 +26,4 @@ export {
 } from './repos.js';
 export * from './foundation.js';
 export * from './courses.js';
+export * from './course-transfer.js';
