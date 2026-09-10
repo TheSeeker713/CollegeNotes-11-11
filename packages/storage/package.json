@@ -5,10 +5,14 @@
   "type": "module",
   "description": "Authoritative SQLite migrations and file metadata, transaction boundaries, backups and restoration. Private application data stays outside the checkout.",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
   },
   "dependencies": {
     "@collegenotes/domain": "0.0.0",
-    "better-sqlite3": "13.0.3"
+    "better-sqlite3": "13.0.3",
+    "@collegenotes/providers": "0.0.0"
   }
 }

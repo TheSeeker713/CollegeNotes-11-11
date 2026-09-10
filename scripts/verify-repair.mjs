@@ -6,12 +6,13 @@ import { runtimeBin, runtimeNpm } from './runtime.mjs';
 const phase = process.argv[2];
 if (!['3', '4'].includes(phase)) throw new Error('Expected repair phase 3 or 4');
 const out = `.local/verification/repair/phase-${phase}`;
+if (fs.existsSync(out)) fs.renameSync(out, `${out}-previous-${Date.now()}`);
 fs.mkdirSync(out, { recursive: true });
 const files = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { encoding: 'utf8' }).split('\0').filter((f) => f && fs.existsSync(f));
 const sha = (text) => crypto.createHash('sha256').update(text).digest('hex');
 const fingerprint = () => Object.fromEntries(files.map((f) => [f, sha(fs.readFileSync(f))]));
 const before = fingerprint();
-const scripts = ['check:types', 'check:lint', 'test:unit', 'test:integration', 'test:evals', 'build', 'verify:planning', 'test:workflow', 'verify:step'];
+const scripts = ['check:types', 'check:lint', 'build', 'test:unit', 'test:integration', 'test:evals', 'verify:planning', 'test:workflow', 'verify:step'];
 const results = scripts.map((script) => {
   const run = spawnSync(runtimeNpm, ['run', script], { env: { ...process.env, PATH: `${runtimeBin}${path.delimiter}${process.env.PATH ?? ''}` }, encoding: 'utf8' });
   const output = (run.stdout ?? '') + (run.stderr ?? '');

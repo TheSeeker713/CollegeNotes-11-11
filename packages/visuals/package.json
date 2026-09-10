@@ -5,7 +5,10 @@
   "type": "module",
   "description": "Subject-correct diagrams and selected R3F components. Each has instructional purpose, serialized state, keyboard controls and a non-graphics equivalent.",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
   },
   "dependencies": {
     "@react-three/fiber": "9.7.0",

@@ -18,6 +18,7 @@ export default defineConfig({
   test: {
     projects: [
       {
+        resolve: { alias },
         test: {
           name: 'unit',
           include: ['tests/unit/**/*.test.ts'],
@@ -25,6 +26,7 @@ export default defineConfig({
         }
       },
       {
+        resolve: { alias },
         test: {
           name: 'integration',
           include: ['tests/integration/**/*.test.ts'],
@@ -32,6 +34,7 @@ export default defineConfig({
         }
       },
       {
+        resolve: { alias },
         test: {
           name: 'evals',
           include: ['tests/evals/**/*.eval.ts'],

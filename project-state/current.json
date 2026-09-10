@@ -1,8 +1,8 @@
 {
   "phase": 4,
-  "phase_status": "awaiting_approval",
+  "phase_status": "repairing",
   "step": "4.1",
-  "step_status": "blocked",
+  "step_status": "in_progress",
   "pass_id": "PASS-2026-09-10-REPAIR-0-4",
   "authorization_ref": "AUTH-REPAIR-0-4",
   "authorized_phases_this_pass": [
@@ -31,7 +31,7 @@
     "3.2": "complete",
     "3.3": "complete",
     "3.4": "complete",
-    "4.1": "blocked",
+    "4.1": "in_progress",
     "4.2": "complete",
     "4.3": "complete",
     "4.4": "complete",
@@ -98,7 +98,7 @@
     "4.3": "4e2b407877fafa22dc017794a81d38257894126a",
     "4.4": "2997861407d6a6e8a4b455e99f141ebd0be1027f"
   },
-  "next_action": "Repair Phase 3 provider/auth boundaries and non-UI harnesses. No dependency change.",
+  "next_action": "Implement and verify Phase 4 foundations; owner UI/UX review and Phase 5 green light remain pending.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -139,14 +139,15 @@
       "0": "complete",
       "1": "complete",
       "2": "implementation_ready_owner_review_pending",
-      "3": "in_progress",
-      "4": "not_started"
+      "3": "complete",
+      "4": "in_progress"
     },
     "manual_review": "pending_owner",
     "checkpoints": {
       "0": "ed1cdc5df68160622bd63c5421b6b958db3f9ed1",
       "1": "06f9116e9fe5aecf63b912e2d3aff0b8940830c2",
-      "2": "5587f6e35a3662ef236aec2b88d3ef9026407d49"
+      "2": "5587f6e35a3662ef236aec2b88d3ef9026407d49",
+      "3": "1b6cc7c7c9978ce1fc98653b420f50c0d204a8e1"
     }
   }
 }

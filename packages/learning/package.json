@@ -5,7 +5,10 @@
   "type": "module",
   "description": "Source-grounded activity schemas, attempts, review scheduling and learning evaluation. Respect course-specific restrictions.",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
   },
   "dependencies": {
     "@collegenotes/domain": "0.0.0"

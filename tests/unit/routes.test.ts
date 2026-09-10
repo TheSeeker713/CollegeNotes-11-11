@@ -19,3 +19,11 @@ describe('routes', () => {
     expect(hashFor({ name: 'study', courseId: 'c1' })).toBe('#/courses/c1/study');
   });
 });
+
+describe('foundation route contracts', () => {
+  it('round-trips global foundation routes without inventing a course', () => {
+    for (const name of ['courses', 'connections', 'research'] as const) {
+      expect(parseHash(hashFor({ name }), []).route).toEqual({ name });
+    }
+  });
+});

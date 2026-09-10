@@ -9,6 +9,10 @@ import {
   getLayout,
   getSession,
   listCourses,
+  listConnections,
+  listMaterials,
+  listResearchSessions,
+  recoverSession,
   openStore,
   probeSqlite,
   resolveInside,
@@ -19,7 +23,7 @@ import {
   setSession,
   type Store
 } from '@collegenotes/storage';
-import { describeUnavailable } from '@collegenotes/providers';
+import { describeUnavailable, PROVIDERS, connectionSummary } from '@collegenotes/providers';
 import { cancelJob, ingestBuffer, retryJob } from './jobs.js';
 
 export const DEFAULT_PORT = 4781;
@@ -32,12 +36,18 @@ export function createService(store?: Store) {
 
   app.addHook('onRequest', async (request, reply) => {
     const origin = request.headers.origin;
-    if (origin && !ALLOWED.has(origin)) {
-      await reply.code(403).send({ error: 'origin_rejected', origin });
-    }
     const host = request.headers.host ?? '';
-    if (host && !host.startsWith('127.0.0.1') && !host.startsWith('localhost')) {
-      await reply.code(403).send({ error: 'host_rejected', host });
+    if (origin && !ALLOWED.has(origin)) return reply.code(403).send({ error: 'origin_rejected' });
+    if (!/^(127\.0\.0\.1|localhost)(:[0-9]+)?$/.test(host)) return reply.code(403).send({ error: 'host_rejected' });
+    if (origin) {
+      reply.header('access-control-allow-origin', origin).header('vary', 'Origin');
+      if (request.method === 'OPTIONS') {
+        const method = request.headers['access-control-request-method'];
+        if (typeof method !== 'string' || !['GET', 'POST', 'PUT', 'DELETE'].includes(method)) return reply.code(403).send({ error: 'method_rejected' });
+        return reply.header('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS')
+          .header('access-control-allow-headers', 'content-type, x-cn-client').code(204).send();
+      }
+      if (!['GET', 'HEAD'].includes(request.method) && request.headers['x-cn-client'] !== 'collegenotes-web') return reply.code(403).send({ error: 'client_required' });
     }
   });
 
@@ -62,6 +72,9 @@ export function createService(store?: Store) {
     return { ok: false, message: describeUnavailable(kind) };
   });
 
+  app.get('/connections', async () => ({ availableProviders: PROVIDERS, connections: listConnections(opened).map(connectionSummary), liveAuthenticationAvailable: false }));
+  app.get('/courses/:id/materials', async (request) => listMaterials(opened, (request.params as { id: string }).id).map(({ storedRelPath: _privatePath, ...material }) => material));
+  app.get('/courses/:id/research', async (request) => listResearchSessions(opened, (request.params as { id: string }).id));
   app.get('/courses', async () => listCourses(opened));
   app.post('/courses', async (request, reply) => {
     const name = (request.body as { name?: unknown } | undefined)?.name;
@@ -76,17 +89,23 @@ export function createService(store?: Store) {
   app.put('/courses/:id/layout', async (request) => setLayout(opened, (request.params as { id: string }).id, parseCardLayout(request.body)));
 
   app.get('/session', async () => getSession(opened));
-  app.put('/session', async (request) => setSession(opened, request.body as SessionState));
+  app.put('/session', async (request, reply) => {
+    const body = request.body as Partial<SessionState> | null;
+    if (!body || typeof body.routeHash !== 'string') return reply.code(400).send({ error: 'invalid_session' });
+    return setSession(opened, recoverSession(opened, body));
+  });
 
   app.get('/drafts/:key', async (request) => getDraft(opened, (request.params as { key: string }).key));
   app.put('/drafts', async (request, reply) => {
-    const body = request.body as { key?: unknown; courseId?: unknown; body?: unknown };
+    const body = (request.body ?? {}) as { key?: unknown; courseId?: unknown; body?: unknown };
     if (typeof body.key !== 'string' || typeof body.body !== 'string') return reply.code(400).send({ error: 'invalid_draft' });
-    return setDraft(opened, { key: body.key, courseId: typeof body.courseId === 'string' ? body.courseId : null, body: body.body });
+    if (typeof body.courseId === 'string' && !listCourses(opened).some((course) => course.id === body.courseId)) return reply.code(404).send({ error: 'course_unavailable' });
+    try { return setDraft(opened, { key: body.key, courseId: typeof body.courseId === 'string' ? body.courseId : null, body: body.body }); }
+    catch { return reply.code(409).send({ error: 'draft_course_mismatch' }); }
   });
 
   app.post('/jobs', async (request, reply) => {
-    const body = request.body as { courseId?: unknown; filename?: unknown; contentBase64?: unknown };
+    const body = (request.body ?? {}) as { courseId?: unknown; filename?: unknown; contentBase64?: unknown };
     if (typeof body.courseId !== 'string' || typeof body.filename !== 'string' || typeof body.contentBase64 !== 'string') {
       return reply.code(400).send({ error: 'invalid_job' });
     }
@@ -114,7 +133,7 @@ export function createService(store?: Store) {
   });
 
   app.post('/jobs/:id/retry', async (request, reply) => {
-    const body = request.body as { contentBase64?: unknown; filename?: unknown };
+    const body = (request.body ?? {}) as { contentBase64?: unknown; filename?: unknown };
     if (typeof body.contentBase64 !== 'string' || typeof body.filename !== 'string') return reply.code(400).send({ error: 'invalid_retry' });
     try {
       return retryJob(opened, (request.params as { id: string }).id, () => Buffer.from(body.contentBase64 as string, 'base64'), body.filename);
@@ -124,7 +143,7 @@ export function createService(store?: Store) {
   });
 
   app.post('/files/probe-path', async (request, reply) => {
-    const rel = (request.body as { path?: unknown }).path;
+    const rel = ((request.body ?? {}) as { path?: unknown }).path;
     if (typeof rel !== 'string') return reply.code(400).send({ error: 'invalid' });
     try {
       return { path: resolveInside(opened.dataDir, rel) };

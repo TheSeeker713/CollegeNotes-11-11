@@ -1,0 +1,28 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+const baseline = '2332f799c57da47d457276908b7b70921b8cecc2';
+const previous = (file) => execFileSync('git', ['show', `${baseline}:${file}`], { encoding: 'utf8' });
+const checks = [];
+function check(id, passed, evidence) { checks.push({ id, passed, evidence }); }
+for (const file of ['PROJECT-PLAN.md', 'docs/plans/PHASE-0-4-REVISION-IMPACT.md']) check(`unchanged-${file}`, previous(file) === fs.readFileSync(file, 'utf8'), 'Official scope and impact plan unchanged; implementation authority is the actual owner message.');
+const sql = (source) => [...source.matchAll(/`([\s\S]*?)`/g)].slice(0, 8).map((m) => m[1]);
+check('first-eight-migrations-unchanged', JSON.stringify(sql(previous('packages/storage/src/migrations.ts'))) === JSON.stringify(sql(fs.readFileSync('packages/storage/src/migrations.ts', 'utf8'))), 'Historical migrations byte-identical; repair appends migration nine.');
+const oldLock = JSON.parse(previous('package-lock.json')).packages;
+const lock = JSON.parse(fs.readFileSync('package-lock.json', 'utf8')).packages;
+const external = (packages) => Object.fromEntries(Object.entries(packages).filter(([key]) => key.includes('node_modules/')));
+check('external-dependencies-unchanged', JSON.stringify(external(oldLock)) === JSON.stringify(external(lock)), 'Two existing provider-workspace edges were declared and missing domain-workspace lock metadata reconciled; no external package/version/resolution changed.');
+const files = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { encoding: 'utf8' }).split('\0').filter(Boolean);
+const source = files.filter((f) => /^(apps|packages)\/.+\/src\/.+\.(ts|tsx)$/.test(f));
+check('no-built-in-real-course', source.every((f) => !/COMM\s*110|PQP|Presentation class/i.test(fs.readFileSync(f, 'utf8'))), 'Application/package source contains no named inspiration course or class-specific policy. Synthetic fixtures stay in tests/designs.');
+check('flagged-epub-parser-not-imported', source.every((f) => !/(?:from|import\(|require\()[\s'"]+(?:epubjs|@xmldom\/xmldom)/.test(fs.readFileSync(f, 'utf8'))), 'Known npm advisories remain; the vulnerable EPUB/XML dependency is not used by application source. Re-review before real EPUB parsing.');
+check('private-paths-untracked', files.every((f) => !/^(?:\.local\/|Design\/|course-materials\/|recordings\/|backups\/)|\.(sqlite|pem|key)$/.test(f)), 'Private evidence, course materials, credentials and images are outside the public file list.');
+const state = JSON.parse(fs.readFileSync('project-state/current.json', 'utf8'));
+check('phase-five-gated', state.next_phase_authorized === false && Object.entries(state.steps).filter(([id]) => Number(id.split('.')[0]) >= 5).every(([, status]) => status === 'not_started'), 'No untouched future phase executed; UI/UX review remains owner-only.');
+const changed = files.filter((f) => fs.existsSync(f));
+const sourceHashes = Object.fromEntries(changed.map((f) => [f, crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex')]));
+const report = { time: new Date().toISOString(), baseline, checks, sourceHashes, scope: 'Source/document audit. No browser or UI/UX testing; not a substitute for manual acceptance.' };
+fs.mkdirSync('.local/verification/repair/audit', { recursive: true });
+fs.writeFileSync(`.local/verification/repair/audit/${Date.now()}.json`, JSON.stringify(report, null, 2) + '\n');
+console.log(JSON.stringify({ required: checks.length, passed: checks.filter((c) => c.passed).length, checks }));
+if (checks.some((c) => !c.passed)) process.exit(1);

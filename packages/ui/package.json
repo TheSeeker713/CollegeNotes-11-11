@@ -5,7 +5,10 @@
   "type": "module",
   "description": "Accessible reusable primitives, focus and interaction states.",
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
     "./appearance.css": "./src/appearance.css"
   },
   "dependencies": {

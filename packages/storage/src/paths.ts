@@ -22,5 +22,13 @@ export function resolveInside(root: string, rel: string): string {
   if (relToRoot.startsWith('..') || path.isAbsolute(relToRoot)) {
     throw Object.assign(new Error('path_rejected'), { code: 'path_rejected' });
   }
+  // Reject symlink traversal through existing path components, including dangling links.
+  const parts = relToRoot.split(path.sep).filter(Boolean);
+  let current = rootResolved;
+  for (const part of parts) {
+    current = path.join(current, part);
+    try { if (fs.lstatSync(current).isSymbolicLink()) throw Object.assign(new Error('path_rejected'), { code: 'path_rejected' }); }
+    catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; }
+  }
   return target;
 }

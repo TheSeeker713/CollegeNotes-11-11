@@ -16,7 +16,7 @@ export function openStore(dataDir = defaultDataDir()): Store {
   const db = new Database(path.join(root, 'collegenotes.sqlite'));
   db.pragma('journal_mode = WAL');
   db.pragma('foreign_keys = ON');
-  migrate(db);
+  try { migrate(db); } catch (error) { db.close(); throw error; }
   return { db, dataDir: root, originalsDir };
 }
 

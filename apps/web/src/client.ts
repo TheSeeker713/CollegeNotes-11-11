@@ -1,15 +1,26 @@
+import type { Connection, ProviderDefinition } from '@collegenotes/providers/contracts';
 import type { Appearance, CardLayout, Course, Draft, Job, SessionState } from '@collegenotes/domain';
 
 const BASE = 'http://127.0.0.1:4781';
-const headers = { 'content-type': 'application/json', origin: window.location.origin, 'x-cn-client': 'collegenotes-web' };
+const headers = { 'content-type': 'application/json', 'x-cn-client': 'collegenotes-web' };
 
-async function req<T>(path: string, init?: RequestInit): Promise<T> {
+async function send<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, { ...init, headers: { ...headers, ...(init?.headers ?? {}) } });
   if (!res.ok) throw new Error(`http_${res.status}`);
   return res.json() as Promise<T>;
 }
 
+// Serialize writes so an earlier slow draft/settings request cannot overwrite a newer one.
+let writes: Promise<unknown> = Promise.resolve();
+function req<T>(path: string, init?: RequestInit): Promise<T> {
+  if (!init?.method || init.method === 'GET') return send<T>(path, init);
+  const next = writes.catch(() => undefined).then(() => send<T>(path, init));
+  writes = next.catch(() => undefined);
+  return next;
+}
+
 export const api = {
+  connections: () => req<{ availableProviders: ProviderDefinition[]; connections: Array<Omit<Connection, 'credential'>>; liveAuthenticationAvailable: false }>('/connections'),
   async health() {
     return req<{ ok: boolean }>(`/health`);
   },

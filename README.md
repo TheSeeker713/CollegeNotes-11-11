@@ -1,6 +1,6 @@
 # CollegeNotes{11:11}
 
-Private, local-first macOS learning application. Historical work exists for Phases 0–4, but the owner has reopened their planning alignment; Phase 4 is not currently accepted. No repair or later phase is authorized. Reports: [phase 3](docs/phase-3-report.md), [phase 4](docs/phase-4-report.md).
+Private, local-first macOS learning application. The owner authorized the Phase 0–4 repair pass. Its implementation and engineering verification are tracked in docs/phases/repair-*. UI/UX review belongs exclusively to the owner; Phase 5 requires the owner’s green light. Reports: [phase 3](docs/phase-3-report.md), [phase 4](docs/phase-4-report.md).
 
 Read the human-readable [Official Project Plan](PROJECT-PLAN.md) first. Then read [current state](project-state/current.json), [actual approvals](project-state/approvals.json), and the [Phase 0–4 impact and repair proposal](docs/plans/PHASE-0-4-REVISION-IMPACT.md).
 

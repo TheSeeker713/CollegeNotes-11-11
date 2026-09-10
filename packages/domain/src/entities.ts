@@ -3,7 +3,11 @@ import { createId } from './ids.js';
 export type Course = {
   id: string;
   name: string;
+  description: string;
   createdAt: string;
+  updatedAt: string;
+  archivedAt: string | null;
+  trashedAt: string | null;
 };
 
 export type SourceDocument = {
@@ -46,5 +50,6 @@ export type Draft = {
 };
 
 export function newCourse(name: string): Course {
-  return { id: createId('crs'), name: name.trim(), createdAt: new Date().toISOString() };
+  const now = new Date().toISOString();
+  return { id: createId('crs'), name: name.trim(), description: '', createdAt: now, updatedAt: now, archivedAt: null, trashedAt: null };
 }

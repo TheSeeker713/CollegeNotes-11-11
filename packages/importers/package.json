@@ -5,7 +5,10 @@
   "type": "module",
   "description": "Repeated screenshot/text/notes/PDF/DOCX/DRM-free EPUB imports, immutable originals, extraction revisions and anchors. Imported documents are untrusted data.",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
   },
   "dependencies": {
     "epubjs": "0.3.93",

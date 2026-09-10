@@ -1,0 +1,9 @@
+# Dependency review for Phase 0–4 repair
+
+The existing external package set and exact lockfile resolutions are unchanged from 2332f799c57da47d457276908b7b70921b8cecc2. References to the already-present provider workspace were added to web/storage, missing storage-to-domain lock metadata was reconciled, and package export metadata now separates source types from compiled runtime JavaScript. No external package installation, upgrade, provider SDK or model download occurred.
+
+A fresh `npm audit --json` on September 10, 2026 returned exit 1: 0 critical, 1 high and 1 moderate package findings. The affected chain is epubjs → @xmldom/xmldom. This is not a clean security scan. Detailed advisory output is private in `.local/verification/repair/dependency-audit.json`.
+
+The current app/source does not import or call epubjs or xmldom. Its EPUB parser helper is explicitly a synthetic harness, not production EPUB extraction; the Phase 4 ingestion job preserves bytes and does not invoke XML parsing. Therefore these advisories are not reachable through this foundation's routes. The earlier Phase 3 audit also recorded this chain. Keeping the pins does not accept the dependency for real untrusted EPUB handling.
+
+Before real EPUB processing is enabled in Phase 6, perform the required owner-approved compatibility/security/license review and fix the affected dependency chain. Do not silently upgrade a direct package to a new release or remove required EPUB support. The maintainer describes parser denial-of-service in [the end-tag parsing advisory](https://github.com/xmldom/xmldom/security/advisories/GHSA-x4fp-j954-r2f4) and [attribute deduplication advisory](https://github.com/xmldom/xmldom/security/advisories/GHSA-8344-3jmq-59r6). This repair makes no vulnerability-free or production import-safety claim.

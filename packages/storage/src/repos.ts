@@ -19,16 +19,17 @@ import {
 } from '@collegenotes/domain';
 import type { Store } from './database.js';
 import { resolveInside } from './paths.js';
+import { recoverSession } from './foundation.js';
 
 export function listCourses(store: Store): Course[] {
-  return store.db.prepare('select id, name, created_at as createdAt from courses order by created_at').all() as Course[];
+  return store.db.prepare('select id, name, description, created_at as createdAt, updated_at as updatedAt, archived_at as archivedAt, trashed_at as trashedAt from courses where archived_at is null and trashed_at is null order by created_at').all() as Course[];
 }
 
 export function createCourse(store: Store, name: string): Course {
   const trimmed = name.trim();
   if (!trimmed) throw Object.assign(new Error('name_required'), { code: 'invalid' });
   const course = newCourse(trimmed);
-  store.db.prepare('insert into courses(id, name, created_at) values (?, ?, ?)').run(course.id, course.name, course.createdAt);
+  store.db.prepare('insert into courses(id, name, created_at, updated_at) values (?, ?, ?, ?)').run(course.id, course.name, course.createdAt, course.updatedAt);
   return course;
 }
 
@@ -51,7 +52,7 @@ export function setAppearance(store: Store, appearance: Appearance): Appearance 
 export function getLayout(store: Store, courseId: string): CardLayout {
   const row = store.db.prepare('select payload from card_layouts where course_id = ?').get(courseId) as { payload: string } | undefined;
   if (!row) return { order: [...DEFAULT_CARD_LAYOUT.order], pinned: [] };
-  return parseCardLayout(JSON.parse(row.payload));
+  try { return parseCardLayout(JSON.parse(row.payload)); } catch { return { order: [...DEFAULT_CARD_LAYOUT.order], pinned: [] }; }
 }
 
 export function setLayout(store: Store, courseId: string, layout: CardLayout): CardLayout {
@@ -63,7 +64,7 @@ export function setLayout(store: Store, courseId: string, layout: CardLayout): C
 export function getSession(store: Store): SessionState {
   const row = store.db.prepare('select payload from sessions where id = 1').get() as { payload: string } | undefined;
   if (!row) return { courseId: null, routeHash: '#/home', task: 'home', notice: null };
-  return JSON.parse(row.payload) as SessionState;
+  try { return recoverSession(store, JSON.parse(row.payload)); } catch { return recoverSession(store, null); }
 }
 
 export function setSession(store: Store, session: SessionState): SessionState {
@@ -77,6 +78,8 @@ export function getDraft(store: Store, key: string): Draft | null {
 }
 
 export function setDraft(store: Store, draft: Omit<Draft, 'updatedAt'>): Draft {
+  const existing = getDraft(store, draft.key);
+  if (existing && existing.courseId !== draft.courseId) throw new Error('draft_course_mismatch');
   const saved = { ...draft, updatedAt: new Date().toISOString() };
   store.db.prepare('insert into drafts(key, course_id, body, updated_at) values (?, ?, ?, ?) on conflict(key) do update set body = excluded.body, updated_at = excluded.updated_at, course_id = excluded.course_id').run(saved.key, saved.courseId, saved.body, saved.updatedAt);
   return saved;
@@ -87,11 +90,12 @@ export function checksum(buffer: Buffer): string {
 }
 
 export function storeOriginal(store: Store, courseId: string, filename: string, buffer: Buffer): SourceDocument {
+  if (!listCourses(store).some((course) => course.id === courseId)) throw new Error('course_unavailable');
   const safeName = path.basename(filename).replace(/[^a-zA-Z0-9._-]/g, '_');
   const id = createId('src');
   const rel = path.join('originals', `${id}_${safeName}`);
   const dest = resolveInside(store.dataDir, rel);
-  fs.writeFileSync(dest, buffer);
+  fs.writeFileSync(dest, buffer, { flag: 'wx', mode: 0o600 });
   const doc: SourceDocument = {
     id,
     courseId,
@@ -101,7 +105,9 @@ export function storeOriginal(store: Store, courseId: string, filename: string, 
     storedRelPath: rel,
     createdAt: new Date().toISOString()
   };
-  store.db.prepare('insert into source_documents(id, course_id, filename, checksum, byte_length, stored_rel_path, created_at) values (?, ?, ?, ?, ?, ?, ?)').run(doc.id, doc.courseId, doc.filename, doc.checksum, doc.byteLength, doc.storedRelPath, doc.createdAt);
+  try {
+    store.db.prepare('insert into source_documents(id, course_id, filename, checksum, byte_length, stored_rel_path, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?)').run(doc.id, doc.courseId, doc.filename, doc.checksum, doc.byteLength, doc.storedRelPath, doc.createdAt, doc.createdAt);
+  } catch (error) { fs.unlinkSync(dest); throw error; }
   return doc;
 }
 

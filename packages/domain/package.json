@@ -5,6 +5,9 @@
   "type": "module",
   "description": "Versioned entity schemas and module contracts. No UI, provider SDK or direct database dependency.",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
   }
 }

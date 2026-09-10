@@ -1,3 +1,5 @@
+> Historical input inventory only. [PROJECT-PLAN.md](../PROJECT-PLAN.md) and CHANGE-INPUTS supersede all original-screenshot requests and class-specific prerequisites below. Development uses synthetic fixtures; real materials enter only through user import.
+
 # Course input inventory
 
 Historical Phase 0 snapshot. CHANGE-INPUTS now supersedes requests for the original thirteen screenshots and development blockers on private course documents. See [current input policy](../docs/product/input-policy.md). The user will import material through the finished application; use safe known-answer fixtures during development.

@@ -24,3 +24,5 @@ export type Health = {
   sqlite: 'ok' | 'unavailable';
   fts5: boolean;
 };
+
+export * from './lifecycle.js';

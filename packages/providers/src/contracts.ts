@@ -73,8 +73,9 @@ export function connectionSummary(connection: Connection) {
     usageLimit: connection.usageLimit ? { currency: connection.usageLimit.currency, ceiling: connection.usageLimit.ceiling, spent: connection.usageLimit.spent } : null,
     revocation: connection.revocation };
 }
-export function requestEligibility(provider: ProviderDefinition, connection: Connection, capability: Capability, estimatedCost: number | null): { allowed: boolean; reason: string } {
+export function requestEligibility(provider: ProviderDefinition & { enabled?: boolean }, connection: Connection, capability: Capability, estimatedCost: number | null): { allowed: boolean; reason: string } {
   const deny = (reason: string) => ({ allowed: false, reason });
+  if (provider.enabled === false) return deny('provider_disabled');
   if (provider.id !== connection.providerId || provider.implementation !== 'installed') return deny('adapter_unavailable');
   if (!provider.auth.some((auth) => auth.method === connection.authMethod && auth.evidence === 'verified_documentation')) return deny('auth_method_unverified');
   if (!connection.enabled || connection.health !== 'ready' || !connection.credential || connection.revocation === 'pending') return deny('connection_unavailable');
