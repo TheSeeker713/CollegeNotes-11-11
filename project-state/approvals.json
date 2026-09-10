@@ -132,6 +132,29 @@
         "Phone, tablet, touch and 290/390px design-capture requirements are removed",
         "This amendment authorizes planning and governance changes only; it does not authorize Phase 4 product repairs or Phase 5"
       ]
+    },
+    {
+      "id": "CHANGE-HUMAN-PLAN-COURSES-PROVIDERS",
+      "kind": "scope_clarification",
+      "phases": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "source": "Owner correction of official plan, course content and provider direction, 2026-09-10",
+      "quote": "This is not an acceptable plan. This needs to be something on a human reading level and only the user has the authority to direct you to change certain things. The core education learning materials presented the idea to build this app (Presentation class) but it should NOT BE EMBEDDED INTO THE APP. All course materials should be capable of import/export/edit/delete. The course we mentioned earlier should not be in the build, the user should be able to import materials into a course modules he created. ChatGPT oauth should not be the only cloud ai in this app. It is acceptable to have it embedded by default, but the user should be able to add other ai's to this app. He should be able to toggle it on/off at any time, and be able to remove the service entirely. There should be options to include xAI, Anthropic, Google, etc into the ai components of this app. We should have API import options and oauth import options. I need this plan to be completely revised in the official project plan, and make sure it is both readable for both AI agents and the human developer. I need a separate project plan for what phases already worked on are impacted by this revision. Do not include phases we have not touched yet. Then advise a plan of implementation for project repair of malformed phases and steps.",
+      "conditions": [
+        "Planning and governance documents only; no application-code implementation",
+        "PROJECT-PLAN.md becomes the single official human-readable plan",
+        "Presentation/COMM 110 material is inspiration and possible user-imported data, never built-in product content",
+        "Courses and materials require import, edit or correction, export and deletion lifecycles",
+        "OpenAI is optional and removable; provider architecture includes xAI, Anthropic, Google and future adapters",
+        "API credentials and officially supported OAuth/account routes are planned without overstating subscription access",
+        "The separate impact and repair proposal is limited to worked Phases 0–4",
+        "No repair phase or future phase is authorized"
+      ]
     }
   ]
 }
