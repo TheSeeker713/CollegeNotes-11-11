@@ -3,5 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Authoritative SQLite migrations and file metadata, transaction boundaries, backups and restoration. Private application data stays outside the checkout."
+  "description": "Authoritative SQLite migrations and file metadata, transaction boundaries, backups and restoration. Private application data stays outside the checkout.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "better-sqlite3": "13.0.3"
+  }
 }

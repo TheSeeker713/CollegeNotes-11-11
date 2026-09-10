@@ -3,5 +3,20 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Loopback Fastify companion. Own validated local requests, jobs, provider mediation and storage orchestration; reject unapproved origins, paths and actions."
+  "description": "Loopback Fastify companion. Own validated local requests, jobs, provider mediation and storage orchestration; reject unapproved origins, paths and actions.",
+  "scripts": {
+    "build": "tsc -b",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@collegenotes/domain": "0.0.0",
+    "@collegenotes/importers": "0.0.0",
+    "@collegenotes/providers": "0.0.0",
+    "@collegenotes/storage": "0.0.0",
+    "better-sqlite3": "13.0.3",
+    "fastify": "5.12.3"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "9.6.0"
+  }
 }

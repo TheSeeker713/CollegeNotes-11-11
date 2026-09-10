@@ -3,5 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Independent tutor, narration and recognition adapters. ChatGPT subscription authentication and paid API speech are distinct. No silent fallback."
+  "description": "Independent tutor, narration and recognition adapters. ChatGPT subscription authentication and paid API speech are distinct. No silent fallback.",
+  "exports": {
+    ".": "./src/index.ts"
+  }
 }

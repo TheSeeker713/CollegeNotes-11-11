@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/domain" },
+    { "path": "./packages/ui" },
+    { "path": "./packages/storage" },
+    { "path": "./packages/providers" },
+    { "path": "./packages/importers" },
+    { "path": "./packages/learning" },
+    { "path": "./packages/visuals" },
+    { "path": "./apps/local-service" }
+  ]
+}

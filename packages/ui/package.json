@@ -3,5 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Accessible reusable primitives, focus and interaction states. Implement only after design approval and dependency setup."
+  "description": "Accessible reusable primitives, focus and interaction states.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./appearance.css": "./src/appearance.css"
+  },
+  "dependencies": {
+    "@collegenotes/domain": "0.0.0"
+  },
+  "peerDependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  }
 }

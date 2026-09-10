@@ -1,5 +1,3 @@
-# tests/fixtures/public
+# Public synthetic fixtures
 
-Only synthetic or redistributable fixtures with expected outcomes, hashes and license/source notes. Historical private screenshots are not required.
-
-Scaffold only. No application features or installed product dependencies exist.
+`sample.pdf`, `sample.png`, `sample.docx`, and `sample.epub` are invented public-safe files for Phase 3 parser harnesses. They contain no course material. The EPUB includes a `<script>` tag that the importer must strip without executing.

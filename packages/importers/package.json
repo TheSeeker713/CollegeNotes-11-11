@@ -3,5 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Repeated screenshot/text/notes/PDF/DOCX/DRM-free EPUB imports, immutable originals, extraction revisions and anchors. Imported documents are untrusted data."
+  "description": "Repeated screenshot/text/notes/PDF/DOCX/DRM-free EPUB imports, immutable originals, extraction revisions and anchors. Imported documents are untrusted data.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "epubjs": "0.3.93",
+    "mammoth": "1.12.2",
+    "pdfjs-dist": "6.3.289",
+    "tesseract.js": "7.0.0"
+  }
 }

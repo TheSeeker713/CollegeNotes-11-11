@@ -1,10 +1,10 @@
 # CollegeNotes{11:11}
 
-Local, browser-first college learning application. Phases 0 and 1 are complete. Phase 2 steps 2.1–2.4 are complete: a dependency-free design prototype and 35 local gitignored image references. No application features or installed product dependencies exist yet.
+Local, browser-first college learning application. Phases 0–2 are complete. Phase 3 (pinned toolchain, tests, parsers, local startup) is the active authorized phase. Do not begin Phase 4.
 
-The execution plan has phases 0–14. Read [current state](project-state/current.json), [actual approvals](project-state/approvals.json), and [course-input clarification](docs/product/input-policy.md). Phase 3 is not authorized.
+The execution plan has phases 0–14. Read [current state](project-state/current.json), [actual approvals](project-state/approvals.json), and [course-input clarification](docs/product/input-policy.md).
 
-Review the [design candidate](docs/design/README.md) and [prototype](docs/design/prototype/index.html). Do not begin Phase 3.
+Setup: [docs/setup.md](docs/setup.md). Design candidate: [docs/design/README.md](docs/design/README.md).
 
 Planning records live in `phase0/`; durable status lives in `project-state/`. The original execution plan and supporting references are preserved privately under `.local/references/` with hashes. Read them and the current state before resuming. User instructions take precedence, followed by the full plan, supporting memory, then historical research.
 

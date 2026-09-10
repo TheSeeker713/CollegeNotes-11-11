@@ -1,9 +1,22 @@
-# Local verification guide
+# Local verification — Phase 3
 
-Available now: `node scripts/validate-project.mjs` checks planning files, manifest/mapping consistency, state and references; `node scripts/rehearse-workflow.mjs` runs 44 explicitly synthetic workflow cases against the state/evidence rules. Both exit nonzero on failure and save actual results under ignored .local/verification/.
+Planning checks still run:
 
-The synthetic run exercises positive and negative gates, missing/skipped/flaky results, stale source, wrong evidence kind, failed push, invalid transitions, phase boundaries, closed-pass reuse and malformed state. It does not test reading, OCR, storage, accounts, audio or a running UI. An expected rejection counts as a passing negative case only when the real rule returns rejection.
+- `npm run verify:planning` — manifests, state, approvals, links
+- `npm run test:workflow` — 44 synthetic authorization/evidence cases
 
-Before trusting a report, compare its command, time, case count and source hashes to current files. Investigate failed output and preserve it; rerun only after a repair. Inspect the record against the actual command execution. No authored JSON can replace a real run.
+Product commands (pinned toolchain):
 
-Phase 3 adds real type/lint/build/unit/integration/e2e/accessibility/evaluation tools and required case discovery. Production manifests must expand check clauses into runnable meaningful assertions and retain all required failure paths. See [testing rules](agents/testing.md) and [audit rules](agents/auditing.md).
+| Command | Purpose |
+|---|---|
+| `npm run check:types` | TypeScript project build |
+| `npm run check:lint` | ESLint |
+| `npm run test:unit` | Vitest unit project |
+| `npm run test:integration` | Service health and parser harness |
+| `npm run test:e2e` | Playwright against Vite preview, Chrome channel |
+| `npm run test:accessibility` | axe on the harness |
+| `npm run test:evals` | Labeled synthetic eval fixture |
+| `npm run verify:step` | Gate: failing fixture fails, empty/skip fail, pass passes, nonzero exit propagates |
+| `npm run build` | Web + local-service |
+
+Playwright uses the installed Chrome channel (`channel: 'chrome'`). No Playwright browser download is authorized. Results under `.local/verification/` are private.

@@ -3,5 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Subject-correct diagrams and selected R3F components. Each has instructional purpose, serialized state, keyboard controls and a non-graphics equivalent."
+  "description": "Subject-correct diagrams and selected R3F components. Each has instructional purpose, serialized state, keyboard controls and a non-graphics equivalent.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@react-three/fiber": "9.7.0",
+    "three": "0.185.1"
+  },
+  "peerDependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/three": "0.185.4"
+  }
 }

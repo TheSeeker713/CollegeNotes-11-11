@@ -5,7 +5,7 @@
     "document": "docs/phases/theme-revision-02-through-14.md",
     "section": "Phase 3 additions",
     "required": true,
-    "scope": "Additive work and acceptance checks for this phase; planning only, no execution authorization"
+    "scope": "Additive T-prefixed checks; AUTH-P3 authorizes Phase 3 execution only"
   },
   "source": {
     "name": "CollegeNotes-Full-Project-Plan.md",
@@ -24,7 +24,9 @@
       "work": "install pinned runtime/build/UI/storage dependencies; configure workspaces and environment templates with no real credentials. Reconcile any incompatibility with the Phase 0 decision record.",
       "deliverables": "lockfile, installed toolchain, documented local configuration.",
       "source_checks": "clean reinstall succeeds; versions match decisions; no unexpected cloud services; no secret staged; minimal application/service entry points build. Checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "AUTH-P3: install pinned toolchain. CHANGE-35-IMAGES images stay gitignored. Theme tokens/fonts local, no CDN."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-3.1-01",
@@ -59,6 +61,13 @@
           "description": "minimal application/service entry points build.",
           "check_ids": [
             "CHK-3.1-05"
+          ]
+        },
+        {
+          "id": "AC-3.1-T01",
+          "description": "Theme tokens and fonts are local; no runtime CDN or paid theme service",
+          "check_ids": [
+            "CHK-3.1-T01"
           ]
         }
       ],
@@ -97,6 +106,13 @@
           "required": true,
           "verification_kind": "local product verification",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.1-T01",
+          "description": "Theme tokens and fonts are local; no runtime CDN or paid theme service",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
         }
       ],
       "checkpoint": {
@@ -120,7 +136,9 @@
       "work": "install and configure unit, component, integration, browser, and accessibility tooling. Implement the Section 4 verification commands, manifests, result parser, and evidence paths.",
       "deliverables": "runnable local verification system.",
       "source_checks": "intentionally failing fixture fails; skipped/missing/zero-test fixtures fail the required gate; a known passing fixture passes; command failures propagate; synthetic results labeled. Checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "Theme amendment: test discovery includes all four theme/mode combinations; default-mode and saved-preference fixtures are meaningful"
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-3.2-01",
@@ -155,6 +173,13 @@
           "description": "synthetic results labeled.",
           "check_ids": [
             "CHK-3.2-05"
+          ]
+        },
+        {
+          "id": "AC-3.2-T01",
+          "description": "Test discovery includes all four theme/mode combinations; default-mode and saved-preference fixtures are meaningful",
+          "check_ids": [
+            "CHK-3.2-T01"
           ]
         }
       ],
@@ -193,6 +218,13 @@
           "required": true,
           "verification_kind": "local product verification",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.2-T01",
+          "description": "Test discovery includes all four theme/mode combinations; default-mode and saved-preference fixtures are meaningful",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
         }
       ],
       "checkpoint": {
@@ -298,7 +330,9 @@
       "work": "implement developer startup/shutdown scripts, local health checks, and collision/error messages. Confirm the test environment can be recreated from the locked dependencies.",
       "deliverables": "working development harness and setup guide.",
       "source_checks": "clean startup, shutdown and restart; occupied port handled; local build/type/lint and harness tests pass; dependency audit findings triaged and blockers resolved. Checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "Theme amendment: verify theme assets and fonts locally; glass fallback without optional GPU"
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-3.4-01",
@@ -326,6 +360,13 @@
           "description": "dependency audit findings triaged and blockers resolved.",
           "check_ids": [
             "CHK-3.4-04"
+          ]
+        },
+        {
+          "id": "AC-3.4-T01",
+          "description": "Theme assets and fonts available locally; glass fallback can be tested without optional GPU support",
+          "check_ids": [
+            "CHK-3.4-T01"
           ]
         }
       ],
@@ -357,6 +398,13 @@
           "required": true,
           "verification_kind": "local product verification",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-3.4-T01",
+          "description": "Theme assets and fonts available locally; glass fallback can be tested without optional GPU support",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
         }
       ],
       "checkpoint": {

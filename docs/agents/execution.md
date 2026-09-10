@@ -12,4 +12,4 @@ Approval records quote or identify actual user messages. A validator cannot gran
 
 ## Current recovery pass
 
-AUTH-P2-FINISH supersedes the old missing-image handoff. CHANGE-35-IMAGES retains 35 local gitignored images as full design scope. Inspect those references, reconcile inconsistencies in the canonical four-variant design/prototype, and do not generate more images. The original bounded pass stays historical. Follow current state and ordered revised-step checkpoints; do not begin Phase 3 installation.
+AUTH-P3 authorizes Phase 3 installation only. Execute steps 3.1–3.4 with pinned Node 24.21.0 / npm 12.0.2. Stop at Phase 3 completion. Do not begin Phase 4.
