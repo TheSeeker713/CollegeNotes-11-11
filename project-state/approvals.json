@@ -109,6 +109,29 @@
         "Execute Phase 4 steps 4.1–4.4 only",
         "Stop at Phase 4 completion; do not begin Phase 5"
       ]
+    },
+    {
+      "id": "CHANGE-DESKTOP-CONNECTED",
+      "kind": "scope_clarification",
+      "phases": [
+        2,
+        4,
+        6,
+        7,
+        8,
+        13,
+        14
+      ],
+      "source": "Owner correction of product vision, 2026-09-09",
+      "quote": "This project is supposed to be desktop only. only to be used on this macbook. The plan got modified during a production phase either from a version of you or from grok. review the plan and modify it to reflect my vision. Macos Desktop app. it can live in a browser as an app for now, but this is to be a local dev app with some local ai embeddings and access to the internet with oauth connections and internet research capabilities.",
+      "conditions": [
+        "The product is a single-user macOS desktop app for this MacBook",
+        "A local browser is an accepted interim development surface, not a hosted or multi-device product target",
+        "Local course-scoped semantic embeddings and retrieval are required; a local generative model remains a separate optional decision",
+        "Explicit OAuth connections and user-initiated internet research with source provenance are required",
+        "Phone, tablet, touch and 290/390px design-capture requirements are removed",
+        "This amendment authorizes planning and governance changes only; it does not authorize Phase 4 product repairs or Phase 5"
+      ]
     }
   ]
 }

@@ -18,7 +18,7 @@ Seventeen components each have empty, loading, error, offline, success and inter
 
 ## Window sizes (CHK-2.4-04)
 
-Desktop 1440×900: sidebar, two-column home, four-card reader. Narrow below 768: Menu, stacked cards, Move up/down. Headless Chrome would not size to 390px (minimum ~500px); 500×844 still uses the 767px layout. CSS already contains the 390 rules.
+Historical Phase 2 evidence: desktop 1440×900 used a sidebar, two-column home and four-card reader; the prototype also included a sub-768px stacked layout. CHANGE-DESKTOP-CONNECTED now supersedes the narrow/mobile requirement. Canonical follow-up checks use 1440×900, the initial 1024×700 minimum desktop window and 200% zoom/reflow.
 
 ## Phase 2 requirements (CHK-2.4-05)
 
@@ -36,7 +36,7 @@ Theme and Dark mode are independent. Reset appearance returns Botanical Light wi
 
 - Dense generated foliage behind prose would hurt reading; prototype uses opaque card backings.
 - Arrange diagnostics (coordinates, ΔH) belong only in Arrange, as already specified.
-- Narrow 390px should be re-checked in a real window; headless capture cropped at 390.
+- The earlier 390px capture limitation is closed as a requirement by CHANGE-DESKTOP-CONNECTED; verify the minimum desktop window and 200% zoom instead.
 - Visual-aid storyboard still needs an explicit owner yes/no before Phase 12.
 
 Phase 3 installation is not authorized.

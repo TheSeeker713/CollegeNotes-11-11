@@ -1,6 +1,6 @@
 # Manual review checklist — glass-review-1
 
-Use [the prototype](prototype/index.html) at 1440×900 and 390×844 (or any width below 768px). Synthetic preview only.
+Use [the prototype](prototype/index.html) at 1440×900, the initial 1024×700 minimum desktop window and 200% zoom/reflow. The retained 390×844 capture is historical evidence, not a current requirement. Synthetic preview only.
 
 Candidate revision: glass-review-1, Step 2.3 commit `09a040eb7322bcede2ffe7eb6715e28c95f5d7fc`.
 

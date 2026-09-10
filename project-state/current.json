@@ -1,8 +1,8 @@
 {
   "phase": 4,
-  "phase_status": "awaiting_user_review",
-  "step": "4.4",
-  "step_status": "complete",
+  "phase_status": "repairing",
+  "step": "4.1",
+  "step_status": "repairing",
   "pass_id": "PASS-2026-09-09-P4",
   "authorization_ref": "AUTH-P4",
   "authorized_phases_this_pass": [
@@ -27,7 +27,7 @@
     "3.2": "complete",
     "3.3": "complete",
     "3.4": "complete",
-    "4.1": "complete",
+    "4.1": "repairing",
     "4.2": "complete",
     "4.3": "complete",
     "4.4": "complete",
@@ -94,7 +94,7 @@
     "4.3": "4e2b407877fafa22dc017794a81d38257894126a",
     "4.4": "2997861407d6a6e8a4b455e99f141ebd0be1027f"
   },
-  "next_action": "Phase 4 steps 4.1–4.4 are complete. Owner may review the shell. Do not begin Phase 5.",
+  "next_action": "The owner corrected the product vision in CHANGE-DESKTOP-CONNECTED. Planning is amended; do not change product code until the owner authorizes a Phase 4 desktop-scope repair pass. Do not begin Phase 5.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -102,7 +102,7 @@
     "1": "complete",
     "2": "complete",
     "3": "complete",
-    "4": "complete"
+    "4": "in_progress"
   },
   "manual_acceptances": [
     {
@@ -116,7 +116,14 @@
       "candidate_commit": "e406973f9a2e08514014d90ae022a0c1155c03e7"
     }
   ],
-  "blockers": [],
+  "blockers": [
+    {
+      "id": "BLOCK-P4-DESKTOP-SCOPE",
+      "step": "4.1",
+      "reason": "The completed Phase 4 shell was built against a plan containing multi-device responsive assumptions that the owner has now corrected.",
+      "resolution": "Obtain explicit authorization for a Phase 4 repair pass, then verify and repair the shell against the desktop-only specification before requesting Phase 4 acceptance."
+    }
+  ],
   "historical_checkpoints": {
     "0.1": "9aac47b1c215309edf03966cfaac238ed45aadb9",
     "0.2": "bb1bb5a23f593d88959b171523a8343abd02e56a",

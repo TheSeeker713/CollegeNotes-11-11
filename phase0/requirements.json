@@ -1,15 +1,16 @@
 [
   {
     "id": "R-LOCAL",
-    "requirement": "Local Chrome browser interface plus loopback companion; daily launcher; actual Mac Developer source",
+    "requirement": "Single-user macOS desktop app for this MacBook; local-browser UI is an interim development surface; daily launcher; actual Mac Developer source",
     "owner_phases": [
       0,
       1,
+      2,
       3,
       4,
       14
     ],
-    "acceptance": "Cold launch, local origin protection, occupied port and runtime recovery; user acceptance",
+    "acceptance": "Interim loopback browser launch and final Mac-app cold launch, local origin protection, occupied port and runtime recovery; no hosted/mobile/tablet requirement; user acceptance",
     "classification": "required-v1"
   },
   {
@@ -62,22 +63,25 @@
   },
   {
     "id": "R-TUTOR",
-    "requirement": "Documented ChatGPT account connection mediated by local companion; sign-in/out and limits",
+    "requirement": "Documented ChatGPT account connection mediated by the local companion; explicit sign-in/out, permissions and limits",
     "owner_phases": [
       0,
       8
     ],
-    "acceptance": "Official route evidence in 0.3; actual account call, rejected/expired credentials, limits and logout in 8.1",
+    "acceptance": "Official route evidence in 0.3; explicit account connection, actual account call, rejected/expired credentials, limits, revocation and logout in 8.1",
     "classification": "required-v1"
   },
   {
     "id": "R-GROUNDING",
-    "requirement": "Selected-course retrieval; separate instructor requirements, source text, user writing and tutor explanations",
+    "requirement": "Course-scoped lexical and local semantic-embedding retrieval; separate instructor requirements, source text, internet research, user writing and tutor explanations",
     "owner_phases": [
+      6,
+      7,
       8,
-      9
+      9,
+      13
     ],
-    "acceptance": "Versioned grounding rubric, unknown/conflicting evidence, correct-course isolation and navigable anchors",
+    "acceptance": "Versioned local embedding index and grounding rubric; correction/model-version invalidation; hybrid retrieval quality, unknown/conflicting evidence, correct-course isolation and navigable anchors",
     "classification": "required-v1"
   },
   {
@@ -131,13 +135,13 @@
   },
   {
     "id": "R-OFFLINE",
-    "requirement": "Prepared local reading/search/notes/activities/audio/visual assets and saved progress without network",
+    "requirement": "Prepared local reading, lexical and embedding search, notes, activities, audio, visual assets and saved progress without network",
     "owner_phases": [
       7,
       10,
       13
     ],
-    "acceptance": "Disconnected cold launch, readiness manifest, incomplete pack rejected, local-service outage recovery",
+    "acceptance": "Disconnected cold launch, local semantic retrieval from a versioned prepared index, readiness manifest, incomplete pack rejected and local-service outage recovery",
     "classification": "required-v1"
   },
   {
@@ -240,7 +244,7 @@
   },
   {
     "id": "R-PRIVACY",
-    "requirement": "Separate source and private learning data; loopback/origin/path controls; documents are untrusted data",
+    "requirement": "Separate source and private learning data; loopback/origin/path controls; OAuth credentials in approved local storage; documents and webpages are untrusted data; private course text is transmitted only with explicit user intent",
     "owner_phases": [
       1,
       4,
@@ -248,19 +252,19 @@
       8,
       13
     ],
-    "acceptance": "No credentials/private course content staged; reject traversal, embedded scripts and prompt injection",
+    "acceptance": "No credentials/private course content staged; least-privilege OAuth and revocation; visible transmission scope; reject traversal, embedded scripts, malicious webpages and prompt injection",
     "classification": "required-v1"
   },
   {
     "id": "R-PROVIDERS",
-    "requirement": "Provider-neutral tutoring/audio contracts; subscription, API billing and speech capabilities distinct",
+    "requirement": "Provider-neutral tutoring, OAuth research and audio contracts; subscription, API billing and speech capabilities distinct; research preserves URL/date/claim provenance",
     "owner_phases": [
       0,
       3,
       8,
       10
     ],
-    "acceptance": "No paid substitution, budget/limit handling, unavailable state, credentials never in browser or logs",
+    "acceptance": "Explicit OAuth connect/revoke; user-initiated internet research records source URL, retrieval date and claim links; no paid substitution; budget/limit handling; credentials never in browser or logs",
     "classification": "required-v1"
   },
   {

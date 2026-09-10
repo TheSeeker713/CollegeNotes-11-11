@@ -20,8 +20,8 @@
     ],
     "target": "p95 <=5 s",
     "device": "REF-MAC-01",
-    "workload": "20 cold application launches with Chrome closed, installed production build and companion stopped; prepared 500-page course pack; network disconnected",
-    "method": "monotonic time launcher invocation to interactive restored reading position; measure end-to-end, include service startup; OS filesystem cache state documented; no developer server",
+    "workload": "20 cold application launches of the installed macOS build with its local companion stopped; prepared 500-page course pack; network disconnected; measure the interim local-browser launcher separately without treating it as final packaging acceptance",
+    "method": "monotonic time launcher invocation to interactive restored reading position; measure end-to-end, include service startup; OS filesystem cache state documented; final acceptance requires no developer server",
     "status": "specified; not measured"
   },
   {
@@ -155,7 +155,7 @@
     ],
     "target": "all applicable WCAG 2.2 AA criteria pass; zero unresolved required manual cases",
     "device": "REF-MAC-01",
-    "workload": "1440x900 and 390x844 CSS px; 200% zoom; keyboard-only, VoiceOver, reduced-motion and graphics-disabled core flows",
+    "workload": "1440x900 reference window, initial 1024x700 minimum usable desktop window, and 200% zoom/reflow; keyboard-only, VoiceOver, reduced-motion, reduced-transparency and graphics-disabled core flows; no phone, tablet, touch or 290/390px capture requirement",
     "method": "axe plus criterion-by-criterion manual review, contrast calculation and focus/reflow inspection; automated zero violations alone is insufficient",
     "status": "specified; not measured"
   }

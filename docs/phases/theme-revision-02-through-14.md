@@ -1,5 +1,7 @@
 ## Theme revision — applies from Phase 2 through completion
 
+> **Desktop scope correction (CHANGE-DESKTOP-CONNECTED):** references below to “narrow,” 390px, responsive multi-device layouts or touch review are superseded. Preserve the same visual system in the single-user macOS desktop app, test the 1440×900 reference window, the agreed minimum usable desktop window (initial target 1024×700), and 200% zoom/reflow. No phone, tablet, touch or 290/390px capture is required. Phase 8 additionally includes explicit OAuth connections, local-embedding hybrid retrieval and provenance-linked internet research; Phase 14 packages a Mac app rather than a hosted/multi-device product.
+
 The user selected four generated references: Botanical Organic Glass (images 1 and 3) and Brutalist Glass Lab (images 2 and 4). These represent two selectable themes, not four separate themes. This amendment supersedes earlier A/B/C and Neo Retro-only proposals wherever they conflict. Phases 0 and 1 and their completed records are unchanged.
 
 **Planned default:** Botanical Organic Glass in Light mode. Choosing Botanical as the default is a planning decision based on the selected references; the user explicitly required Light as the default but did not rank the two themes.
@@ -10,9 +12,9 @@ The user selected four generated references: Botanical Organic Glass (images 1 a
 
 **Brutalist:** light grid canvas, clear squared glass rims, strong black title bars, condensed typography, electric-blue selection and orange arrangement guides. Use image 4 for orderly composition and image 2 for lifted-card depth. Black title bars are compatible with Light mode; they do not make the entire application dark. Coordinates, height measurements and stacking diagnostics belong in an optional Arrange view, not permanent reading clutter.
 
-**Dark variants:** design and review intentional dark palettes for both themes, preserving their identities, readable text surfaces, visible borders, focus and depth. Do not simply invert reference pixels. The supplied references establish appearance directions; full dark and narrow layouts and required error/offline states still need design review.
+**Dark variants:** design and review intentional dark palettes for both themes, preserving their identities, readable text surfaces, visible borders, focus and depth. Do not simply invert reference pixels. The supplied references establish appearance directions; full dark layouts, supported desktop resizing/zoom, and required error/offline states still need design review.
 
-**Shared interaction:** movable Source, Notes/Tutor, Study and Listen cards; visible handles, pinning, free placement or snap, keyboard Move controls, Undo move and Reset layout. Use a coherent upper-left light, contact shadows at rest, and wider/softer/displaced shadows on lift, including overlap on lower cards. Keep reading and editing independent of dragging. Theme/mode changes preserve positions, drafts, source anchors, focus, playback and study state. Narrow layouts stack with non-drag reordering; reduced motion and reduced transparency retain every function. Bound and recover off-screen cards.
+**Shared interaction:** movable Source, Notes/Tutor, Study and Listen cards; visible handles, pinning, free placement or snap, keyboard Move controls, Undo move and Reset layout. Use a coherent upper-left light, contact shadows at rest, and wider/softer/displaced shadows on lift, including overlap on lower cards. Keep reading and editing independent of dragging. Theme/mode changes preserve positions, drafts, source anchors, focus, playback and study state. Supported desktop window sizes and zoom retain every function; reduced motion and reduced transparency retain every function. Bound and recover off-screen cards.
 
 **Reference fidelity:** images guide materials, spacing and hierarchy, not source facts or feature removal. In particular, the generated “27% higher scores” claim is not verified course content. Preserve the existing complete navigation and source-grounding requirements. Avoid copying illegible icons or unsupported claims into production.
 
@@ -20,11 +22,11 @@ The user selected four generated references: Botanical Organic Glass (images 1 a
 
 ### Phase 2 additions
 
-Work: revise Steps 2.1–2.2 around the two selected themes, independent mode control, shared movable-card interaction and application-wide appearance persistence. Define semantic tokens for all four theme/mode combinations, including text backing, glass, focus, borders, status and shadow elevation. In Steps 2.3–2.4 produce and review the full screen/state family, Appearance settings and narrow layouts in both themes and modes. Retain the selected image references and identify remaining discrepancies.
+Work: revise Steps 2.1–2.2 around the two selected themes, independent mode control, shared movable-card interaction and application-wide appearance persistence. Define semantic tokens for all four theme/mode combinations, including text backing, glass, focus, borders, status and shadow elevation. In Steps 2.3–2.4 produce and review the full desktop screen/state family and Appearance settings at the reference/minimum desktop windows and 200% zoom. Retain the selected image references and identify remaining discrepancies.
 
 Deliverables: revised design system, four-variant token specification, theme/mode switching flow, drag/keyboard/recovery specification and reviewed images/prototype.
 
-Required added checks: default Botanical + Light is explicit; dark OS preference does not override a fresh default; all four combinations have readable text and control contrast; resting/lifted shadows are distinct; switching preserves tasks and layout; reduced-motion/transparency and narrow views are specified. Selected reference images do not substitute for complete state coverage or final design acceptance.
+Required added checks: default Botanical + Light is explicit; dark OS preference does not override a fresh default; all four combinations have readable text and control contrast; resting/lifted shadows are distinct; switching preserves tasks and layout; reduced-motion/transparency, supported desktop resizing and zoom are specified. Selected reference images do not substitute for complete state coverage or final design acceptance.
 
 ### Phase 3 additions
 
@@ -58,13 +60,13 @@ Required added checks: original/extracted distinction, correction focus, error l
 
 Work: implement themed reading, annotations and controls through Steps 7.1–7.4. Bundle both theme/mode assets for offline startup. Keep source originals faithful while reflowed prose follows accessible theme tokens.
 
-Required added checks: text, selection, highlights, bookmarks and source links remain legible across four combinations, narrow windows and zoom; switching preserves exact passage/scroll/annotation state; disconnected cold-start restores the saved appearance; reduced transparency and motion preserve reading and card controls.
+Required added checks: text, selection, highlights, bookmarks and source links remain legible across four combinations, supported desktop windows and 200% zoom; switching preserves exact passage/scroll/annotation state; disconnected cold-start restores the saved appearance; reduced transparency and motion preserve reading and card controls.
 
 ### Phase 8 additions
 
-Work: apply shared appearance to connection, tutor, source evidence and availability states in Steps 8.1–8.4. Appearance is local presentation state, independent of provider/account choices.
+Work: apply shared appearance to OAuth connections, local hybrid retrieval, internet research, tutor, source evidence and availability states in Steps 8.1–8.4. Appearance is local presentation state, independent of provider/account choices.
 
-Required added checks: source versus explanation and unavailable/error states are clear across four combinations; theme/mode switching preserves unsent questions and active responses; it triggers no account change, request replay or extra provider call.
+Required added checks: imported/course source, internet research evidence and model explanation remain distinct; unavailable/error states are clear across four combinations; theme/mode switching preserves unsent questions, research sessions and active responses; it triggers no account change, request replay or extra provider call.
 
 ### Phase 9 additions
 
@@ -100,4 +102,4 @@ Required added checks: offline cold-start and offline switching work for all fou
 
 Work: package both themes and all local assets in 14.1; document theme selection, mode toggle, default/reset, arrangement and accessibility options in 14.2. Add appearance coverage to release acceptance (14.3) and final manual testing (14.4).
 
-Required added checks: a fresh packaged install launches Botanical + Light even on a dark OS; explicit Dark and theme choices survive restart/offline use; verify all four combinations, narrow layout and accessibility fallbacks; user switches theme/mode during reading/audio, confirms state retention, and tests reset and backup preferences. Completion requires passing these added checks and explicit final acceptance.
+Required added checks: a fresh packaged macOS install launches Botanical + Light even on a dark OS; explicit Dark and theme choices survive restart/offline use; verify all four combinations, supported desktop resizing/zoom and accessibility fallbacks; user switches theme/mode during reading/audio, confirms state retention, and tests reset and backup preferences. Completion requires passing these added checks and explicit final acceptance.

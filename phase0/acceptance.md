@@ -18,9 +18,9 @@ Method: performance marks from input event to next painted settled result; sort 
 
 Requirement R-LOCAL; phases 14; device REF-MAC-01.
 
-Workload: 20 cold application launches with Chrome closed, installed production build and companion stopped; prepared 500-page course pack; network disconnected.
+Workload: 20 cold application launches of the installed macOS build with its local companion stopped; prepared 500-page course pack; network disconnected. During the interim browser stage, measure the equivalent launcher-to-local-browser flow separately and do not call it final packaging acceptance.
 
-Method: monotonic time launcher invocation to interactive restored reading position; measure end-to-end, include service startup; OS filesystem cache state documented; no developer server.
+Method: monotonic time launcher invocation to interactive restored reading position; measure end-to-end, include service startup; OS filesystem cache state documented; final acceptance requires no developer server.
 
 ## P-3D — target 60 fps; reduced mode >=30 fps in every rolling 1-second window
 
@@ -98,11 +98,11 @@ Method: fixture expected text and anchors vs output; review uncertain OCR number
 
 Requirement R-A11Y; phases 2, 4, 7, 10, 12, 14; device REF-MAC-01.
 
-Workload: 1440x900 and 390x844 CSS px; 200% zoom; keyboard-only, VoiceOver, reduced-motion and graphics-disabled core flows.
+Workload: 1440x900 reference window, agreed minimum usable desktop window (initial target 1024x700 CSS px), and 200% zoom/reflow; keyboard-only, VoiceOver, reduced-motion, reduced-transparency and graphics-disabled core flows. Phone, tablet, touch and 290/390px captures are not required.
 
 Method: axe plus criterion-by-criterion manual review, contrast calculation and focus/reflow inspection; automated zero violations alone is insufficient.
 
 
 Voice and model budgets are engineering targets informed by the actual 16 GB reference device and the documented small speech candidates, not vendor guarantees or measured throughput. Phase 10 must satisfy real audio, physical microphone and human naturalness checks together. A failed audition cannot be relabeled optional; repair or resolve the blocking provider choice with the user.
 
-Additional functional acceptance remains in all 28 requirement rows and controlling phase checks: source grounding, prohibited-outline behavior, offline cold start, backup hash/record equality, migration, policy conflicts, recovery, modules and real account authentication. This performance register supplements, rather than replaces, those obligations.
+Additional functional acceptance remains in all 28 requirement rows and controlling phase checks: local embedding retrieval, source-grounded and provenance-linked internet research, prohibited-outline behavior, offline cold start, backup hash/record equality, migration, policy conflicts, recovery, modules and real account/OAuth authentication. This performance register supplements, rather than replaces, those obligations.

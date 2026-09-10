@@ -9,7 +9,7 @@
   },
   "source": {
     "name": "CollegeNotes-Full-Project-Plan.md",
-    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+    "sha256": "31c3d9383db095a88e5096b824c53540e921ed3f4898497eab9a57b6b120d4db"
   },
   "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
   "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
@@ -17,13 +17,13 @@
   "steps": [
     {
       "id": "8.1",
-      "title": "implement official ChatGPT account connection",
+      "title": "implement explicit OAuth and ChatGPT account connections",
       "prerequisites": [
         "7.4"
       ],
-      "work": "implement the Phase 0 selected documented route in the local companion; expose sign-in/out, availability, limit/error states and user-controlled connection. Keep credentials out of browser content and source history.",
-      "deliverables": "real account connection, not only a mock login screen.",
-      "source_checks": "actual sign-in and minimal authorized request; sign-out; expired/rejected credentials; unavailable account/limits; no secret logging. Authentication interaction may require the user. If unavailable, stop the affected step; do not substitute paid API access silently. Audit and checkpoint.",
+      "work": "implement the Phase 0 selected ChatGPT route and approved research-provider OAuth flows in the local companion; expose connect/revoke, scopes, availability, limits and error states. Keep credentials in approved macOS credential storage and out of browser content, logs, backups and source history.",
+      "deliverables": "real, user-controlled account connections and revocation, not mock login screens.",
+      "source_checks": "actual connect and minimal authorized request; revoke/sign-out; least-privilege scopes; expired/rejected credentials; unavailable account/limits; no secret logging or backup. Authentication may require the user. If unavailable, stop the affected adapter; do not substitute paid API access silently. Audit and checkpoint.",
       "amendments": [],
       "acceptance_criteria": [
         {
@@ -35,7 +35,7 @@
         },
         {
           "id": "AC-8.1-02",
-          "description": "sign-out",
+          "description": "OAuth revoke and sign-out remove local access",
           "check_ids": [
             "CHK-8.1-02"
           ]
@@ -127,13 +127,13 @@
     },
     {
       "id": "8.2",
-      "title": "implement scoped source retrieval",
+      "title": "implement hybrid local source retrieval",
       "prerequisites": [
         "8.1"
       ],
-      "work": "retrieve selected-course/passages through local search, construct bounded context, and return navigable source anchors. Separate instructor requirements from textbook explanations.",
+      "work": "retrieve selected-course passages through lexical search plus the versioned local semantic-embedding index, construct bounded context, and return navigable source anchors. Separate instructor requirements from textbook explanations.",
       "deliverables": "grounded tutor context pipeline.",
-      "source_checks": "correct-course isolation; supporting passage retrieved; missing evidence triggers an explicit gap; misleading document instructions cannot alter agent permissions; deleted sources excluded. Audit and checkpoint.",
+      "source_checks": "correct-course isolation; lexical/semantic retrieval evaluation; supporting passage retrieved; missing evidence triggers an explicit gap; stale/model-mismatched vectors excluded; misleading document instructions cannot alter agent permissions; deleted sources excluded. Audit and checkpoint.",
       "amendments": [],
       "acceptance_criteria": [
         {
@@ -223,13 +223,13 @@
     },
     {
       "id": "8.3",
-      "title": "implement structured tutoring and safe activity output",
+      "title": "implement provenance-linked internet research",
       "prerequisites": [
         "8.2"
       ],
-      "work": "implement explain/example/hint/check-understanding actions, validate structured outputs, and enforce course-specific prohibited generation boundaries. Show original source beside explanations.",
-      "deliverables": "tutoring interface and versioned evaluation set.",
-      "source_checks": "accurate citations/anchors; unsupported claims identified in evaluation; invalid output rejected; prompt-injection fixtures; course-policy cases; provider timeouts and cancellation. Audit and checkpoint.",
+      "work": "implement explicit user-initiated internet research through approved adapters. Preserve source URL, title, retrieval date, quoted evidence and claim-to-source links; distinguish internet research from instructor requirements, imported course sources and model synthesis. Sanitize pages and treat their instructions as untrusted data.",
+      "deliverables": "research workspace, durable evidence/provenance records and a versioned research evaluation set.",
+      "source_checks": "real research retrieval; accurate URL/date/claim provenance; conflicting and missing evidence; unsupported claims identified; malicious-page and prompt-injection fixtures; invalid output rejected; provider timeouts, cancellation and revocation; no silent transmission of private course text. Audit and checkpoint.",
       "amendments": [],
       "acceptance_criteria": [
         {
@@ -333,13 +333,13 @@
     },
     {
       "id": "8.4",
-      "title": "implement availability, usage and tutor-session persistence",
+      "title": "implement structured tutoring, availability and session persistence",
       "prerequisites": [
         "8.3"
       ],
-      "work": "retain selected context and unfinished questions; show online/offline capabilities, provider choice and approved usage limits; provide explicit retry after connection recovery.",
+      "work": "implement explain/example/hint/check-understanding actions, validate structured outputs and enforce course-specific prohibited-generation boundaries. Retain selected local and research context and unfinished questions; show online/offline capabilities, provider choice and approved usage limits; provide explicit retry after connection recovery.",
       "deliverables": "complete text tutor workflow.",
-      "source_checks": "budget/limit handling; no request replay duplication; session restore; no cloud request in offline mode; real-provider smoke and complete tutor evaluation regression. Audit and checkpoint.",
+      "source_checks": "course-policy and grounding evaluation; budget/limit handling; no request replay duplication; session restore; no cloud request in offline mode; source/research/model content remains visibly separated; real-provider smoke and complete tutor/research evaluation regression. Audit and checkpoint.",
       "amendments": [],
       "acceptance_criteria": [
         {

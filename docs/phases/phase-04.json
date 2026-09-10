@@ -9,7 +9,7 @@
   },
   "source": {
     "name": "CollegeNotes-Full-Project-Plan.md",
-    "sha256": "ea4e9d1dfa7c173d5396e1dd15ae00b8176b6e99d641ca8d8796d348180e0553"
+    "sha256": "31c3d9383db095a88e5096b824c53540e921ed3f4898497eab9a57b6b120d4db"
   },
   "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
   "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
@@ -23,7 +23,7 @@
       ],
       "work": "build the approved shell, course context, keyboard navigation, panels, notifications, density and motion settings.",
       "deliverables": "navigable application with honest empty states.",
-      "source_checks": "route/focus behavior; keyboard-only navigation; responsive layouts; contrast/accessibility; settings persistence; no invented content. Audit and checkpoint.",
+      "source_checks": "route/focus behavior; keyboard-only navigation; supported macOS desktop window sizes and 200% zoom/reflow; contrast/accessibility; settings persistence; no invented content. No phone/tablet/touch layout obligation. Audit and checkpoint.",
       "amendments": [
         "AUTH-P4: implement approved glass shell. Theme selector, Dark toggle, Botanical+Light default, card arrange."
       ],
@@ -44,7 +44,7 @@
         },
         {
           "id": "AC-4.1-03",
-          "description": "responsive layouts",
+          "description": "supported macOS desktop window sizes and 200% zoom/reflow; no phone/tablet/touch layout obligation",
           "check_ids": [
             "CHK-4.1-03"
           ]
@@ -102,7 +102,7 @@
         },
         {
           "id": "CHK-4.1-03",
-          "description": "responsive layouts",
+          "description": "supported macOS desktop window sizes and 200% zoom/reflow; no phone/tablet/touch layout obligation",
           "required": true,
           "verification_kind": "local product verification",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."

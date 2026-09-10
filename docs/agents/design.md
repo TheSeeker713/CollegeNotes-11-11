@@ -6,7 +6,7 @@ Most UI is conventional 2D. Depth is selective; embedded 3D must explain a subje
 
 Design all empty, loading, error, offline, success and interrupted states. Distinguish prepared local material from unavailable cloud tutoring. Exact narration follows source text; explanations are labeled. Preserve user-authored PQP/outline content and prohibit generated outlines/citations for COMM 110.
 
-Record typography, spacing, colors, measured contrast pairs, focus, targets, responsive rules and reduced motion. Images illustrate the specification; they cannot demonstrate keyboard operation or real providers. After images are returned, review at desktop and narrow sizes, reconcile mismatches, and create reviewable linked designs/prototype if needed within Phase 2. Only explicit user acceptance closes the design phase.
+Record typography, spacing, colors, measured contrast pairs, focus, targets, supported macOS desktop-window rules and reduced motion. Images illustrate the specification; they cannot demonstrate keyboard operation or real providers. Review at the MacBook reference and agreed minimum desktop window plus 200% zoom/reflow; phone, tablet and exact 290/390px captures are not required. Reconcile mismatches and create reviewable linked designs/prototype if needed within Phase 2. Only explicit user acceptance closes the design phase.
 
 ## Current recovery pass
 

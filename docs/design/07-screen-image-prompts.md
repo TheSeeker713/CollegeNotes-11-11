@@ -9,7 +9,7 @@ The fourteen original S01–S14 prompt obligations are retained in [the historic
 | S03 correction | correct | IMG-085 |
 | S04 attempt before feedback | study | IMG-091, IMG-069 |
 | S05 PQP | practice / PQP | IMG-081 |
-| S06 narrow reading/listening | read at 390×844 | IMG-036, IMG-012 |
+| S06 historical compact reading/listening | retained 390×844 reference; no longer a required capture | IMG-036, IMG-012 |
 | S07 prepared offline | read / Tutor / Preview offline; settings | IMG-089, IMG-027 |
 | S08 import state board | states / import-inbox | IMG-058 |
 | S09 requirements | requirements | IMG-084 |

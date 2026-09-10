@@ -1,4 +1,6 @@
-# Provider strategy and budget boundaries
+# Provider strategy, connected research and budget boundaries
+
+This is a local macOS application. Network features are explicit capabilities of the local app, not evidence of a hosted product. The user must deliberately connect each account and initiate research or tutoring. OAuth credentials stay out of browser storage and logs, use least privilege, and can be inspected and revoked from the app.
 
 Choose the documented local Codex app-server route for subscription-connected tutoring. The official protocol supports embedding authentication and streamed conversations. The installed CLI exposes app-server (experimental); pin its observed version 0.153.3 as the integration reference and revalidate protocol compatibility before implementation. Its open-source implementation is Apache-2.0; hosted service access is separately governed. [App-server](https://learn.chatgpt.com/docs/app-server), [authentication](https://learn.chatgpt.com/docs/auth), [source license](https://github.com/openai/codex/blob/main/LICENSE).
 
@@ -8,14 +10,18 @@ This is documentation validation, not an implemented or tested account integrati
 
 | Capability | Selected route / candidate | Network | Offline boundary / verification phase |
 |---|---|---|---|
+| Local semantic embeddings and course retrieval | Local embedding runtime/model selected and pinned before Step 6.4 | No after model setup | Required v1; versioned chunk/index metadata, correction invalidation, retrieval evaluation and offline proof in 6–8 and 13 |
 | Fresh source-grounded text tutoring | Codex app-server managed ChatGPT | Required | No fresh cloud response offline; real account and course-grounding evals in 8 |
+| Internet research | Provider-neutral research adapters; OAuth where supported | Required for fresh research | Required v1; explicit connect/revoke and user initiation, URL/retrieval-date/claim provenance, hostile-page isolation and offline unavailable state in 8 |
 | Reading, search, notes, prepared activities | Local files + SQLite + browser cache | No after setup | Must work disconnected; 7 and 13 |
 | Prepared natural narration playback | Locally saved audio | No | No regeneration on replay; 10 and 13 |
 | New local natural narration | Kokoro-82M v1.0 candidate | Download needed first | Runtime/voice audition in 10.1; not installed or yet accepted |
 | Local speech recognition | whisper.cpp base.en candidate | Download needed first | Actual microphone and accuracy/latency in 10.3 |
 | Optional paid speech generation | OpenAI speech API candidate | Required for new audio | Separate API budget and adapter approval; not enabled |
 | Optional live cloud voice | Realtime candidate | Required | Separate paid route; not needed merely to connect local STT, tutor and cached speech |
-| Fresh local tutoring | Deferred optional model | Model download first | Not required v1; separate selection and actual 13.1 evaluation if added |
+| Fresh local tutoring | Deferred optional generative model | Model download first | Not required v1; distinct from required local embeddings; separate selection and actual 13.1 evaluation if added |
+
+No embedding model or internet research provider is silently selected by this amendment. Before Step 6.4, choose an Apple-silicon-compatible local embedding runtime/model using current primary documentation, pin its exact version and weights hash, record license/storage/memory limits, and test retrieval quality on the reference Mac. Before Step 8.1, document each research provider's supported OAuth flow, scopes, quotas, data handling and revocation. General web retrieval may use a narrowly scoped adapter when OAuth is not applicable, but it must obey the same explicit-action and provenance rules.
 
 New paid API budget: $0 authorized. No purchases, credits, pay-as-you-go fallback or API request. Existing ChatGPT subscription allowance may support the chosen route subject to the actual account's limits; no unlimited access assumption. A future API request needs a user ceiling, usage estimate, hard preflight cap and explicit consent; block only that paid adapter, preserve required narration via auditioned local candidates. [Authentication billing distinction](https://learn.chatgpt.com/docs/auth), [speech API](https://developers.openai.com/api/docs/guides/text-to-speech).
 

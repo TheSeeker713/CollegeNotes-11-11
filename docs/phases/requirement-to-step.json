@@ -3,12 +3,14 @@
     "requirement_id": "R-LOCAL",
     "implementation_steps": [
       "1.1",
+      "2.1",
       "3.4",
       "4.3",
       "14.1"
     ],
     "acceptance_steps": [
       "1.1",
+      "2.1",
       "3.4",
       "4.3",
       "14.1",
@@ -20,6 +22,8 @@
       "AC-1.1-03",
       "AC-1.1-04",
       "AC-1.1-05",
+      "AC-2.1-01",
+      "AC-2.1-03",
       "AC-3.4-01",
       "AC-3.4-02",
       "AC-3.4-03",
@@ -41,7 +45,7 @@
       "AC-14.3-04",
       "AC-14.3-05"
     ],
-    "final_acceptance": "Cold launch, local origin protection, occupied port and runtime recovery; user acceptance"
+    "final_acceptance": "Interim loopback browser launch and final Mac-app cold launch, local origin protection, occupied port and runtime recovery; no hosted/mobile/tablet requirement; user acceptance"
   },
   {
     "requirement_id": "R-COURSES",
@@ -255,17 +259,27 @@
   {
     "requirement_id": "R-GROUNDING",
     "implementation_steps": [
-      "8.2",
-      "8.3",
-      "9.1"
-    ],
-    "acceptance_steps": [
+      "6.4",
+      "7.3",
       "8.2",
       "8.3",
       "9.1",
+      "13.1"
+    ],
+    "acceptance_steps": [
+      "6.4",
+      "7.3",
+      "8.2",
+      "8.3",
+      "9.1",
+      "13.1",
       "14.3"
     ],
     "acceptance_criterion_ids": [
+      "AC-6.4-03",
+      "AC-6.4-05",
+      "AC-7.3-01",
+      "AC-7.3-02",
       "AC-8.2-01",
       "AC-8.2-02",
       "AC-8.2-03",
@@ -282,13 +296,18 @@
       "AC-9.1-03",
       "AC-9.1-04",
       "AC-9.1-05",
+      "AC-13.1-01",
+      "AC-13.1-02",
+      "AC-13.1-03",
+      "AC-13.1-04",
+      "AC-13.1-05",
       "AC-14.3-01",
       "AC-14.3-02",
       "AC-14.3-03",
       "AC-14.3-04",
       "AC-14.3-05"
     ],
-    "final_acceptance": "Versioned grounding rubric, unknown/conflicting evidence, correct-course isolation and navigable anchors"
+    "final_acceptance": "Versioned local embedding index and grounding rubric; correction/model-version invalidation; hybrid retrieval quality, unknown/conflicting evidence, correct-course isolation and navigable anchors"
   },
   {
     "requirement_id": "R-LEARNING",
@@ -893,14 +912,18 @@
       "1.2",
       "4.3",
       "6.2",
+      "8.1",
       "8.2",
+      "8.3",
       "13.4"
     ],
     "acceptance_steps": [
       "1.2",
       "4.3",
       "6.2",
+      "8.1",
       "8.2",
+      "8.3",
       "13.4",
       "14.3"
     ],
@@ -918,11 +941,17 @@
       "AC-6.2-03",
       "AC-6.2-04",
       "AC-6.2-05",
+      "AC-8.1-02",
+      "AC-8.1-03",
+      "AC-8.1-05",
       "AC-8.2-01",
       "AC-8.2-02",
       "AC-8.2-03",
       "AC-8.2-04",
       "AC-8.2-05",
+      "AC-8.3-03",
+      "AC-8.3-04",
+      "AC-8.3-06",
       "AC-13.4-01",
       "AC-13.4-02",
       "AC-13.4-03",
@@ -936,13 +965,14 @@
       "AC-14.3-04",
       "AC-14.3-05"
     ],
-    "final_acceptance": "No credentials/private course content staged; reject traversal, embedded scripts and prompt injection"
+    "final_acceptance": "No credentials/private course content staged; least-privilege OAuth and revocation; visible transmission scope; reject traversal, embedded scripts, malicious webpages and prompt injection"
   },
   {
     "requirement_id": "R-PROVIDERS",
     "implementation_steps": [
       "3.3",
       "8.1",
+      "8.3",
       "8.4",
       "10.1",
       "10.3"
@@ -950,6 +980,7 @@
     "acceptance_steps": [
       "3.3",
       "8.1",
+      "8.3",
       "8.4",
       "10.1",
       "10.3",
@@ -966,6 +997,12 @@
       "AC-8.1-04",
       "AC-8.1-05",
       "AC-8.1-06",
+      "AC-8.3-01",
+      "AC-8.3-02",
+      "AC-8.3-03",
+      "AC-8.3-04",
+      "AC-8.3-05",
+      "AC-8.3-06",
       "AC-8.4-01",
       "AC-8.4-02",
       "AC-8.4-03",
@@ -989,7 +1026,7 @@
       "AC-14.3-04",
       "AC-14.3-05"
     ],
-    "final_acceptance": "No paid substitution, budget/limit handling, unavailable state, credentials never in browser or logs"
+    "final_acceptance": "Explicit OAuth connect/revoke; user-initiated internet research records source URL, retrieval date and claim links; no paid substitution; budget/limit handling; credentials never in browser or logs"
   },
   {
     "requirement_id": "R-WORKFLOW",
