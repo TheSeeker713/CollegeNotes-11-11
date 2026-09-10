@@ -30,26 +30,23 @@ function record(id, status, exitCode, evidence, synthetic) {
   });
 }
 
-const fail = run(npm, ['exec', '--', 'vitest', 'run', 'tests/harness/fail/fail.test.ts', '--reporter=json']);
+const harness = ['exec', '--', 'vitest', 'run', '--config', 'vitest.harness.config.ts'];
+const fail = run(npm, [...harness, 'tests/harness/fail/fail.test.ts']);
 record('CHK-3.2-01', fail.status === 0 ? 'failed' : 'passed', fail.status === 0 ? 1 : 0, fail.stdout + fail.stderr, false);
 
-const empty = run(npm, ['exec', '--', 'vitest', 'run', 'tests/harness/empty', '--reporter=json', '--passWithNoTests']);
-function testCount(stdout) {
-  const match = stdout.match(/\{[\s\S]*\}$/);
-  try { return JSON.parse(match?.[0] ?? '{}').numTotalTests ?? 0; } catch { return -1; }
-}
-const emptyCount = testCount(empty.stdout);
-const skip = run(npm, ['exec', '--', 'vitest', 'run', 'tests/harness/skip/skip.test.ts', '--reporter=json']);
-const skipHasSkip = /skip/i.test(skip.stdout + skip.stderr);
+const empty = run(npm, [...harness, 'tests/harness/empty']);
+const emptyMissed = /No test files found/i.test(empty.stdout + empty.stderr) || empty.status !== 0;
+const skip = run(npm, [...harness, 'tests/harness/skip/skip.test.ts']);
+const skipHasSkip = /skipped/i.test(skip.stdout + skip.stderr);
 record(
   'CHK-3.2-02',
-  emptyCount === 0 && skipHasSkip ? 'passed' : 'failed',
-  emptyCount === 0 && skipHasSkip ? 0 : 1,
-  `emptyTests=${emptyCount} skipDetected=${skipHasSkip}`,
+  emptyMissed && skipHasSkip ? 'passed' : 'failed',
+  emptyMissed && skipHasSkip ? 0 : 1,
+  `emptyMissed=${emptyMissed} skipDetected=${skipHasSkip} skipStatus=${skip.status}`,
   false
 );
 
-const pass = run(npm, ['exec', '--', 'vitest', 'run', 'tests/harness/pass/pass.test.ts', '--reporter=json']);
+const pass = run(npm, [...harness, 'tests/harness/pass/pass.test.ts']);
 record('CHK-3.2-03', pass.status === 0 ? 'passed' : 'failed', pass.status ?? 1, pass.stdout + pass.stderr, false);
 
 const boom = run(path.join(runtimeBin, 'node'), ['-e', 'process.exit(2)']);
