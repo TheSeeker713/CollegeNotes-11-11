@@ -42,8 +42,7 @@ export async function listen(port = Number(process.env.COLLEGENOTES_PORT ?? DEFA
     const err = error as { code?: string };
     if (err.code === 'EADDRINUSE') {
       console.error(`Port ${port} is already in use. Stop the other process or set COLLEGENOTES_PORT.`);
-      process.exitCode = 2;
-      throw error;
+      process.exit(2);
     }
     throw error;
   }

@@ -2,7 +2,7 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['**/dist/**', '**/dist-types/**', 'node_modules/**', '.local/**', 'Design/**', 'coverage/**', 'docs/design/prototype/**'] },
+  { ignores: ['**/dist/**', '**/dist-types/**', 'node_modules/**', '.local/**', 'Design/**', 'coverage/**', 'docs/design/prototype/**', 'apps/web/public/**', 'package-lock.json'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

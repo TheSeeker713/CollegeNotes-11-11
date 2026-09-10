@@ -41,9 +41,8 @@ function start(port) {
 
 const port = 4781;
 const first = start(port);
-let stdout = '';
-first.stderr.on('data', (c) => { stdout += c; });
-first.stdout.on('data', (c) => { stdout += c; });
+first.stderr.on('data', () => {});
+first.stdout.on('data', () => {});
 try {
   const health = await waitHealth(port);
   check('CHK-3.4-01', health.status === 200 && health.data.includes('collegenotes-local'), health.data);
@@ -67,8 +66,10 @@ check(
 );
 
 const audit = spawnSync(runtimeNpm, ['audit', '--json'], { cwd: root, env, encoding: 'utf8', maxBuffer: 10_000_000 });
-let auditJson = {};
-try { auditJson = JSON.parse(audit.stdout || '{}'); } catch { auditJson = { parseError: true }; }
+function parseAudit(stdout) {
+  try { return JSON.parse(stdout || '{}'); } catch { return {}; }
+}
+const auditJson = parseAudit(audit.stdout);
 const vulns = auditJson.metadata?.vulnerabilities ?? {};
 const critical = Number(vulns.critical ?? 0);
 const high = Number(vulns.high ?? 0);
