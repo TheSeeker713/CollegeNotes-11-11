@@ -1,8 +1,8 @@
 {
   "phase": 2,
-  "phase_status": "active",
+  "phase_status": "awaiting_user_review",
   "step": "2.4",
-  "step_status": "checkpoint_pending",
+  "step_status": "complete",
   "pass_id": "PASS-2026-09-09-P2-FINISH",
   "authorization_ref": "AUTH-P2-FINISH",
   "authorized_phases_this_pass": [
@@ -22,7 +22,7 @@
     "2.1": "complete",
     "2.2": "complete",
     "2.3": "complete",
-    "2.4": "checkpoint_pending",
+    "2.4": "complete",
     "3.1": "not_started",
     "3.2": "not_started",
     "3.3": "not_started",
@@ -83,15 +83,16 @@
     "1.4": "cc562a72d6fc659b01f52cf13b60faa42262db22",
     "2.1": "03260d4a9ddee3d074f6632ffb68cd8d987c9370",
     "2.2": "b61af412b1094e08ae6941225a5e5e917935599b",
-    "2.3": "09a040eb7322bcede2ffe7eb6715e28c95f5d7fc"
+    "2.3": "09a040eb7322bcede2ffe7eb6715e28c95f5d7fc",
+    "2.4": "6eef455680d40a44c23025d6f0b1a246f0f1696f"
   },
-  "next_action": "Checkpoint Step 2.4 (commit, push, confirm remote SHA). Phase 3 is not authorized.",
+  "next_action": "Phase 2 steps 2.1–2.4 are complete. Owner may review the glass-review-1 candidate. Do not begin Phase 3.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
     "0": "complete",
     "1": "complete",
-    "2": "in_progress"
+    "2": "complete"
   },
   "manual_acceptances": [],
   "blockers": [],

@@ -1,6 +1,6 @@
 # CollegeNotes{11:11}
 
-Local, browser-first college learning application. Phases 0 and 1 are complete. Phase 2 is the active authorized phase: a dependency-free design prototype and 35 local gitignored image references. No application features or installed product dependencies exist yet.
+Local, browser-first college learning application. Phases 0 and 1 are complete. Phase 2 steps 2.1–2.4 are complete: a dependency-free design prototype and 35 local gitignored image references. No application features or installed product dependencies exist yet.
 
 The execution plan has phases 0–14. Read [current state](project-state/current.json), [actual approvals](project-state/approvals.json), and [course-input clarification](docs/product/input-policy.md). Phase 3 is not authorized.
 
