@@ -1,17 +1,21 @@
-# Three directions to compare as images
+# Canonical glass design — glass-review-1
 
-These are alternatives for owner review. No direction is approved. Generate the same reader/task content in each first; differences should be composition, visual tone and density, not extra features.
+The owner supplied 111 images and authorized finishing Phase 2 from this material (AUTH-P2-FINISH). The committed theme amendment is the visual direction; A/B/C and Neo Retro-only drafts are superseded. Their prior files remain in history/. This is a review candidate, not owner acceptance or a working product.
 
-| Direction | Composition and feel | Why consider it | What to judge in the image |
-|---|---|---|---|
-| A — Quiet Desk (recommended starting point) | Warm off-white canvas, white reading surface, forest-green controls, restrained amber bookmark. Slim left navigation, generous reading column, optional notes drawer | Keeps the current passage dominant and makes resume/source access easy to find | Does the quiet space feel inviting or too sparse? Is the source drawer useful without crowding the reading? |
-| B — Focus Studio | Deep green-charcoal surfaces, soft pale text, mint primary control; two main panes with tools tucked into a right drawer | Offers a subdued evening-study view and puts more space around the prose | Is long reading comfortable? Are hierarchy and muted labels still legible? Does the drawer hide too much? |
-| C — Editorial Notebook | Warm paper, ink text, rust accent, serif reading title/prose, crisp ruled navigation and margin notes | Makes a source feel like a well-edited study text; visual separation helps distinguish notes from original content | Does the editorial tone help concentration? Are margin notes clearer than a boxed drawer? |
+## Botanical Organic Glass
 
-My starting recommendation is A because a clear source column and optional supporting context fit repeated import, reading and resume. That is a design hypothesis for the images and your feedback, not a claim about your learning preferences. B and C are equally complete alternatives; their accessibility and functional requirements are identical.
+Cream/mineral canvas, sage Notes/Tutor, clay Study, pale-blue Listen. Expressive Georgia headings with clean system sans-serif body text. Softly rounded thick rims, restrained contour lines, coherent upper-left light and contact shadows. Use the selected Botanical references for material/layout, not generated source facts. Avoid the later images' excessive foliage behind prose. Prose and input backings are opaque. Dark uses deep evergreen, sage/clay/slate cards and warm light text; no pixel inversion.
 
-All three use simple, named controls and one primary action per region. College-level content remains serious and readable. Avoid neon glows, glass panels, ornamental gradients, streak counters, crowded analytics, card grids that displace reading, and fictional course data. Selective 2.5D is limited to a subtle raised reading sheet or context panel; typography carries the hierarchy.
+## Brutalist Glass Lab
 
-Image comparison screen: COMM 110 / Sources / “Speaking with clear examples” (synthetic sample), Section 2 of 6, a short readable passage, a notes area with a learner-authored observation, Listen controls at 03:18 / 12:40, “View original,” and “Check understanding.” Show “Saved just now” and “Ready offline.” Keep these facts consistent in A/B/C.
+A light grid, squared thick rims, strong black title bars, condensed display headings, blue focus/selection. Dark uses graphite/navy with light text and strong borders. Grid coordinates and orange placement outlines appear only in Arrange. Ordinary reading remains orderly, without overlapping source text or a world/camera interface.
 
-After viewing A/B/C, the owner can choose a direction or name specific elements to combine. Record that choice and update tokens/prompts before generating the full screen family. Do not average all three into an unrequested hybrid. Layout, typography and tone should be judged before decorative details.
+## Shared system
+
+Both themes support independent Light and Dark. First launch and Reset appearance use Botanical + Light even under a dark OS; theme changes retain mode. Global appearance never resets course layout, course, route, draft, source position, selection, attempt or audio offset. Settings → Appearance is the canonical entry. No account or provider request occurs on switching.
+
+Source, Notes/Tutor, Study and Listen are separate glass cards. Handle-only dragging leaves text selection, input, drop zones and seek controls independent. Snap/free placement, pin, keyboard move/cancel/place, Undo and Reset are explicit. Cards remain bounded and recoverable. At narrow widths cards stack with Move up/down and retained desktop arrangement. See tokens.json, flows F13/F14 and accessibility specification for exact values.
+
+## Fidelity and review rules
+
+Existing generated images are reference evidence, not exact source copy or production screens. Replace garbled/placeholder text, invented statistics, inconsistent navigation and unsupported course claims with safe source-labeled fixtures. Preserve all canonical navigation. Generated visuals remain unchanged; corrections live in specifications and the review prototype. The prototype provides inspectable 1440×900 and 390×844 layouts in all four variants. Every real provider, import, audio and backup integration remains for its owner implementation phase.
