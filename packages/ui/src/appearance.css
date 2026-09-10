@@ -29,4 +29,5 @@ html, body { background: var(--cn-canvas); color: var(--cn-text); font-family: v
 html.reduce-transparency .glass { backdrop-filter: none; }
 html:not(.reduce-transparency) .glass { backdrop-filter: blur(16px); }
 :focus-visible { outline: 3px solid var(--cn-focus); outline-offset: 3px; }
-button, .button { min-height: 44px; min-width: 44px; font: inherit; }
+button, .button, select, input:not([type=checkbox]):not([type=radio]) { min-height: 44px; font: inherit; }
+button, .button { min-width: 44px; }

@@ -1,0 +1,32 @@
+.skip { position: absolute; left: -999px; top: 8px; }
+.skip:focus { left: 8px; z-index: 20; background: var(--cn-surface); padding: 8px 12px; }
+.preview-strip { display: flex; gap: 16px; justify-content: center; align-items: center; min-height: 36px; padding: 6px 16px; background: var(--cn-text); color: var(--cn-canvas); font-size: 12px; }
+.app-shell { display: grid; grid-template-columns: 216px minmax(0, 1fr); min-height: calc(100vh - 36px); }
+#navigation { padding: 20px 16px; border-right: 1px solid var(--cn-border); }
+.brand { font-family: var(--cn-font-heading); font-size: 22px; margin-bottom: 18px; }
+.brand small { display: block; font-family: var(--cn-font-ui); font-size: 12px; color: var(--cn-text); opacity: .7; }
+#navigation a { display: flex; align-items: center; min-height: 44px; padding: 0 10px; text-decoration: none; color: inherit; border-radius: 10px; }
+#navigation a[aria-current='page'] { background: color-mix(in srgb, var(--cn-accent) 16%, transparent); }
+.content { padding: 24px 32px 48px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 24px; }
+#menu { display: none; }
+.page-heading h1 { font-family: var(--cn-font-heading); font-size: clamp(28px, 4vw, 42px); margin: 0 0 8px; }
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.notice { padding: 12px 16px; border: 1px solid var(--cn-border); border-radius: 10px; margin: 16px 0; }
+.card-row { display: grid; gap: 16px; }
+.card-row[data-count='4'] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.glass-card { padding: 16px; }
+.glass-card header { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.form-stack { display: flex; flex-direction: column; gap: 12px; max-width: 480px; }
+.form-stack input, .form-stack select, .form-stack textarea { min-height: 44px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.toast { position: fixed; bottom: 16px; right: 16px; background: var(--cn-surface); border: 1px solid var(--cn-border); padding: 12px 16px; border-radius: 10px; }
+html[data-density='compact'] .content { padding: 16px; }
+html.reduce-motion * { transition: none !important; }
+@media (max-width: 767px) {
+  .app-shell { grid-template-columns: 1fr; }
+  #navigation { display: none; }
+  #navigation.open { display: block; }
+  #menu { display: inline-flex; }
+  .card-row, .card-row[data-count='4'] { grid-template-columns: 1fr; }
+}

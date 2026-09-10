@@ -4,6 +4,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>CollegeNotes{11:11}</title>
+    <script>
+      (function () {
+        var d = { theme: 'botanical', mode: 'light' };
+        try {
+          var s = JSON.parse(localStorage.getItem('collegenotes-appearance') || 'null');
+          if (s && (s.theme === 'botanical' || s.theme === 'brutalist') && (s.mode === 'light' || s.mode === 'dark')) {
+            d.theme = s.theme;
+            d.mode = s.mode;
+            if (s.reduceMotion) document.documentElement.classList.add('reduce-motion');
+            if (s.reduceTransparency) document.documentElement.classList.add('reduce-transparency');
+            if (s.density) document.documentElement.dataset.density = s.density;
+          }
+        } catch (e) {}
+        document.documentElement.dataset.theme = d.theme;
+        document.documentElement.dataset.mode = d.mode;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

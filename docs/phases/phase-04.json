@@ -5,7 +5,7 @@
     "document": "docs/phases/theme-revision-02-through-14.md",
     "section": "Phase 4 additions",
     "required": true,
-    "scope": "Additive work and acceptance checks for this phase; planning only, no execution authorization"
+    "scope": "Additive T-prefixed checks; AUTH-P4 authorizes Phase 4 execution only"
   },
   "source": {
     "name": "CollegeNotes-Full-Project-Plan.md",
@@ -24,7 +24,9 @@
       "work": "build the approved shell, course context, keyboard navigation, panels, notifications, density and motion settings.",
       "deliverables": "navigable application with honest empty states.",
       "source_checks": "route/focus behavior; keyboard-only navigation; responsive layouts; contrast/accessibility; settings persistence; no invented content. Audit and checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "AUTH-P4: implement approved glass shell. Theme selector, Dark toggle, Botanical+Light default, card arrange."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-4.1-01",
@@ -66,6 +68,20 @@
           "description": "no invented content.",
           "check_ids": [
             "CHK-4.1-06"
+          ]
+        },
+        {
+          "id": "AC-4.1-T01",
+          "description": "Clean profile starts Botanical Light; four variants; persist/reset/invalid recovery without wrong-mode flash",
+          "check_ids": [
+            "CHK-4.1-T01"
+          ]
+        },
+        {
+          "id": "AC-4.1-T02",
+          "description": "Keyboard move/cancel/pin/reset; theme switch preserves drafts, focus and card positions",
+          "check_ids": [
+            "CHK-4.1-T02"
           ]
         }
       ],
@@ -111,6 +127,20 @@
           "required": true,
           "verification_kind": "local product verification",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.1-T01",
+          "description": "Clean profile starts Botanical Light; four variants; persist/reset/invalid recovery without wrong-mode flash",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
+        },
+        {
+          "id": "CHK-4.1-T02",
+          "description": "Keyboard move/cancel/pin/reset; theme switch preserves drafts, focus and card positions",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
         }
       ],
       "checkpoint": {
@@ -134,7 +164,9 @@
       "work": "create migrations, core IDs, transactions, file metadata, application-data directory selection, and data-access interfaces.",
       "deliverables": "versioned persistence foundation.",
       "source_checks": "create/read/update/delete contracts; rollback on failed transaction; fresh and upgraded database; file references survive restart; private data outside Git. Audit and checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "Persist versioned appearance preferences and per-course layouts in SQLite outside Git."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-4.2-01",
@@ -169,6 +201,13 @@
           "description": "private data outside Git.",
           "check_ids": [
             "CHK-4.2-05"
+          ]
+        },
+        {
+          "id": "AC-4.2-T01",
+          "description": "Appearance prefs and per-course layouts persist in the database",
+          "check_ids": [
+            "CHK-4.2-T01"
           ]
         }
       ],
@@ -207,6 +246,13 @@
           "required": true,
           "verification_kind": "local product verification",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.2-T01",
+          "description": "Appearance prefs and per-course layouts persist in the database",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
         }
       ],
       "checkpoint": {
@@ -326,7 +372,9 @@
       "work": "persist active course, route, current task, drafts, and settings; implement recovery notices without discarding work.",
       "deliverables": "first complete resume workflow.",
       "source_checks": "close/reopen restoration; interrupted write recovery; invalid saved route fallback; integrated shell/storage/job regression. Audit and checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "Theme/mode/layout survive restart independently of drafts and course switch."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-4.4-01",
@@ -354,6 +402,13 @@
           "description": "integrated shell/storage/job regression.",
           "check_ids": [
             "CHK-4.4-04"
+          ]
+        },
+        {
+          "id": "AC-4.4-T01",
+          "description": "Theme, mode and layouts survive restart independently of drafts",
+          "check_ids": [
+            "CHK-4.4-T01"
           ]
         }
       ],
@@ -385,6 +440,13 @@
           "required": true,
           "verification_kind": "local product verification",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-4.4-T01",
+          "description": "Theme, mode and layouts survive restart independently of drafts",
+          "required": true,
+          "verification_kind": "local product verification",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
         }
       ],
       "checkpoint": {

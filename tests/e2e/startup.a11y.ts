@@ -1,9 +1,12 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test('harness has no serious axe violations', async ({ page }) => {
+test('shell has no serious axe violations on home and settings', async ({ page }) => {
+  await page.addInitScript(() => localStorage.clear());
   await page.goto('/');
-  const results = await new AxeBuilder({ page }).analyze();
-  const serious = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
-  expect(serious, JSON.stringify(serious, null, 2)).toEqual([]);
+  const home = await new AxeBuilder({ page }).analyze();
+  expect(home.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical'), JSON.stringify(home.violations, null, 2)).toEqual([]);
+  await page.getByRole('link', { name: 'Settings' }).click();
+  const settings = await new AxeBuilder({ page }).analyze();
+  expect(settings.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical'), JSON.stringify(settings.violations, null, 2)).toEqual([]);
 });

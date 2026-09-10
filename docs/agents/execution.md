@@ -12,4 +12,4 @@ Approval records quote or identify actual user messages. A validator cannot gran
 
 ## Current recovery pass
 
-AUTH-P3 authorizes Phase 3 installation only. Execute steps 3.1–3.4 with pinned Node 24.21.0 / npm 12.0.2. Stop at Phase 3 completion. Do not begin Phase 4.
+AUTH-P4 authorizes Phase 4 only. Execute steps 4.1–4.4. Stop at Phase 4 completion. Do not begin Phase 5.

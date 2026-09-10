@@ -86,6 +86,29 @@
         "Stop at Phase 3 completion; do not begin Phase 4",
         "Write a full Phase 3 report as a Markdown file in docs/"
       ]
+    },
+    {
+      "id": "ACCEPT-P3",
+      "kind": "phase_acceptance",
+      "phases": [
+        3
+      ],
+      "source": "Owner message authorizing Phase 4 after Phase 3 closeout, 2026-09-09",
+      "quote": "implement phase 4"
+    },
+    {
+      "id": "AUTH-P4",
+      "kind": "phase_authorization",
+      "phases": [
+        4
+      ],
+      "source": "Owner message after Phase 3 closeout, 2026-09-09",
+      "quote": "implement phase 4",
+      "pass_id": "PASS-2026-09-09-P4",
+      "conditions": [
+        "Execute Phase 4 steps 4.1–4.4 only",
+        "Stop at Phase 4 completion; do not begin Phase 5"
+      ]
     }
   ]
 }

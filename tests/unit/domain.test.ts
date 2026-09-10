@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { SCHEMA_VERSION, parseAppearance } from '@collegenotes/domain';
+import { DEFAULT_APPEARANCE, SCHEMA_VERSION, parseAppearance } from '@collegenotes/domain';
 import { newAttempt } from '@collegenotes/learning';
 import { detectGraphics, textEquivalent } from '@collegenotes/visuals';
 
@@ -15,6 +15,6 @@ describe('domain harness', () => {
   });
 
   it('rejects invented appearance keys', () => {
-    expect(parseAppearance({ theme: 'neo', mode: 'auto' })).toEqual({ theme: 'botanical', mode: 'light' });
+    expect(parseAppearance({ theme: 'neo', mode: 'auto' })).toEqual(DEFAULT_APPEARANCE);
   });
 });
