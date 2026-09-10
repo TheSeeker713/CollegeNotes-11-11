@@ -98,7 +98,7 @@
     "4.3": "4e2b407877fafa22dc017794a81d38257894126a",
     "4.4": "2997861407d6a6e8a4b455e99f141ebd0be1027f"
   },
-  "next_action": "Repair Phase 1 governance and specifications under AUTH-REPAIR-0-4; push authorized by AUTH-REPAIR-PUSH.",
+  "next_action": "Prepare Phase 2 revised desktop design candidate; owner UI review remains pending.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -137,14 +137,15 @@
     "authorization_ref": "AUTH-REPAIR-0-4",
     "stages": {
       "0": "complete",
-      "1": "in_progress",
-      "2": "not_started",
+      "1": "complete",
+      "2": "in_progress",
       "3": "not_started",
       "4": "not_started"
     },
     "manual_review": "pending_owner",
     "checkpoints": {
-      "0": "ed1cdc5df68160622bd63c5421b6b958db3f9ed1"
+      "0": "ed1cdc5df68160622bd63c5421b6b958db3f9ed1",
+      "1": "06f9116e9fe5aecf63b912e2d3aff0b8940830c2"
     }
   }
 }

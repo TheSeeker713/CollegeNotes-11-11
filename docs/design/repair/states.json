@@ -1,0 +1,122 @@
+[
+  {
+    "id": "DR-01",
+    "area": "First use",
+    "state": "No courses yet",
+    "title": "Create your first course",
+    "behavior": "A name is required. No real course, assignment or provider is preloaded.",
+    "recovery": "Course creation failure preserves the typed name and offers Retry. Cancel returns to empty home."
+  },
+  {
+    "id": "DR-02",
+    "area": "Courses",
+    "state": "Your courses",
+    "title": "Synthetic course · demo only",
+    "behavior": "Active / Archived / Trash filters. Create course; rename; edit description; choose reusable modules; export course.",
+    "recovery": "Archive removes a course from active navigation without deleting it. Restore returns it to Active. Export reports files, size, progress, failure and destination."
+  },
+  {
+    "id": "DR-03",
+    "area": "Course deletion",
+    "state": "Review what will be removed",
+    "title": "Delete Synthetic course?",
+    "behavior": "Show material, notes, activities and index counts. Offer recoverable trash where practical or permanent deletion. Backups are separate copies and remain.",
+    "recovery": "Cancel is initially focused. Permanent deletion requires typed course name and explicit confirmation. Failed cleanup stays visible and retryable; do not claim success before completion."
+  },
+  {
+    "id": "DR-04",
+    "area": "Materials",
+    "state": "Bring your own material",
+    "title": "Import into Synthetic course",
+    "behavior": "Files, images, PDF, DOCX, DRM-free EPUB, pasted text or new note. Batch list shows each item, original preserved, extraction state, duplicate handling and cancel.",
+    "recovery": "Invalid/corrupt/oversized item errors identify the item. Interrupted work offers safe retry. No silent overwrite of originals."
+  },
+  {
+    "id": "DR-05",
+    "area": "Correction",
+    "state": "Original and extracted text",
+    "title": "Sample passage · revision 2",
+    "behavior": "Original opens on the left; editable extraction on the right. Source version, checksum and page/paragraph/region anchor remain visible. User-created notes have their own edit action.",
+    "recovery": "Save correction creates a revision and marks search, embeddings and activities stale. Save failure retains edits; leave-with-unsaved-changes offers Keep editing / Discard. Narrow desktop uses labeled Original / Text tabs."
+  },
+  {
+    "id": "DR-06",
+    "area": "Material export",
+    "state": "Choose export scope",
+    "title": "One item / Selection / Course / Portable backup",
+    "behavior": "Choose original plus corrections and annotations. Show version, checksum manifest, size, destination and whether derived indexes are included. Credentials never included.",
+    "recovery": "Export runs locally with progress/cancel. Partial export is not labeled complete. Retry preserves source data; unsupported format is explained."
+  },
+  {
+    "id": "DR-07",
+    "area": "Material deletion",
+    "state": "Review linked data",
+    "title": "Move 2 selected items to trash?",
+    "behavior": "Preview originals, extracted text, notes and derived study/index data. Show recoverable period if supported; permanent deletion is a separate choice. Backups remain independent.",
+    "recovery": "Deleted material immediately leaves retrieval/AI context. Cleanup interruption shows Pending cleanup. Restore rebuilds derivatives; permanent deletion cannot be undone."
+  },
+  {
+    "id": "DR-08",
+    "area": "Connections",
+    "state": "Choose your AI services",
+    "title": "No connected services",
+    "behavior": "OpenAI / ChatGPT, xAI / Grok, Anthropic / Claude, Google / Gemini, and Add approved provider. Every card starts disconnected. OpenAI is optional and removable.",
+    "recovery": "Add asks for a label and supported authentication method. API credentials use protected local storage; OAuth opens provider sign-in only when an official integration route exists."
+  },
+  {
+    "id": "DR-09",
+    "area": "Authentication",
+    "state": "Connect a service",
+    "title": "API credential or supported account sign-in",
+    "behavior": "OpenAI: API or documented app-server account route. Google: API or supported desktop OAuth. xAI and Anthropic: API; subscription OAuth unavailable until verified. No real credential field in this design gallery.",
+    "recovery": "Pending sign-in includes Cancel. Test connection reports success/error without exposing credentials. Expired/revoked access asks to reconnect; unsupported route explains why. Do not imply that subscription pays API bills."
+  },
+  {
+    "id": "DR-10",
+    "area": "Provider controls",
+    "state": "Use services on your terms",
+    "title": "Synthetic connection · not live",
+    "behavior": "Provider enabled toggle; independent Tutor, Research, Narration, Transcription, Realtime voice capability toggles; capability model/default selector. Local embeddings remain local.",
+    "recovery": "Unsupported capabilities are labeled unavailable. Model, billing type, remaining allowance and optional hard usage ceiling shown before use. Unknown cost blocks paid use; no silent paid fallback."
+  },
+  {
+    "id": "DR-11",
+    "area": "Disconnect and remove",
+    "state": "Keep local work",
+    "title": "Remove Synthetic connection?",
+    "behavior": "Disable stops requests. Disconnect clears local credentials. Remove also deletes service settings/default assignments. Course files, notes, study history and saved research remain.",
+    "recovery": "Warn that remote OAuth revocation may need network. Show local credential removal and remote revocation separately. Failure blocks use and offers Retry cleanup; never claim remote revocation offline."
+  },
+  {
+    "id": "DR-12",
+    "area": "Research",
+    "state": "Find evidence deliberately",
+    "title": "No research sessions yet",
+    "behavior": "Select course, provider and query. Private excerpts are off by default; preview exact selected context and categories before Send. Billing and provider are visible.",
+    "recovery": "No provider/offline/limit/error state offers a remedy. Cancel preserves query and received evidence. No background research or automatic promotion into course requirements."
+  },
+  {
+    "id": "DR-13",
+    "area": "Research evidence",
+    "state": "Inspect the claim",
+    "title": "Synthetic claim · sample only",
+    "behavior": "Claim links to source title, URL, publisher/author, retrieved date and exact excerpt. Uncertainty, conflicts and inaccessible sources appear alongside the claim.",
+    "recovery": "Save selected evidence into course, edit notes, export or delete session. Provider changes require a new explicit choice; existing evidence retains original provenance even after provider removal."
+  },
+  {
+    "id": "DR-14",
+    "area": "Offline and recovery",
+    "state": "Your local work stays yours",
+    "title": "Cloud service unavailable",
+    "behavior": "Prepared reading, notes, search and saved audio remain local. New cloud responses need a connection. Sources/derivatives not prepared are honestly unavailable.",
+    "recovery": "Service outage preserves unsaved edits and offers retry; invalid saved route returns Home with notice. Course changes never display another course’s draft."
+  },
+  {
+    "id": "DR-15",
+    "area": "Reading and study",
+    "state": "Source before explanation",
+    "title": "No source selected",
+    "behavior": "Source pane, user notes, study activity and optional audio have distinct headings. Resume last task with exact source/version/anchor. AI explanations remain labeled by provider.",
+    "recovery": "No study facts or assignment rules invented. Accessible 2D controls remain available without voice or 3D. Source correction marks dependent activities stale rather than presenting them as current."
+  }
+]

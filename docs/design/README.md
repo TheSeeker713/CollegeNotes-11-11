@@ -1,11 +1,5 @@
-# Phase 2 design candidate — glass-review-1
+# Current desktop design repair
 
-AUTH-P2-FINISH and CHANGE-35-IMAGES authorize finishing Phase 2 from the supplied generated images. The owner directed that **35 of 111** images are sufficient full-scope references. Those 35 stay on disk under `Design/assets/` and are **gitignored**; they are not pushed. No new generation round is required.
+[PROJECT-PLAN.md](../../PROJECT-PLAN.md) is the scope authority. The [revised desktop design candidate](repair/README.md) and [state gallery](repair/index.html) cover the corrected lifecycle, provider and research requirements. The owner performs UI/UX testing after repair implementation; acceptance is pending.
 
-Canonical appearance: Botanical Organic Glass and Brutalist Glass Lab, each in Light and Dark. Planned first launch is Botanical Light.
-
-Open [the dependency-free prototype](prototype/index.html) in Chrome. It runs from a local static server or file URL; no install/build/CDN/provider is required. This is synthetic review behavior, not the application.
-
-Authority: [design directions](03-design-directions.md), [interaction/accessibility](04-accessibility-and-behavior.md), [tokens](tokens.json), [flows](flows.json), [screen map](screen-map.json), [state inventory](component-states.json), [image receipts](image-receipts.json), [contrast](contrast-summary.md), [review tasks](08-review-and-return-checklist.md), [design audit](09-design-audit.md), and [manual review checklist](10-manual-review-checklist.md).
-
-The 35 retained images establish material and composition. CHANGE-DESKTOP-CONNECTED supersedes their phone/narrow-layout implications: the canonical target is the single-user macOS desktop app, checked at 1440×900, the agreed minimum usable desktop window and 200% zoom/reflow. The browser prototype is an interim design vehicle. Historical prompts remain in history/ and Git. Phase 3 dependencies remain uninstalled.
+The earlier glass-review-1 prototype, prompts, flow maps and audits remain historical evidence. They do not establish current class content, provider entitlements or repair acceptance. Theme tokens, Botanical Organic Glass and Brutalist Glass Lab with Light/Dark, and the 35 local gitignored image references remain design direction. No new images or dependencies are required.
