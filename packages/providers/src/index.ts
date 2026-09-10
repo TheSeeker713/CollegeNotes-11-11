@@ -12,3 +12,6 @@ export function describeUnavailable(kind: ProviderKind): string {
   if (state.available) return `${kind} available (simulated)`;
   return `${kind} unavailable: ${state.reason}. No silent fallback.`;
 }
+
+export * from './contracts.js';
+export { OAuthAttempt } from './oauth.js';

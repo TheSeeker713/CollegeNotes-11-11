@@ -98,7 +98,7 @@
     "4.3": "4e2b407877fafa22dc017794a81d38257894126a",
     "4.4": "2997861407d6a6e8a4b455e99f141ebd0be1027f"
   },
-  "next_action": "Prepare Phase 2 revised desktop design candidate; owner UI review remains pending.",
+  "next_action": "Repair Phase 3 provider/auth boundaries and non-UI harnesses. No dependency change.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -138,14 +138,15 @@
     "stages": {
       "0": "complete",
       "1": "complete",
-      "2": "in_progress",
-      "3": "not_started",
+      "2": "implementation_ready_owner_review_pending",
+      "3": "in_progress",
       "4": "not_started"
     },
     "manual_review": "pending_owner",
     "checkpoints": {
       "0": "ed1cdc5df68160622bd63c5421b6b958db3f9ed1",
-      "1": "06f9116e9fe5aecf63b912e2d3aff0b8940830c2"
+      "1": "06f9116e9fe5aecf63b912e2d3aff0b8940830c2",
+      "2": "5587f6e35a3662ef236aec2b88d3ef9026407d49"
     }
   }
 }
