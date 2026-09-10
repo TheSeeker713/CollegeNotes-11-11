@@ -7,3 +7,7 @@ At phase end, reconcile every step record and ordered commit with actual remote 
 Document audits check completeness, contradictions, links, scope, evidence fidelity and unknowns. Design audits inspect actual returned images at agreed window sizes, text hierarchy, state coverage, keyboard specifications, motion/audio coordination and review feedback. Image prompts and contrast arithmetic are preparatory evidence; they do not prove the images or app are accessible.
 
 Checkpoint source identity uses the tested file manifest/staged tree, then associates the resulting commit and remote receipt. If any tested file changes, rerun affected checks. Detailed evidence is excluded from Git; preserve local reports for handoff. Failed gates are retained, never edited into passes.
+
+## Current recovery pass
+
+AUTH-P2-FINISH supersedes the old missing-image handoff. The 111 supplied assets are sufficient reference material; inspect and retain them, and reconcile their inconsistencies in the canonical four-variant design/prototype. No new generation round is required. The original bounded pass stays historical. Follow current state, ordered revised-step checkpoints and final candidate review; do not invent acceptance or begin Phase 3 installation.

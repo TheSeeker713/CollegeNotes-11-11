@@ -11,3 +11,7 @@ Lost source/evidence: recover private originals/logs from the owner if essential
 User defect or rejected design: reopen the current phase, record the defect and exact candidate, repair/retest/audit and checkpoint. Phase boundary: stop unless a recorded user exception explicitly covers this transition. Phase 3 has no exception here.
 
 Future import/restore failure: preserve originals/existing database, identify partial job, validate checksum and schema, retry through a resumable job; never replace user data because a notification says success.
+
+## Current recovery pass
+
+AUTH-P2-FINISH supersedes the old missing-image handoff. The 111 supplied assets are sufficient reference material; inspect and retain them, and reconcile their inconsistencies in the canonical four-variant design/prototype. No new generation round is required. The original bounded pass stays historical. Follow current state, ordered revised-step checkpoints and final candidate review; do not invent acceptance or begin Phase 3 installation.

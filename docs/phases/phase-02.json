@@ -5,7 +5,7 @@
     "document": "docs/phases/theme-revision-02-through-14.md",
     "section": "Phase 2 additions",
     "required": true,
-    "scope": "Additive work and acceptance checks for this phase; planning only, no execution authorization"
+    "scope": "Additive acceptance checks translated into stable T-prefixed check IDs; AUTH-P2-FINISH authorizes Phase 2 execution only"
   },
   "source": {
     "name": "CollegeNotes-Full-Project-Plan.md",
@@ -24,7 +24,9 @@
       "work": "design course home, import inbox, reading, study, presentation practice, requirements, progress, and settings. Map first use, returning use, interruption recovery, offline use, and error recovery. Use the supplied COMM 110 content to ground examples.",
       "deliverables": "screen map, user-flow specifications, content hierarchy.",
       "source_checks": "each core task has an entry/exit/recovery route; resume is prominent; no essential function depends on 3D navigation or voice; draft course requirements retain source wording. Checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "AUTH-P2-FINISH: supplied 111 images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required. Explicit final candidate acceptance remains separate."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-2.1-01",
@@ -52,6 +54,20 @@
           "description": "draft course requirements retain source wording.",
           "check_ids": [
             "CHK-2.1-04"
+          ]
+        },
+        {
+          "id": "AC-2.1-T01",
+          "description": "Default Botanical + Light independent of OS; theme/mode controls and global preference/per-course layout flows preserve tasks and recover failures",
+          "check_ids": [
+            "CHK-2.1-T01"
+          ]
+        },
+        {
+          "id": "AC-2.1-T02",
+          "description": "Card move, pin, undo/reset, keyboard cancel/place, bounds recovery and narrow reorder routes are specified",
+          "check_ids": [
+            "CHK-2.1-T02"
           ]
         }
       ],
@@ -83,6 +99,20 @@
           "required": true,
           "verification_kind": "document/design evidence",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.1-T01",
+          "description": "Default Botanical + Light independent of OS; theme/mode controls and global preference/per-course layout flows preserve tasks and recover failures",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
+        },
+        {
+          "id": "CHK-2.1-T02",
+          "description": "Card move, pin, undo/reset, keyboard cancel/place, bounds recovery and narrow reorder routes are specified",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
         }
       ],
       "checkpoint": {
@@ -106,13 +136,29 @@
       "work": "specify typography, spacing, color/contrast, responsive layouts, density settings, focus states, reduced motion, keyboard behavior, and narration controls. Design default 2D components and clear boundaries for embedded 3D.",
       "deliverables": "design tokens, component/state inventory, accessibility specification.",
       "source_checks": "contrast calculations, type/line-length review, keyboard/focus specifications, touch target review, narrow-window layouts, and no motion-dependent information. Checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "AUTH-P2-FINISH: supplied 111 images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required. Explicit final candidate acceptance remains separate."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-2.2-01",
           "description": "contrast calculations, type/line-length review, keyboard/focus specifications, touch target review, narrow-window layouts, and no motion-dependent information.",
           "check_ids": [
             "CHK-2.2-01"
+          ]
+        },
+        {
+          "id": "AC-2.2-T01",
+          "description": "Four theme/mode semantic palettes have measured text/control contrast on opaque backings",
+          "check_ids": [
+            "CHK-2.2-T01"
+          ]
+        },
+        {
+          "id": "AC-2.2-T02",
+          "description": "Rest/lift shadows, reduced motion/transparency, narrow layouts and focus/target specifications are complete",
+          "check_ids": [
+            "CHK-2.2-T02"
           ]
         }
       ],
@@ -123,6 +169,20 @@
           "required": true,
           "verification_kind": "document/design evidence",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.2-T01",
+          "description": "Four theme/mode semantic palettes have measured text/control contrast on opaque backings",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
+        },
+        {
+          "id": "CHK-2.2-T02",
+          "description": "Rest/lift shadows, reduced motion/transparency, narrow layouts and focus/target specifications are complete",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
         }
       ],
       "checkpoint": {
@@ -147,7 +207,8 @@
       "deliverables": "reviewable design prototype and annotated interaction specs, including selected 3D storyboard only where instructional value exists.",
       "source_checks": "all intended prototype controls work or are visibly identified as simulated; source labels readable; state coverage complete; no mock provider behavior represented as working integration. Checkpoint.",
       "amendments": [
-        "AUTH-1-2: prepare design proposals and image prompts, then wait for external image generation. Keep 2.3 incomplete until images are returned and reviewable artifacts satisfy every required check."
+        "AUTH-1-2: prepare design proposals and image prompts, then wait for external image generation. Keep 2.3 incomplete until images are returned and reviewable artifacts satisfy every required check.",
+        "AUTH-P2-FINISH: supplied 111 images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required. Explicit final candidate acceptance remains separate."
       ],
       "acceptance_criteria": [
         {
@@ -183,6 +244,13 @@
           "description": "Generated UI images from another chat AI exist and are inspected; prompts alone do not satisfy this deliverable",
           "check_ids": [
             "CHK-2.3-05"
+          ]
+        },
+        {
+          "id": "AC-2.3-T01",
+          "description": "Four-variant review prototype resolves image deviations and covers appearance/card interactions at desktop and narrow sizes",
+          "check_ids": [
+            "CHK-2.3-T01"
           ]
         }
       ],
@@ -221,6 +289,13 @@
           "required": true,
           "verification_kind": "document/design evidence",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.3-T01",
+          "description": "Four-variant review prototype resolves image deviations and covers appearance/card interactions at desktop and narrow sizes",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
         }
       ],
       "checkpoint": {
@@ -244,7 +319,9 @@
       "work": "review all screens against requirements, remove unnecessary initiation steps, verify text/audio/visual coordination, and prepare concrete user tasks. Record observations about likely friction as hypotheses, not clinical conclusions.",
       "deliverables": "design audit, approved-design candidate, manual review checklist.",
       "source_checks": "full flow walkthrough; information consistency; no missing critical state; rendering inspected at agreed window sizes; phase requirements covered. Checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "AUTH-P2-FINISH: supplied 111 images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required. Explicit final candidate acceptance remains separate."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-2.4-01",
@@ -286,6 +363,13 @@
           "description": "Owner reviews generated images and feedback is addressed before explicit design acceptance",
           "check_ids": [
             "CHK-2.4-06"
+          ]
+        },
+        {
+          "id": "AC-2.4-T01",
+          "description": "Integrated four-variant walkthrough preserves drafts, positions and study state; all added design obligations reconciled",
+          "check_ids": [
+            "CHK-2.4-T01"
           ]
         }
       ],
@@ -331,6 +415,13 @@
           "required": true,
           "verification_kind": "document/design evidence",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
+        },
+        {
+          "id": "CHK-2.4-T01",
+          "description": "Integrated four-variant walkthrough preserves drafts, positions and study state; all added design obligations reconciled",
+          "required": true,
+          "verification_kind": "document/design evidence",
+          "result_policy": "All required checks must execute and pass; no missing/skipped cases"
         }
       ],
       "checkpoint": {

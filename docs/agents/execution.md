@@ -9,3 +9,7 @@ After the gate, bind a source fingerprint to the evidence, commit, push and comp
 Every phase normally ends for explicit user approval. AUTH-1-2 permits this pass to proceed from completed Phase 1 to Phase 2 without another question. This is authorization to execute, not an invented manual acceptance. Phase 3 remains forbidden. Phase 2 requires images from the other AI, rendered-design checks and user review; prompts alone do not complete it.
 
 Approval records quote or identify actual user messages. A validator cannot grant authority or prove a quote is authentic; the agent audits it against the conversation. GitHub cannot grant phase approval. No CI or PR gate is introduced.
+
+## Current recovery pass
+
+AUTH-P2-FINISH supersedes the old missing-image handoff. The 111 supplied assets are sufficient reference material; inspect and retain them, and reconcile their inconsistencies in the canonical four-variant design/prototype. No new generation round is required. The original bounded pass stays historical. Follow current state, ordered revised-step checkpoints and final candidate review; do not invent acceptance or begin Phase 3 installation.

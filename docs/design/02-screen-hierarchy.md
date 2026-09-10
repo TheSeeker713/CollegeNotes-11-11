@@ -17,3 +17,11 @@ Small windows: below 1100px hide the optional context drawer by default; below 7
 Draft course rules retain available source wording and uncertainty. The historical report can inform private context, but visual samples use invented text and “Not provided yet” for unknown official requirements. The ban on COMM 110 AI-generated outlines and sources/citations is present in the practice/tutor behavior, not just a footer disclaimer.
 
 These are route/layout specifications. No clickable app, account connection, import or persistence behavior is implemented yet. Returned images must be paired with the interaction specifications and reviewed before Phase 2 can close.
+
+## Glass workspace routing amendment
+
+F13/F14 supplement all original flows. On wide screens use a dominant Source card, sage Notes/Tutor beside it, clay Study and blue Listen. Brutalist uses the same hierarchy with squared rims and dark title bars. Arrange controls belong to an explicit optional mode, never permanent coordinate diagnostics in reading. Move controls are separate from text, file input and seek controls. Fixed Undo/Reset and navigation are not draggable.
+
+Below 1100px use stacked grid positions without obscured prose; below 768px use a named navigation menu and a single column. The 390×844 target is a real reflowed prototype viewport, not a resized desktop screenshot. Narrow cards offer Move up/down and preserve desktop coordinates. In correction, Original/Extracted tabs retain edits and original pixels; global theme applies only to surrounding controls. Appearance and mode preserve course, route, draft, source anchor, attempt, playback and focus. Global appearance reset does not reset course layouts.
+
+Source fidelity: all candidate prose is a labeled fixture, originals remain faithful, user PQP writing is never replaced. All modes expose Home, Sources, Study, Practice, Requirements, Progress and Settings. No generated image can remove required routes.

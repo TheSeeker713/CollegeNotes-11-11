@@ -37,6 +37,22 @@
         "Phase 2 remains incomplete until images are generated, inspected and reviewed",
         "Phase 3 is not authorized"
       ]
+    },
+    {
+      "id": "AUTH-P2-FINISH",
+      "kind": "phase_authorization",
+      "phases": [
+        2
+      ],
+      "source": "Owner message in audit/recovery conversation, 2026-09-09",
+      "quote": "There's 111 images, this is enough material to give you a good idea of how this project design is supposed to be. Do whatever is necessary to wrap up phase 2 so we can move onto phase 3",
+      "pass_id": "PASS-2026-09-09-P2-FINISH",
+      "conditions": [
+        "Use the supplied 111 images as sufficient design direction; reconcile and finish Phase 2",
+        "No additional image-generation round is required; use a dependency-free review prototype to resolve gaps",
+        "This authorizes execution, not a fabricated final acceptance of an unseen candidate",
+        "Prepare the Phase 3 handoff; no Phase 3 installation in this pass"
+      ]
     }
   ]
 }

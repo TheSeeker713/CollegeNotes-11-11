@@ -19,3 +19,9 @@ COMM 110 practice uses Praise / Question / Polish to help the learner classify o
 Offline status is specific: “Ready offline: 3 sources and 2 audio tracks” or “This audio isn't downloaded.” The app preserves queued work and explains the available local action. Unavailable tutoring cannot erase a typed question or make a cached response look newly generated.
 
 Performance and accessibility are design constraints: conventional 2D navigation, text outside canvas, keyboard access, reduced motion, and a graphics-disabled equivalent. A selective visual aid must answer a learning question. No virtual campus, navigable world, ocean, decorative 3D or background simulation.
+
+## Canonical recovery revision: glass-review-1
+
+The owner supplied 111 references and authorized Phase 2 completion. Use Botanical Organic Glass and Brutalist Glass Lab, each in Light and Dark. Botanical + Light is the current planned first-launch/reset default regardless of OS theme. Appearance is application-wide; card layouts are course-specific. Preserve all seven named navigation destinations above. Image labels such as Materials, Library, Dashboard or My Notes do not rename the canonical routes. Generated course subtitles, dates, statistics and placeholder prose are not source facts. Use COMM 110 · Presentational Skills and explicitly synthetic practice content.
+
+Settings → Appearance changes presentation without remounting the active task. Movable Source, Notes/Tutor, Study and Listen cards have independent editing/transport controls and visible handles. Fixed navigation and resume/recovery controls remain reachable. F13/F14 specify all switching, keyboard, narrow and failure routes. Detailed cards are supporting tools; Home retains one dominant Resume action.
