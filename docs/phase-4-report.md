@@ -15,7 +15,7 @@ The first **real application shell**: navigation, appearance, local SQLite, orig
 | 4.1 | Navigable glass shell | `c86bb6b7bc75dd7a03ddf9042c0dfe45332dc528` |
 | 4.2 | Local persistence | `22e16ca220d828444d295e545dd0fb0a965d77f0` |
 | 4.3 | Service boundaries and jobs | `4e2b407877fafa22dc017794a81d38257894126a` |
-| 4.4 | Session resumption | *(bound in the 4.4 closeout commit)* |
+| 4.4 | Session resumption | `2997861407d6a6e8a4b455e99f141ebd0be1027f` |
 
 ## Behavior
 
