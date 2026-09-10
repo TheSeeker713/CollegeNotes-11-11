@@ -27,7 +27,8 @@
     "verify:step": "node scripts/verify-step.mjs",
     "verify:planning": "node scripts/validate-project.mjs",
     "test:workflow": "node scripts/rehearse-workflow.mjs",
-    "audit:deps": "npm audit --json"
+    "audit:deps": "npm audit --json",
+    "bundle:workers": "node scripts/bundle-workers.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

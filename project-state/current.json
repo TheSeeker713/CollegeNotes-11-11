@@ -1,7 +1,7 @@
 {
   "phase": 3,
   "phase_status": "active",
-  "step": "3.2",
+  "step": "3.3",
   "step_status": "checkpoint_pending",
   "pass_id": "PASS-2026-09-09-P3",
   "authorization_ref": "AUTH-P3",
@@ -24,8 +24,8 @@
     "2.3": "complete",
     "2.4": "complete",
     "3.1": "complete",
-    "3.2": "checkpoint_pending",
-    "3.3": "not_started",
+    "3.2": "complete",
+    "3.3": "checkpoint_pending",
     "3.4": "not_started",
     "4.1": "not_started",
     "4.2": "not_started",
@@ -85,9 +85,10 @@
     "2.2": "b61af412b1094e08ae6941225a5e5e917935599b",
     "2.3": "09a040eb7322bcede2ffe7eb6715e28c95f5d7fc",
     "2.4": "6eef455680d40a44c23025d6f0b1a246f0f1696f",
-    "3.1": "db8949819b6f1470a291036e7a67461400c62e4e"
+    "3.1": "db8949819b6f1470a291036e7a67461400c62e4e",
+    "3.2": "057ed16d594bbbf3eade5e2b3d5a26e1f6e72304"
   },
-  "next_action": "Checkpoint Step 3.2. Stop after Phase 3; do not begin Phase 4.",
+  "next_action": "Checkpoint Step 3.3. Stop after Phase 3; do not begin Phase 4.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
