@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
-import { openStore, createCourse, courseCollection, editCourse, archiveCourse, setDraft, getDraft, storeOriginal, readOriginal, setLayout, getLayout, listCourses } from '@collegenotes/storage';
+import { courseModules, setCourseModule, openStore, createCourse, courseCollection, editCourse, archiveCourse, setDraft, getDraft, storeOriginal, readOriginal, setLayout, getLayout, listCourses } from '@collegenotes/storage';
 import { createService } from '../../apps/local-service/src/index.js';
 const dirs: string[] = [];
 function fixture() { const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cn-course-')); dirs.push(dir); return openStore(dir); }
@@ -39,5 +39,34 @@ describe('Phase 5.1 course collection', () => {
     const created = (await app.inject({method:'POST',url:'/courses',payload:{name:' New ',description:'Text'}})).json();
     expect(created.name).toBe('New'); expect(created.description).toBe('Text');
     await app.close(); s.db.close();
+  });
+});
+
+describe('Phase 5.2 course modules', () => {
+  it('CHK-5.2-01 starts with all modules disabled and no material', () => {
+    const s = fixture(); const a = createCourse(s, 'Synthetic');
+    expect(courseModules(s, a.id)).toHaveLength(8); expect(courseModules(s, a.id).every(m => !m.enabled)).toBe(true);
+    expect(s.db.prepare('select count(*) as n from source_documents').get()).toEqual({n:0}); s.db.close();
+  });
+  it('CHK-5.2-02 persists module choices independently after restart', () => {
+    let s = fixture(); const dir = s.dataDir; const a = createCourse(s, 'A'); const b = createCourse(s, 'B');
+    setCourseModule(s, a.id, 'notes', true); s.db.close(); s = openStore(dir);
+    expect(courseModules(s, a.id).find(m => m.moduleId === 'notes')?.enabled).toBe(true);
+    expect(courseModules(s, b.id).every(m => !m.enabled)).toBe(true); s.db.close();
+  });
+  it('CHK-5.2-03 rejects invalid IDs/values through service and repository', async () => {
+    const s = fixture(); const a = createCourse(s, 'A'); const app = createService(s);
+    expect(() => setCourseModule(s,a.id,'unknown',true)).toThrow('invalid_module');
+    for (const enabled of [1,'true',null]) expect((await app.inject({method:'PUT',url:`/courses/${a.id}/modules/notes`,payload:{enabled}})).statusCode).toBe(400);
+    expect((await app.inject({method:'PUT',url:`/courses/${a.id}/modules/notes`,payload:{enabled:true}})).statusCode).toBe(200);
+    archiveCourse(s,a.id,true); expect(() => setCourseModule(s,a.id,'notes',false)).toThrow('course_unavailable');
+    await app.close(); s.db.close();
+  });
+  it('CHK-5.2-04 disabling preserves notes/layouts and leaves providers alone', () => {
+    const s = fixture(); const a = createCourse(s,'A'); setCourseModule(s,a.id,'notes',true);
+    setDraft(s,{key:'note',courseId:a.id,body:'Keep'}); setCourseModule(s,a.id,'notes',false);
+    setCourseModule(s,a.id,'tutoring',true); expect(getDraft(s,'note')?.body).toBe('Keep');
+    expect(s.db.prepare('select count(*) as n from connections').get()).toEqual({n:0});
+    expect(s.db.prepare('select count(*) as n from capability_assignments').get()).toEqual({n:0}); s.db.close();
   });
 });

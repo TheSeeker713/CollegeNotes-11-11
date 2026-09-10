@@ -1,4 +1,4 @@
-import type { Course } from '@collegenotes/domain';
+import { COURSE_MODULES, isCourseModuleId, type ModuleSelection, type Course } from '@collegenotes/domain';
 import type { Store } from './database.js';
 
 export class CourseError extends Error {
@@ -32,4 +32,16 @@ export function archiveCourse(store: Store, id: string, archived: boolean): Cour
   const now = new Date().toISOString();
   store.db.prepare('update courses set archived_at=?, updated_at=? where id=?').run(archived ? now : null, now, id);
   return requireCourse(store, id);
+}
+
+export function courseModules(store: Store, id: string): ModuleSelection[] {
+  requireCourse(store, id);
+  const rows = store.db.prepare('select module_id as moduleId, enabled from course_modules where course_id=?').all(id) as { moduleId: string; enabled: number }[];
+  return COURSE_MODULES.map((m) => ({ moduleId: m.id, schemaVersion: 1, enabled: rows.some((r) => r.moduleId === m.id && r.enabled === 1) }));
+}
+export function setCourseModule(store: Store, id: string, moduleId: unknown, enabled: unknown): ModuleSelection[] {
+  requireCourse(store, id, true);
+  if (!isCourseModuleId(moduleId) || typeof enabled !== 'boolean') throw new CourseError('invalid_module');
+  store.db.prepare('insert into course_modules(course_id,module_id,schema_version,enabled) values (?,?,1,?) on conflict(course_id,module_id) do update set enabled=excluded.enabled').run(id, moduleId, enabled ? 1 : 0);
+  return courseModules(store, id);
 }

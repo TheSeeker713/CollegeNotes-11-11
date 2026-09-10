@@ -26,3 +26,4 @@ export type Health = {
 };
 
 export * from './lifecycle.js';
+export * from './modules.js';
