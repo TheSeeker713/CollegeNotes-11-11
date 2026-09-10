@@ -19,6 +19,7 @@ import {
 } from '@collegenotes/domain';
 import type { Store } from './database.js';
 import { resolveInside } from './paths.js';
+import { courseInput, requireCourse } from './courses.js';
 import { recoverSession } from './foundation.js';
 
 export function listCourses(store: Store): Course[] {
@@ -26,7 +27,7 @@ export function listCourses(store: Store): Course[] {
 }
 
 export function createCourse(store: Store, name: string): Course {
-  const trimmed = name.trim();
+  const trimmed = courseInput({ name }).name;
   if (!trimmed) throw Object.assign(new Error('name_required'), { code: 'invalid' });
   const course = newCourse(trimmed);
   store.db.prepare('insert into courses(id, name, created_at, updated_at) values (?, ?, ?, ?)').run(course.id, course.name, course.createdAt, course.updatedAt);
@@ -56,6 +57,7 @@ export function getLayout(store: Store, courseId: string): CardLayout {
 }
 
 export function setLayout(store: Store, courseId: string, layout: CardLayout): CardLayout {
+  requireCourse(store, courseId, true);
   const parsed = parseCardLayout(layout);
   store.db.prepare('insert into card_layouts(course_id, payload) values (?, ?) on conflict(course_id) do update set payload = excluded.payload').run(courseId, JSON.stringify(parsed));
   return parsed;
@@ -78,6 +80,7 @@ export function getDraft(store: Store, key: string): Draft | null {
 }
 
 export function setDraft(store: Store, draft: Omit<Draft, 'updatedAt'>): Draft {
+  if (draft.courseId) requireCourse(store, draft.courseId, true);
   const existing = getDraft(store, draft.key);
   if (existing && existing.courseId !== draft.courseId) throw new Error('draft_course_mismatch');
   const saved = { ...draft, updatedAt: new Date().toISOString() };

@@ -739,21 +739,15 @@
   {
     "requirement_id": "R-POLICY",
     "implementation_steps": [
-      "5.2",
       "8.3",
       "11.4"
     ],
     "acceptance_steps": [
-      "5.2",
       "8.3",
       "11.4",
       "14.3"
     ],
     "acceptance_criterion_ids": [
-      "AC-5.2-01",
-      "AC-5.2-02",
-      "AC-5.2-03",
-      "AC-5.2-04",
       "AC-8.3-01",
       "AC-8.3-02",
       "AC-8.3-03",
@@ -771,37 +765,54 @@
       "AC-14.3-04",
       "AC-14.3-05"
     ],
-    "final_acceptance": "Prohibited-request evaluation and unchanged user-authored export; no generated graded outline/citation"
+    "final_acceptance": "Prohibited-request evaluation and unchanged user-authored export; no generated graded outline/citation",
+    "historical_phase5_mapping": {
+      "implementation_steps": [
+        "5.2",
+        "8.3",
+        "11.4"
+      ],
+      "acceptance_steps": [
+        "5.2",
+        "8.3",
+        "11.4",
+        "14.3"
+      ],
+      "acceptance_criterion_ids": [
+        "AC-5.2-01",
+        "AC-5.2-02",
+        "AC-5.2-03",
+        "AC-5.2-04",
+        "AC-8.3-01",
+        "AC-8.3-02",
+        "AC-8.3-03",
+        "AC-8.3-04",
+        "AC-8.3-05",
+        "AC-8.3-06",
+        "AC-11.4-01",
+        "AC-11.4-02",
+        "AC-11.4-03",
+        "AC-11.4-04",
+        "AC-11.4-05",
+        "AC-14.3-01",
+        "AC-14.3-02",
+        "AC-14.3-03",
+        "AC-14.3-04",
+        "AC-14.3-05"
+      ]
+    },
+    "projection_note": "Official Phase 5 is course lifecycle/modules. Historical class-policy checks are not satisfied by new Phase 5 IDs. Remaining future mappings require reconciliation against the official plan at their authorization; no feature removed."
   },
   {
     "requirement_id": "R-COURSE_RULES",
     "implementation_steps": [
-      "5.2",
-      "5.3",
-      "5.4",
       "11.4"
     ],
     "acceptance_steps": [
-      "5.2",
-      "5.3",
-      "5.4",
       "11.4",
       "14.3"
     ],
     "acceptance_criterion_ids": [
-      "AC-5.2-01",
-      "AC-5.2-02",
-      "AC-5.2-03",
-      "AC-5.2-04",
-      "AC-5.3-01",
-      "AC-5.3-02",
-      "AC-5.3-03",
-      "AC-5.3-04",
-      "AC-5.3-05",
-      "AC-5.4-01",
-      "AC-5.4-02",
-      "AC-5.4-03",
-      "AC-5.4-04",
       "AC-11.4-01",
       "AC-11.4-02",
       "AC-11.4-03",
@@ -813,7 +824,48 @@
       "AC-14.3-04",
       "AC-14.3-05"
     ],
-    "final_acceptance": "Compare original course evidence, timezone/relative-week fixtures, no invented duration/date/tolerance"
+    "final_acceptance": "Compare original course evidence, timezone/relative-week fixtures, no invented duration/date/tolerance",
+    "historical_phase5_mapping": {
+      "implementation_steps": [
+        "5.2",
+        "5.3",
+        "5.4",
+        "11.4"
+      ],
+      "acceptance_steps": [
+        "5.2",
+        "5.3",
+        "5.4",
+        "11.4",
+        "14.3"
+      ],
+      "acceptance_criterion_ids": [
+        "AC-5.2-01",
+        "AC-5.2-02",
+        "AC-5.2-03",
+        "AC-5.2-04",
+        "AC-5.3-01",
+        "AC-5.3-02",
+        "AC-5.3-03",
+        "AC-5.3-04",
+        "AC-5.3-05",
+        "AC-5.4-01",
+        "AC-5.4-02",
+        "AC-5.4-03",
+        "AC-5.4-04",
+        "AC-11.4-01",
+        "AC-11.4-02",
+        "AC-11.4-03",
+        "AC-11.4-04",
+        "AC-11.4-05",
+        "AC-14.3-01",
+        "AC-14.3-02",
+        "AC-14.3-03",
+        "AC-14.3-04",
+        "AC-14.3-05"
+      ]
+    },
+    "projection_note": "Official Phase 5 is course lifecycle/modules. Historical class-policy checks are not satisfied by new Phase 5 IDs. Remaining future mappings require reconciliation against the official plan at their authorization; no feature removed."
   },
   {
     "requirement_id": "R-PRESENTATION",

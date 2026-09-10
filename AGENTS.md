@@ -29,3 +29,7 @@ Read the guides relevant to your work:
 - [Instruction loading](docs/agents/instruction-loading.md)
 
 Phase 1 adds local document/state validation. Product build/type/lint/unit/integration/browser/accessibility/evaluation commands are Phase 3 deliverables; do not claim they already run. No subagents are required by these rules.
+
+## Current Phase 5 authorization
+
+AUTH-P5 explicitly authorizes Phase 5 following GUI feedback, without claiming acceptance of Phase 4 visuals. Execute the official course lifecycle and reusable-module scope using the reconciled phase-05 manifest. Preserve historical repair receipts. Checkpoint each step, deliver the production report and owner-only manual UI/UX guide, and stop before Phase 6. The owner's UI/UX testing restriction remains in force.

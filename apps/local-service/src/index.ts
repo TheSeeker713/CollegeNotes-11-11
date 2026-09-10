@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import { parseAppearance, parseCardLayout, type SessionState } from '@collegenotes/domain';
 import {
   createCourse,
+  courseCollection, courseInput, editCourse, archiveCourse, requireCourse, CourseError,
   defaultDataDir,
   getAppearance,
   getDraft,
@@ -51,6 +52,11 @@ export function createService(store?: Store) {
     }
   });
 
+  app.setErrorHandler((error, _request, reply) => {
+    if (error instanceof CourseError) return reply.code(error.status).send({ error: error.code });
+    return reply.code(500).send({ error: 'local_operation_failed' });
+  });
+
   app.get('/health', async () => {
     const sqlite = probeSqlite();
     return {
@@ -76,11 +82,14 @@ export function createService(store?: Store) {
   app.get('/courses/:id/materials', async (request) => listMaterials(opened, (request.params as { id: string }).id).map(({ storedRelPath: _privatePath, ...material }) => material));
   app.get('/courses/:id/research', async (request) => listResearchSessions(opened, (request.params as { id: string }).id));
   app.get('/courses', async () => listCourses(opened));
-  app.post('/courses', async (request, reply) => {
-    const name = (request.body as { name?: unknown } | undefined)?.name;
-    if (typeof name !== 'string' || !name.trim()) return reply.code(400).send({ error: 'name_required' });
-    return createCourse(opened, name);
+  app.get('/course-collection', async () => courseCollection(opened));
+  app.post('/courses', async (request) => {
+    const input = courseInput(request.body);
+    return opened.db.transaction(() => editCourse(opened, createCourse(opened, input.name).id, input))();
   });
+  app.put('/courses/:id', async (request) => editCourse(opened, (request.params as { id: string }).id, request.body));
+  app.post('/courses/:id/archive', async (request) => archiveCourse(opened, (request.params as { id: string }).id, true));
+  app.post('/courses/:id/restore', async (request) => archiveCourse(opened, (request.params as { id: string }).id, false));
 
   app.get('/appearance', async () => getAppearance(opened));
   app.put('/appearance', async (request) => setAppearance(opened, parseAppearance(request.body)));
@@ -114,6 +123,7 @@ export function createService(store?: Store) {
     } catch {
       return reply.code(400).send({ error: 'path_rejected' });
     }
+    requireCourse(opened, body.courseId, true);
     const buffer = Buffer.from(body.contentBase64, 'base64');
     return ingestBuffer(opened, body.courseId, body.filename, buffer);
   });

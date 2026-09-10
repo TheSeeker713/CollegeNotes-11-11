@@ -1,18 +1,14 @@
 {
-  "phase": 4,
-  "phase_status": "awaiting_user_review",
-  "step": "4.1",
-  "step_status": "blocked",
-  "pass_id": "PASS-2026-09-10-REPAIR-0-4",
-  "authorization_ref": "AUTH-REPAIR-0-4",
+  "phase": 5,
+  "phase_status": "active",
+  "step": "5.1",
+  "step_status": "checkpoint_pending",
+  "pass_id": "PASS-2026-09-10-P5",
+  "authorization_ref": "AUTH-P5",
   "authorized_phases_this_pass": [
-    0,
-    1,
-    2,
-    3,
-    4
+    5
   ],
-  "phase_3_authorized": true,
+  "phase_3_authorized": false,
   "next_phase_authorized": false,
   "steps": {
     "0.1": "complete",
@@ -35,7 +31,7 @@
     "4.2": "blocked",
     "4.3": "blocked",
     "4.4": "blocked",
-    "5.1": "not_started",
+    "5.1": "checkpoint_pending",
     "5.2": "not_started",
     "5.3": "not_started",
     "5.4": "not_started",
@@ -98,7 +94,7 @@
     "4.3": "4e2b407877fafa22dc017794a81d38257894126a",
     "4.4": "2997861407d6a6e8a4b455e99f141ebd0be1027f"
   },
-  "next_action": "Wait for owner manual design/UI/UX feedback on 86d27aaceef689f6747924203fb1165961a6456d. Repair any reported defects. Do not begin Phase 5 without owner green light.",
+  "next_action": "Implement official Phase 5 in order; owner-only GUI review remains pending. Stop before Phase 6.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -106,7 +102,8 @@
     "1": "complete",
     "2": "complete",
     "3": "complete",
-    "4": "in_progress"
+    "4": "in_progress",
+    "5": "in_progress"
   },
   "manual_acceptances": [
     {
@@ -120,14 +117,7 @@
       "candidate_commit": "e406973f9a2e08514014d90ae022a0c1155c03e7"
     }
   ],
-  "blockers": [
-    {
-      "id": "OWNER-REPAIR-UI-REVIEW",
-      "step": "4.1",
-      "reason": "Repair implementation and engineering verification complete; required UI/UX and revised design acceptance can only be performed by the owner.",
-      "resolution": "Owner reviews the exact candidate using docs/phase-0-4-repair-manual-tests.md, reports defects or explicitly gives Phase 5 green light."
-    }
-  ],
+  "blockers": [],
   "historical_checkpoints": {
     "0.1": "9aac47b1c215309edf03966cfaac238ed45aadb9",
     "0.2": "bb1bb5a23f593d88959b171523a8343abd02e56a",
@@ -223,5 +213,11 @@
     "14.2": "not_started",
     "14.3": "not_started",
     "14.4": "not_started"
-  }
+  },
+  "owner_feedback": [
+    {
+      "quote": "Is the GUI intended to look this bad at this phase?",
+      "status": "unresolved owner visual acceptance; source improvements in Phase 5; no agent UI tests"
+    }
+  ]
 }
