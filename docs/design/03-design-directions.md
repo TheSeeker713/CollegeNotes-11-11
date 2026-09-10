@@ -1,6 +1,6 @@
 # Canonical glass design — glass-review-1
 
-The owner supplied 111 images and authorized finishing Phase 2 from this material (AUTH-P2-FINISH). The committed theme amendment is the visual direction; A/B/C and Neo Retro-only drafts are superseded. Their prior files remain in history/. This is a review candidate, not owner acceptance or a working product.
+The owner supplied generated images (AUTH-P2-FINISH) and directed that 35 local gitignored files are sufficient full-scope references (CHANGE-35-IMAGES). The committed theme amendment is the visual direction; A/B/C and Neo Retro-only drafts are superseded. Their prior files remain in history/. This is a review candidate, not owner acceptance or a working product.
 
 ## Botanical Organic Glass
 

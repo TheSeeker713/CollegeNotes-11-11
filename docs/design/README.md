@@ -1,9 +1,11 @@
-# docs/design
+# Phase 2 design candidate — glass-review-1
 
-Phase 2 proposals and image prompts. Another AI generates images for owner review. Images and review remain mandatory before Phase 2 completion.
+AUTH-P2-FINISH and CHANGE-35-IMAGES authorize finishing Phase 2 from the supplied generated images. The owner directed that **35 of 111** images are sufficient full-scope references. Those 35 stay on disk under `Design/assets/` and are **gitignored**; they are not pushed. No new generation round is required.
 
-Start with [three directions](03-design-directions.md), then give the other AI the [brief](05-image-ai-handoff.md) and [round-one prompts](06-round-one-prompts.md). After choosing a direction, use [screen-family prompts](07-screen-image-prompts.md). [Return/review checklist](08-review-and-return-checklist.md) identifies the remaining work.
+Canonical appearance: Botanical Organic Glass and Brutalist Glass Lab, each in Light and Dark. Planned first launch is Botanical Light.
 
-Functional specifications: [experience](01-product-experience.md), [hierarchy](02-screen-hierarchy.md), screen-map.json and flows.json. Visual specifications: tokens.json, [accessibility/behavior](04-accessibility-and-behavior.md), component-states.json and [calculated contrast](contrast-summary.md). [Visual-aid storyboard](visual-aid-storyboard.md) is a proposal for review.
+Open [the dependency-free prototype](prototype/index.html) in Chrome. It runs from a local static server or file URL; no install/build/CDN/provider is required. This is synthetic review behavior, not the application.
 
-image-receipts.json is deliberately empty. No direction is selected and no image or working prototype is claimed. Steps 2.1/2.2 specify the design; 2.3 remains incomplete pending generated images; 2.4 follows their return. Phase 3 is prohibited.
+Authority: [design directions](03-design-directions.md), [interaction/accessibility](04-accessibility-and-behavior.md), [tokens](tokens.json), [flows](flows.json), [screen map](screen-map.json), [state inventory](component-states.json), [image receipts](image-receipts.json), [contrast](contrast-summary.md), and [review checklist](08-review-and-return-checklist.md).
+
+The 35 retained images establish material and composition. Prototype and specifications normalize source wording, navigation, controls, contrast and responsive states. Historical prompts remain in history/ and Git. Phase 3 dependencies remain uninstalled.

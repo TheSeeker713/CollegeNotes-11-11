@@ -25,7 +25,8 @@
       "deliverables": "screen map, user-flow specifications, content hierarchy.",
       "source_checks": "each core task has an entry/exit/recovery route; resume is prominent; no essential function depends on 3D navigation or voice; draft course requirements retain source wording. Checkpoint.",
       "amendments": [
-        "AUTH-P2-FINISH: supplied 111 images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required. Explicit final candidate acceptance remains separate."
+        "AUTH-P2-FINISH: supplied generated images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required.",
+        "CHANGE-35-IMAGES: retain 35 local gitignored images as full design scope; remove the rest; do not push Design/."
       ],
       "acceptance_criteria": [
         {
@@ -137,7 +138,8 @@
       "deliverables": "design tokens, component/state inventory, accessibility specification.",
       "source_checks": "contrast calculations, type/line-length review, keyboard/focus specifications, touch target review, narrow-window layouts, and no motion-dependent information. Checkpoint.",
       "amendments": [
-        "AUTH-P2-FINISH: supplied 111 images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required. Explicit final candidate acceptance remains separate."
+        "AUTH-P2-FINISH: supplied generated images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required.",
+        "CHANGE-35-IMAGES: retain 35 local gitignored images as full design scope; remove the rest; do not push Design/."
       ],
       "acceptance_criteria": [
         {
@@ -208,7 +210,8 @@
       "source_checks": "all intended prototype controls work or are visibly identified as simulated; source labels readable; state coverage complete; no mock provider behavior represented as working integration. Checkpoint.",
       "amendments": [
         "AUTH-1-2: prepare design proposals and image prompts, then wait for external image generation. Keep 2.3 incomplete until images are returned and reviewable artifacts satisfy every required check.",
-        "AUTH-P2-FINISH: supplied 111 images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required. Explicit final candidate acceptance remains separate."
+        "AUTH-P2-FINISH: supplied generated images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required.",
+        "CHANGE-35-IMAGES: retain 35 local gitignored images as full design scope; remove the rest; do not push Design/."
       ],
       "acceptance_criteria": [
         {
@@ -320,7 +323,8 @@
       "deliverables": "design audit, approved-design candidate, manual review checklist.",
       "source_checks": "full flow walkthrough; information consistency; no missing critical state; rendering inspected at agreed window sizes; phase requirements covered. Checkpoint.",
       "amendments": [
-        "AUTH-P2-FINISH: supplied 111 images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required. Explicit final candidate acceptance remains separate."
+        "AUTH-P2-FINISH: supplied generated images are sufficient references; reconcile in canonical specifications and dependency-free review prototype. No new image generation required.",
+        "CHANGE-35-IMAGES: retain 35 local gitignored images as full design scope; remove the rest; do not push Design/."
       ],
       "acceptance_criteria": [
         {

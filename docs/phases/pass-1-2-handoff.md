@@ -1,3 +1,9 @@
+# Historical PASS-2026-09-09-P1-P2 handoff (superseded)
+
+This file is a snapshot of the missing-image gate. AUTH-P2-FINISH and CHANGE-35-IMAGES supersede it. Resume from [current state](../../project-state/current.json) and [design README](../design/README.md).
+
+---
+
 # Phase 1 complete; Phase 2 awaiting design images
 
 The user authorized Phases 1 and 2 for this pass and explicitly prohibited Phase 3. Phase 1's four steps and Phase 2 steps 2.1/2.2 are complete. Step 2.3 contains a ready image-generation handoff but is incomplete; all five rendered-artifact checks are blocked by missing images. Step 2.4 has not started. The pass ends here without inventing design acceptance.

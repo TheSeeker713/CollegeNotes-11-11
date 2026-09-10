@@ -53,6 +53,15 @@
         "This authorizes execution, not a fabricated final acceptance of an unseen candidate",
         "Prepare the Phase 3 handoff; no Phase 3 installation in this pass"
       ]
+    },
+    {
+      "id": "CHANGE-35-IMAGES",
+      "kind": "scope_clarification",
+      "phases": [
+        2
+      ],
+      "source": "Owner message during Step 2.3 resume, 2026-09-09",
+      "quote": "we only need 35 of the 111 images to have a full design scope of this project. research the images and pick the top 35 out of 111 and remove the rest. note: design images will not make it to the git push. gitignore those 35 images. then do whatever is left in the plan to complete 2.3 and the rest of phase 2. ... Every project phase is user gated. You can only complete phase 2. Do not begin phase 3"
     }
   ]
 }

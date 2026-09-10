@@ -14,4 +14,4 @@ Future import/restore failure: preserve originals/existing database, identify pa
 
 ## Current recovery pass
 
-AUTH-P2-FINISH supersedes the old missing-image handoff. The 111 supplied assets are sufficient reference material; inspect and retain them, and reconcile their inconsistencies in the canonical four-variant design/prototype. No new generation round is required. The original bounded pass stays historical. Follow current state, ordered revised-step checkpoints and final candidate review; do not invent acceptance or begin Phase 3 installation.
+AUTH-P2-FINISH supersedes the old missing-image handoff. CHANGE-35-IMAGES retains 35 local gitignored images as full design scope. Inspect those references, reconcile inconsistencies in the canonical four-variant design/prototype, and do not generate more images. The original bounded pass stays historical. Follow current state and ordered revised-step checkpoints; do not begin Phase 3 installation.

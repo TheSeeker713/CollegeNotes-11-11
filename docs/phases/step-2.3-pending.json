@@ -1,18 +1,19 @@
 {
   "step": "2.3",
-  "status": "blocked",
-  "authority": "AUTH-1-2",
-  "completed_preparation": ["Standalone image-AI brief", "Three comparable design directions and copy-ready prompts", "Fourteen screen/state prompts", "Annotated visual-aid storyboard", "Image receipt format and return/review checklist"],
+  "status": "gate_passed_checkpoint_pending",
+  "authority": "AUTH-P2-FINISH",
+  "amendments": ["CHANGE-35-IMAGES"],
   "required_rendered_artifact_checks": [
-    {"id":"CHK-2.3-01","status":"blocked","reason":"No rendered artifact exists to inspect controls or simulation labeling"},
-    {"id":"CHK-2.3-02","status":"blocked","reason":"Source-label readability must be inspected in returned images"},
-    {"id":"CHK-2.3-03","status":"blocked","reason":"State coverage is specified but actual rendered states have not been produced"},
-    {"id":"CHK-2.3-04","status":"blocked","reason":"Prompt requirements prohibit false provider claims; returned artifacts still need inspection"},
-    {"id":"CHK-2.3-05","status":"blocked","reason":"External image generation and inspection pending"}
+    {"id": "CHK-2.3-01", "status": "passed", "reason": "Prototype controls work in preview or are labeled simulated; 13 routes exclusive"},
+    {"id": "CHK-2.3-02", "status": "passed", "reason": "Source labels readable on Home and Read at desktop and narrow sizes"},
+    {"id": "CHK-2.3-03", "status": "passed", "reason": "17×6 state inventory specified and rendered"},
+    {"id": "CHK-2.3-04", "status": "passed", "reason": "Tutor, audio, account, backup and import labeled simulated; no live integration claimed"},
+    {"id": "CHK-2.3-05", "status": "passed", "reason": "35 retained local images receipted, hashed, gallery-rendered; 76 removed; Design/ gitignored"},
+    {"id": "CHK-2.3-T01", "status": "passed", "reason": "Four variants apply; desktop 1440 and narrow <768 cover appearance and card pin/cancel"}
   ],
-  "counts": {"required":5,"executed_rendered_checks":0,"passed_rendered_checks":0,"blocked":5},
+  "counts": {"required": 6, "executed_rendered_checks": 6, "passed_rendered_checks": 6, "blocked": 0},
   "step_checkpoint_complete": false,
   "next_step_2_4": "not_started",
   "phase_3_authorized": false,
-  "note": "A WIP commit preserves the prompt handoff; it is not a completed Step 2.3 checkpoint."
+  "note": "Local gate passed. Checkpoint remains pending until commit, push and remote SHA confirmation."
 }

@@ -17,3 +17,6 @@ test-results/
 course-materials/
 recordings/
 backups/
+# Owner-local design image references. Directed not to push.
+# Root-only: a bare Design/ pattern would also ignore docs/design/ on case-insensitive disks.
+/Design/
