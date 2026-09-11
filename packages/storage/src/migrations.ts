@@ -75,7 +75,10 @@ export const MIGRATIONS = [
    create table research_sessions (id text primary key, course_id text not null references courses(id), provider_id text not null, connection_id text, query text not null, created_at text not null, initiated_by text not null check(initiated_by='user'), shared_context text not null check(json_valid(shared_context)), status text not null check(status in ('draft','running','complete','cancelled','failed')), deleted_at text, unique(id, course_id));
    create table research_sources (id text primary key, session_id text not null, course_id text not null, url text not null, title text not null, publisher text, author text, retrieved_at text not null, excerpt text not null, claim_ids text not null check(json_valid(claim_ids)), conflicts text not null check(json_valid(conflicts)), uncertainty text, access text not null check(access in ('available','inaccessible')), foreign key(session_id,course_id) references research_sessions(id,course_id));
    create table lifecycle_operations (id text primary key, course_id text references courses(id), kind text not null check(kind in ('export','trash','restore','permanent_delete')), status text not null check(status in ('pending','running','failed','complete','cancelled')), manifest text not null check(json_valid(manifest)), updated_at text not null);
-  `
+  `,
+  `create table import_tasks (id text primary key, course_id text not null references courses(id) on delete cascade, source_id text not null references source_documents(id) on delete cascade, status text not null check(status in ('queued','running','completed','failed','cancelled')), error text, progress integer not null default 0, created_at text not null, updated_at text not null);
+   create index import_tasks_course on import_tasks(course_id, status);`
+
 ];
 
 export function migrate(db: Database.Database): number {

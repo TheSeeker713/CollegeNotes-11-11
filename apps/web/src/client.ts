@@ -23,6 +23,11 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  materials: {
+    tasks: (courseId:string) => req<Array<{id:string;sourceId:string;status:string;error:string|null;progress:number}>>(`/courses/${courseId}/imports`),
+    import: (courseId:string,filename:string,contentBase64:string,kind:'note'|'imported'='imported') => req(`/courses/${courseId}/imports`,{method:'POST',body:JSON.stringify({filename,contentBase64,kind})}),
+    action: (courseId:string,id:string,action:'cancel'|'retry')=>req(`/courses/${courseId}/imports/${id}/${action}`,{method:'POST'})
+  },
   connections: () => req<{ availableProviders: ProviderDefinition[]; connections: Array<Omit<Connection, 'credential'>>; liveAuthenticationAvailable: false }>('/connections'),
   async health() {
     return req<{ ok: boolean }>(`/health`);

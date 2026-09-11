@@ -33,3 +33,7 @@ Phase 1 adds local document/state validation. Product build/type/lint/unit/integ
 ## Current Phase 5 authorization
 
 AUTH-P5 explicitly authorizes Phase 5 following GUI feedback, without claiming acceptance of Phase 4 visuals. Execute the official course lifecycle and reusable-module scope using the reconciled phase-05 manifest. Preserve historical repair receipts. Checkpoint each step, deliver the production report and owner-only manual UI/UX guide, and stop before Phase 6. The owner's UI/UX testing restriction remains in force.
+
+## Current Phase 6 authorization
+
+AUTH-P6 authorizes Phase 6 implementation and its ordered engineering/Git checkpoints, followed by a full report in docs and owner-only manual UI/UX guide. Stop before Phase 7. The owner authorizes writes inside CollegeNotes only; keep scratch files, tool caches, synthetic test data and reports within this repository (private artifacts under .local). Ask permission before writing outside CollegeNotes. Do not infer prior GUI acceptance. Model download remains separately gated.

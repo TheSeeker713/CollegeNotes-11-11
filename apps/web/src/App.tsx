@@ -22,6 +22,7 @@ import {
 import { applyAppearance, readStoredAppearance } from '@collegenotes/ui';
 import type { ProviderDefinition } from '@collegenotes/providers/contracts';
 import { api } from './client';
+import { Materials } from './Materials';
 import { CourseManager } from './CourseManager';
 
 const NAV_LABEL: Record<string, string> = {
@@ -317,12 +318,7 @@ export function App() {
                 <a href="#/connections">View connections</a>
               </section>
             ) : null}
-            {screen === 'sources' ? (
-              <section>
-                <h1>Sources</h1>
-                <p>Material import and source management arrive in Phase 6. Your course notes are available from Home when Notes is enabled.</p>
-              </section>
-            ) : null}
+            {screen === 'sources' && courseId ? <Materials key={courseId} courseId={courseId} /> : null}
             {['study', 'practice', 'requirements', 'progress'].includes(screen) ? (
               <section>
                 <h1>{NAV_LABEL[screen]}</h1>

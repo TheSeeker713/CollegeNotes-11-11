@@ -1,12 +1,12 @@
 {
-  "phase": 5,
-  "phase_status": "awaiting_user_review",
-  "step": "5.4",
-  "step_status": "complete",
-  "pass_id": "PASS-2026-09-10-P5",
-  "authorization_ref": "AUTH-P5",
+  "phase": 6,
+  "phase_status": "active",
+  "step": "6.1",
+  "step_status": "checkpoint_pending",
+  "pass_id": "PASS-2026-09-10-P6",
+  "authorization_ref": "AUTH-P6",
   "authorized_phases_this_pass": [
-    5
+    6
   ],
   "phase_3_authorized": false,
   "next_phase_authorized": false,
@@ -35,7 +35,7 @@
     "5.2": "complete",
     "5.3": "complete",
     "5.4": "complete",
-    "6.1": "not_started",
+    "6.1": "checkpoint_pending",
     "6.2": "not_started",
     "6.3": "not_started",
     "6.4": "not_started",
@@ -98,16 +98,17 @@
     "5.3": "fdde803093aa972e9c341f50a31a625418aa16cf",
     "5.4": "dd800cd004945d9359534f8dffc095aaf00677f7"
   },
-  "next_action": "Owner tests the Phase 5 candidate with docs/phase-5-manual-tests.md. Repair reported Phase 5 defects; do not start Phase 6 without a separate owner instruction.",
+  "next_action": "Implement Phase 6 in order; all writes and verification artifacts remain inside CollegeNotes.",
   "schema_version": 1,
-  "pass_closed": true,
+  "pass_closed": false,
   "phase_completion": {
     "0": "complete",
     "1": "complete",
     "2": "complete",
     "3": "complete",
     "4": "in_progress",
-    "5": "complete"
+    "5": "complete",
+    "6": "in_progress"
   },
   "manual_acceptances": [
     {
@@ -121,14 +122,7 @@
       "candidate_commit": "e406973f9a2e08514014d90ae022a0c1155c03e7"
     }
   ],
-  "blockers": [
-    {
-      "id": "OWNER-P5-UI-REVIEW",
-      "step": "5.4",
-      "reason": "Engineering is complete. Visual fidelity, UI/UX and accessibility acceptance require owner manual testing; no acceptance is inferred from Phase 5 authorization.",
-      "resolution": "Owner follows the saved manual guide and reports acceptance or defects; repair defects within Phase 5. Phase 6 requires separate authorization."
-    }
-  ],
+  "blockers": [],
   "historical_checkpoints": {
     "0.1": "9aac47b1c215309edf03966cfaac238ed45aadb9",
     "0.2": "bb1bb5a23f593d88959b171523a8343abd02e56a",

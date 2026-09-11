@@ -30,11 +30,11 @@ describe('Phase 4 forward-only foundation migration', () => {
     const s = open(); expect(listCourses(s)).toEqual([]); expect(listConnections(s)).toEqual([]);
     expect(s.db.prepare('select count(*) as n from provider_definitions').get()).toEqual({ n: 0 });
     expect(s.db.prepare('select count(*) as n from source_documents').get()).toEqual({ n: 0 });
-    expect(migrate(s.db)).toBe(9);
+    expect(migrate(s.db)).toBe(MIGRATIONS.length);
   });
   it('upgrades actual v8 tables without altering IDs, originals, writing or session', () => {
     const dir = tmp(); const db = legacy(dir); db.close();
-    const s = open(dir); expect(migrate(s.db)).toBe(9);
+    const s = open(dir); expect(migrate(s.db)).toBe(MIGRATIONS.length);
     expect(listCourses(s)[0]).toEqual({ id: 'legacy-course', name: 'Synthetic legacy course', description: '', createdAt: '2026-01-01', updatedAt: '2026-01-01', archivedAt: null, trashedAt: null });
     const material = listMaterials(s, 'legacy-course')[0]!;
     expect(material).toMatchObject({ id: 'legacy-source', revision: 1, cleanupState: 'none', trashedAt: null, deletedAt: null, checksum: 'synthetic-checksum' });
@@ -51,9 +51,9 @@ describe('Phase 4 forward-only foundation migration', () => {
     expect(db.prepare('select name from courses').get()).toEqual({ name: 'Synthetic legacy course' }); db.close();
   });
   it('rejects unsupported future schemas without erasing their records', () => {
-    const s = open(); s.db.prepare('insert into schema_migrations values (10,?)').run('future');
+    const s = open(); s.db.prepare('insert into schema_migrations values (?,?)').run(MIGRATIONS.length + 1, 'future');
     expect(() => migrate(s.db)).toThrow('unsupported_schema');
-    expect(s.db.prepare('select max(version) as v from schema_migrations').get()).toEqual({ v: 10 });
+    expect(s.db.prepare('select max(version) as v from schema_migrations').get()).toEqual({ v: MIGRATIONS.length + 1 });
   });
 });
 describe('source and derivative ownership foundation', () => {

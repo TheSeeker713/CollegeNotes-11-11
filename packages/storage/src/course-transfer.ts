@@ -42,7 +42,7 @@ export function deleteCourse(store: Store, id: string, body: unknown): { deleted
   if (!course) throw new CourseError('course_unavailable', 404);
   const input = body as { confirmation?: unknown; backupsAcknowledged?: unknown } | null;
   if (input?.confirmation !== course.name || input?.backupsAcknowledged !== true) throw new CourseError('deletion_confirmation_required');
-  if (store.db.prepare("select id from jobs where course_id=? and status in ('queued','running')").get(id)) throw new CourseError('course_busy', 409);
+  if (store.db.prepare("select id from import_tasks where course_id=? and status in ('queued','running')").get(id) || store.db.prepare("select id from jobs where course_id=? and status in ('queued','running')").get(id)) throw new CourseError('course_busy', 409);
   const docs = originals(store, id);
   let operation = store.db.prepare("select id from lifecycle_operations where course_id=? and kind='permanent_delete' and status in ('pending','running','failed')").get(id) as { id: string } | undefined;
   if (!operation) {

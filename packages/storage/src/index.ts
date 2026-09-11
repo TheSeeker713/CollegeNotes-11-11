@@ -27,3 +27,4 @@ export {
 export * from './foundation.js';
 export * from './courses.js';
 export * from './course-transfer.js';
+export * from './material-imports.js';

@@ -28,7 +28,7 @@ export function editCourse(store: Store, id: string, body: unknown): Course {
 }
 export function archiveCourse(store: Store, id: string, archived: boolean): Course {
   requireCourse(store, id);
-  if (store.db.prepare("select id from jobs where course_id=? and status in ('queued','running')").get(id)) throw new CourseError('course_busy', 409);
+  if (store.db.prepare("select id from import_tasks where course_id=? and status in ('queued','running')").get(id) || store.db.prepare("select id from jobs where course_id=? and status in ('queued','running')").get(id)) throw new CourseError('course_busy', 409);
   const now = new Date().toISOString();
   store.db.prepare('update courses set archived_at=?, updated_at=? where id=?').run(archived ? now : null, now, id);
   return requireCourse(store, id);

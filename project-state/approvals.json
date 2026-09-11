@@ -213,6 +213,26 @@
         "Save production report in docs and provide owner-only manual UI/UX testing steps.",
         "No agent UI/UX testing, live provider calls, new dependencies or model downloads."
       ]
+    },
+    {
+      "id": "AUTH-P6",
+      "kind": "phase_authorization",
+      "phases": [
+        6
+      ],
+      "source": "Owner messages in this task, September 10, 2026",
+      "quote": "implement phase 6. when phase 6 is completed, write a full report and save to docs. then give me a step-by-step guide to test the ui/ux for phase 6",
+      "pass_id": "PASS-2026-09-10-P6",
+      "boundary_exception": {
+        "from": 5,
+        "to": 6
+      },
+      "conditions": [
+        "Implement Phase 6 only, with ordered verification/audit/Git checkpoints.",
+        "Write reports and all new artifacts inside CollegeNotes. No writes outside CollegeNotes without permission.",
+        "UI/UX testing is owner-only. Prior visual acceptance is not inferred.",
+        "Model download remains an explicit owner gate. Stop before Phase 7."
+      ]
     }
   ]
 }

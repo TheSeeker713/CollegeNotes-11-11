@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import { parseAppearance, parseCardLayout, type SessionState } from '@collegenotes/domain';
 import {
+  queueImport, listImportTasks, changeImportTask, recoverImportTasks,
   createCourse,
   exportCourse, deleteCourse,
   courseModules, setCourseModule,
@@ -35,6 +36,7 @@ const ALLOWED = new Set(['http://127.0.0.1:5173', 'http://127.0.0.1:4173', 'http
 export function createService(store?: Store) {
   const opened = store ?? openStore(process.env.COLLEGENOTES_DATA_DIR ?? defaultDataDir());
   restoreInterruptedJobs(opened);
+  recoverImportTasks(opened);
   const app = Fastify({ logger: false });
 
   app.addHook('onRequest', async (request, reply) => {
@@ -103,6 +105,19 @@ export function createService(store?: Store) {
   app.put('/courses/:id', async (request) => editCourse(opened, (request.params as { id: string }).id, request.body));
   app.post('/courses/:id/archive', async (request) => archiveCourse(opened, (request.params as { id: string }).id, true));
   app.post('/courses/:id/restore', async (request) => archiveCourse(opened, (request.params as { id: string }).id, false));
+
+  app.get('/courses/:id/imports', async (request) => listImportTasks(opened,(request.params as {id:string}).id));
+  app.post('/courses/:id/imports', {bodyLimit:36*1024*1024}, async (request) => {
+    const body=request.body as {filename?:unknown;contentBase64?:unknown;kind?:unknown}|null;
+    if(!body || typeof body.filename!=='string' || typeof body.contentBase64!=='string' || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(body.contentBase64)) throw new CourseError('invalid_import');
+    if(body.kind!==undefined && body.kind!=='note' && body.kind!=='imported')throw new CourseError('invalid_material_kind');
+    return queueImport(opened,(request.params as {id:string}).id,body.filename,Buffer.from(body.contentBase64,'base64'),body.kind as 'note'|'imported'|undefined);
+  });
+  app.post('/courses/:id/imports/:taskId/:action',async (request)=>{
+    const {id,taskId,action}=request.params as {id:string;taskId:string;action:string};
+    if(action!=='cancel'&&action!=='retry')throw new CourseError('invalid_import_action');
+    return changeImportTask(opened,id,taskId,action);
+  });
 
   app.get('/appearance', async () => getAppearance(opened));
   app.put('/appearance', async (request) => setAppearance(opened, parseAppearance(request.body)));
