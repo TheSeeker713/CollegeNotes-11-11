@@ -233,6 +233,21 @@
         "UI/UX testing is owner-only. Prior visual acceptance is not inferred.",
         "Model download remains an explicit owner gate. Stop before Phase 7."
       ]
+    },
+    {
+      "id": "AUTH-PHASE-AUTOMATION",
+      "kind": "repository_authorization",
+      "phases": [
+        6
+      ],
+      "source": "Owner response to explicit Phase 6 public-repository checkpoint question in current task",
+      "quote": "You are supposed to have full automation per phase and only stop if there is a phase completion.",
+      "conditions": [
+        "Clarifies autonomous execution of the authorized phase including its required commit/push/remote-verification workflow.",
+        "The immediately preceding question identified reviewed Phase 6 source, tests and project documentation and public TheSeeker713/CollegeNotes-11-11 as destination.",
+        "No private material, credentials, model weights or raw local evidence may be pushed. Writes remain within CollegeNotes; UI/UX testing is owner-only.",
+        "Does not authorize Phase 7."
+      ]
     }
   ]
 }

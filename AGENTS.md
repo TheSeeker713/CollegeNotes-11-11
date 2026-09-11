@@ -37,3 +37,11 @@ AUTH-P5 explicitly authorizes Phase 5 following GUI feedback, without claiming a
 ## Current Phase 6 authorization
 
 AUTH-P6 authorizes Phase 6 implementation and its ordered engineering/Git checkpoints, followed by a full report in docs and owner-only manual UI/UX guide. Stop before Phase 7. The owner authorizes writes inside CollegeNotes only; keep scratch files, tool caches, synthetic test data and reports within this repository (private artifacts under .local). Ask permission before writing outside CollegeNotes. Do not infer prior GUI acceptance. Model download remains separately gated.
+
+## Owner-directed phase automation
+
+When the owner instructs an agent to implement a phase, execute the entire authorized phase autonomously: implementation, required non-UI checks, failure repair, source/evidence audit, commits, pushes to the existing CollegeNotes origin, remote SHA confirmation, and the requested production report/manual UI guide. Do not repeatedly ask for permission for these routine in-phase operations. Stop at phase completion; never infer authorization for the next phase.
+
+This instruction follows the owner's direct response to the Phase 6 checkpoint permission question: “You are supposed to have full automation per phase and only stop if there is a phase completion.” The existing origin is the public TheSeeker713/CollegeNotes-11-11 repository. Push reviewed project source, synthetic tests and public project documentation only; never private course data, credentials, models, caches or raw device evidence. File writes remain confined to CollegeNotes unless the owner separately permits otherwise. UI/UX testing remains exclusively the owner's work.
+
+Repository instructions cannot override tool-enforced security gates. If an authorized operation is rejected, provide its actual authorization and scope to the approval mechanism; do not seek a workaround, invent approval or report an unperformed operation as complete.
