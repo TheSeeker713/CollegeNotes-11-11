@@ -1,5 +1,6 @@
 import path from 'node:path';
 import JSZip from 'jszip';
+import {extractOcr,renderPdfPage} from './ocr.js';
 import {SaxesParser} from 'saxes';
 export type Passage={text:string;anchor:{type:'page'|'paragraph'|'region'|'epub';locator:string}};
 export type Extraction={passages:Passage[];warnings:string[];method:string};
@@ -35,7 +36,7 @@ export async function extractDocument(filename:string,bytes:Buffer):Promise<Extr
  if(ext==='.txt'||ext==='.md')passages=new TextDecoder('utf-8',{fatal:true}).decode(bytes).split(/\n\s*\n/).filter(t=>t.trim()).map((text,i)=>({text,anchor:{type:'paragraph',locator:`paragraph:${i+1}`}}));
  else if(ext==='.pdf'){
   const pdf=await import('pdfjs-dist/legacy/build/pdf.mjs');const loading=pdf.getDocument({data:new Uint8Array(bytes),enableXfa:false,useSystemFonts:false,disableFontFace:true});
-  try{const doc=await loading.promise;if(doc.numPages>250)throw new Error('page_limit_exceeded');for(let n=1;n<=doc.numPages;n++){const page=await doc.getPage(n);const content=await page.getTextContent();const text=content.items.map(item=>'str'in item?item.str+('hasEOL'in item&&item.hasEOL?'\n':' '):'').join('').trim();if(text)passages.push({text,anchor:{type:'page',locator:`page:${n}`}});else warnings.push(`page:${n}:ocr_required`);page.cleanup();}}finally{await loading.destroy();}
+  try{const doc=await loading.promise;if(doc.numPages>250)throw new Error('page_limit_exceeded');for(let n=1;n<=doc.numPages;n++){const page=await doc.getPage(n);const content=await page.getTextContent();const text=content.items.map(item=>'str'in item?item.str+('hasEOL'in item&&item.hasEOL?'\n':' '):'').join('').trim();if(text)passages.push({text,anchor:{type:'page',locator:`page:${n}`}});else {const ocr=await extractOcr(await renderPdfPage(bytes,n),n);passages.push(...ocr.passages);warnings.push(...ocr.warnings);}page.cleanup();}}finally{await loading.destroy();}
   warnings.push('Review reading order for columns, formulas and tables.');
  }else if(ext==='.docx'||ext==='.epub'){
   archivePreflight(bytes);const zip=await JSZip.loadAsync(bytes);
@@ -51,7 +52,8 @@ export async function extractDocument(filename:string,bytes:Buffer):Promise<Extr
    for(const id of spine){const href=manifest.get(id);if(!href||/^[a-z]+:|^\//i.test(href))throw new Error('external_epub_resource_rejected');const entry=path.posix.normalize(path.posix.join(path.posix.dirname(root),decodeURIComponent(href.split('#')[0]!)));if(entry.startsWith('../'))throw new Error('unsafe_epub_resource');passages.push(...paragraphs(await readEntry(zip,entry),'epub',entry));}
    warnings.push('Scripts, styles and active objects are excluded. Verify complex layouts against your original.');
   }
- }else throw new Error('ocr_required');
+ }else if(['.png','.jpg','.jpeg'].includes(ext))return extractOcr(bytes);
+ else throw new Error('unsupported_format');
  if(passages.reduce((n,p)=>n+p.text.length,0)>2_000_000)throw new Error('extracted_text_limit');
  return {passages,warnings,method:ext.slice(1)};
 }

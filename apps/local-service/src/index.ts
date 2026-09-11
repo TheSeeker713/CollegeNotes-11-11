@@ -29,6 +29,7 @@ import {
   type Store
 } from '@collegenotes/storage';
 import { describeUnavailable, PROVIDERS, connectionSummary } from '@collegenotes/providers';
+import { renderPdfPage } from '@collegenotes/importers';
 import { processImport } from './extraction.js';
 import { cancelJob, ingestBuffer, retryJob } from './jobs.js';
 
@@ -113,6 +114,14 @@ export function createService(store?: Store) {
     const material=listMaterials(opened,id).find(m=>m.id===sourceId);if(!material)throw new CourseError('material_unavailable',404);
     const revisions=opened.db.prepare('select revision,text,anchors,author,created_at as createdAt from material_revisions where source_id=? and course_id=? order by revision desc').all(sourceId,id);
     const metadata=Object.fromEntries(Object.entries(material).filter(([key])=>key!=='storedRelPath'));return {material:metadata,revisions};
+  });
+  app.get('/courses/:id/materials/:sourceId/preview/:page',async(request,reply)=>{
+    const {id,sourceId,page}=request.params as {id:string;sourceId:string;page:string};requireCourse(opened,id,true);
+    const material=listMaterials(opened,id).find(m=>m.id===sourceId);if(!material)throw new CourseError('material_unavailable',404);
+    if(!/^[1-9][0-9]{0,2}$/.test(page))throw new CourseError('invalid_page');const bytes=readOriginal(opened,material);if(checksum(bytes)!==material.checksum)throw new CourseError('original_checksum_mismatch',409);
+    if(material.filename.endsWith('.pdf'))return reply.type('image/png').send(await renderPdfPage(bytes,Number(page)));
+    if(Number(page)!==1||!(/\.(png|jpe?g)$/i.test(material.filename)))throw new CourseError('preview_unavailable',404);
+    return reply.type(/\.png$/i.test(material.filename)?'image/png':'image/jpeg').header('x-content-type-options','nosniff').send(bytes);
   });
   app.get('/courses/:id/materials/:sourceId/original',async(request,reply)=>{
     const {id,sourceId}=request.params as {id:string;sourceId:string};requireCourse(opened,id,true);

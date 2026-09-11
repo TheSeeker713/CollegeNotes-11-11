@@ -70,3 +70,4 @@ export async function parseSynthetic(kind: ParserKind, file: string): Promise<Pa
   return { kind, file, bytes, text: '[image loaded; OCR model download is not authorized in Phase 3]', scriptsStripped: false, worker: tesseractWorker };
 }
 export {extractDocument,archivePreflight,type Extraction,type Passage} from './extract.js';
+export {extractOcr,renderPdfPage,verifyOcrModel,OCR_SHA} from './ocr.js';

@@ -248,6 +248,20 @@
         "No private material, credentials, model weights or raw local evidence may be pushed. Writes remain within CollegeNotes; UI/UX testing is owner-only.",
         "Does not authorize Phase 7."
       ]
+    },
+    {
+      "id": "AUTH-P6-LOCAL-MODELS",
+      "kind": "model_authorization",
+      "phases": [
+        6
+      ],
+      "source": "Owner continuation after the proposed bounded local OCR/embedding download request in the current task",
+      "quote": "continue",
+      "conditions": [
+        "Continuation applied to the stated English OCR plus pinned all-MiniLM-L6-v2 local-model proposal, total model download limit 50 MB.",
+        "Downloads and checksums under CollegeNotes/.local/models; no course content upload or live provider connection.",
+        "No generative model or additional language/model download authorized."
+      ]
     }
   ]
 }
