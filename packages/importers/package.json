@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "epubjs": "0.3.93",
+    "jszip": "3.10.2",
     "mammoth": "1.12.2",
     "pdfjs-dist": "6.3.289",
+    "saxes": "6.0.0",
     "tesseract.js": "7.0.0"
   }
 }

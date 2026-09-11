@@ -24,9 +24,12 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   materials: {
+    list: (courseId:string)=>req<Array<{id:string;filename:string;revision:number}>>(`/courses/${courseId}/materials`),
+    detail: (courseId:string,id:string)=>req<{material:{id:string;filename:string;revision:number};revisions:Array<{revision:number;text:string;anchors:string;author:string;createdAt:string}>}>(`/courses/${courseId}/materials/${id}`),
+    original: (courseId:string,id:string)=>`${BASE}/courses/${courseId}/materials/${id}/original`,
     tasks: (courseId:string) => req<Array<{id:string;sourceId:string;status:string;error:string|null;progress:number}>>(`/courses/${courseId}/imports`),
     import: (courseId:string,filename:string,contentBase64:string,kind:'note'|'imported'='imported') => req(`/courses/${courseId}/imports`,{method:'POST',body:JSON.stringify({filename,contentBase64,kind})}),
-    action: (courseId:string,id:string,action:'cancel'|'retry')=>req(`/courses/${courseId}/imports/${id}/${action}`,{method:'POST'})
+    action: (courseId:string,id:string,action:'cancel'|'retry'|'process')=>req(`/courses/${courseId}/imports/${id}/${action}`,{method:'POST'})
   },
   connections: () => req<{ availableProviders: ProviderDefinition[]; connections: Array<Omit<Connection, 'credential'>>; liveAuthenticationAvailable: false }>('/connections'),
   async health() {

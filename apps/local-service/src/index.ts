@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import { parseAppearance, parseCardLayout, type SessionState } from '@collegenotes/domain';
 import {
+  readOriginal, checksum,
   queueImport, listImportTasks, changeImportTask, recoverImportTasks,
   createCourse,
   exportCourse, deleteCourse,
@@ -28,6 +29,7 @@ import {
   type Store
 } from '@collegenotes/storage';
 import { describeUnavailable, PROVIDERS, connectionSummary } from '@collegenotes/providers';
+import { processImport } from './extraction.js';
 import { cancelJob, ingestBuffer, retryJob } from './jobs.js';
 
 export const DEFAULT_PORT = 4781;
@@ -106,6 +108,18 @@ export function createService(store?: Store) {
   app.post('/courses/:id/archive', async (request) => archiveCourse(opened, (request.params as { id: string }).id, true));
   app.post('/courses/:id/restore', async (request) => archiveCourse(opened, (request.params as { id: string }).id, false));
 
+  app.get('/courses/:id/materials/:sourceId',async(request)=>{
+    const {id,sourceId}=request.params as {id:string;sourceId:string};requireCourse(opened,id,true);
+    const material=listMaterials(opened,id).find(m=>m.id===sourceId);if(!material)throw new CourseError('material_unavailable',404);
+    const revisions=opened.db.prepare('select revision,text,anchors,author,created_at as createdAt from material_revisions where source_id=? and course_id=? order by revision desc').all(sourceId,id);
+    const metadata=Object.fromEntries(Object.entries(material).filter(([key])=>key!=='storedRelPath'));return {material:metadata,revisions};
+  });
+  app.get('/courses/:id/materials/:sourceId/original',async(request,reply)=>{
+    const {id,sourceId}=request.params as {id:string;sourceId:string};requireCourse(opened,id,true);
+    const material=listMaterials(opened,id).find(m=>m.id===sourceId);if(!material)throw new CourseError('material_unavailable',404);
+    const bytes=readOriginal(opened,material);if(checksum(bytes)!==material.checksum)throw new CourseError('original_checksum_mismatch',409);
+    return reply.header('content-type','application/octet-stream').header('x-content-type-options','nosniff').header('content-disposition',`attachment; filename="${material.filename.replace(/[^a-zA-Z0-9._-]/g,'_')}"`).send(bytes);
+  });
   app.get('/courses/:id/imports', async (request) => listImportTasks(opened,(request.params as {id:string}).id));
   app.post('/courses/:id/imports', {bodyLimit:36*1024*1024}, async (request) => {
     const body=request.body as {filename?:unknown;contentBase64?:unknown;kind?:unknown}|null;
@@ -115,6 +129,7 @@ export function createService(store?: Store) {
   });
   app.post('/courses/:id/imports/:taskId/:action',async (request)=>{
     const {id,taskId,action}=request.params as {id:string;taskId:string;action:string};
+    if(action==='process'){void processImport(opened,id,taskId).catch(()=>undefined);return {started:true};}
     if(action!=='cancel'&&action!=='retry')throw new CourseError('invalid_import_action');
     return changeImportTask(opened,id,taskId,action);
   });

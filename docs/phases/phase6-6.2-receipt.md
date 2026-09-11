@@ -1,0 +1,7 @@
+# Phase 6.2 extraction checkpoint
+
+Previous remote checkpoint: 9f8c685be401fcb7eb7b89dcf106e13c38b9778f, confirmed on origin/main. Implemented real PDF page-text extraction, DOCX main-document paragraph extraction and EPUB package/spine/XHTML extraction, with ordered source anchors and explicit complex-layout warnings. XML declarations/entities, encrypted EPUBs, malformed/oversized archives, unsafe paths and external spine references are rejected. Converted active content is never executed/rendered.
+
+Extraction runs in a bounded worker with timeout and cancellation, preserving originals and recording revision 1 only on successful completion. UI can open extracted text/anchors and download the exact original. Scans await Step 6.3 OCR. No owner UI tests were performed.
+
+Added direct JSZip 3.10.2/saxes 6.0.0 dependencies already present in the lock; all preexisting external package versions remain unchanged. Separate source audit reviewed archive preflight before inflate, scoped revision inserts, worker shutdown, original checksum verification and source-path omission. Nine engineering gates passed: types/lint/build, 25 unit, 59 integration, one synthetic evaluation, 6 planning, 44 workflow, 6 gate-harness checks. CHK-6.2-01 through 05 use real document bytes and meaningful negative fixtures. Failed lint/type attempts are retained; final source hashes matched. Evidence: `.local/verification/phase6/6.2/report.json`.
