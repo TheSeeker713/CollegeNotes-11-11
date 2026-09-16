@@ -23,7 +23,7 @@ function checkedBytes(store: Store, doc: Original): Buffer {
   if (bytes.length !== doc.byte_length || checksum(bytes) !== doc.checksum) throw new CourseError('original_checksum_mismatch', 409);
   return bytes;
 }
-const exportTables = ['material_revisions', 'derivatives', 'embedding_indexes', 'research_sessions', 'research_sources', 'drafts'] as const;
+const exportTables = ['material_revisions', 'semantic_chunks', 'derivatives', 'embedding_indexes', 'research_sessions', 'research_sources', 'drafts'] as const;
 export function exportCourse(store: Store, id: string) {
   return store.db.transaction(() => {
     const course = requireCourse(store, id);
@@ -42,7 +42,7 @@ export function deleteCourse(store: Store, id: string, body: unknown): { deleted
   if (!course) throw new CourseError('course_unavailable', 404);
   const input = body as { confirmation?: unknown; backupsAcknowledged?: unknown } | null;
   if (input?.confirmation !== course.name || input?.backupsAcknowledged !== true) throw new CourseError('deletion_confirmation_required');
-  if (store.db.prepare("select id from import_tasks where course_id=? and status in ('queued','running')").get(id) || store.db.prepare("select id from jobs where course_id=? and status in ('queued','running')").get(id)) throw new CourseError('course_busy', 409);
+  if (store.db.prepare("select id from embedding_indexes where course_id=? and status='building'").get(id) || store.db.prepare("select id from import_tasks where course_id=? and status in ('queued','running')").get(id) || store.db.prepare("select id from jobs where course_id=? and status in ('queued','running')").get(id)) throw new CourseError('course_busy', 409);
   const docs = originals(store, id);
   let operation = store.db.prepare("select id from lifecycle_operations where course_id=? and kind='permanent_delete' and status in ('pending','running','failed')").get(id) as { id: string } | undefined;
   if (!operation) {

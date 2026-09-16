@@ -1,7 +1,7 @@
 import {Worker} from 'node:worker_threads';
 import {createRequire} from 'node:module';
 import path from 'node:path';
-import {CourseError,requireCourse,listImportTasks,readOriginal,type Store} from '@collegenotes/storage';
+import {CourseError,requireCourse,listImportTasks,readOriginal,checksum,type Store} from '@collegenotes/storage';
 import type {SourceDocument} from '@collegenotes/domain';
 import type {Extraction} from '@collegenotes/importers';
 const require=createRequire(import.meta.url);
@@ -11,8 +11,9 @@ export async function processImport(store:Store,courseId:string,taskId:string):P
  if(!doc)throw new CourseError('material_unavailable',404);
  store.db.prepare("update import_tasks set status='running',progress=5 where id=?").run(taskId);
  try{
+  const bytes=readOriginal(store,doc);if(bytes.length!==doc.byteLength||checksum(bytes)!==doc.checksum)throw new Error('original_checksum_mismatch');
   const result=await new Promise<Extraction>((resolve,reject)=>{
-   const worker=new Worker(path.join(path.dirname(require.resolve('@collegenotes/importers')),'extract-worker.js'),{workerData:{filename:doc.filename,bytes:readOriginal(store,doc)},resourceLimits:{maxOldGenerationSizeMb:256}});
+   const worker=new Worker(path.join(path.dirname(require.resolve('@collegenotes/importers')),'extract-worker.js'),{workerData:{filename:doc.filename,bytes},resourceLimits:{maxOldGenerationSizeMb:256}});
    const timeout=setTimeout(()=>{void worker.terminate();reject(new Error('extraction_timeout'));},120000);
    const cancelled=setInterval(()=>{if(!store.db.open||!listImportTasks(store,courseId).some(t=>t.id===taskId&&t.status==='running')){void worker.terminate();reject(new Error('import_cancelled'));}},100);
    const cleanup=()=>{clearTimeout(timeout);clearInterval(cancelled);};
@@ -21,8 +22,9 @@ export async function processImport(store:Store,courseId:string,taskId:string):P
   });
   const current=listImportTasks(store,courseId).find(t=>t.id===taskId);if(current?.status!=='running')return;
   if(!result.passages.length)throw new Error(result.warnings.some(w=>w.includes('ocr_required'))?'ocr_required':'no_text_extracted');
+  let textOffset=0;const anchors=result.passages.map(p=>{const anchor={...p.anchor,textStart:textOffset,textEnd:textOffset+p.text.length};textOffset+=p.text.length+2;return anchor;});
   store.db.transaction(()=>{
-   store.db.prepare("insert into material_revisions(source_id,course_id,revision,text,anchors,author,created_at) values (?,?,1,?,?,'extraction',?)").run(doc.id,courseId,result.passages.map(p=>p.text).join('\n\n'),JSON.stringify(result.passages.map(p=>p.anchor)),new Date().toISOString());
+   store.db.prepare("insert into material_revisions(source_id,course_id,revision,text,anchors,author,created_at) values (?,?,1,?,?,'extraction',?)").run(doc.id,courseId,result.passages.map(p=>p.text).join('\n\n'),JSON.stringify(anchors),new Date().toISOString());
    store.db.prepare("update import_tasks set status='completed',progress=100,error=?,updated_at=? where id=?").run(result.warnings.length?result.warnings.join(' '):null,new Date().toISOString(),taskId);
   })();
  }catch(error){if(store.db.open)store.db.prepare("update import_tasks set status='failed',error=?,progress=0 where id=? and status='running'").run(error instanceof Error?error.message:'extraction_failed',taskId);}

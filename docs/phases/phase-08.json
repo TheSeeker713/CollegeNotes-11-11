@@ -11,7 +11,7 @@
     "name": "CollegeNotes-Full-Project-Plan.md",
     "sha256": "31c3d9383db095a88e5096b824c53540e921ed3f4898497eab9a57b6b120d4db"
   },
-  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance",
+  "entry_gate": "Previous phase completion and explicit owner authorization; recorded boundary exception may permit execution without claiming user acceptance; alert owner to connect MyceliaOS external SSD and verify designated local-AI storage before local model work",
   "exit_gate": "Required steps/checkpoints complete; review packet and explicit user acceptance before ordinary next-phase execution",
   "approval_boundary": true,
   "steps": [

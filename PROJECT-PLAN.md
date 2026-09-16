@@ -177,6 +177,8 @@ Implement original/reflowed reading, search, annotations, bookmarks, exact posit
 
 ### Phase 8 — provider connections, research, and tutoring
 
+Owner storage direction (September 16, 2026): before beginning this phase, alert the owner to plug in the **MyceliaOS external SSD**, the designated home for local AI. Verify its mounted location and model directory before local-model downloads, installation or migration; do not silently fall back to internal storage. This requirement does not authorize Phase 8 execution or a generative model download.
+
 Implement the removable provider registry, API-key and verified OAuth flows, capability toggles, hybrid local retrieval, internet research with provenance, and source-grounded tutoring. Verify each real provider separately.
 
 ### Phase 9 — study and learning history

@@ -2,6 +2,8 @@ import Fastify from 'fastify';
 import { parseAppearance, parseCardLayout, type SessionState } from '@collegenotes/domain';
 import {
   readOriginal, checksum,
+  materialCollection, materialDetail, correctMaterial, approveMaterial, trashMaterial, deleteMaterial, exportMaterials,
+  indexStatus, recoverIndexes, cancelIndex,
   queueImport, listImportTasks, changeImportTask, recoverImportTasks,
   createCourse,
   exportCourse, deleteCourse,
@@ -31,6 +33,8 @@ import {
 import { describeUnavailable, PROVIDERS, connectionSummary } from '@collegenotes/providers';
 import { renderPdfPage } from '@collegenotes/importers';
 import { processImport } from './extraction.js';
+import {rebuildIndex,searchIndex,LOCAL_MODEL} from './semantic.js';
+import {verifyEmbeddingModel} from '@collegenotes/importers';
 import { cancelJob, ingestBuffer, retryJob } from './jobs.js';
 
 export const DEFAULT_PORT = 4781;
@@ -40,6 +44,7 @@ export function createService(store?: Store) {
   const opened = store ?? openStore(process.env.COLLEGENOTES_DATA_DIR ?? defaultDataDir());
   restoreInterruptedJobs(opened);
   recoverImportTasks(opened);
+  recoverIndexes(opened);
   const app = Fastify({ logger: false });
 
   app.addHook('onRequest', async (request, reply) => {
@@ -86,7 +91,7 @@ export function createService(store?: Store) {
   });
 
   app.get('/connections', async () => ({ availableProviders: PROVIDERS, connections: listConnections(opened).map(connectionSummary), liveAuthenticationAvailable: false }));
-  app.get('/courses/:id/materials', async (request) => listMaterials(opened, (request.params as { id: string }).id).map(({ storedRelPath: _privatePath, ...material }) => material));
+  app.get('/courses/:id/materials', async (request) => materialCollection(opened, (request.params as { id: string }).id).map(({ storedRelPath: _privatePath, ...material }) => material));
   app.get('/courses/:id/research', async (request) => listResearchSessions(opened, (request.params as { id: string }).id));
   app.get('/courses', async () => listCourses(opened));
   app.get('/courses/:id/modules', async (request) => courseModules(opened, (request.params as { id: string }).id));
@@ -110,16 +115,41 @@ export function createService(store?: Store) {
   app.post('/courses/:id/restore', async (request) => archiveCourse(opened, (request.params as { id: string }).id, false));
 
   app.get('/courses/:id/materials/:sourceId',async(request)=>{
-    const {id,sourceId}=request.params as {id:string;sourceId:string};requireCourse(opened,id,true);
-    const material=listMaterials(opened,id).find(m=>m.id===sourceId);if(!material)throw new CourseError('material_unavailable',404);
-    const revisions=opened.db.prepare('select revision,text,anchors,author,created_at as createdAt from material_revisions where source_id=? and course_id=? order by revision desc').all(sourceId,id);
-    const metadata=Object.fromEntries(Object.entries(material).filter(([key])=>key!=='storedRelPath'));return {material:metadata,revisions};
+    const {id,sourceId}=request.params as {id:string;sourceId:string};return materialDetail(opened,id,sourceId);
   });
+  app.put('/courses/:id/materials/:sourceId', {bodyLimit:8*1024*1024}, async(request)=>{
+    const {id,sourceId}=request.params as {id:string;sourceId:string};return correctMaterial(opened,id,sourceId,request.body);
+  });
+  app.post('/courses/:id/materials/:sourceId/approve',async(request)=>{
+    const {id,sourceId}=request.params as {id:string;sourceId:string};return approveMaterial(opened,id,sourceId,request.body);
+  });
+  app.post('/courses/:id/materials/:sourceId/trash',async(request)=>{
+    const {id,sourceId}=request.params as {id:string;sourceId:string};return trashMaterial(opened,id,sourceId);
+  });
+  app.post('/courses/:id/materials/:sourceId/restore',async(request)=>{
+    const {id,sourceId}=request.params as {id:string;sourceId:string};return trashMaterial(opened,id,sourceId,true);
+  });
+  app.delete('/courses/:id/materials/:sourceId',async(request)=>{
+    const {id,sourceId}=request.params as {id:string;sourceId:string};return deleteMaterial(opened,id,sourceId,request.body);
+  });
+  app.post('/courses/:id/material-export',async(request,reply)=>{
+    const {id}=request.params as {id:string};const result=exportMaterials(opened,id,(request.body as {sourceIds?:unknown}|null)?.sourceIds);
+    return reply.header('content-disposition','attachment; filename="materials.json"').send(result);
+  });
+  app.get('/courses/:id/local-index',async(request)=>{
+    const {id}=request.params as {id:string};const status=indexStatus(opened,id);let modelReady=true;try{verifyEmbeddingModel();}catch{modelReady=false;}
+    return {index:status,model:LOCAL_MODEL,modelReady};
+  });
+  app.post('/courses/:id/local-index',async(request)=>{
+    const {id}=request.params as {id:string};void rebuildIndex(opened,id).catch(()=>undefined);return {started:true};
+  });
+  app.post('/courses/:id/local-index/cancel',async(request)=>{cancelIndex(opened,(request.params as {id:string}).id);return {cancelled:true};});
+  app.post('/courses/:id/local-index/query',async(request)=>searchIndex(opened,(request.params as {id:string}).id,(request.body as {query?:unknown}|null)?.query));
   app.get('/courses/:id/materials/:sourceId/preview/:page',async(request,reply)=>{
     const {id,sourceId,page}=request.params as {id:string;sourceId:string;page:string};requireCourse(opened,id,true);
     const material=listMaterials(opened,id).find(m=>m.id===sourceId);if(!material)throw new CourseError('material_unavailable',404);
     if(!/^[1-9][0-9]{0,2}$/.test(page))throw new CourseError('invalid_page');const bytes=readOriginal(opened,material);if(checksum(bytes)!==material.checksum)throw new CourseError('original_checksum_mismatch',409);
-    if(material.filename.endsWith('.pdf'))return reply.type('image/png').send(await renderPdfPage(bytes,Number(page)));
+    if(/\.pdf$/i.test(material.filename))return reply.type('image/png').send(await renderPdfPage(bytes,Number(page)));
     if(Number(page)!==1||!(/\.(png|jpe?g)$/i.test(material.filename)))throw new CourseError('preview_unavailable',404);
     return reply.type(/\.png$/i.test(material.filename)?'image/png':'image/jpeg').header('x-content-type-options','nosniff').send(bytes);
   });
@@ -138,7 +168,12 @@ export function createService(store?: Store) {
   });
   app.post('/courses/:id/imports/:taskId/:action',async (request)=>{
     const {id,taskId,action}=request.params as {id:string;taskId:string;action:string};
-    if(action==='process'){void processImport(opened,id,taskId).catch(()=>undefined);return {started:true};}
+    if(action==='process'){
+      requireCourse(opened,id,true);const task=listImportTasks(opened,id).find(t=>t.id===taskId);
+      if(!task||task.status!=='queued')throw new CourseError('import_not_queued',409);
+      if(!listMaterials(opened,id).some(m=>m.id===task.sourceId))throw new CourseError('material_unavailable',404);
+      void processImport(opened,id,taskId).catch(()=>undefined);return {started:true};
+    }
     if(action!=='cancel'&&action!=='retry')throw new CourseError('invalid_import_action');
     return changeImportTask(opened,id,taskId,action);
   });

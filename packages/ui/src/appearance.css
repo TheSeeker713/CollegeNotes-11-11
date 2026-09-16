@@ -31,3 +31,13 @@ html:not(.reduce-transparency) .glass { backdrop-filter: blur(16px); }
 :focus-visible { outline: 3px solid var(--cn-focus); outline-offset: 3px; }
 button, .button, select, input:not([type=checkbox]):not([type=radio]) { min-height: 44px; font: inherit; }
 button, .button { min-width: 44px; }
+
+.material-review-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-block: 1rem; }
+.material-review-grid > section { min-width: 0; }
+.material-original { display: block; max-width: 100%; height: auto; filter: none; mix-blend-mode: normal; background: white; }
+.material-text { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 32rem; overflow: auto; }
+.material-editor { width: 100%; min-height: 24rem; box-sizing: border-box; }
+.material-list { display: grid; gap: .75rem; padding-inline-start: 1.25rem; }
+.material-list li { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.materials-workspace label { display: block; margin-block: .65rem; }
+@media (max-width: 1000px) { .material-review-grid { grid-template-columns: 1fr; } }

@@ -1,6 +1,6 @@
 # CollegeNotes{11:11}
 
-Private, local-first macOS learning application. The owner authorized the Phase 0–4 repair pass. Its implementation and engineering verification are tracked in docs/phases/repair-*. UI/UX review belongs exclusively to the owner; Phase 5 requires the owner’s green light. Current [repair production report](docs/phase-0-4-repair-production-report.md) and [manual UI/UX tasks](docs/phase-0-4-repair-manual-tests.md). Earlier [phase 3](docs/phase-3-report.md) and [phase 4](docs/phase-4-report.md) reports are historical.
+Private, local-first macOS learning application. Phase 6 implements material import/extraction/OCR, versioned correction, approval, export/deletion and local semantic indexing. Engineering delivery and the exact verified commit are tracked in `project-state/current.json` and the Phase 6 receipt. Owner UI/UX acceptance remains pending; Phase 7 has not started. Read the [Phase 6 production report](docs/phase-6-production-report.md) and [owner manual review guide](docs/phase-6-manual-tests.md). Earlier Phase 0–5 reports remain historical evidence.
 
 Read the human-readable [Official Project Plan](PROJECT-PLAN.md) first. Then read [current state](project-state/current.json), [actual approvals](project-state/approvals.json), and the [Phase 0–4 impact and repair proposal](docs/plans/PHASE-0-4-REVISION-IMPACT.md).
 

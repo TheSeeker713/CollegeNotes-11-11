@@ -45,3 +45,7 @@ When the owner instructs an agent to implement a phase, execute the entire autho
 This instruction follows the owner's direct response to the Phase 6 checkpoint permission question: “You are supposed to have full automation per phase and only stop if there is a phase completion.” The existing origin is the public TheSeeker713/CollegeNotes-11-11 repository. Push reviewed project source, synthetic tests and public project documentation only; never private course data, credentials, models, caches or raw device evidence. File writes remain confined to CollegeNotes unless the owner separately permits otherwise. UI/UX testing remains exclusively the owner's work.
 
 Repository instructions cannot override tool-enforced security gates. If an authorized operation is rejected, provide its actual authorization and scope to the approval mechanism; do not seek a workaround, invent approval or report an unperformed operation as complete.
+
+## Phase 8 external AI storage gate
+
+Before beginning Phase 8, explicitly alert the owner: “Please plug in the MyceliaOS external SSD; this is the designated location for local AI.” Verify the mounted volume and owner-designated model directory before any Phase 8 local-model download, installation or migration. Do not silently use the internal disk when the drive is absent. This is a future-phase prerequisite, not authorization to begin Phase 8. The existing small Phase 6 OCR/embedding assets can remain in their already-authorized location for completion of Phase 6; reconcile their storage with the owner at Phase 8 setup.

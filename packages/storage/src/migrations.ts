@@ -77,7 +77,33 @@ export const MIGRATIONS = [
    create table lifecycle_operations (id text primary key, course_id text references courses(id), kind text not null check(kind in ('export','trash','restore','permanent_delete')), status text not null check(status in ('pending','running','failed','complete','cancelled')), manifest text not null check(json_valid(manifest)), updated_at text not null);
   `,
   `create table import_tasks (id text primary key, course_id text not null references courses(id) on delete cascade, source_id text not null references source_documents(id) on delete cascade, status text not null check(status in ('queued','running','completed','failed','cancelled')), error text, progress integer not null default 0, created_at text not null, updated_at text not null);
-   create index import_tasks_course on import_tasks(course_id, status);`
+   create index import_tasks_course on import_tasks(course_id, status);`,
+  `alter table source_documents add column approved_revision integer;
+   create table semantic_chunks (
+     id text primary key, course_id text not null, source_id text not null,
+     source_revision integer not null, model_version text not null,
+     ordinal integer not null, text text not null, start_offset integer not null, end_offset integer not null,
+     anchors text not null check(json_valid(anchors)), vector text not null check(json_valid(vector)),
+     foreign key(source_id, course_id) references source_documents(id, course_id) on delete cascade
+   );
+   create index semantic_course on semantic_chunks(course_id, source_id, source_revision);
+   create virtual table material_fts using fts5(chunk_id unindexed, course_id unindexed, source_id unindexed, text);
+   create trigger material_approval_invalidates after update of approved_revision on source_documents begin
+     update embedding_indexes set status='stale', rebuild_reason='approval_changed' where course_id=new.course_id;
+     update derivatives set status='stale' where source_id=new.id;
+     delete from material_fts where source_id=new.id;
+   end;
+   create trigger material_content_invalidates after update of revision, trashed_at, deleted_at on source_documents begin
+     delete from semantic_chunks where source_id=new.id;
+     delete from material_fts where source_id=new.id;
+   end;
+   create trigger material_delete_fts after delete on source_documents begin
+     delete from material_fts where source_id=old.id;
+   end;
+   create trigger model_chunks_invalidate after update of model_id,model_version,weights_checksum on embedding_indexes begin
+     delete from semantic_chunks where course_id=new.course_id;
+     delete from material_fts where course_id=new.course_id;
+   end;`
 
 ];
 

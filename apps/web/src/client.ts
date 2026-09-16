@@ -24,9 +24,19 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   materials: {
-    list: (courseId:string)=>req<Array<{id:string;filename:string;revision:number}>>(`/courses/${courseId}/materials`),
-    detail: (courseId:string,id:string)=>req<{material:{id:string;filename:string;revision:number};revisions:Array<{revision:number;text:string;anchors:string;author:string;createdAt:string}>}>(`/courses/${courseId}/materials/${id}`),
+    list: (courseId:string)=>req<MaterialSummary[]>(`/courses/${courseId}/materials`),
+    detail: (courseId:string,id:string)=>req<MaterialDetail>(`/courses/${courseId}/materials/${id}`),
     original: (courseId:string,id:string)=>`${BASE}/courses/${courseId}/materials/${id}/original`,
+    preview: (courseId:string,id:string,page:number)=>`${BASE}/courses/${courseId}/materials/${id}/preview/${page}`,
+    correct: (courseId:string,id:string,text:string,expectedRevision:number)=>req<MaterialDetail>(`/courses/${courseId}/materials/${id}`,{method:'PUT',body:JSON.stringify({text,expectedRevision})}),
+    approve: (courseId:string,id:string,expectedRevision:number)=>req<MaterialDetail>(`/courses/${courseId}/materials/${id}/approve`,{method:'POST',body:JSON.stringify({expectedRevision,reviewed:true})}),
+    trash: (courseId:string,id:string)=>req(`/courses/${courseId}/materials/${id}/trash`,{method:'POST'}),
+    restore: (courseId:string,id:string)=>req(`/courses/${courseId}/materials/${id}/restore`,{method:'POST'}),
+    delete: (courseId:string,id:string,confirmation:string,backupsAcknowledged:boolean)=>req(`/courses/${courseId}/materials/${id}`,{method:'DELETE',body:JSON.stringify({confirmation,backupsAcknowledged})}),
+    export: (courseId:string,sourceIds:string[])=>req(`/courses/${courseId}/material-export`,{method:'POST',body:JSON.stringify({sourceIds})}),
+    index: (courseId:string)=>req<LocalIndex>(`/courses/${courseId}/local-index`),
+    rebuild: (courseId:string)=>req(`/courses/${courseId}/local-index`,{method:'POST'}),
+    cancelIndex: (courseId:string)=>req(`/courses/${courseId}/local-index/cancel`,{method:'POST'}),
     tasks: (courseId:string) => req<Array<{id:string;sourceId:string;status:string;error:string|null;progress:number}>>(`/courses/${courseId}/imports`),
     import: (courseId:string,filename:string,contentBase64:string,kind:'note'|'imported'='imported') => req(`/courses/${courseId}/imports`,{method:'POST',body:JSON.stringify({filename,contentBase64,kind})}),
     action: (courseId:string,id:string,action:'cancel'|'retry'|'process')=>req(`/courses/${courseId}/imports/${id}/${action}`,{method:'POST'})
@@ -70,3 +80,7 @@ export const api = {
     retry: (id: string) => req<Job>(`/jobs/${id}/retry`, { method: 'POST' })
   }
 };
+
+export type MaterialSummary={id:string;filename:string;revision:number;kind:'note'|'imported';approvedRevision:number|null;trashedAt:string|null;deletedAt:string|null;cleanupState:string};
+export type MaterialDetail={material:MaterialSummary;revisions:Array<{revision:number;text:string;anchors:string;author:string;createdAt:string}>};
+export type LocalIndex={index:{status:string;modelVersion:string;rebuildReason:string|null}|null;modelReady:boolean;model:{id:string;version:string}};

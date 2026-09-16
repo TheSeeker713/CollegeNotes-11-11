@@ -35,6 +35,7 @@ export function queueImport(store: Store, courseId: string, filename: string, by
 }
 export function changeImportTask(store:Store,courseId:string,id:string,action:'cancel'|'retry'):ImportTask {
   requireCourse(store,courseId,true);const task=listImportTasks(store,courseId).find(t=>t.id===id);if(!task)throw new CourseError('import_not_found',404);
+  if(action==='retry' && !store.db.prepare("select id from source_documents where id=? and course_id=? and trashed_at is null and deleted_at is null and cleanup_state='none'").get(task.sourceId,courseId))throw new CourseError('material_unavailable',404);
   if(action==='retry' && !['failed','cancelled'].includes(task.status))throw new CourseError('import_not_retryable',409);
   if(action==='cancel' && task.status==='completed')throw new CourseError('import_already_completed',409);
   store.db.prepare('update import_tasks set status=?,error=null,progress=0,updated_at=? where id=?').run(action==='cancel'?'cancelled':'queued',new Date().toISOString(),id);

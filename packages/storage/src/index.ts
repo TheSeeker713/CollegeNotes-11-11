@@ -28,3 +28,7 @@ export * from './foundation.js';
 export * from './courses.js';
 export * from './course-transfer.js';
 export * from './material-imports.js';
+
+export * from "./material-lifecycle.js";
+
+export * from "./semantic-index.js";

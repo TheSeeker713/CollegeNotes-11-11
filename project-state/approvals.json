@@ -276,6 +276,19 @@
         "Preserve owner-only UI/UX review and the existing bounded local-model authorization.",
         "Include the owner-requested development setup updates from the preceding turn."
       ]
+    },
+    {
+      "id": "CHANGE-P8-MYCELIAOS-STORAGE",
+      "kind": "scope_clarification",
+      "phases": [
+        8
+      ],
+      "source": "Owner message during Phase 6 completion, September 16, 2026",
+      "quote": "ok, for phase 8 provide an alert and warn me to plug in the external SSD. {MyceliaOS drive} This is where all local Ai lives. you may continue phase 6",
+      "conditions": [
+        "Alert owner to connect MyceliaOS before Phase 8 local AI work and verify external storage.",
+        "Continue Phase 6; this does not authorize Phase 8 execution."
+      ]
     }
   ]
 }
