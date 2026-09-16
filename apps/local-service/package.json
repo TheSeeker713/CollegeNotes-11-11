@@ -14,7 +14,7 @@
     "@collegenotes/providers": "0.0.0",
     "@collegenotes/storage": "0.0.0",
     "better-sqlite3": "13.0.3",
-    "fastify": "5.12.3"
+    "fastify": "5.12.4"
   },
   "devDependencies": {
     "@types/better-sqlite3": "9.6.0"

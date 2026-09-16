@@ -1,6 +1,6 @@
-# Local setup for the repair build
+# Local development setup
 
-[PROJECT-PLAN.md](../PROJECT-PLAN.md) controls scope. Existing pinned runtime: Node 24.21.0 and npm 12.0.2 under `.local/runtime/node/`. No dependency installation is needed on the current Mac for this repair.
+[PROJECT-PLAN.md](../PROJECT-PLAN.md) controls scope. Existing pinned runtime: Node 24.21.0 and npm 12.0.2 under `.local/runtime/node/`. This checkout was provisioned on September 15, 2026; see [development setup record](development-setup-2026-09-15.md). Fresh clones do not include the ignored runtime, dependencies, worker copies or OCR model.
 
 From the CollegeNotes repository:
 
