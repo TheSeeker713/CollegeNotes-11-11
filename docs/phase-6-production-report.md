@@ -1,6 +1,6 @@
 # Phase 6 — material lifecycle and local embeddings
 
-September 16, 2026. Engineering verification complete; implementation checkpoint pending. The final receipt will identify the verified remote commit. Owner UI/UX and accessibility acceptance remain pending. Phase 7 is not authorized or started.
+September 16, 2026. Engineering implementation complete at `5080af20caea976a852109d8e0a79d93641538f9`, pushed and independently verified on origin/main. See [the final receipt](phases/phase6-final-receipt.md). Owner UI/UX and accessibility acceptance remain pending. Phase 7 is not authorized or started.
 
 ## Delivered behavior
 

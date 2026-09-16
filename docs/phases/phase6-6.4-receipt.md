@@ -1,6 +1,6 @@
 # Phase 6.4 engineering receipt
 
-September 16, 2026. Implementation checkpoint pending; final remote receipt is recorded after commit/push.
+September 16, 2026. Implementation checkpoint `5080af20caea976a852109d8e0a79d93641538f9` is committed and verified on origin/main. See [the final receipt](phase6-final-receipt.md).
 
 Previous verified checkpoint: `50adb7cfa88ce1196e26842feeccf6ec7048a8e1` (OCR reconciliation and approved development setup). `AUTH-P6-FINISH-2026-09-15` directs completion of Phase 6 only. The owner additionally requested the future MyceliaOS external-SSD alert, recorded separately without executing Phase 8.
 

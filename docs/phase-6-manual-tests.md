@@ -1,6 +1,6 @@
 # Phase 6 — owner manual review
 
-September 16, 2026. UI/UX, visual accessibility and acceptance belong to the owner. No agent browser, screenshot or usability testing was performed. Use the implementation commit identified in the Phase 6 final receipt. Phase 7 has not started.
+September 16, 2026. UI/UX, visual accessibility and acceptance belong to the owner. No agent browser, screenshot or usability testing was performed. Use implementation commit `5080af20caea976a852109d8e0a79d93641538f9`, identified in [the final receipt](phases/phase6-final-receipt.md). Phase 7 has not started.
 
 ## Launch safely
 
