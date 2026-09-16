@@ -1,0 +1,11 @@
+# Phase 7.4 engineering receipt
+
+Integrated reading controls, live and saved-copy original/reflowed views, source-module integration, automatic resumption, version-separated drafts and deterministic last-session ordering are implemented. Migration 13 retains earlier reading records. Theme-aware selection/highlights and original imagery are separately styled; EPUB frame scroll and outer reading scroll are separately retained. Annotation completion is guarded against source/revision changes.
+
+Nine engineering gates passed: types/lint/build, 25 unit cases, 111 integration cases, 1 synthetic evaluation, 6 planning checks, 44 workflow checks and 6 gate-harness checks. Zero skipped/failed cases in the passing run. Dependency audit reports zero known vulnerabilities. The real offline integration exercises MiniLM generation/query, lexical/vector retrieval, reading and annotation saving with all network access denied by macOS.
+
+Storage diagnostic p95 for three 100-action runs: 5.717 ms, 4.356 ms and 2.842 ms. Dataset: 3 synthetic courses, 100 documents, 10000 source passages. This is not P-INTERACT input-to-paint acceptance; browser timing and its full learning-attempt workload remain pending with owner testing. Detailed samples and source identity remain private in `.local/phase7/` and `.local/verification/phase7/7.4/`.
+
+Source audit reviewed every Phase 7 criterion against implementation and non-UI evidence: mapping and omission disclosure, immutable annotation offsets, revision-specific resumption, migration retention, serialized/conflicting writes, browser snapshot privacy/invalidation, shell cache boundaries, model/index identity, course isolation and deletion/export cascades. The cache test found and drove repair of a missing HTML entry. No UI/UX tests were run and no manual criterion is declared accepted. CHK-7.4-01 through 05 have non-UI contract/diagnostic evidence; rendered/keyboard/window/paint checks are deferred under AUTH-P7.
+
+[Full production report](../phase-7-production-report.md) and [deferred manual guide](../phase-7-manual-tests.md) are included. Final commit/remote/source reconciliation follows in the [final receipt](phase7-final-receipt.md). Phase 8 is not started or authorized.

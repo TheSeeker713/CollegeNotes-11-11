@@ -52,3 +52,13 @@ button, .button { min-width: 44px; }
 @media (max-width:1000px) { .reader-grid { grid-template-columns:minmax(0,1fr); } .reader-grid aside { max-height:35vh; } }
 .reader-content { max-height:75vh; }
 .reader-text::selection { background:var(--accent); color:var(--text); }
+.reader-workspace label { display:block; margin-block:.6rem; }
+.reader-workspace input, .reader-workspace textarea, .reader-workspace select { max-width:100%; box-sizing:border-box; }
+.reader-workspace textarea { width:100%; min-height:8rem; }
+.reader-workspace[data-density='compact'] .glass-card { padding:.7rem; }
+.reader-workspace[data-focus='true'] .reader-grid, .reader-workspace[data-context='false'] .reader-grid { grid-template-columns:minmax(0,1fr); }
+.reader-workspace[data-focus='true'] .reader-grid aside, .reader-workspace[data-context='false'] .reader-grid aside { display:none; }
+.reader-workspace[data-reduce-motion='true'] *, html.reduce-motion .reader-workspace * { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
+.reader-text { line-height:inherit; }
+.reader-text mark { background:var(--cn-accent); color:var(--cn-on-accent); border-radius:2px; }
+.reader-text::selection, .reader-text *::selection { background:var(--cn-accent); color:var(--cn-on-accent); }

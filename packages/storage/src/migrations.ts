@@ -116,7 +116,16 @@ export const MIGRATIONS = [
     source_id text primary key, course_id text not null, revision integer not null, payload text not null check(json_valid(payload)), version integer not null, updated_at text not null,
     foreign key(source_id,course_id) references source_documents(id,course_id) on delete cascade,
     foreign key(source_id,revision) references material_revisions(source_id,revision) on delete cascade
-  );`
+  );` ,
+  `alter table reading_positions rename to reading_positions_legacy;
+   create table reading_positions (
+    source_id text not null, course_id text not null, revision integer not null, payload text not null check(json_valid(payload)), version integer not null, updated_at text not null,
+    primary key(source_id,revision),
+    foreign key(source_id,course_id) references source_documents(id,course_id) on delete cascade,
+    foreign key(source_id,revision) references material_revisions(source_id,revision) on delete cascade
+   );
+   insert into reading_positions select * from reading_positions_legacy;
+   drop table reading_positions_legacy;`
 ];
 
 export function migrate(db: Database.Database): number {

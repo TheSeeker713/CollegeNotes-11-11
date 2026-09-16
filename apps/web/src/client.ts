@@ -13,7 +13,7 @@ async function send<T>(path: string, init?: RequestInit): Promise<T> {
   const result=await res.json() as T;
   if(init?.method&&init.method!=='GET'&&/^\/courses\/[^/]+(?:\/materials\/|\/(?:archive|restore)$|$|\/reading\/[^/]+\/annotations)/.test(path)){
     const id=path.split('/')[2]!;
-    try{await (await import('./offline-cache')).removePack(id);}catch{throw new Error('operation_saved_but_browser_copy_cleanup_failed');}
+    try{await (await import('./offline-cache')).removePack(id);}catch{window.dispatchEvent(new Event('cn-offline-cleanup-failed'));}
   }
   return result;
 }
@@ -32,11 +32,12 @@ export const api = {
  lexical:(c:string,query:string)=>req<SearchHit[]>(`/courses/${c}/lexical-search`,{method:'POST',body:JSON.stringify({query})}),
  semantic:(c:string,query:string)=>req<SearchHit[]>(`/courses/${c}/local-index/query`,{method:'POST',body:JSON.stringify({query})}),
  reading:{
+ lastSource:(c:string)=>req<{sourceId:string;revision:number}|null>(`/courses/${c}/reading-session`),
  annotations:(c:string,s:string)=>req<import('@collegenotes/domain').Annotation[]>(`/courses/${c}/reading/${s}/annotations`),
  addAnnotation:(c:string,s:string,body:unknown)=>req<import('@collegenotes/domain').Annotation>(`/courses/${c}/reading/${s}/annotations`,{method:'POST',body:JSON.stringify(body)}),
  editAnnotation:(c:string,s:string,id:string,note:string,version:number)=>req(`/courses/${c}/reading/${s}/annotations/${id}`,{method:'PUT',body:JSON.stringify({note,version})}),
  deleteAnnotation:(c:string,s:string,id:string,version:number)=>req(`/courses/${c}/reading/${s}/annotations/${id}`,{method:'DELETE',body:JSON.stringify({version})}),
- position:(c:string,s:string)=>req<import('@collegenotes/domain').ReadingPosition|null>(`/courses/${c}/reading/${s}/position`),
+ position:(c:string,s:string,revision?:number)=>req<import('@collegenotes/domain').ReadingPosition|null>(`/courses/${c}/reading/${s}/position${revision?`?revision=${revision}`:''}`),
  savePosition:(c:string,s:string,body:import('@collegenotes/domain').ReadingPosition)=>req<import('@collegenotes/domain').ReadingPosition>(`/courses/${c}/reading/${s}/position`,{method:'PUT',body:JSON.stringify(body)}),
  document:(c:string,s:string,revision?:number)=>req<import('@collegenotes/domain').ReadingDocument>(`/courses/${c}/reading/${s}${revision?`?revision=${revision}`:''}`),
  epub:(c:string,s:string)=>req<{chapters:Array<{location:string;title:string;html:string}>;warnings:string[]}>(`/courses/${c}/reading/${s}/epub`)

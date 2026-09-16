@@ -15,9 +15,15 @@ export function readingMatches(text:string,query:string,limit=100):Array<{start:
 }
 export function originalPage(location:ReadingLocation|null){const match=location?.anchor?.locator.match(/page:(\d+)/);return match?Number(match[1]):null;}
 export type Annotation={id:string;courseId:string;sourceId:string;revision:number;kind:'highlight'|'note'|'bookmark';start:number;end:number;quote:string;note:string;version:number;createdAt:string;updatedAt:string};
-export type ReadingPosition={revision:number;offset:number;view:'reflow'|'original';scrollTop:number;page:number;chapter:number;draft:string;selectionStart:number;selectionEnd:number;version:number};
-export const initialReadingPosition=(revision:number):ReadingPosition=>({revision,offset:0,view:'reflow',scrollTop:0,page:1,chapter:0,draft:'',selectionStart:0,selectionEnd:0,version:0});
+export type ReadingPosition={revision:number;offset:number;view:'reflow'|'original';scrollTop:number;frameScrollTop:number;page:number;chapter:number;draft:string;selectionStart:number;selectionEnd:number;version:number};
+export const initialReadingPosition=(revision:number):ReadingPosition=>({revision,offset:0,view:'reflow',scrollTop:0,frameScrollTop:0,page:1,chapter:0,draft:'',selectionStart:0,selectionEnd:0,version:0});
 export function highlightedParts(text:string,start:number,end:number,ranges:Array<{start:number;end:number}>){
  const points=[...new Set([start,end,...ranges.flatMap(r=>[Math.max(start,Math.min(end,r.start)),Math.max(start,Math.min(end,r.end))])])].sort((a,b)=>a-b);
  return points.slice(0,-1).map((at,i)=>({start:at,text:text.slice(at,points[i+1]),highlighted:ranges.some(r=>r.start<=at&&r.end>at)}));
 }
+export type ReadingPreferences={zoom:number;density:'comfortable'|'compact';spacing:1.4|1.7|2;focus:boolean;reduceMotion:boolean;context:boolean};
+export function readingPreferences(input:unknown):ReadingPreferences{
+ const r=input&&typeof input==='object'?input as Record<string,unknown>:{};
+ return {zoom:[75,100,125,150,175,200].includes(Number(r.zoom))?Number(r.zoom):100,density:r.density==='compact'?'compact':'comfortable',spacing:r.spacing===1.4||r.spacing===2?r.spacing:1.7,focus:r.focus===true,reduceMotion:r.reduceMotion===true,context:r.context!==false};
+}
+export function readingHeadings(text:string){return [...text.matchAll(/^(#{1,6})[ \t]+(.+)$/gm)].map(m=>({start:m.index,end:m.index+m[0].length,level:m[1]!.length,title:m[2]!}));}

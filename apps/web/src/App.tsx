@@ -227,6 +227,7 @@ export function App() {
     }
   }
 
+  useEffect(()=>{const warn=()=>setNotice('Your change was saved, but a prepared browser copy could not be removed. Remove the saved copy in Reading or clear this browser’s CollegeNotes site data. Separate backups remain.');window.addEventListener('cn-offline-cleanup-failed',warn);return()=>window.removeEventListener('cn-offline-cleanup-failed',warn);},[]);
   const empty = courses.length === 0;
   const screen = route.name;
 
@@ -307,7 +308,7 @@ export function App() {
             {screen === 'home' && course ? (
               <section className="course-home glass">
                 <div className="page-heading"><div><p className="eyebrow">Your course · {course.id.slice(-8)}</p><h1>{course.name}</h1><p>{course.description || 'Your space to collect ideas and make sense of what you learn.'}</p></div><a className="button" href="#/courses">Manage course</a></div>
-                <div className="course-home-footer"><span className="badge">Local workspace</span><span>{modules === null ? 'Loading module selections…' : enabledModules.length ? COURSE_MODULES.filter(m=>enabledModules.includes(m.id)).map(m=>m.label).join(' · ') : 'No modules selected yet'}</span><span>No account required</span></div>
+                {enabledModules.includes('reading')&&<a className="button" href={`#/courses/${courseId}/reading`}>Continue reading</a>}<div className="course-home-footer"><span className="badge">Local workspace</span><span>{modules === null ? 'Loading module selections…' : enabledModules.length ? COURSE_MODULES.filter(m=>enabledModules.includes(m.id)).map(m=>m.label).join(' · ') : 'No modules selected yet'}</span><span>No account required</span></div>
               </section>
             ) : null}
             {initialized ? <div hidden={screen !== 'courses' && !(screen === 'home' && !course && !empty)}><CourseManager active={screen === 'courses' || (screen === 'home' && !course && !empty)} onCollection={setCourses} /></div> : null}
@@ -327,7 +328,7 @@ export function App() {
                 <a href="#/connections">View connections</a>
               </section>
             ) : null}
-            {screen === 'reading' && courseId ? <Reader key={courseId} courseId={courseId} /> : null}
+            {screen === 'reading' && courseId ? modules===null?<p>Loading reading module…</p>:enabledModules.includes('reading')?<Reader key={courseId} courseId={courseId} />:<section><h1>Reading</h1><p>Enable the Reading module for this course to use the reader. Your saved material and annotations remain intact when a module is disabled.</p><a href="#/courses">Manage course modules</a></section> : null}
             {screen === 'sources' && courseId ? <Materials key={courseId} courseId={courseId} /> : null}
             {['study', 'practice', 'requirements', 'progress'].includes(screen) ? (
               <section>
