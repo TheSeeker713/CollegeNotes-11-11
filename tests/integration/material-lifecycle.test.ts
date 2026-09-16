@@ -115,5 +115,5 @@ it('migration 11 preserves preexisting Phase 6.3 material and requires explicit 
  db.prepare("insert into courses(id,name,created_at) values ('legacy-course','Synthetic legacy','synthetic')").run();
  db.prepare("insert into source_documents(id,course_id,filename,checksum,byte_length,stored_rel_path,created_at) values ('legacy-source','legacy-course','legacy.txt','synthetic',6,'originals/legacy-source_legacy.txt','synthetic')").run();
  db.prepare("insert into material_revisions values ('legacy-source','legacy-course',1,'Legacy','[]','extraction','synthetic')").run();db.close();
- const s=openStore(dir);stores.push(s);expect(materialDetail(s,'legacy-course','legacy-source').revisions[0]?.text).toBe('Legacy');expect(materialDetail(s,'legacy-course','legacy-source').material.approvedRevision).toBe(null);expect(s.db.prepare('select count(*) as n from schema_migrations').get()).toEqual({n:11});
+ const s=openStore(dir);stores.push(s);expect(materialDetail(s,'legacy-course','legacy-source').revisions[0]?.text).toBe('Legacy');expect(materialDetail(s,'legacy-course','legacy-source').material.approvedRevision).toBe(null);expect(s.db.prepare('select count(*) as n from schema_migrations').get()).toEqual({n:MIGRATIONS.length});
 });

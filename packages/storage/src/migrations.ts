@@ -103,8 +103,20 @@ export const MIGRATIONS = [
    create trigger model_chunks_invalidate after update of model_id,model_version,weights_checksum on embedding_indexes begin
      delete from semantic_chunks where course_id=new.course_id;
      delete from material_fts where course_id=new.course_id;
-   end;`
-
+   end;` ,
+  `create table reading_annotations (
+    id text primary key, course_id text not null, source_id text not null, revision integer not null,
+    kind text not null check(kind in ('highlight','note','bookmark')), start_offset integer not null, end_offset integer not null,
+    quote text not null, note text not null, version integer not null default 1, created_at text not null, updated_at text not null,
+    foreign key(source_id,course_id) references source_documents(id,course_id) on delete cascade,
+    foreign key(source_id,revision) references material_revisions(source_id,revision) on delete cascade
+  );
+  create index reading_annotations_source on reading_annotations(course_id,source_id,revision);
+  create table reading_positions (
+    source_id text primary key, course_id text not null, revision integer not null, payload text not null check(json_valid(payload)), version integer not null, updated_at text not null,
+    foreign key(source_id,course_id) references source_documents(id,course_id) on delete cascade,
+    foreign key(source_id,revision) references material_revisions(source_id,revision) on delete cascade
+  );`
 ];
 
 export function migrate(db: Database.Database): number {

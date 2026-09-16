@@ -50,3 +50,5 @@ button, .button { min-width: 44px; }
 .reader-content iframe { width:100%; min-height:65vh; border:0; background:white; }
 .reader-text { white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; line-height:1.7; }
 @media (max-width:1000px) { .reader-grid { grid-template-columns:minmax(0,1fr); } .reader-grid aside { max-height:35vh; } }
+.reader-content { max-height:75vh; }
+.reader-text::selection { background:var(--accent); color:var(--text); }

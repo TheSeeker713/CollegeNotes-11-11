@@ -24,6 +24,12 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
  reading:{
+ annotations:(c:string,s:string)=>req<import('@collegenotes/domain').Annotation[]>(`/courses/${c}/reading/${s}/annotations`),
+ addAnnotation:(c:string,s:string,body:unknown)=>req<import('@collegenotes/domain').Annotation>(`/courses/${c}/reading/${s}/annotations`,{method:'POST',body:JSON.stringify(body)}),
+ editAnnotation:(c:string,s:string,id:string,note:string,version:number)=>req(`/courses/${c}/reading/${s}/annotations/${id}`,{method:'PUT',body:JSON.stringify({note,version})}),
+ deleteAnnotation:(c:string,s:string,id:string,version:number)=>req(`/courses/${c}/reading/${s}/annotations/${id}`,{method:'DELETE',body:JSON.stringify({version})}),
+ position:(c:string,s:string)=>req<import('@collegenotes/domain').ReadingPosition|null>(`/courses/${c}/reading/${s}/position`),
+ savePosition:(c:string,s:string,body:import('@collegenotes/domain').ReadingPosition)=>req<import('@collegenotes/domain').ReadingPosition>(`/courses/${c}/reading/${s}/position`,{method:'PUT',body:JSON.stringify(body)}),
  document:(c:string,s:string,revision?:number)=>req<import('@collegenotes/domain').ReadingDocument>(`/courses/${c}/reading/${s}${revision?`?revision=${revision}`:''}`),
  epub:(c:string,s:string)=>req<{chapters:Array<{location:string;title:string;html:string}>;warnings:string[]}>(`/courses/${c}/reading/${s}/epub`)
  },

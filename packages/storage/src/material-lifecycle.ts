@@ -95,7 +95,7 @@ export function exportMaterials(store:Store,courseId:string,ids:unknown) {
   return store.db.transaction(()=>{
     const materials=ids.map(id=>requireMaterial(store,courseId,id));
     if(materials.reduce((n,m)=>n+m.byteLength,0)>100*1024*1024)throw new CourseError('export_selection_too_large');
-    const sources=materials.map(m=>{return {...publicMaterial(m),originalBase64:checkedOriginal(store,m).bytes!.toString('base64'),revisions:materialDetail(store,courseId,m.id).revisions};});
+    const sources=materials.map(m=>{return {...publicMaterial(m),originalBase64:checkedOriginal(store,m).bytes!.toString('base64'),revisions:materialDetail(store,courseId,m.id).revisions,annotations:store.db.prepare('select * from reading_annotations where source_id=? and course_id=?').all(m.id,courseId),readingPosition:store.db.prepare('select * from reading_positions where source_id=? and course_id=?').get(m.id,courseId)??null};});
     const data={courseId,sources};return {format:'collegenotes-materials',version:1,exportedAt:new Date().toISOString(),dataChecksum:checksum(Buffer.from(JSON.stringify(data))),data};
   })();
 }

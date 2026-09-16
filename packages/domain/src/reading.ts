@@ -14,3 +14,10 @@ export function readingMatches(text:string,query:string,limit=100):Array<{start:
  for(const match of text.matchAll(pattern)){results.push({start:match.index,end:match.index+match[0].length});if(results.length>=limit)break;}return results;
 }
 export function originalPage(location:ReadingLocation|null){const match=location?.anchor?.locator.match(/page:(\d+)/);return match?Number(match[1]):null;}
+export type Annotation={id:string;courseId:string;sourceId:string;revision:number;kind:'highlight'|'note'|'bookmark';start:number;end:number;quote:string;note:string;version:number;createdAt:string;updatedAt:string};
+export type ReadingPosition={revision:number;offset:number;view:'reflow'|'original';scrollTop:number;page:number;chapter:number;draft:string;selectionStart:number;selectionEnd:number;version:number};
+export const initialReadingPosition=(revision:number):ReadingPosition=>({revision,offset:0,view:'reflow',scrollTop:0,page:1,chapter:0,draft:'',selectionStart:0,selectionEnd:0,version:0});
+export function highlightedParts(text:string,start:number,end:number,ranges:Array<{start:number;end:number}>){
+ const points=[...new Set([start,end,...ranges.flatMap(r=>[Math.max(start,Math.min(end,r.start)),Math.max(start,Math.min(end,r.end))])])].sort((a,b)=>a-b);
+ return points.slice(0,-1).map((at,i)=>({start:at,text:text.slice(at,points[i+1]),highlighted:ranges.some(r=>r.start<=at&&r.end>at)}));
+}

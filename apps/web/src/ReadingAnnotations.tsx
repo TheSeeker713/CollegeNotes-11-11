@@ -1,0 +1,15 @@
+import {useEffect,useState} from 'react';
+import type {Annotation,ReadingDocument,ReadingPosition} from '@collegenotes/domain';
+import {api} from './client';
+export function ReadingAnnotations({doc,position,change,onJump,onError,onAnnotations}:{doc:ReadingDocument;position:ReadingPosition;change:(patch:Partial<ReadingPosition>)=>void;onJump:(revision:number,start:number)=>void;onError:(s:string)=>void;onAnnotations:(a:Annotation[])=>void}){
+ const [annotations,setAnnotations]=useState<Annotation[]>([]),[busy,setBusy]=useState(false);
+ useEffect(()=>{let active=true;void api.reading.annotations(doc.courseId,doc.sourceId).then(a=>{if(active){setAnnotations(a);onAnnotations(a);}}).catch(()=>onError('Annotations unavailable; retry when the service returns.'));return()=>{active=false;};},[doc.courseId,doc.sourceId,onError,onAnnotations]);
+ async function run(action:()=>Promise<unknown>){setBusy(true);try{await action();const a=await api.reading.annotations(doc.courseId,doc.sourceId);setAnnotations(a);onAnnotations(a);}catch(e){onError(`Annotation not saved: ${e instanceof Error?e.message:'service unavailable'}. Your draft is retained.`);}finally{setBusy(false);}}
+ const start=position.selectionStart,end=position.selectionEnd;
+ return <section className="glass glass-card"><h2>Highlights, notes and bookmarks</h2><p>Select text in the reflowed passage, or enter exact character offsets below using the keyboard. Offsets identify this revision only.</p>
+ <label>Start character<input type="number" min={0} max={doc.text.length} value={start} onChange={e=>change({selectionStart:Math.min(doc.text.length,Math.max(0,Number(e.target.value)||0))})}/></label><label>End character<input type="number" min={start} max={doc.text.length} value={end} onChange={e=>change({selectionEnd:Math.min(doc.text.length,Math.max(start,Number(e.target.value)||0))})}/></label>
+ <p>Selected: <q>{doc.text.slice(start,end).slice(0,500)}</q></p><label>Annotation draft<textarea maxLength={20000} value={position.draft} onChange={e=>change({draft:e.target.value})}/></label>
+ {(['highlight','note','bookmark'] as const).map(kind=><button key={kind} disabled={busy||end<start||end-start>20000||(kind!=='bookmark'&&end===start)} onClick={()=>void run(async()=>{await api.reading.addAnnotation(doc.courseId,doc.sourceId,{revision:doc.revision,kind,start,end,quote:doc.text.slice(start,end),note:position.draft});change({draft:''});})}>Save {kind}</button>)}
+ <ul>{annotations.map(a=><li key={a.id}><strong>{a.kind} · revision {a.revision}{a.revision!==doc.revision?' (historical)':''}</strong><blockquote>{a.quote}</blockquote><p>{a.note}</p><button disabled={busy} onClick={()=>onJump(a.revision,a.start)}>Go to exact passage</button><button disabled={busy} onClick={()=>change({draft:a.note})}>Copy note to draft</button><button disabled={busy} onClick={()=>void run(()=>api.reading.editAnnotation(doc.courseId,doc.sourceId,a.id,position.draft,a.version))}>Replace note with draft</button><button disabled={busy} onClick={()=>void run(()=>api.reading.deleteAnnotation(doc.courseId,doc.sourceId,a.id,a.version))}>Delete annotation</button></li>)}</ul>
+ </section>;
+}
