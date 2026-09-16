@@ -72,3 +72,4 @@ export async function parseSynthetic(kind: ParserKind, file: string): Promise<Pa
 export {extractDocument,archivePreflight,type Extraction,type Passage} from './extract.js';
 export {extractOcr,renderPdfPage,verifyOcrModel,OCR_SHA} from './ocr.js';
 export {EMBEDDING_MANIFEST,EMBEDDING_VERSION,verifyEmbeddingModel,embedTexts} from './embeddings.js';
+export * from './epub-reading.js';

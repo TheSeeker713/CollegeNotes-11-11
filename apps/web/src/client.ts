@@ -23,6 +23,10 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+ reading:{
+ document:(c:string,s:string,revision?:number)=>req<import('@collegenotes/domain').ReadingDocument>(`/courses/${c}/reading/${s}${revision?`?revision=${revision}`:''}`),
+ epub:(c:string,s:string)=>req<{chapters:Array<{location:string;title:string;html:string}>;warnings:string[]}>(`/courses/${c}/reading/${s}/epub`)
+ },
   materials: {
     list: (courseId:string)=>req<MaterialSummary[]>(`/courses/${courseId}/materials`),
     detail: (courseId:string,id:string)=>req<MaterialDetail>(`/courses/${courseId}/materials/${id}`),

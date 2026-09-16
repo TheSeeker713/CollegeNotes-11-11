@@ -175,6 +175,8 @@ Implement repeatable import, extraction/OCR, correction, original preservation, 
 
 Implement original/reflowed reading, search, annotations, bookmarks, exact position restoration, offline preparation, and local lexical/semantic retrieval.
 
+Owner direction (September 16, 2026): implement Phase 7 now and defer manual user testing until after Phase 8 completion. This scheduling change does not claim manual acceptance or authorize Phase 8.
+
 ### Phase 8 — provider connections, research, and tutoring
 
 Owner storage direction (September 16, 2026): before beginning this phase, alert the owner to plug in the **MyceliaOS external SSD**, the designated home for local AI. Verify its mounted location and model directory before local-model downloads, installation or migration; do not silently fall back to internal storage. This requirement does not authorize Phase 8 execution or a generative model download.

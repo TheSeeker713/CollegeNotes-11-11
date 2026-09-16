@@ -22,6 +22,7 @@ import {
 import { applyAppearance, readStoredAppearance } from '@collegenotes/ui';
 import type { ProviderDefinition } from '@collegenotes/providers/contracts';
 import { api } from './client';
+import { Reader } from './Reader';
 import { Materials } from './Materials';
 import { CourseManager } from './CourseManager';
 
@@ -31,6 +32,7 @@ const NAV_LABEL: Record<string, string> = {
   connections: 'Connections',
   research: 'Research',
   sources: 'Sources',
+  reading: 'Reading',
   study: 'Study',
   practice: 'Practice',
   requirements: 'Requirements',
@@ -318,6 +320,7 @@ export function App() {
                 <a href="#/connections">View connections</a>
               </section>
             ) : null}
+            {screen === 'reading' && courseId ? <Reader key={courseId} courseId={courseId} /> : null}
             {screen === 'sources' && courseId ? <Materials key={courseId} courseId={courseId} /> : null}
             {['study', 'practice', 'requirements', 'progress'].includes(screen) ? (
               <section>

@@ -37,6 +37,8 @@ import {rebuildIndex,searchIndex,LOCAL_MODEL} from './semantic.js';
 import {verifyEmbeddingModel} from '@collegenotes/importers';
 import { cancelJob, ingestBuffer, retryJob } from './jobs.js';
 
+import {readingRoutes} from './reading.js';
+
 export const DEFAULT_PORT = 4781;
 const ALLOWED = new Set(['http://127.0.0.1:5173', 'http://127.0.0.1:4173', 'http://127.0.0.1:4781']);
 
@@ -68,6 +70,8 @@ export function createService(store?: Store) {
     if (error instanceof CourseError) return reply.code(error.status).send({ error: error.code });
     return reply.code(500).send({ error: 'local_operation_failed' });
   });
+
+  readingRoutes(app,opened);
 
   app.get('/health', async () => {
     const sqlite = probeSqlite();

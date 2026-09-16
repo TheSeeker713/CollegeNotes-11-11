@@ -41,3 +41,12 @@ button, .button { min-width: 44px; }
 .material-list li { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
 .materials-workspace label { display: block; margin-block: .65rem; }
 @media (max-width: 1000px) { .material-review-grid { grid-template-columns: 1fr; } }
+
+.reader-grid { display:grid; grid-template-columns:minmax(210px, 1fr) minmax(0, 3fr); gap:1rem; }
+.reader-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem; margin:1rem 0; }
+.reader-grid select, .reader-grid input { max-width:100%; width:100%; }
+.reader-grid aside { overflow-wrap:anywhere; max-height:65vh; overflow:auto; }
+.reader-content { min-width:0; overflow:auto; }
+.reader-content iframe { width:100%; min-height:65vh; border:0; background:white; }
+.reader-text { white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; line-height:1.7; }
+@media (max-width:1000px) { .reader-grid { grid-template-columns:minmax(0,1fr); } .reader-grid aside { max-height:35vh; } }

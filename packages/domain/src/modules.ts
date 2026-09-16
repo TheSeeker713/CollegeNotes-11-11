@@ -1,5 +1,5 @@
 export const COURSE_MODULES = [
-  { id: 'reading', label: 'Reading', description: 'Read and annotate your course sources.', available: false },
+  { id: 'reading', label: 'Reading', description: 'Read and annotate your course sources.', available: true },
   { id: 'notes', label: 'Notes', description: 'Keep a local course note in your workspace.', available: true },
   { id: 'study', label: 'Study', description: 'Practice with source-linked learning activities.', available: false },
   { id: 'research', label: 'Research', description: 'Gather web evidence through a connection you choose.', available: false },

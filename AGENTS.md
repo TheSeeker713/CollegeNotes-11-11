@@ -49,3 +49,7 @@ Repository instructions cannot override tool-enforced security gates. If an auth
 ## Phase 8 external AI storage gate
 
 Before beginning Phase 8, explicitly alert the owner: “Please plug in the MyceliaOS external SSD; this is the designated location for local AI.” Verify the mounted volume and owner-designated model directory before any Phase 8 local-model download, installation or migration. Do not silently use the internal disk when the drive is absent. This is a future-phase prerequisite, not authorization to begin Phase 8. The existing small Phase 6 OCR/embedding assets can remain in their already-authorized location for completion of Phase 6; reconcile their storage with the owner at Phase 8 setup.
+
+## Current Phase 7 authorization
+
+AUTH-P7 authorizes all four Phase 7 engineering steps and their ordered repository checkpoints. The owner explicitly defers manual user testing until after Phase 8 completion. Keep UI/UX and rendered-design acceptance pending; perform required non-UI verification and source audits. Deliver the full report and stop before Phase 8. Historical stop-before-7 instructions are superseded for this pass. The MyceliaOS gate remains in force.
