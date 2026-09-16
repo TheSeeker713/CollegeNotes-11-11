@@ -37,6 +37,7 @@ import {rebuildIndex,searchIndex,LOCAL_MODEL} from './semantic.js';
 import {verifyEmbeddingModel} from '@collegenotes/importers';
 import { cancelJob, ingestBuffer, retryJob } from './jobs.js';
 
+import {offlineRoutes} from './offline.js';
 import {readingRoutes} from './reading.js';
 
 export const DEFAULT_PORT = 4781;
@@ -72,6 +73,7 @@ export function createService(store?: Store) {
   });
 
   readingRoutes(app,opened);
+  offlineRoutes(app,opened);
 
   app.get('/health', async () => {
     const sqlite = probeSqlite();

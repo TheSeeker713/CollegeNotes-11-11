@@ -2,11 +2,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import {offlineShell} from './build/offline-shell.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(),offlineShell()],
   resolve: {
     alias: {
       '@collegenotes/domain': path.join(root, 'packages/domain/src/index.ts'),

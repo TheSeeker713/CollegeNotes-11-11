@@ -1,10 +1,12 @@
 import {useEffect,useMemo,useRef,useState} from 'react';
 import {highlightedParts,type Annotation,initialReadingPosition,locationAt,originalPage,readingMatches,type ReadingPosition,type ReadingDocument} from '@collegenotes/domain';
 import {api,type MaterialSummary} from './client';
+import {OfflinePreparation} from './OfflineReading';
 import {ReadingAnnotations} from './ReadingAnnotations';
 import {pendingPosition,rememberPosition,flushPosition,resetPositionVersion} from './reading-session';
 type Epub=Awaited<ReturnType<typeof api.reading.epub>>;
 export function Reader({courseId}:{courseId:string}){
+ const [loaded,setLoaded]=useState(false);
  const [sources,setSources]=useState<MaterialSummary[]>([]),[doc,setDoc]=useState<ReadingDocument|null>(null),[epub,setEpub]=useState<Epub|null>(null);
  const [offset,setOffset]=useState(0),[view,setView]=useState<'reflow'|'original'>('reflow'),[zoom,setZoom]=useState(100),[query,setQuery]=useState(''),[notice,setNotice]=useState(''),[page,setPage]=useState(1),[chapter,setChapter]=useState(0),[imageError,setImageError]=useState(false);
  const [annotations,setAnnotations]=useState<Annotation[]>([]);
@@ -16,7 +18,7 @@ export function Reader({courseId}:{courseId:string}){
  useEffect(()=>{if(contentRef.current)contentRef.current.scrollTop=position.scrollTop;},[doc,view]);
  function selection(){const selection=window.getSelection(),el=textRef.current;if(!doc||!location||!selection?.rangeCount||!el)return;const r=selection.getRangeAt(0);if(!el.contains(r.startContainer)||!el.contains(r.endContainer))return;const prefix=r.cloneRange();prefix.selectNodeContents(el);prefix.setEnd(r.startContainer,r.startOffset);const start=location.start+prefix.toString().length;change({selectionStart:start,selectionEnd:start+r.toString().length});}
 
- useEffect(()=>{let active=true;void api.materials.list(courseId).then(s=>{if(active)setSources(s.filter(m=>!m.trashedAt&&!m.deletedAt&&m.cleanupState==='none'));}).catch(()=>setNotice('Local service unavailable. Start the service and reopen Reading.'));return()=>{active=false;sequence.current++;};},[courseId]);
+ useEffect(()=>{let active=true;void api.materials.list(courseId).then(s=>{if(active){setSources(s.filter(m=>!m.trashedAt&&!m.deletedAt&&m.cleanupState==='none'));setLoaded(true);}}).catch(()=>setNotice('Local service unavailable. Start the service and reopen Reading.'));return()=>{active=false;sequence.current++;};},[courseId]);
  async function open(id:string,revision?:number,jump?:number){const seq=++sequence.current;setNotice('');try{
  if(doc)await flushPosition(courseId,doc.sourceId);
  const saved=pendingPosition(courseId,id)??await api.reading.position(courseId,id);
@@ -31,6 +33,7 @@ export function Reader({courseId}:{courseId:string}){
  function go(next:number){if(!doc)return;const l=doc.locations[Math.max(0,Math.min(doc.locations.length-1,next))];if(l){setOffset(l.start);setPage(originalPage(l)??1);change({offset:l.start,scrollTop:0,page:originalPage(l)??1,selectionStart:l.start,selectionEnd:l.end});if(contentRef.current)contentRef.current.scrollTop=0;const i=epub?.chapters.findIndex(c=>c.location===l.anchor?.locator.split('#')[0])??-1;if(i>=0){setChapter(i);change({chapter:i});}setImageError(false);}}
  function switchView(){if(view==='reflow'){setPage(originalPage(location)??page);const i=epub?.chapters.findIndex(c=>c.location===location?.anchor?.locator.split('#')[0])??-1;if(i>=0)setChapter(i);}const next=view==='reflow'?'original':'reflow';setView(next);change({view:next,offset, page:originalPage(location)??page});setImageError(false);}
  return <section className="reader-workspace"><div className="page-heading"><div><p className="eyebrow">Your course library</p><h1>Reading</h1></div><a href={`#/courses/${courseId}/sources`}>Manage sources</a></div>
+ {loaded&&<OfflinePreparation courseId={courseId} sources={sources} onJump={(id,revision,start)=>void open(id,revision,start)}/>}
  <label>Source<select value={doc?.sourceId??''} onChange={e=>void open(e.target.value)}><option value="" disabled>Choose a source</option>{sources.map(s=><option key={s.id} value={s.id}>{s.filename}</option>)}</select></label>
  {notice&&<p role="status">{notice}</p>}{!sources.length&&<p>No readable sources available. Import and extract material in Sources.</p>}
  {doc&&<><button onClick={()=>void open(doc.sourceId,sources.find(s=>s.id===doc.sourceId)?.revision)}>Latest revision</button><button onClick={()=>void flushPosition(courseId,doc.sourceId).then(()=>setNotice('Reading position and draft saved.')).catch(e=>setNotice(e.message))}>Save position and draft now</button><p>Revision {doc.revision} · {view==='reflow'?'Reflowed extraction':'Original source rendition'}</p>{doc.warnings.map(w=><p className="notice" key={w}>{w}</p>)}

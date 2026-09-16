@@ -10,7 +10,12 @@ async function send<T>(path: string, init?: RequestInit): Promise<T> {
     const error = await res.json().catch(() => null) as { error?: string } | null;
     throw new Error(error?.error ?? `http_${res.status}`);
   }
-  return res.json() as Promise<T>;
+  const result=await res.json() as T;
+  if(init?.method&&init.method!=='GET'&&/^\/courses\/[^/]+(?:\/materials\/|\/(?:archive|restore)$|$|\/reading\/[^/]+\/annotations)/.test(path)){
+    const id=path.split('/')[2]!;
+    try{await (await import('./offline-cache')).removePack(id);}catch{throw new Error('operation_saved_but_browser_copy_cleanup_failed');}
+  }
+  return result;
 }
 
 // Serialize writes so an earlier slow draft/settings request cannot overwrite a newer one.
@@ -23,6 +28,9 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+ offlinePack:(c:string,sourceIds:string[])=>req<import('./offline-cache').OfflinePack>(`/courses/${c}/offline-pack`,{method:'POST',body:JSON.stringify({sourceIds})}),
+ lexical:(c:string,query:string)=>req<SearchHit[]>(`/courses/${c}/lexical-search`,{method:'POST',body:JSON.stringify({query})}),
+ semantic:(c:string,query:string)=>req<SearchHit[]>(`/courses/${c}/local-index/query`,{method:'POST',body:JSON.stringify({query})}),
  reading:{
  annotations:(c:string,s:string)=>req<import('@collegenotes/domain').Annotation[]>(`/courses/${c}/reading/${s}/annotations`),
  addAnnotation:(c:string,s:string,body:unknown)=>req<import('@collegenotes/domain').Annotation>(`/courses/${c}/reading/${s}/annotations`,{method:'POST',body:JSON.stringify(body)}),
@@ -94,3 +102,5 @@ export const api = {
 export type MaterialSummary={id:string;filename:string;revision:number;kind:'note'|'imported';approvedRevision:number|null;trashedAt:string|null;deletedAt:string|null;cleanupState:string};
 export type MaterialDetail={material:MaterialSummary;revisions:Array<{revision:number;text:string;anchors:string;author:string;createdAt:string}>};
 export type LocalIndex={index:{status:string;modelVersion:string;rebuildReason:string|null}|null;modelReady:boolean;model:{id:string;version:string}};
+
+export type SearchHit={sourceId:string;revision:number;text:string;start:number;end:number;score:number};

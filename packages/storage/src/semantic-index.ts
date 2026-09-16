@@ -64,3 +64,16 @@ export function semanticSearch(store:Store,courseId:string,vector:number[],model
  where c.course_id=? and c.model_version=? and c.source_revision=s.revision and s.approved_revision=s.revision and s.trashed_at is null and s.deleted_at is null and s.cleanup_state='none'`).all(courseId,model.version) as Array<IndexChunk&{vector:string}>;
  return rows.map(({vector:stored,...r})=>{const v=JSON.parse(stored) as number[];return {...r,score:v.reduce((sum,x,i)=>sum+x*vector[i]!,0)};}).sort((a,b)=>b.score-a.score).slice(0,limit);
 }
+export function lexicalSearch(store:Store,courseId:string,query:unknown,model:IndexModel){
+ requireCourse(store,courseId,true);if(typeof query!=='string'||!query.trim()||query.length>240)throw new CourseError('invalid_search');
+ const status=indexStatus(store,courseId);if(status?.status!=='ready'||status.modelId!==model.id||status.modelVersion!==model.version||status.weightsChecksum!==model.checksum)throw new CourseError('index_rebuild_required',409);
+ const terms=query.trim().split(/\s+/).map(t=>'"'+t.replace(/"/g,'""')+'"').join(' AND ');
+ return store.db.prepare(`select c.source_id as sourceId,c.source_revision as revision,c.text,c.start_offset as start,c.end_offset as end,bm25(material_fts) as score from material_fts join semantic_chunks c on c.id=material_fts.chunk_id join source_documents s on s.id=c.source_id and s.course_id=c.course_id where material_fts match ? and c.course_id=? and c.model_version=? and c.source_revision=s.revision and s.approved_revision=s.revision and s.trashed_at is null and s.deleted_at is null and s.cleanup_state='none' order by score limit 20`).all(terms,courseId,model.version) as Array<{sourceId:string;revision:number;text:string;start:number;end:number;score:number}>;
+}
+export function preparedIndex(store:Store,courseId:string,ids:string[],model:IndexModel){
+ requireCourse(store,courseId,true);const status=indexStatus(store,courseId);if(status?.status!=='ready'||status.modelId!==model.id||status.modelVersion!==model.version||status.weightsChecksum!==model.checksum)throw new CourseError('index_rebuild_required',409);
+ const versions=JSON.parse(status.sourceRevisions) as Record<string,number>;
+ if(ids.some(id=>!versions[id]))throw new CourseError('approve_selected_sources_and_rebuild',409);
+ const chunks=store.db.prepare('select source_id as sourceId,source_revision as revision,text,start_offset as start,end_offset as end,vector from semantic_chunks where course_id=?').all(courseId) as Array<{sourceId:string;revision:number;text:string;start:number;end:number;vector:string}>;
+ return {model,sourceRevisions:Object.fromEntries(ids.map(id=>[id,versions[id]!])),chunks:chunks.filter(c=>ids.includes(c.sourceId)).map(c=>({...c,vector:JSON.parse(c.vector) as number[]}))};
+}

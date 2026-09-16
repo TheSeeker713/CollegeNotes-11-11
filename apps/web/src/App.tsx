@@ -22,6 +22,8 @@ import {
 import { applyAppearance, readStoredAppearance } from '@collegenotes/ui';
 import type { ProviderDefinition } from '@collegenotes/providers/contracts';
 import { api } from './client';
+import {cachedCourses,packMatches,removePack} from './offline-cache';
+import {OfflineLibrary} from './OfflineReading';
 import { Reader } from './Reader';
 import { Materials } from './Materials';
 import { CourseManager } from './CourseManager';
@@ -87,6 +89,9 @@ export function App() {
         setAppearanceState(parseAppearance(remote));
         const list = await api.courses.list();
         if (cancelled) return;
+        for(const pack of await cachedCourses().catch(()=>[])){
+          if(!list.some(c=>c.id===pack.course.id)||!packMatches(pack,await api.materials.list(pack.course.id)))await removePack(pack.course.id);
+        }
         setCourses(list);
         const session = await api.session.get();
         if (cancelled) return;
@@ -253,6 +258,8 @@ export function App() {
       )}
     </article>
   )), [layout, draft, courseId, move, draftCourseId, modules, modulesCourseId]);
+
+  if(initialized&&!online)return <OfflineLibrary/>;
 
   return (
     <>
