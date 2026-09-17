@@ -45,3 +45,6 @@ export function setCourseModule(store: Store, id: string, moduleId: unknown, ena
   store.db.prepare('insert into course_modules(course_id,module_id,schema_version,enabled) values (?,?,1,?) on conflict(course_id,module_id) do update set enabled=excluded.enabled').run(id, moduleId, enabled ? 1 : 0);
   return courseModules(store, id);
 }
+export function moduleEnabled(store: Store, id: string, moduleId: string): boolean {
+  return courseModules(store, id).some((m) => m.moduleId === moduleId && m.enabled);
+}

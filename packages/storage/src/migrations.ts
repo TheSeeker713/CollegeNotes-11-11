@@ -126,7 +126,34 @@ export const MIGRATIONS = [
    );
    insert into reading_positions select * from reading_positions_legacy;
    drop table reading_positions_legacy;`,
-  `create table ai_preferences (id integer primary key check(id=1), onboarding_dismissed integer not null default 0, selected_connection_id text references connections(id) on delete set null); insert into ai_preferences(id) values(1);`
+  `create table ai_preferences (id integer primary key check(id=1), onboarding_dismissed integer not null default 0, selected_connection_id text references connections(id) on delete set null); insert into ai_preferences(id) values(1);`,
+  `create table research_claims (
+    id text primary key, session_id text not null, course_id text not null,
+    statement text not null, supported integer not null check(supported in (0,1)),
+    source_ids text not null check(json_valid(source_ids)),
+    foreign key(session_id, course_id) references research_sessions(id, course_id) on delete cascade
+  );
+  create table tutor_sessions (
+    id text primary key, course_id text not null references courses(id),
+    connection_id text, provider_id text,
+    status text not null check(status in ('active','closed')),
+    offline integer not null check(offline in (0,1)),
+    unfinished_question text not null default '',
+    context_json text not null check(json_valid(context_json) or context_json='null'),
+    research_session_id text,
+    created_at text not null, updated_at text not null,
+    unique(id, course_id)
+  );
+  create table tutor_turns (
+    id text primary key, session_id text not null, course_id text not null,
+    client_request_id text not null,
+    action text not null check(action in ('explain','example','hint','check_understanding')),
+    request_json text not null check(json_valid(request_json)),
+    response_json text not null check(json_valid(response_json)),
+    created_at text not null,
+    unique(session_id, client_request_id),
+    foreign key(session_id, course_id) references tutor_sessions(id, course_id) on delete cascade
+  );`
 ];
 
 export function migrate(db: Database.Database): number {

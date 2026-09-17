@@ -19,3 +19,4 @@ export * from './codex-account.js';
 export * from './connection-setup.js';
 export * from './keychain.js';
 export * from './grok-account.js';
+export * from './inference.js';

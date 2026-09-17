@@ -48,7 +48,7 @@ export function accountRoutes(app:FastifyInstance,store:Store,makeAccount:(direc
   const id=(req.params as {id:string}).id,c=get(id),body=req.body as {label?:unknown;enabled?:unknown}|null;
   if(!body||Object.keys(body).some(k=>!['label','enabled'].includes(k)))throw new CourseError('invalid_connection_update',400);
   if(body.label!==undefined){if(typeof body.label!=='string'||!body.label.trim()||body.label.length>80)throw new CourseError('invalid_label',400);c.label=body.label.trim();}
-  if(body.enabled!==undefined){if(typeof body.enabled!=='boolean')throw new CourseError('invalid_connection_update',400);if(body.enabled&&c.health==='cleanup_pending')throw new CourseError('credential_cleanup_required',409);c.enabled=body.enabled;}
+  if(body.enabled!==undefined){if(typeof body.enabled!=='boolean')throw new CourseError('invalid_connection_update',400);if(body.enabled&&c.health==='cleanup_pending')throw new CourseError('credential_cleanup_required',409);c.enabled=body.enabled;if(body.enabled&&c.credential)c.health='ready';if(!body.enabled)c.health=c.health==='cleanup_pending'?c.health:'untested';}
   saveConnection(store,c);return connectionSummary(c);
  }));
  app.get('/ai-connections/:id/account',async req=>{const id=(req.params as {id:string}).id;const c=get(id);if(c.providerId==='xai'&&c.authMethod==='oauth'&&!c.credential)return {connected:false,method:null,plan:null,loginPending:false};const status=await account(id).status();if(signingIn===id&&!status.loginPending)signingIn=null;return status;});

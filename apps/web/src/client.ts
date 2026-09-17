@@ -115,6 +115,33 @@ export const api = {
     get: (id: string) => req<Job>(`/jobs/${id}`),
     cancel: (id: string) => req<Job>(`/jobs/${id}/cancel`, { method: 'POST' }),
     retry: (id: string) => req<Job>(`/jobs/${id}/retry`, { method: 'POST' })
+  },
+  research: {
+    list: (courseId: string) => req<Array<{ id: string; query: string; status: string; createdAt: string }>>(`/courses/${courseId}/research`),
+    start: (courseId: string, body: { query: string; acknowledgeTransmission: boolean; sharedContext: unknown[] }) =>
+      req<{ id: string; status: string }>(`/courses/${courseId}/research/sessions`, { method: 'POST', body: JSON.stringify(body) }),
+    get: (courseId: string, sessionId: string) => req<{
+      id: string; query: string; status: string; createdAt: string;
+      claims: Array<{ statement: string; supported: boolean }>;
+      sources: Array<{ url: string; title: string; retrievedAt: string; excerpt: string; uncertainty: string | null; conflicts: string[] }>;
+    }>(`/courses/${courseId}/research/sessions/${sessionId}`),
+    cancel: (courseId: string, sessionId: string) => req<{
+      id: string; query: string; status: string; createdAt: string;
+      claims: Array<{ statement: string; supported: boolean }>;
+      sources: Array<{ url: string; title: string; retrievedAt: string; excerpt: string; uncertainty: string | null; conflicts: string[] }>;
+    }>(`/courses/${courseId}/research/sessions/${sessionId}/cancel`, { method: 'POST' })
+  },
+  tutor: {
+    context: (courseId: string, query: string) => req<{
+      query: string; passages: Array<SearchHit & { role: string; methods: string[] }>;
+      requirements: Array<{ text: string; sourceId: string }>; explanations: Array<{ text: string; sourceId: string }>;
+      gap: null | { message: string }; policy: { importedTextIsData: boolean; cannotAlterPermissions: boolean };
+    }>(`/courses/${courseId}/tutor-context`, { method: 'POST', body: JSON.stringify({ query }) }),
+    open: (courseId: string, body: { unfinishedQuestion?: string; researchSessionId?: string | null; offline?: boolean }) =>
+      req<{ id: string; unfinishedQuestion: string; turns: Array<{ id: string; action: string; question: string; answer: string; kind: string }> }>(`/courses/${courseId}/tutor/sessions`, { method: 'POST', body: JSON.stringify(body) }),
+    get: (courseId: string, sessionId: string) => req<Record<string, unknown>>(`/courses/${courseId}/tutor/sessions/${sessionId}`),
+    turn: (courseId: string, sessionId: string, body: { clientRequestId: string; action: string; question: string }) =>
+      req<{ id: string; action: string; question: string; answer: string; kind: string; replayed?: boolean }>(`/courses/${courseId}/tutor/sessions/${sessionId}/turns`, { method: 'POST', body: JSON.stringify(body) })
   }
 };
 

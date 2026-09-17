@@ -81,7 +81,9 @@ export function requestEligibility(provider: ProviderDefinition & { enabled?: bo
   if (!connection.enabled || connection.health !== 'ready' || !connection.credential || connection.revocation === 'pending') return deny('connection_unavailable');
   const setting = connection.capabilities[capability];
   if (!provider.capabilities.includes(capability) || !setting?.enabled) return deny('capability_disabled');
-  if (!provider.models.some((model) => model.id === setting.modelId && model.capabilities.includes(capability))) return deny('model_unavailable');
+  if (!setting.modelId) return deny('model_unavailable');
+  // Empty catalog means bring-your-own model identifiers entered by the user.
+  if (provider.models.length > 0 && !provider.models.some((model) => model.id === setting.modelId && model.capabilities.includes(capability))) return deny('model_unavailable');
   if (connection.billing === 'unknown') return deny('billing_unknown');
   if (connection.billing === 'metered_api') {
     const limit = connection.usageLimit;

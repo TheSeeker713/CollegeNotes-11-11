@@ -40,7 +40,8 @@ import { cancelJob, ingestBuffer, retryJob } from './jobs.js';
 import {accountRoutes} from './accounts.js';
 import {offlineRoutes} from './offline.js';
 import {readingRoutes} from './reading.js';
-
+import {retrievalRoutes} from './retrieval.js';
+import {learningRoutes} from './learning.js';
 export const DEFAULT_PORT = 4781;
 const ALLOWED = new Set(['http://127.0.0.1:5173', 'http://127.0.0.1:4173', 'http://127.0.0.1:4781']);
 
@@ -76,6 +77,8 @@ export function createService(store?: Store) {
   readingRoutes(app,opened);
   offlineRoutes(app,opened);
   accountRoutes(app,opened);
+  retrievalRoutes(app,opened);
+  learningRoutes(app,opened);
 
   app.get('/health', async () => {
     const sqlite = probeSqlite();
