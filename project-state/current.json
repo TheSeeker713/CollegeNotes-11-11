@@ -1,8 +1,8 @@
 {
   "phase": 8,
-  "phase_status": "active",
-  "step": "8.2",
-  "step_status": "not_started",
+  "phase_status": "complete",
+  "step": "8.4",
+  "step_status": "complete",
   "pass_id": "PASS-2026-09-17-P8",
   "authorization_ref": "AUTH-P8",
   "authorized_phases_this_pass": [
@@ -44,9 +44,9 @@
     "7.3": "complete",
     "7.4": "complete",
     "8.1": "complete",
-    "8.2": "not_started",
-    "8.3": "not_started",
-    "8.4": "not_started",
+    "8.2": "complete",
+    "8.3": "complete",
+    "8.4": "complete",
     "9.1": "not_started",
     "9.2": "not_started",
     "9.3": "not_started",
@@ -105,9 +105,12 @@
     "7.2": "0e599d49562b8d005de4e47ea66ed87341c9cf38",
     "7.3": "95072223eb3c239faf62546b72f92030c87b015a",
     "7.4": "d6bfd14a33331ea038f4890a472367ff797d390b",
-    "8.1": "a35745282ce59fa96b662cffae28ac32f7d5dd20"
+    "8.1": "a35745282ce59fa96b662cffae28ac32f7d5dd20",
+    "8.2": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
+    "8.3": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
+    "8.4": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0"
   },
-  "next_action": "Implement hybrid local source retrieval (8.2), then research and tutoring. Owner live sign-in and manual testing remain deferred.",
+  "next_action": "Phase 8 engineering complete. Owner manual testing deferred; stop before Phase 9 until explicit authorization.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -119,7 +122,7 @@
     "5": "complete",
     "6": "complete",
     "7": "complete",
-    "8": "in_progress"
+    "8": "complete"
   },
   "manual_acceptances": [
     {
@@ -299,8 +302,8 @@
     "additional_model_downloads": false
   },
   "phase8_progress": {
-    "status": "in_progress",
-    "step": "8.2",
+    "status": "complete",
+    "step": "8.4",
     "owner_amendment": "CHANGE-P8-BYO",
     "implemented": [
       "External AI model storage verified before implementation",
@@ -310,13 +313,14 @@
       "Native macOS Keychain helper compiled; end-user credential save/removal controls, with no developer key entry or testing",
       "Grok Build device OAuth protocol adapted into a Keychain-only, per-connection account adapter with refresh, cancellation, local sign-out and explicit provider revocation; synthetic verification only",
       "Provider enable/disable, endpoint editing, model/capability controls, tutor/research defaults, billing/budget configuration and credential-free settings export",
-      "Ordered 8.1 engineering checkpoint"
+      "Ordered 8.1 engineering checkpoint",
+      "Hybrid lexical/semantic tutor context with evidence gaps and permission-safe policy flags",
+      "User-initiated research with provenance, sanitization, unsupported claims and cancellation",
+      "Structured tutoring with session restore, offline cloud block, budgets and idempotent turns"
     ],
-    "outstanding": [
-      "Hybrid retrieval, research adapters and structured tutoring in 8.2–8.4"
-    ],
+    "outstanding": [],
     "manual_acceptance": "Deferred until after Phase 8; not performed",
-    "checkpoint": "8.1 complete at a35745282ce59fa96b662cffae28ac32f7d5dd20",
+    "checkpoint": "8.2–8.4 complete at a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
     "grok_integration": {
       "status": "implemented_pending_owner_live_use",
       "route": "Published Grok Build device OAuth native client; tokens stored directly in CollegeNotes Keychain namespace",
@@ -325,5 +329,14 @@
       "live_authentication_performed": false,
       "report": "docs/phases/grok-integration-resolution.md"
     }
+  },
+  "phase8_delivery": {
+    "implementation_candidate": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
+    "verified_remote_sha": null,
+    "implementation_status": "engineering_complete_checkpoint_pending_push",
+    "manual_acceptance": "deferred_by_owner_until_after_phase8",
+    "production_report": "docs/phase-8-production-report.md",
+    "manual_guide": "docs/phase-8-manual-tests.md",
+    "final_receipt": "docs/phases/phase8-final-receipt.md"
   }
 }
