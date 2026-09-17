@@ -320,7 +320,7 @@
     ],
     "outstanding": [],
     "manual_acceptance": "Deferred until after Phase 8; not performed",
-    "checkpoint": "8.2–8.4 complete at a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
+    "checkpoint": "Phase 8 complete; remote 7ccc5144b94d1ce1101ac3477560dbd8f1f47b78",
     "grok_integration": {
       "status": "implemented_pending_owner_live_use",
       "route": "Published Grok Build device OAuth native client; tokens stored directly in CollegeNotes Keychain namespace",
@@ -332,8 +332,8 @@
   },
   "phase8_delivery": {
     "implementation_candidate": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
-    "verified_remote_sha": null,
-    "implementation_status": "engineering_complete_checkpoint_pending_push",
+    "verified_remote_sha": "7ccc5144b94d1ce1101ac3477560dbd8f1f47b78",
+    "implementation_status": "engineering_complete",
     "manual_acceptance": "deferred_by_owner_until_after_phase8",
     "production_report": "docs/phase-8-production-report.md",
     "manual_guide": "docs/phase-8-manual-tests.md",
