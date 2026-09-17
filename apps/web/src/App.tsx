@@ -20,9 +20,9 @@ import {
   type MoveSession
 } from '@collegenotes/domain';
 import { applyAppearance, readStoredAppearance } from '@collegenotes/ui';
-import type { ProviderDefinition } from '@collegenotes/providers/contracts';
 import { api } from './client';
 import {cachedCourses,packMatches,removePack} from './offline-cache';
+import {AccountConnection,AIOnboarding} from './AccountConnection';
 import {OfflineLibrary} from './OfflineReading';
 import { Reader } from './Reader';
 import { Materials } from './Materials';
@@ -63,8 +63,6 @@ export function App() {
   const layoutEdits = useRef(0);
   const [creatingCourse, setCreatingCourse] = useState(false);
   const localDrafts = useRef(new Map<string, string>());
-  const [providers, setProviders] = useState<ProviderDefinition[]>([]);
-  const [connectionCount, setConnectionCount] = useState<number | null>(null);
 
   const courseId = 'courseId' in route ? route.courseId : null;
   const course = courses.find((item) => item.id === courseId) ?? null;
@@ -147,14 +145,6 @@ export function App() {
     return () => { cancelled = true; };
   }, [courseId]);
 
-  useEffect(() => {
-    if (route.name !== 'connections') return;
-    let cancelled = false;
-    void api.connections().then((result) => {
-      if (!cancelled) { setProviders(result.availableProviders); setConnectionCount(result.connections.length); }
-    }).catch(() => { if (!cancelled) setNotice('Connections could not be loaded. Check the local service and reload.'); });
-    return () => { cancelled = true; };
-  }, [route.name]);
 
   useEffect(() => {
     if (!online || !initialized) return;
@@ -290,6 +280,7 @@ export function App() {
           {notice ? <p className="notice" role="status">{notice}</p> : null}
           <main id="main" tabIndex={-1} data-recovered={recovered ? 'true' : 'false'}>
             {!initialized ? <p role="status">Loading your local workspace…</p> : null}
+            {initialized && screen !== 'connections' ? <AIOnboarding/> : null}
             {initialized && (screen === 'firstuse' || (empty && screen === 'home')) ? (
               <section className="welcome-panel glass">
                 <p className="eyebrow">A fresh page</p>
@@ -312,16 +303,7 @@ export function App() {
               </section>
             ) : null}
             {initialized ? <div hidden={screen !== 'courses' && !(screen === 'home' && !course && !empty)}><CourseManager active={screen === 'courses' || (screen === 'home' && !course && !empty)} onCollection={setCourses} /></div> : null}
-            {screen === 'connections' ? (
-              <section><h1>Connections</h1><p>{connectionCount === null ? 'Loading local connection information…' : connectionCount === 0 ? 'No services connected. Your local courses work without an AI account.' : `${connectionCount} saved connection configurations. Live authentication is not available in this build.`}</p>
-                <p>OpenAI is optional. Adding, toggling, disconnecting and removing services will be available with provider connections.</p>
-                {providers.map((provider) => <article className="glass glass-card" key={provider.id}><h2>{provider.label}</h2>
-                  <p>Not connected · connection setup is not available in this build.</p>
-                  <ul>{provider.auth.map((auth) => <li key={auth.method}>{auth.method === 'apiKey' ? 'API credential' : 'Account sign-in'}: {auth.evidence === 'verified_documentation' ? 'documented route; integration pending' : 'unavailable until an official integration route is verified'}</li>)}</ul>
-                </article>)}
-                <p>Additional providers will use the same connection system. No account is required or automatically selected.</p>
-              </section>
-            ) : null}
+            {screen === 'connections' ? <section><h1>Connections</h1><AccountConnection/></section> : null}
             {screen === 'research' ? (
               <section><h1>Research</h1><p>No research has been started here. Internet research is not available in this build yet.</p>
                 <p>You will choose a course, provider and query, and approve any private excerpts before sending. Saved evidence will retain its sources, dates and claim links.</p>

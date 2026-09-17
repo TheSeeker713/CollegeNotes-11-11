@@ -308,6 +308,39 @@
         "Manual user testing is deferred until after Phase 8 completion; no manual acceptance is implied.",
         "Deliver a complete report and stop before Phase 8. Preserve the MyceliaOS external SSD prerequisite."
       ]
+    },
+    {
+      "id": "AUTH-P8",
+      "kind": "phase_authorization",
+      "phases": [
+        8
+      ],
+      "pass_id": "PASS-2026-09-17-P8",
+      "source": "Owner message September 17, 2026",
+      "quote": "implement phase 8. MyceliaOS is now set. before implementation, look at MyceliaOS, get familiar with what's already on the drive and find out what is needed on the drive.",
+      "boundary_exception": {
+        "from": 7,
+        "to": 8
+      },
+      "conditions": [
+        "Inspect MyceliaOS before implementation. Use designated external drive for local AI.",
+        "Execute Phase 8 with ordered checks, audits and repository checkpoints. Stop before Phase 9.",
+        "Manual UI testing remains owner-only and deferred until Phase 8 completion. Real provider authentication may require owner interaction; never claim mocks prove actual access."
+      ]
+    },
+    {
+      "id": "CHANGE-P8-BYO",
+      "kind": "scope_clarification",
+      "phases": [
+        8
+      ],
+      "source": "Owner message September 17, 2026",
+      "quote": "all aI should be \"bring your own\" the two oauths are optional with openai as the default, onboarding should ask the user in the app to login. also, a user should be able to create or have multiple accounts",
+      "conditions": [
+        "OpenAI and xAI optional account sign-in; other providers API; named multiple accounts and configurable local API connections.",
+        "No agent API-key entry or testing. In-app user setup; synthetic contracts only during development.",
+        "Continue Phase 8, preserve honest unsupported-route status and defer manual testing."
+      ]
     }
   ]
 }

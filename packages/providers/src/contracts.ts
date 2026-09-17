@@ -17,6 +17,7 @@ export interface CredentialStore {
 }
 export type Connection = {
   schemaVersion: 1; id: string; providerId: string; label: string; authMethod: AuthMethod;
+  endpoint?: string | null; modelId?: string | null;
   credential: CredentialReference | null; enabled: boolean;
   capabilities: Partial<Record<Capability, { enabled: boolean; modelId: string | null }>>;
   health: 'untested' | 'ready' | 'offline' | 'unauthorized' | 'cleanup_pending';
@@ -46,13 +47,12 @@ export const PROVIDERS: readonly ProviderDefinition[] = [
     { method: 'oauth', evidence: 'unverified', documentationUrl: 'https://docs.x.ai/build/enterprise' }
   ], dataPolicyUrl: 'https://x.ai/legal/privacy-policy', models: [], implementation: 'not_implemented' },
   { id: 'anthropic', label: 'Anthropic / Claude', capabilities: ['tutor', 'research'], auth: [
-    { method: 'apiKey', evidence: 'verified_documentation', documentationUrl: 'https://platform.claude.com/docs/en/api/overview' },
-    { method: 'oauth', evidence: 'unverified', documentationUrl: 'https://code.claude.com/docs/en/getting-started' }
+    { method: 'apiKey', evidence: 'verified_documentation', documentationUrl: 'https://platform.claude.com/docs/en/api/overview' }
   ], dataPolicyUrl: 'https://privacy.claude.com/', models: [], implementation: 'not_implemented' },
   { id: 'google', label: 'Google / Gemini', capabilities: ['tutor', 'research', 'narration', 'transcription', 'realtimeVoice'], auth: [
-    { method: 'apiKey', evidence: 'verified_documentation', documentationUrl: 'https://ai.google.dev/gemini-api/docs/api-key' },
-    { method: 'oauth', evidence: 'verified_documentation', documentationUrl: 'https://ai.google.dev/gemini-api/docs/oauth' }
-  ], dataPolicyUrl: 'https://ai.google.dev/gemini-api/terms', models: [], implementation: 'not_implemented' }
+    { method: 'apiKey', evidence: 'verified_documentation', documentationUrl: 'https://ai.google.dev/gemini-api/docs/api-key' }
+  ], dataPolicyUrl: 'https://ai.google.dev/gemini-api/terms', models: [], implementation: 'not_implemented' },
+  { id: 'local', label: 'Local / compatible API', capabilities: ['tutor'], auth: [{method:'apiKey',evidence:'verified_documentation',documentationUrl:'https://docs.ollama.com/api/openai-compatibility'}], dataPolicyUrl:'', models:[], implementation:'not_implemented' }
 ];
 
 export function newConnection(id: string, provider: ProviderDefinition, label: string, method: AuthMethod): Connection {
@@ -65,7 +65,7 @@ export function newConnection(id: string, provider: ProviderDefinition, label: s
 /** Explicit allowlist: browser/export consumers never receive opaque credential references. */
 export function connectionSummary(connection: Connection) {
   return { schemaVersion: 1 as const, id: connection.id, providerId: connection.providerId, label: connection.label,
-    authMethod: connection.authMethod, enabled: connection.enabled,
+    authMethod: connection.authMethod, enabled: connection.enabled, configured: Boolean(connection.credential) && connection.health !== 'cleanup_pending', endpoint: connection.endpoint ?? null, modelId: connection.modelId ?? null,
     capabilities: Object.fromEntries(CAPABILITIES.flatMap((key) => {
       const value = connection.capabilities[key];
       return value ? [[key, { enabled: value.enabled, modelId: value.modelId }]] : [];

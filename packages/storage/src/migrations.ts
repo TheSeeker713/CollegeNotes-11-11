@@ -125,7 +125,8 @@ export const MIGRATIONS = [
     foreign key(source_id,revision) references material_revisions(source_id,revision) on delete cascade
    );
    insert into reading_positions select * from reading_positions_legacy;
-   drop table reading_positions_legacy;`
+   drop table reading_positions_legacy;`,
+  `create table ai_preferences (id integer primary key check(id=1), onboarding_dismissed integer not null default 0, selected_connection_id text references connections(id) on delete set null); insert into ai_preferences(id) values(1);`
 ];
 
 export function migrate(db: Database.Database): number {

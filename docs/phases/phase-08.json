@@ -17,18 +17,20 @@
   "steps": [
     {
       "id": "8.1",
-      "title": "implement explicit OAuth and ChatGPT account connections",
+      "title": "implement bring-your-own connections and optional multiple-account sign-in",
       "prerequisites": [
         "7.4"
       ],
-      "work": "implement the Phase 0 selected ChatGPT route and approved research-provider OAuth flows in the local companion; expose connect/revoke, scopes, availability, limits and error states. Keep credentials in approved macOS credential storage and out of browser content, logs, backups and source history.",
+      "work": "Implement named multiple connections per provider, OpenAI-first optional in-app onboarding, OpenAI/xAI account routes where officially supported, API/local endpoint configuration, selection, disconnect and removal. Never request, enter or test API keys during development. Protect secrets in macOS Keychain.",
       "deliverables": "real, user-controlled account connections and revocation, not mock login screens.",
-      "source_checks": "actual connect and minimal authorized request; revoke/sign-out; least-privilege scopes; expired/rejected credentials; unavailable account/limits; no secret logging or backup. Authentication may require the user. If unavailable, stop the affected adapter; do not substitute paid API access silently. Audit and checkpoint.",
-      "amendments": [],
+      "source_checks": "Synthetic protocol, isolation, removal, unavailable route and credential exclusion tests; source audit. Owner authentication and manual use are deferred; do not claim synthetic tests prove provider access.",
+      "amendments": [
+        "CHANGE-P8-BYO: user supplies all AI; agent must not enter or test API keys; synthetic contracts replace developer live authentication checks."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-8.1-01",
-          "description": "actual sign-in and minimal authorized request",
+          "description": "synthetic account protocol and isolated multiple-connection lifecycle; actual sign-in belongs to user onboarding",
           "check_ids": [
             "CHK-8.1-01"
           ]
@@ -56,7 +58,7 @@
         },
         {
           "id": "AC-8.1-05",
-          "description": "no secret logging. Authentication interaction may require the user. If unavailable, stop the affected step",
+          "description": "no secret logging. Authentication interaction may require the user. If unavailable, disable the affected adapter with an accurate explanation",
           "check_ids": [
             "CHK-8.1-05"
           ]
@@ -72,7 +74,7 @@
       "required_checks": [
         {
           "id": "CHK-8.1-01",
-          "description": "actual sign-in and minimal authorized request",
+          "description": "synthetic account protocol and isolated multiple-connection lifecycle; actual sign-in belongs to user onboarding",
           "required": true,
           "verification_kind": "local product verification",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
@@ -100,7 +102,7 @@
         },
         {
           "id": "CHK-8.1-05",
-          "description": "no secret logging. Authentication interaction may require the user. If unavailable, stop the affected step",
+          "description": "no secret logging. Authentication interaction may require the user. If unavailable, disable the affected adapter with an accurate explanation",
           "required": true,
           "verification_kind": "local product verification",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
@@ -134,7 +136,9 @@
       "work": "retrieve selected-course passages through lexical search plus the versioned local semantic-embedding index, construct bounded context, and return navigable source anchors. Separate instructor requirements from textbook explanations.",
       "deliverables": "grounded tutor context pipeline.",
       "source_checks": "correct-course isolation; lexical/semantic retrieval evaluation; supporting passage retrieved; missing evidence triggers an explicit gap; stale/model-mismatched vectors excluded; misleading document instructions cannot alter agent permissions; deleted sources excluded. Audit and checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "CHANGE-P8-BYO: user supplies all AI; agent must not enter or test API keys; synthetic contracts replace developer live authentication checks."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-8.2-01",
@@ -230,7 +234,9 @@
       "work": "implement explicit user-initiated internet research through approved adapters. Preserve source URL, title, retrieval date, quoted evidence and claim-to-source links; distinguish internet research from instructor requirements, imported course sources and model synthesis. Sanitize pages and treat their instructions as untrusted data.",
       "deliverables": "research workspace, durable evidence/provenance records and a versioned research evaluation set.",
       "source_checks": "real research retrieval; accurate URL/date/claim provenance; conflicting and missing evidence; unsupported claims identified; malicious-page and prompt-injection fixtures; invalid output rejected; provider timeouts, cancellation and revocation; no silent transmission of private course text. Audit and checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "CHANGE-P8-BYO: user supplies all AI; agent must not enter or test API keys; synthetic contracts replace developer live authentication checks."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-8.3-01",
@@ -340,7 +346,9 @@
       "work": "implement explain/example/hint/check-understanding actions, validate structured outputs and enforce course-specific prohibited-generation boundaries. Retain selected local and research context and unfinished questions; show online/offline capabilities, provider choice and approved usage limits; provide explicit retry after connection recovery.",
       "deliverables": "complete text tutor workflow.",
       "source_checks": "course-policy and grounding evaluation; budget/limit handling; no request replay duplication; session restore; no cloud request in offline mode; source/research/model content remains visibly separated; real-provider smoke and complete tutor/research evaluation regression. Audit and checkpoint.",
-      "amendments": [],
+      "amendments": [
+        "CHANGE-P8-BYO: user supplies all AI; agent must not enter or test API keys; synthetic contracts replace developer live authentication checks."
+      ],
       "acceptance_criteria": [
         {
           "id": "AC-8.4-01",
@@ -372,7 +380,7 @@
         },
         {
           "id": "AC-8.4-05",
-          "description": "real-provider smoke and complete tutor evaluation regression.",
+          "description": "synthetic provider contracts and complete tutor evaluation regression; owner live use deferred.",
           "check_ids": [
             "CHK-8.4-05"
           ]
@@ -409,7 +417,7 @@
         },
         {
           "id": "CHK-8.4-05",
-          "description": "real-provider smoke and complete tutor evaluation regression.",
+          "description": "synthetic provider contracts and complete tutor evaluation regression; owner live use deferred.",
           "required": true,
           "verification_kind": "local product verification",
           "result_policy": "Every required check executes and passes; no missing/skipped/canceled/flaky cases."
@@ -427,5 +435,10 @@
         ]
       }
     }
-  ]
+  ],
+  "owner_byo_amendment": {
+    "approval": "CHANGE-P8-BYO",
+    "scope": "PROJECT-PLAN.md owner amendment September 17, 2026",
+    "validation": "Synthetic contracts; no agent API-key entry or tests and no developer-run authenticated smoke. Manual user setup after Phase 8."
+  }
 }

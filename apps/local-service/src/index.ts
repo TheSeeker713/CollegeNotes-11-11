@@ -37,6 +37,7 @@ import {rebuildIndex,searchIndex,LOCAL_MODEL} from './semantic.js';
 import {verifyEmbeddingModel} from '@collegenotes/importers';
 import { cancelJob, ingestBuffer, retryJob } from './jobs.js';
 
+import {accountRoutes} from './accounts.js';
 import {offlineRoutes} from './offline.js';
 import {readingRoutes} from './reading.js';
 
@@ -74,6 +75,7 @@ export function createService(store?: Store) {
 
   readingRoutes(app,opened);
   offlineRoutes(app,opened);
+  accountRoutes(app,opened);
 
   app.get('/health', async () => {
     const sqlite = probeSqlite();

@@ -73,3 +73,5 @@ export {extractDocument,archivePreflight,type Extraction,type Passage} from './e
 export {extractOcr,renderPdfPage,verifyOcrModel,OCR_SHA} from './ocr.js';
 export {EMBEDDING_MANIFEST,EMBEDDING_VERSION,verifyEmbeddingModel,embedTexts} from './embeddings.js';
 export * from './epub-reading.js';
+
+export * from './model-storage.js';

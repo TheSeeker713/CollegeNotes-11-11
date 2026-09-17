@@ -28,6 +28,18 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+ aiConnections:{
+ list:()=>req<{connections:Array<Omit<Connection,'credential'>&{configured:boolean}>;providers:ProviderDefinition[];preferences:{onboardingDismissed:number;selectedConnectionId:string|null}}>('/ai-connections'),
+ add:(body:{providerId:string;label:string;authMethod:string;endpoint?:string;modelId?:string})=>req<Connection>('/ai-connections',{method:'POST',body:JSON.stringify(body)}),
+ preferences:(body:{onboardingDismissed?:boolean;selectedConnectionId?:string|null})=>req('/ai-connections/preferences',{method:'PUT',body:JSON.stringify(body)}),
+ update:(id:string,body:{label?:string;enabled?:boolean})=>req(`/ai-connections/${id}`,{method:'PUT',body:JSON.stringify(body)}),
+ remove:(id:string)=>req(`/ai-connections/${id}`,{method:'DELETE'}),
+ status:(id:string)=>req<{connected:boolean;plan:string|null;loginPending:boolean}>(`/ai-connections/${id}/account`),
+ saveCredential:(id:string,secret:string)=>req(`/ai-connections/${id}/credential`,{method:'POST',body:JSON.stringify({secret})}),
+ login:(id:string)=>req<{authUrl:string}>(`/ai-connections/${id}/login`,{method:'POST'}),
+ cancel:(id:string)=>req(`/ai-connections/${id}/cancel`,{method:'POST'}),
+ disconnect:(id:string)=>req(`/ai-connections/${id}/disconnect`,{method:'POST'})
+ },
  offlinePack:(c:string,sourceIds:string[])=>req<import('./offline-cache').OfflinePack>(`/courses/${c}/offline-pack`,{method:'POST',body:JSON.stringify({sourceIds})}),
  lexical:(c:string,query:string)=>req<SearchHit[]>(`/courses/${c}/lexical-search`,{method:'POST',body:JSON.stringify({query})}),
  semantic:(c:string,query:string)=>req<SearchHit[]>(`/courses/${c}/local-index/query`,{method:'POST',body:JSON.stringify({query})}),

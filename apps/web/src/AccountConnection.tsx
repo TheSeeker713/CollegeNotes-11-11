@@ -1,0 +1,40 @@
+import {useEffect,useState} from 'react';
+import {api} from './client';
+type Connections=Awaited<ReturnType<typeof api.aiConnections.list>>;
+export function AIOnboarding(){
+ const [show,setShow]=useState(false),[notice,setNotice]=useState('');
+ useEffect(()=>{let active=true;void api.aiConnections.list().then(r=>{if(active)setShow(!r.preferences.onboardingDismissed);}).catch(()=>{if(active)setNotice('AI setup is unavailable. Your local courses still work.');});return()=>{active=false;};},[]);
+ if(!show)return notice?<p role="status">{notice}</p>:null;
+ return <section className="glass glass-card"><h2>Connect your AI — optional</h2><p>Sign in with your own OpenAI account, the default setup choice, or choose another connection. You can add multiple accounts and switch between them. Your courses also work without AI.</p><a className="button" href="#/connections">Sign in or choose AI</a><button onClick={()=>void api.aiConnections.preferences({onboardingDismissed:true}).then(()=>setShow(false)).catch(()=>setNotice('Could not save your choice. Please retry.'))}>Skip for now</button><p role="status">{notice}</p></section>;
+}
+function AccountActions({id,onChange}:{id:string;onChange:()=>Promise<void>}){
+ const [status,setStatus]=useState<Awaited<ReturnType<typeof api.aiConnections.status>>|null>(null),[url,setUrl]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false);
+ useEffect(()=>{let active=true;const refresh=()=>void api.aiConnections.status(id).then(s=>{if(active){setStatus(s);if(s.connected||!s.loginPending)setUrl('');}}).catch(()=>{if(active)setNotice('Account service unavailable. Check Codex installation and macOS Keychain.');});refresh();const timer=setInterval(refresh,4000);return()=>{active=false;clearInterval(timer);};},[id]);
+ async function run(fn:()=>Promise<unknown>){setBusy(true);setNotice('');try{await fn();setStatus(await api.aiConnections.status(id));await onChange();}catch{setNotice('Sign-in operation could not finish. Another account may already be signing in. Retry or cancel that sign-in.');}finally{setBusy(false);}}
+ return <div><p>{status?.connected?'Signed in':status?.loginPending?'Waiting for sign-in':'Not signed in'}</p><button disabled={busy||status?.connected||status?.loginPending} onClick={()=>void run(async()=>{const r=await api.aiConnections.login(id);setUrl(r.authUrl);})}>Sign in with OpenAI</button>{url&&<a href={url} target="_blank" rel="noreferrer">Continue on the official sign-in page</a>}<button disabled={busy||!status?.loginPending} onClick={()=>void run(async()=>{await api.aiConnections.cancel(id);setUrl('');})}>Cancel sign-in</button><button disabled={busy||!status?.connected} onClick={()=>void run(()=>api.aiConnections.disconnect(id))}>Sign out</button><p role="status">{notice}</p></div>;
+}
+export function AccountConnection(){
+ const [data,setData]=useState<Connections|null>(null),[providerId,setProvider]=useState('openai'),[authMethod,setMethod]=useState('oauth'),[label,setLabel]=useState(''),[endpoint,setEndpoint]=useState(''),[modelId,setModel]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false);
+ async function refresh(){setData(await api.aiConnections.list());}
+ useEffect(()=>{let active=true;void api.aiConnections.list().then(r=>{if(active)setData(r);}).catch(()=>{if(active)setNotice('Connections could not be loaded.');});return()=>{active=false;};},[]);
+ async function run(fn:()=>Promise<unknown>){setBusy(true);setNotice('');try{await fn();await refresh();}catch{setNotice('Could not save this change. Check the configuration or finish sign-out before removal.');}finally{setBusy(false);}}
+ const provider=data?.providers.find(p=>p.id===providerId);
+ return <><p>Bring your own AI. OpenAI is offered first; every connection is optional. Add separately named accounts for the same provider, or configure an API including a local model server. Selecting a connection does not send course material.</p>
+ <form onSubmit={e=>{e.preventDefault();void run(async()=>{await api.aiConnections.add({providerId,label,authMethod,...(authMethod==='apiKey'?{endpoint,modelId}:{})});setLabel('');await api.aiConnections.preferences({onboardingDismissed:true});});}}>
+ <label>Provider<select value={providerId} onChange={e=>{setProvider(e.target.value);setMethod(['openai','xai'].includes(e.target.value)?'oauth':'apiKey');setEndpoint('');setModel('');}}>{data?.providers.map(p=><option key={p.id} value={p.id}>{p.label}</option>)}</select></label>
+ <label>Connection type<select value={authMethod} onChange={e=>setMethod(e.target.value)}>{provider?.auth.map(a=><option key={a.method} value={a.method}>{a.method==='oauth'?'Account sign-in':'API connection'}</option>)}</select></label>
+ <label>Account or connection name<input required maxLength={80} value={label} onChange={e=>setLabel(e.target.value)} placeholder="Personal, school, local model…"/></label>
+ {authMethod==='apiKey'&&<><label>API base URL{providerId!=='local'?' (optional provider override)':''}<input type="url" required={providerId==='local'} value={endpoint} onChange={e=>setEndpoint(e.target.value)} placeholder="http://127.0.0.1:11434/v1"/></label><label>Model identifier<input value={modelId} onChange={e=>setModel(e.target.value)} maxLength={150}/></label><p>Save the endpoint and model for your own API connection. You can supply your credential after saving. AI requests are not available yet. Saving does not contact the endpoint.</p></>}
+ {providerId==='xai'&&authMethod==='oauth'&&<p>Grok account sign-in is planned. Its supported integration and secure account storage are still being verified. You can save a named profile now; sign-in is not available yet.</p>}
+ <button disabled={busy||!data} type="submit">Save connection profile</button></form>
+ <p role="status">{notice}</p>{data?.connections.length===0&&<p>No connections yet. Local courses work without AI.</p>}
+ {data?.connections.map(c=><article key={c.id} className="glass glass-card"><h2>{c.label}</h2><p>{data.providers.find(p=>p.id===c.providerId)?.label} · {c.authMethod==='oauth'?'Account sign-in':'API'} · {data.preferences.selectedConnectionId===c.id?'Selected':'Not selected'}</p>{c.endpoint&&<p>Endpoint: {c.endpoint}</p>}{c.modelId&&<p>Model: {c.modelId}</p>}<p>This profile is saved. AI requests are not available yet.</p>
+ <label>Rename connection<input defaultValue={c.label} maxLength={80} onBlur={e=>{if(e.target.value!==c.label)void run(()=>api.aiConnections.update(c.id,{label:e.target.value}));}}/></label>
+ <button disabled={busy||data.preferences.selectedConnectionId===c.id} onClick={()=>void run(()=>api.aiConnections.preferences({selectedConnectionId:c.id}))}>Use this connection</button>
+ {c.providerId==='openai'&&c.authMethod==='oauth'&&<AccountActions id={c.id} onChange={refresh}/>}
+ {c.authMethod==='apiKey'&&<form onSubmit={e=>{e.preventDefault();const field=e.currentTarget.elements.namedItem('api-credential') as HTMLInputElement;const secret=field.value;field.value='';void run(()=>api.aiConnections.saveCredential(c.id,secret));}}><p>{c.configured?'Credential saved in macOS Keychain. It has not been tested.':'Supply your own credential if the API requires one. Local servers may not require authentication.'}</p><label>Your API credential<input name="api-credential" type="password" autoComplete="off" required maxLength={8192}/></label><button disabled={busy}>Save to Keychain</button>{c.configured&&<button type="button" disabled={busy} onClick={()=>void run(()=>api.aiConnections.disconnect(c.id))}>Remove credential</button>}</form>}
+ {c.providerId==='xai'&&c.authMethod==='oauth'&&<p>Grok sign-in is currently unavailable; this profile is not connected.</p>}
+ <button disabled={busy} onClick={()=>{if(window.confirm(`Remove ${c.label}? Local course data is preserved.`))void run(()=>api.aiConnections.remove(c.id));}}>Remove connection</button></article>)}
+ {data?.preferences.selectedConnectionId&&<button disabled={busy} onClick={()=>void run(()=>api.aiConnections.preferences({selectedConnectionId:null}))}>Clear selection</button>}
+ </>;
+}

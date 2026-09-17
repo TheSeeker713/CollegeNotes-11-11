@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import {modelStorageDirectory} from './model-storage.js';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {createRequire} from 'node:module';
@@ -7,7 +8,7 @@ import {createWorker,OEM} from 'tesseract.js';
 import type {Extraction,Passage} from './extract.js';
 const require=createRequire(import.meta.url);
 export const OCR_SHA='7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2';
-export function ocrAssetPath():string{return path.resolve(process.env.COLLEGENOTES_MODELS_DIR??path.join(path.dirname(require.resolve('@collegenotes/importers')),'../../../.local/models'),'tesseract');}
+export function ocrAssetPath():string{return path.resolve(modelStorageDirectory(),'tesseract');}
 export function verifyOcrModel():string {const dir=ocrAssetPath();const file=path.join(dir,'eng.traineddata');if(!fs.existsSync(file))throw new Error('ocr_model_missing');if(crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')!==OCR_SHA)throw new Error('ocr_model_checksum_mismatch');return dir;}
 export async function renderPdfPage(bytes:Buffer,pageNumber:number):Promise<Buffer>{
  const pdf=await import('pdfjs-dist/legacy/build/pdf.mjs');const loading=pdf.getDocument({data:new Uint8Array(bytes),enableXfa:false,useSystemFonts:false,standardFontDataUrl:path.join(path.dirname(require.resolve('pdfjs-dist/package.json')),'standard_fonts/')});

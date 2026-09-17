@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "CollegeNotes{11:11} — local learning workspace",
+  "description": "CollegeNotes{11:11} \u2014 local learning workspace",
   "packageManager": "npm@12.0.2",
   "engines": {
     "node": "24.21.0",
@@ -29,7 +29,8 @@
     "test:workflow": "node scripts/rehearse-workflow.mjs",
     "audit:deps": "npm audit --json",
     "bundle:workers": "node scripts/bundle-workers.mjs",
-    "setup:models": "node scripts/install-phase6-models.mjs"
+    "setup:models": "node scripts/install-phase6-models.mjs",
+    "build:keychain": "node scripts/build-keychain.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

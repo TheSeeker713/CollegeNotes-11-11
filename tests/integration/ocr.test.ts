@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {fileURLToPath} from 'node:url';
+
 import {createCanvas} from '@napi-rs/canvas';
 import {afterEach,expect,it} from 'vitest';
 import {extractDocument,extractOcr,verifyOcrModel} from '@collegenotes/importers';
@@ -25,7 +25,7 @@ it('CHK-6.3-03 scanned PDF preserves page order and page-specific region anchors
  const result=await extractDocument('scan.pdf',scannedPdf());expect(result.passages.map(p=>p.text).join(' ')).toMatch(/First page 42.*Second page 17/);expect(result.passages[0]?.anchor.locator).toMatch(/^page:1:rect:/);expect(result.passages.at(-1)?.anchor.locator).toMatch(/^page:2:rect:/);
 },30000);
 it('CHK-6.3-04 uses a checksum-verified local English model with no download fallback',()=>{
- const dir=verifyOcrModel();expect(dir).toBe(path.resolve(process.env.COLLEGENOTES_MODELS_DIR??fileURLToPath(new URL('../../.local/models',import.meta.url)),'tesseract'));expect(fs.existsSync(path.join(dir,'eng.traineddata'))).toBe(true);
+ const dir=verifyOcrModel();expect(dir).toBe(path.resolve(process.env.COLLEGENOTES_MODELS_DIR??'/Volumes/MyceliaOS/AI/Models/CollegeNotes','tesseract'));expect(fs.existsSync(path.join(dir,'eng.traineddata'))).toBe(true);
 });
 it('CHK-6.3-05 cancels a real OCR worker, preserves original and retries successfully',async()=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'cn-ocr-'));dirs.push(dir);const s=openStore(dir);try{const c=createCourse(s,'Synthetic');const task=queueImport(s,c.id,'scan.png',picture('Retry 42').toBuffer('image/png')).task!;const running=processImport(s,c.id,task.id);changeImportTask(s,c.id,task.id,'cancel');await running;expect(listImportTasks(s,c.id)[0]?.status).toBe('cancelled');expect(s.db.prepare('select count(*) as n from material_revisions').get()).toEqual({n:0});changeImportTask(s,c.id,task.id,'retry');await processImport(s,c.id,task.id);expect(listImportTasks(s,c.id)[0]?.status).toBe('completed');}finally{s.db.close();}

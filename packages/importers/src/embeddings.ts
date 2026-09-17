@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import {modelStorageDirectory} from './model-storage.js';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -12,7 +13,7 @@ const root=fileURLToPath(new URL('../../../',import.meta.url));
 export const EMBEDDING_MANIFEST=JSON.parse(fs.readFileSync(path.join(root,'docs/phase6-embedding-model.json'),'utf8')) as Manifest;
 export const EMBEDDING_VERSION=crypto.createHash('sha256').update(JSON.stringify(EMBEDDING_MANIFEST.files)+':mean-l2:char240-overlap32:v1').digest('hex');
 export function verifyEmbeddingModel():string {
- const dir=path.resolve(process.env.COLLEGENOTES_MODELS_DIR??path.join(root,'.local/models'),'minilm');
+ const dir=path.resolve(modelStorageDirectory(),'minilm');
  for(const entry of EMBEDDING_MANIFEST.files){
   const file=path.join(dir,entry.path);
   if(!fs.existsSync(file))throw new Error('embedding_model_missing');

@@ -1,12 +1,12 @@
 {
-  "phase": 7,
-  "phase_status": "awaiting_user_review",
-  "step": "7.4",
-  "step_status": "complete",
-  "pass_id": "PASS-2026-09-16-P7",
-  "authorization_ref": "AUTH-P7",
+  "phase": 8,
+  "phase_status": "active",
+  "step": "8.1",
+  "step_status": "in_progress",
+  "pass_id": "PASS-2026-09-17-P8",
+  "authorization_ref": "AUTH-P8",
   "authorized_phases_this_pass": [
-    7
+    8
   ],
   "phase_3_authorized": false,
   "next_phase_authorized": false,
@@ -43,7 +43,7 @@
     "7.2": "complete",
     "7.3": "complete",
     "7.4": "complete",
-    "8.1": "not_started",
+    "8.1": "in_progress",
     "8.2": "not_started",
     "8.3": "not_started",
     "8.4": "not_started",
@@ -106,9 +106,9 @@
     "7.3": "95072223eb3c239faf62546b72f92030c87b015a",
     "7.4": "d6bfd14a33331ea038f4890a472367ff797d390b"
   },
-  "next_action": "Phase 7 engineering complete; deliver report and stop. Owner manual testing is deferred until after Phase 8 completion. Phase 8 requires explicit authorization and the MyceliaOS external SSD alert/mount verification.",
+  "next_action": "Obtain owner provider selection/sign-in, complete remaining 8.1 adapters and real account verification before checkpoint and 8.2. No Phase 8 completion claimed.",
   "schema_version": 1,
-  "pass_closed": true,
+  "pass_closed": false,
   "phase_completion": {
     "0": "complete",
     "1": "complete",
@@ -117,7 +117,8 @@
     "4": "in_progress",
     "5": "complete",
     "6": "complete",
-    "7": "complete"
+    "7": "complete",
+    "8": "in_progress"
   },
   "manual_acceptances": [
     {
@@ -244,10 +245,12 @@
     "verified_remote_sha": "dd800cd004945d9359534f8dffc095aaf00677f7"
   },
   "phase8_prerequisite": {
-    "status": "pending_future_phase",
+    "status": "external_assets_copied_and_verified",
     "alert": "Please plug in the MyceliaOS external SSD before Phase 8 local AI setup.",
     "storage": "MyceliaOS external SSD; verify mounted volume and owner-designated local-AI directory.",
-    "approval_ref": "CHANGE-P8-MYCELIAOS-STORAGE"
+    "approval_ref": "CHANGE-P8-MYCELIAOS-STORAGE",
+    "models_dir": "/Volumes/MyceliaOS/AI/Models/CollegeNotes",
+    "verified_asset_bytes": 27798260
   },
   "phase6_delivery": {
     "implementation_candidate": "5080af20caea976a852109d8e0a79d93641538f9",
@@ -293,5 +296,24 @@
     },
     "dependency_audit_vulnerabilities": 0,
     "additional_model_downloads": false
+  },
+  "phase8_progress": {
+    "status": "in_progress",
+    "step": "8.1",
+    "owner_amendment": "CHANGE-P8-BYO",
+    "implemented": [
+      "External AI model storage verified before implementation",
+      "Named multiple provider profiles, selection, renaming, removal and optional OpenAI-first onboarding",
+      "Isolated OpenAI managed account sign-in bridge; no actual owner sign-in performed",
+      "API/local endpoint profiles; no endpoint probes or developer API-key entry",
+      "Native macOS Keychain helper compiled; end-user credential save/removal controls, with no developer key entry or testing"
+    ],
+    "outstanding": [
+      "Inference adapters, capability assignments and remaining connection lifecycle verification",
+      "xAI OAuth integration: documented Grok tool integration found, but installed CLI persists auth.json; approved Keychain storage path not established",
+      "Remaining ordered steps 8.2, 8.3 and 8.4"
+    ],
+    "manual_acceptance": "Deferred until after Phase 8; not performed",
+    "checkpoint": "Partial implementation only; 8.1 not complete."
   }
 }

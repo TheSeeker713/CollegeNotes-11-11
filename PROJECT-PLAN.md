@@ -73,7 +73,7 @@ The Connections screen must let the user:
 
 - add a supported service with OAuth/account sign-in when an officially supported integration route exists;
 - add a service with an API key or other user-supplied credential when supported;
-- label and test the connection before using it;
+- label connections and select them explicitly; credential setup belongs to the user in the app, not to the development agent;
 - choose a default provider separately for tutoring, research, narration, transcription, and other capabilities;
 - toggle a provider or individual capability on or off;
 - revoke OAuth access, remove credentials, and remove the provider entirely;
@@ -87,13 +87,13 @@ The Connections screen must let the user:
 |---|---|---|
 | OpenAI / ChatGPT | ChatGPT account sign-in where the documented local Codex app-server route remains permitted; OpenAI API key | Offered by default, but disabled until the user connects it; fully removable |
 | xAI / Grok | xAI API key; account/OAuth connection only after an official third-party or embeddable local-app route is verified | Readily visible as an option; never claim a Grok subscription can be used until the route is proven |
-| Anthropic / Claude | Anthropic API key; account/OAuth only if an official integration intended for this type of app is verified | Supported through a provider adapter; no assumption that Claude Code login authorizes a separate app |
-| Google / Gemini | Gemini API credential; Google OAuth desktop flow where appropriate and officially supported | Supported through a provider adapter; authentication mode is selected and explained to the user |
+| Anthropic / Claude | Anthropic API key (bring your own) | Supported through a provider adapter; no assumption that Claude Code login authorizes a separate app |
+| Google / Gemini | Gemini API credential (bring your own) | Supported through a provider adapter; authentication mode is selected and explained to the user |
 | Additional providers | API, OAuth, local endpoint, or compatible gateway based on an approved adapter | Extensible without changing course or learning data |
 
 Authentication capabilities change. Before implementing or repairing any provider, the agent must check current primary provider documentation and present material changes to the owner. A login flow available to a vendor's own CLI or desktop product does not automatically authorize reuse inside CollegeNotes.
 
-Current documentation supports both managed ChatGPT login and API-key login through the local Codex app-server route. Current xAI inference documentation publicly describes API-key authentication; xAI's first-party Grok Build documentation describes OAuth/OIDC, but this plan does not assume that route is licensed or exposed for embedding into CollegeNotes. Anthropic documents account login for its own Claude Code product and API authentication separately, so general third-party subscription OAuth remains a validation gate. Google documents Gemini API keys and an OAuth flow for desktop applications.
+Current documentation supports both managed ChatGPT login and API-key login through the local Codex app-server route. Current xAI inference documentation publicly describes API-key authentication; xAI's first-party Grok Build documentation describes OAuth/OIDC, but this plan does not assume that route is licensed or exposed for embedding into CollegeNotes. Anthropic and Google are API-only choices in CollegeNotes under the September 17 owner amendment; their other authentication products do not expand this scope.
 
 ## Internet research
 
@@ -181,7 +181,7 @@ Owner direction (September 16, 2026): implement Phase 7 now and defer manual use
 
 Owner storage direction (September 16, 2026): before beginning this phase, alert the owner to plug in the **MyceliaOS external SSD**, the designated home for local AI. Verify its mounted location and model directory before local-model downloads, installation or migration; do not silently fall back to internal storage. This requirement does not authorize Phase 8 execution or a generative model download.
 
-Implement the removable provider registry, API-key and verified OAuth flows, capability toggles, hybrid local retrieval, internet research with provenance, and source-grounded tutoring. Verify each real provider separately.
+Implement the removable provider registry, API-key and verified OAuth flows, capability toggles, hybrid local retrieval, internet research with provenance, and source-grounded tutoring. Verify each adapter with synthetic contracts; real account setup and optional live use belong to the user in the app. Development must not enter, request, or test API keys.
 
 ### Phase 9 — study and learning history
 
@@ -235,3 +235,9 @@ Historical work exists for Phases 0–4. This revision does not accept that work
 - [Anthropic Claude Code authentication](https://docs.anthropic.com/en/docs/claude-code/getting-started)
 - [Google Gemini OAuth for desktop applications](https://ai.google.dev/gemini-api/docs/oauth)
 - [Google Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key)
+
+## Owner amendment — bring-your-own AI (September 17, 2026)
+
+All AI connections are bring-your-own. OpenAI and xAI are the two optional OAuth/account choices; other providers use APIs. OpenAI is the initial onboarding choice, never automatically authenticated or mandatory. Onboarding asks the user to sign in inside the app and offers another connection or skip. The Connections module supports multiple separately named accounts for the same provider, explicit connection selection, removal and configurable API endpoints including local model servers. Local API use does not authorize model downloads or automatic server discovery.
+
+Development agents must not request, enter or test API keys, borrow existing personal logins, or make live credential checks. Synthetic transport/security tests remain required and must be identified as synthetic. Owner testing stays deferred until after Phase 8. This supersedes prior requirements for developer-run actual sign-in, authenticated smoke requests and API-key tests. It does not permit unsupported OAuth claims: xAI account sign-in remains a required integration whose official embeddable route and secure multi-account storage must be established before it can be offered as working.

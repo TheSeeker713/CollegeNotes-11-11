@@ -30,7 +30,7 @@ export function listProviderDefinitions(store: Store): Array<ProviderDefinition 
 }
 export function saveConnection(store: Store, connection: Connection): void {
   const provider = listProviderDefinitions(store).find((p) => p.id === connection.providerId);
-  if (!provider || !provider.auth.some((a) => a.method === connection.authMethod && a.evidence === 'verified_documentation') || connection.schemaVersion !== 1 || !connection.id || !connection.label.trim()) throw new Error('invalid_connection');
+  if (!provider || !provider.auth.some((a) => a.method === connection.authMethod && (a.evidence === 'verified_documentation' || (!connection.enabled && !connection.credential && connection.health === 'untested'))) || connection.schemaVersion !== 1 || !connection.id || !connection.label.trim()) throw new Error('invalid_connection');
   if (connection.enabled && !provider.enabled) throw new Error('provider_disabled');
   if (Object.keys(connection.capabilities).some((c) => !provider.capabilities.includes(c as Capability))) throw new Error('unsupported_capability');
   if (connection.credential && (connection.credential.store !== 'macos-keychain' || !connection.credential.id)) throw new Error('invalid_credential_reference');

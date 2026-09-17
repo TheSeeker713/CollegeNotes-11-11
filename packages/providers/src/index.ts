@@ -15,3 +15,6 @@ export function describeUnavailable(kind: ProviderKind): string {
 
 export * from './contracts.js';
 export { OAuthAttempt } from './oauth.js';
+export * from './codex-account.js';
+export * from './connection-setup.js';
+export * from './keychain.js';

@@ -7,7 +7,7 @@ function ready() {
 }
 describe('provider foundation', () => {
   it('starts every provider disabled without selecting models or credentials', () => {
-    expect(PROVIDERS.map((p) => p.id)).toEqual(['openai', 'xai', 'anthropic', 'google']);
+    expect(PROVIDERS.map((p) => p.id)).toEqual(['openai', 'xai', 'anthropic', 'google', 'local']);
     for (const p of PROVIDERS) {
       const c = newConnection('test', p, 'Synthetic', 'apiKey');
       expect(c.enabled).toBe(false); expect(c.credential).toBeNull();
@@ -15,8 +15,8 @@ describe('provider foundation', () => {
     }
   });
   it('rejects unverified account routes and permits documented method selection', () => {
-    for (const id of ['xai', 'anthropic']) expect(() => newConnection('test', PROVIDERS.find((p) => p.id === id)!, 'Test', 'oauth')).toThrow('auth_method_unverified');
-    for (const id of ['openai', 'google']) expect(newConnection('test', PROVIDERS.find((p) => p.id === id)!, 'Test', 'oauth').enabled).toBe(false);
+    for (const id of ['xai', 'anthropic', 'google', 'local']) expect(() => newConnection('test', PROVIDERS.find((p) => p.id === id)!, 'Test', 'oauth')).toThrow('auth_method_unverified');
+    for (const id of ['openai']) expect(newConnection('test', PROVIDERS.find((p) => p.id === id)!, 'Test', 'oauth').enabled).toBe(false);
   });
   it('requires matching provider, enabled connection/capability, health, credentials and model', () => {
     expect(requestEligibility(provider, ready(), 'tutor', 0).allowed).toBe(true);
