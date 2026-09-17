@@ -1,0 +1,14 @@
+---
+description: Local-first privacy, Keychain secrets, and loopback service rules
+globs: packages/storage/**/*,packages/providers/**/*,apps/local-service/**/*,native/**/*
+alwaysApply: false
+---
+
+# Privacy and local service
+
+- Bind local service to loopback only; validate origins and `x-cn-client` for privileged writes.
+- Secrets: macOS Keychain (or owner-approved store). Never in React storage, logs, exports, backups, or Git.
+- Browser/export summaries use allowlists; exclude credential references.
+- Path checks reject symlink traversal and cross-course file ownership mistakes.
+- Disconnect/remove a provider must not delete course data; cleanup failures stay visible and retryable.
+- Cross-course isolation is mandatory for retrieval, research, tutoring, and exports.

@@ -1,0 +1,15 @@
+---
+description: Required non-UI verification; never run owner-only UI tests
+globs: tests/**/*,scripts/**/*,package.json
+alwaysApply: false
+---
+
+# Verification
+
+Required: `check:types`, `check:lint`, `build`, `build:keychain` (when Keychain touched), `test:unit`, `test:integration`, `test:evals`, `verify:planning`, `test:workflow`. Every required case must pass — no skips/cancels/flaky unresolved.
+
+Do **not** run `test:e2e`, `test:accessibility`, Playwright browser flows, screenshots, or VoiceOver checks unless the owner explicitly asks.
+
+Synthetic fixtures only in Git. Network-denial embedding/offline tests need unrestricted host sandbox (`sandbox-exec`); agent sandbox alone can false-fail them.
+
+Failed gates: preserve evidence, repair without weakening requirements, re-run affected checks, then audit source separately before checkpoint.

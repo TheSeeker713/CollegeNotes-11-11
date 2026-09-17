@@ -1,13 +1,15 @@
 # Instruction loading checklist
 
-Codex is the coding tool used in this pass. Its documented discovery reads global instructions and project instructions down to the working directory, with override files taking precedence. Start future coding sessions in the actual repository and inspect the effective instruction chain, especially nested overrides and size limits. [Official AGENTS.md documentation](https://learn.chatgpt.com/docs/agent-configuration/agents-md), checked September 9, 2026.
+Primary project instructions live in root [`AGENTS.md`](../../AGENTS.md). Cursor project rules live under [`.cursor/rules/`](../../.cursor/rules/) and summarize the same authority for Cursor sessions; they do not override `PROJECT-PLAN.md` or `AGENTS.md`.
 
-This task began outside the project; therefore the agent explicitly read the repository rules and guides after creating them. Creating AGENTS.md midway through a session does not prove automatic hot-reloading. Do not start another agent or alter global settings merely to assert a loading test. The actual path/read and guide-link checks are the evidence for this pass; automatic discovery must be checked when a future repository-root session starts.
+Codex discovery reads global and project `AGENTS.md` files down to the working directory, with override files taking precedence. Cursor loads `.cursor/rules/*.mdc` according to `alwaysApply` / `globs`. Start sessions in the repository root and inspect the effective chain. [Official AGENTS.md documentation](https://learn.chatgpt.com/docs/agent-configuration/agents-md), checked September 9, 2026.
 
-Checklist for each fresh tool session: confirm repository root; find ancestor/nested AGENTS or override files; explicitly read current project rules, state and active manifest; state the current authorized repairs, user-only UI review and Phase 5 gate; verify local/remote checkpoints before acting. Keep the root file small and use explicit links to guides.
+Creating instruction files mid-session does not prove automatic hot-reload. Do not start another agent or alter global settings merely to assert a loading test. Explicit path/read checks are the evidence.
 
-Other coding tools have not been selected or tested in this pass. Do not claim Cursor or another tool loads these files automatically. The external image-generation AI receives the standalone design brief/prompts; it needs no repo permissions or coding-agent instruction installation.
+Checklist for each fresh tool session: confirm repository root; find `AGENTS.md`, `.cursor/rules/`, and nested overrides; read current project rules, `project-state/current.json`, `approvals.json`, and the active phase manifest; state the current authorized phase, owner-only UI review, and MyceliaOS gate when relevant; verify local/remote checkpoints before acting. Keep the root file small and use explicit links to guides.
 
-## Current repair pass
+The external image-generation AI receives the standalone design brief/prompts; it needs no repo permissions or coding-agent instruction installation.
 
-[PROJECT-PLAN.md](../../PROJECT-PLAN.md) is the sole scope authority. AUTH-REPAIR-0-4 and AUTH-REPAIR-PUSH authorize the bounded repairs through Phase 4 and existing-repository pushes. Older pass restrictions are historical. UI/UX testing and rendered-design review belong exclusively to the owner; agents perform source audits and non-UI engineering checks. Manual acceptance remains pending through the repair implementation. Phase 5 needs the owner's green light. See [repair manifest](../phases/repair-0-4.json).
+## Current authority
+
+[PROJECT-PLAN.md](../../PROJECT-PLAN.md) is the sole scope authority. Active authorization is recorded in `project-state/approvals.json` (currently AUTH-P8 for Phase 8). Owner UI/UX review remains pending and deferred until after Phase 8. See guides under `docs/agents/` and Cursor rules under `.cursor/rules/`.

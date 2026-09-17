@@ -52,4 +52,10 @@ Before beginning Phase 8, explicitly alert the owner: “Please plug in the Myce
 
 ## Current Phase 7 authorization
 
-AUTH-P7 authorizes all four Phase 7 engineering steps and their ordered repository checkpoints. The owner explicitly defers manual user testing until after Phase 8 completion. Keep UI/UX and rendered-design acceptance pending; perform required non-UI verification and source audits. Deliver the full report and stop before Phase 8. Historical stop-before-7 instructions are superseded for this pass. The MyceliaOS gate remains in force.
+AUTH-P7 authorized Phase 7 engineering checkpoints. Manual user testing remains deferred until after Phase 8 completion. Historical stop-before-8 instructions are superseded by AUTH-P8. The MyceliaOS gate remains in force.
+
+## Current Phase 8 authorization
+
+AUTH-P8 authorizes all four Phase 8 engineering steps and ordered repository checkpoints. CHANGE-P8-BYO and AUTH-P8-GROK-INTEGRATION amend connection scope. Manual UI testing stays owner-only and deferred until Phase 8 completion. Agents must not enter or test API keys; use synthetic contracts only. Deliver the production report and owner-only manual guide, then stop before Phase 9.
+
+Cursor agents also load [`.cursor/rules/`](.cursor/rules/); those rules summarize this file and do not override `PROJECT-PLAN.md`.
