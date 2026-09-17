@@ -29,7 +29,12 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
  aiConnections:{
- list:()=>req<{connections:Array<Omit<Connection,'credential'>&{configured:boolean}>;providers:ProviderDefinition[];preferences:{onboardingDismissed:number;selectedConnectionId:string|null}}>('/ai-connections'),
+ endpoint:(id:string,endpoint:string)=>req(`/ai-connections/${id}/endpoint`,{method:'PUT',body:JSON.stringify({endpoint})}),
+  settings:(id:string,body:{modelId:string;billing:string;ceiling:number|null;capabilities:string[]})=>req(`/ai-connections/${id}/settings`,{method:'PUT',body:JSON.stringify(body)}),
+ provider:(id:string,enabled:boolean)=>req(`/ai-providers/${id}`,{method:'PUT',body:JSON.stringify({enabled})}),
+ assign:(capability:string,connectionId:string|null)=>req(`/ai-defaults/${capability}`,{method:'PUT',body:JSON.stringify({connectionId})}),
+ export:()=>req('/ai-connections/export'),
+ list:()=>req<{connections:Array<Omit<Connection,'credential'>&{configured:boolean}>;providers:Array<ProviderDefinition&{enabled:boolean}>;assignments:Array<{capability:string;connectionId:string;modelId:string}>;preferences:{onboardingDismissed:number;selectedConnectionId:string|null}}>('/ai-connections'),
  add:(body:{providerId:string;label:string;authMethod:string;endpoint?:string;modelId?:string})=>req<Connection>('/ai-connections',{method:'POST',body:JSON.stringify(body)}),
  preferences:(body:{onboardingDismissed?:boolean;selectedConnectionId?:string|null})=>req('/ai-connections/preferences',{method:'PUT',body:JSON.stringify(body)}),
  update:(id:string,body:{label?:string;enabled?:boolean})=>req(`/ai-connections/${id}`,{method:'PUT',body:JSON.stringify(body)}),

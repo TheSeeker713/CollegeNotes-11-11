@@ -41,7 +41,7 @@ export function saveConnection(store: Store, connection: Connection): void {
     store.db.prepare('insert into connections(id,provider_id,payload) values (?,?,?) on conflict(id) do update set payload=excluded.payload').run(connection.id, connection.providerId, payload);
     if (connection.credential) store.db.prepare('insert into credential_references(connection_id,store,reference_id) values (?,?,?) on conflict(connection_id) do update set store=excluded.store,reference_id=excluded.reference_id').run(connection.id, connection.credential.store, connection.credential.id);
     else store.db.prepare('delete from credential_references where connection_id=?').run(connection.id);
-    if (!connection.enabled || connection.health !== 'ready') store.db.prepare('delete from capability_assignments where connection_id=?').run(connection.id);
+    if (!connection.enabled || connection.health === 'cleanup_pending') store.db.prepare('delete from capability_assignments where connection_id=?').run(connection.id);
     else for (const capability of CAPABILITIES) {
       const setting = connection.capabilities[capability];
       if (!setting?.enabled) store.db.prepare('delete from capability_assignments where connection_id=? and capability=?').run(connection.id, capability);

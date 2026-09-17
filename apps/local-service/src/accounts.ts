@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import {randomUUID} from 'node:crypto';
 import type {FastifyInstance,FastifyRequest} from 'fastify';
 import {CodexAccount, GrokAccount, MacKeychain, type CredentialStore, PROVIDERS, connectionSetup, connectionSummary, type Connection} from '@collegenotes/providers';
-import {CourseError,saveProviderDefinition,saveConnection,listConnections,getConnection,deleteConnectionConfiguration,type Store} from '@collegenotes/storage';
+import {CourseError,configureConnection,selectCapability,selectedCapabilities,setProviderEnabled,listProviderDefinitions,exportConnectionSettings,updateEndpoint,saveProviderDefinition,saveConnection,listConnections,getConnection,deleteConnectionConfiguration,type Store} from '@collegenotes/storage';
 type AccountPort=Pick<CodexAccount,'status'|'login'|'cancel'|'logout'|'stop'> & {revoke?:()=>Promise<{revoked:boolean;localAccessRemoved:boolean}>};
 export function accountRoutes(app:FastifyInstance,store:Store,makeAccount:(directory:string)=>AccountPort=directory=>new CodexAccount(directory),credentials:CredentialStore=new MacKeychain(),makeGrok?:((id:string,onStored:()=>void,cleanupPending:boolean)=>AccountPort)){
  for(const p of PROVIDERS)saveProviderDefinition(store,p);
@@ -14,7 +14,7 @@ export function accountRoutes(app:FastifyInstance,store:Store,makeAccount:(direc
  const account=(id:string)=>{const c=get(id);if(!['openai','xai'].includes(c.providerId)||c.authMethod!=='oauth')throw new CourseError('account_route_unavailable',409);let a=accounts.get(id);if(!a){const stored=()=>saveConnection(store,{...get(id),health:'untested'});a=c.providerId==='xai'?(makeGrok?.(id,stored,c.health==='cleanup_pending')??new GrokAccount(id,credentials,{onStored:stored,cleanupPending:c.health==='cleanup_pending'})):makeAccount(path.join(store.dataDir,'accounts',id));accounts.set(id,a);}return a;};
  const preferences=()=>store.db.prepare('select onboarding_dismissed as onboardingDismissed,selected_connection_id as selectedConnectionId from ai_preferences where id=1').get();
  app.addHook('onClose',async()=>{await Promise.allSettled([...accounts.values()].map(async a=>{try{await a.cancel();}finally{a.stop();}}));});
- app.get('/ai-connections',async()=>({connections:listConnections(store).map(connectionSummary),providers:PROVIDERS,preferences:preferences()}));
+ app.get('/ai-connections',async()=>({connections:listConnections(store).map(connectionSummary),providers:listProviderDefinitions(store),preferences:preferences(),assignments:selectedCapabilities(store)}));
  app.post('/ai-connections',mutation(async req=>{
   if(listConnections(store).length>=50)throw new CourseError('connection_limit',409);
   let setup;try{setup=connectionSetup(req.body);}catch{throw new CourseError('invalid_connection_setup',400);}
@@ -39,11 +39,16 @@ export function accountRoutes(app:FastifyInstance,store:Store,makeAccount:(direc
   finally{body.secret='';}
   return {saved:true};
  }));
+ app.get('/ai-connections/export',async()=>exportConnectionSettings(store));
+ app.put('/ai-connections/:id/settings',mutation(async req=>connectionSummary(configureConnection(store,(req.params as {id:string}).id,req.body))));
+ app.put('/ai-connections/:id/endpoint',mutation(async req=>{updateEndpoint(store,(req.params as {id:string}).id,(req.body as {endpoint?:unknown})?.endpoint);return {saved:true};}));
+ app.put('/ai-defaults/:capability',mutation(async req=>{selectCapability(store,(req.params as {capability:string}).capability,(req.body as {connectionId?:unknown})?.connectionId);return selectedCapabilities(store);}));
+ app.put('/ai-providers/:id',mutation(async req=>{const enabled=(req.body as {enabled?:unknown})?.enabled;if(typeof enabled!=='boolean')throw new CourseError('invalid_provider');setProviderEnabled(store,(req.params as {id:string}).id,enabled);return {saved:true};}));
  app.put('/ai-connections/:id',mutation(async req=>{
   const id=(req.params as {id:string}).id,c=get(id),body=req.body as {label?:unknown;enabled?:unknown}|null;
   if(!body||Object.keys(body).some(k=>!['label','enabled'].includes(k)))throw new CourseError('invalid_connection_update',400);
   if(body.label!==undefined){if(typeof body.label!=='string'||!body.label.trim()||body.label.length>80)throw new CourseError('invalid_label',400);c.label=body.label.trim();}
-  if(body.enabled!==undefined){if(typeof body.enabled!=='boolean')throw new CourseError('invalid_connection_update',400);if(body.enabled)throw new CourseError('inference_adapter_not_ready',409);c.enabled=false;}
+  if(body.enabled!==undefined){if(typeof body.enabled!=='boolean')throw new CourseError('invalid_connection_update',400);if(body.enabled&&c.health==='cleanup_pending')throw new CourseError('credential_cleanup_required',409);c.enabled=body.enabled;}
   saveConnection(store,c);return connectionSummary(c);
  }));
  app.get('/ai-connections/:id/account',async req=>{const id=(req.params as {id:string}).id;const c=get(id);if(c.providerId==='xai'&&c.authMethod==='oauth'&&!c.credential)return {connected:false,method:null,plan:null,loginPending:false};const status=await account(id).status();if(signingIn===id&&!status.loginPending)signingIn=null;return status;});

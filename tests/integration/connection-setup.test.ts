@@ -75,3 +75,41 @@ it('synthetic credential-store contract keeps secrets out of metadata and retain
  failRemove=true;expect((await app.inject({method:'DELETE',url:`/ai-connections/${id}`})).statusCode).toBe(500);expect(listConnections(store)).toHaveLength(1);
  failRemove=false;expect((await app.inject({method:'DELETE',url:`/ai-connections/${id}`})).statusCode).toBe(200);expect(held.size).toBe(0);expect(listConnections(store)).toEqual([]);
 });
+
+it('model and capability edits invalidate defaults without contacting the endpoint',async()=>{
+ const {app}=fixture();
+ const id=(await app.inject({method:'POST',url:'/ai-connections',payload:{providerId:'local',label:'Own model',authMethod:'apiKey',endpoint:'http://127.0.0.1:1/v1'}})).json().id;
+ const settings=(modelId:string,capabilities:string[]= ['tutor'])=>app.inject({method:'PUT',url:`/ai-connections/${id}/settings`,payload:{modelId,capabilities,billing:'free_allowance',ceiling:0}});
+ expect((await settings('local-model')).statusCode).toBe(200);
+ await app.inject({method:'PUT',url:'/ai-providers/local',payload:{enabled:true}});
+ expect((await app.inject({method:'PUT',url:`/ai-connections/${id}`,payload:{enabled:true}})).statusCode).toBe(200);
+ const assign=()=>app.inject({method:'PUT',url:'/ai-defaults/tutor',payload:{connectionId:id}});
+ expect((await assign()).statusCode).toBe(200);
+ expect((await app.inject('/ai-connections')).json().assignments).toHaveLength(1);
+ await settings('new-model');expect((await app.inject('/ai-connections')).json().assignments).toEqual([]);
+ await assign();await settings('new-model',[]);expect((await app.inject('/ai-connections')).json().assignments).toEqual([]);
+ await settings('new-model');await assign();
+ expect((await app.inject({method:'PUT',url:'/ai-providers/local',payload:{enabled:false}})).statusCode).toBe(200);
+ expect((await app.inject('/ai-connections')).json().assignments).toEqual([]);
+ expect((await assign()).statusCode).toBe(409);
+ await app.inject({method:'PUT',url:'/ai-providers/local',payload:{enabled:true}});
+ expect((await app.inject('/ai-connections')).json().connections[0].enabled).toBe(false);
+});
+it('rejects invalid budgets and capabilities and never exports credential references',async()=>{
+ const {app}=fixture();const id=(await app.inject({method:'POST',url:'/ai-connections',payload:{providerId:'anthropic',label:'Own account',authMethod:'apiKey'}})).json().id;
+ const valid={modelId:'own-model',billing:'metered_api',ceiling:10,capabilities:['tutor','research']};
+ for(const change of [{ceiling:-1},{ceiling:10001},{billing:'subscription'},{capabilities:['speech']},{modelId:'not a model'},{secret:'rejected-field'}])expect((await app.inject({method:'PUT',url:`/ai-connections/${id}/settings`,payload:{...valid,...change}})).statusCode).toBe(400);
+ expect((await app.inject({method:'PUT',url:`/ai-connections/${id}/settings`,payload:valid})).statusCode).toBe(200);
+ const exported=(await app.inject('/ai-connections/export')).json();expect(exported.connections[0].usageLimit).toEqual({currency:'USD',ceiling:10,spent:0});expect(JSON.stringify(exported)).not.toContain('credential');
+});
+it('endpoint changes disable a connection and refuse changes while credentials are attached',async()=>{
+ const {app,store}=fixture();const id=(await app.inject({method:'POST',url:'/ai-connections',payload:{providerId:'local',label:'Own',authMethod:'apiKey',endpoint:'http://localhost:1234/v1'}})).json().id;
+ const {saveConnection,getConnection}=await import('@collegenotes/storage');
+ saveConnection(store,{...getConnection(store,id)!,credential:{store:'macos-keychain',id}});
+ expect((await app.inject({method:'PUT',url:`/ai-connections/${id}/endpoint`,payload:{endpoint:'http://localhost:4321/v1'}})).statusCode).toBe(409);
+ await app.inject({method:'PUT',url:'/ai-providers/local',payload:{enabled:true}});
+ saveConnection(store,{...getConnection(store,id)!,credential:null,enabled:true});
+ expect((await app.inject({method:'PUT',url:`/ai-connections/${id}/endpoint`,payload:{endpoint:'http://localhost:4321/v1'}})).statusCode).toBe(200);
+ expect(getConnection(store,id)?.enabled).toBe(false);
+ expect((await app.inject({method:'PUT',url:`/ai-connections/${id}/endpoint`,payload:{endpoint:'http://remote.example/v1'}})).statusCode).toBe(400);
+});

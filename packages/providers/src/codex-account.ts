@@ -41,7 +41,7 @@ export class CodexAccount {
  }
 
  async cancel(){await this.start();if(this.loginId)await this.rpc('account/login/cancel',{loginId:this.loginId});this.loginId=null;return {cancelled:true};}
- async logout(){await this.start();await this.cancel();await this.rpc('account/logout');return this.status();}
+ async logout(){await this.start();await this.cancel();await this.rpc('account/logout');const status=await this.status();if(status.connected)throw new AccountError('account_logout_unconfirmed');return status;}
  async limits(){await this.start();const r=await this.rpc('account/rateLimits/read') as {rateLimits?:unknown};return {rateLimits:r.rateLimits??null};}
  stop(){const child=this.child;this.child=null;this.ready=null;this.loginId=null;for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(new AccountError('account_service_unavailable'));}this.pending.clear();child?.kill('SIGTERM');}
 }

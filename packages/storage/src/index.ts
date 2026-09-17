@@ -33,3 +33,4 @@ export * from "./material-lifecycle.js";
 
 export * from "./semantic-index.js";
 export * from './reading.js';
+export * from './connection-settings.js';
