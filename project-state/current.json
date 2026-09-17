@@ -306,14 +306,22 @@
       "Named multiple provider profiles, selection, renaming, removal and optional OpenAI-first onboarding",
       "Isolated OpenAI managed account sign-in bridge; no actual owner sign-in performed",
       "API/local endpoint profiles; no endpoint probes or developer API-key entry",
-      "Native macOS Keychain helper compiled; end-user credential save/removal controls, with no developer key entry or testing"
+      "Native macOS Keychain helper compiled; end-user credential save/removal controls, with no developer key entry or testing",
+      "Grok Build device OAuth protocol adapted into a Keychain-only, per-connection account adapter with refresh, cancellation, local sign-out and explicit provider revocation; synthetic verification only"
     ],
     "outstanding": [
       "Inference adapters, capability assignments and remaining connection lifecycle verification",
-      "xAI OAuth integration: documented Grok tool integration found, but installed CLI persists auth.json; approved Keychain storage path not established",
       "Remaining ordered steps 8.2, 8.3 and 8.4"
     ],
     "manual_acceptance": "Deferred until after Phase 8; not performed",
-    "checkpoint": "Partial implementation only; 8.1 not complete."
+    "checkpoint": "Partial implementation only; 8.1 not complete.",
+    "grok_integration": {
+      "status": "implemented_pending_owner_live_use",
+      "route": "Published Grok Build device OAuth native client; tokens stored directly in CollegeNotes Keychain namespace",
+      "upstream_revision": "482711333c7195dc16a272777f86086d615e2afb",
+      "no_existing_cli_credentials_accessed": true,
+      "live_authentication_performed": false,
+      "report": "docs/phases/grok-integration-resolution.md"
+    }
   }
 }

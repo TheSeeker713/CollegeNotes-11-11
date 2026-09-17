@@ -341,6 +341,19 @@
         "No agent API-key entry or testing. In-app user setup; synthetic contracts only during development.",
         "Continue Phase 8, preserve honest unsupported-route status and defer manual testing."
       ]
+    },
+    {
+      "id": "AUTH-P8-GROK-INTEGRATION",
+      "kind": "scope_clarification",
+      "phases": [
+        8
+      ],
+      "source": "Owner message September 17, 2026",
+      "quote": "resolve the integration",
+      "conditions": [
+        "Resolve the Grok account integration within Phase 8 while retaining Keychain-only secret persistence and separate accounts.",
+        "Existing no API-key entry/testing and owner-only deferred manual acceptance remain unchanged."
+      ]
     }
   ]
 }

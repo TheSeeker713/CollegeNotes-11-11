@@ -21,7 +21,7 @@ The separate source audit checked authentication isolation, credential handling,
 
 Phase 8.1 is still open. Capability assignments and complete connection availability controls remain; inference adapters and the ordered retrieval/research/tutoring steps have not been completed. No phase-complete flag or subsequent-phase authorization is implied by this partial checkpoint.
 
-xAI documents OAuth for Grok Build and an ACP tool integration, including an isolated `GROK_HOME`. The installed CLI and current documentation describe persistent `auth.json` storage. A supported Keychain-backed route has not been established. The UI therefore allows separately named Grok profiles but accurately marks sign-in unavailable. No existing Grok credentials were read, copied or used. Do not resolve this by silently allowing plaintext token persistence or inventing OAuth client credentials.
+Historical finding before the integration follow-up (superseded by [the resolution record](grok-integration-resolution.md)): xAI documents OAuth for Grok Build and an ACP tool integration, including an isolated `GROK_HOME`. The installed CLI and current documentation describe persistent `auth.json` storage. A supported Keychain-backed route has not been established. The UI therefore allows separately named Grok profiles but accurately marks sign-in unavailable. No existing Grok credentials were read, copied or used. Do not resolve this by silently allowing plaintext token persistence or inventing OAuth client credentials.
 
 Relevant primary documentation:
 

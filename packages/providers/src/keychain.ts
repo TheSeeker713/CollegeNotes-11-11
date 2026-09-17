@@ -13,7 +13,7 @@ export class MacKeychain implements CredentialStore {
    const timer=setTimeout(()=>{child.kill();finish();},60000);
    child.stdout.on('data',(data:Buffer)=>{output+=data.toString();if(output.length>16384){child.kill();finish();}});
    child.stderr.resume();child.on('error',()=>finish());child.stdin.on('error',()=>finish());
-   child.on('exit',code=>{if(code!==0){finish();return;}try{const r=JSON.parse(output) as {ok?:boolean;secret?:unknown};if(r.ok!==true||r.secret!==undefined&&r.secret!==null&&typeof r.secret!=='string'){finish();return;}finish({secret:r.secret as string|null|undefined});}catch{finish();}finally{output='';}});
+   child.on('close',code=>{if(code!==0){finish();return;}try{const r=JSON.parse(output) as {ok?:boolean;secret?:unknown};if(r.ok!==true||r.secret!==undefined&&r.secret!==null&&typeof r.secret!=='string'){finish();return;}finish({secret:r.secret as string|null|undefined});}catch{finish();}finally{output='';}});
    child.stdin.end(JSON.stringify({operation,id,...(secret!==undefined?{secret}:{})}));
   });
  }

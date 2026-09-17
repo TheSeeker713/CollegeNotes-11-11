@@ -44,7 +44,7 @@ export const PROVIDERS: readonly ProviderDefinition[] = [
   ], dataPolicyUrl: 'https://developers.openai.com/api/docs/guides/your-data', models: [], implementation: 'not_implemented' },
   { id: 'xai', label: 'xAI / Grok', capabilities: ['tutor', 'research'], auth: [
     { method: 'apiKey', evidence: 'verified_documentation', documentationUrl: 'https://docs.x.ai/developers/rest-api-reference/inference' },
-    { method: 'oauth', evidence: 'unverified', documentationUrl: 'https://docs.x.ai/build/enterprise' }
+    { method: 'oauth', evidence: 'verified_documentation', documentationUrl: 'https://github.com/xai-org/grok-build/blob/482711333c7195dc16a272777f86086d615e2afb/crates/codegen/xai-grok-login/src/device_code.rs' }
   ], dataPolicyUrl: 'https://x.ai/legal/privacy-policy', models: [], implementation: 'not_implemented' },
   { id: 'anthropic', label: 'Anthropic / Claude', capabilities: ['tutor', 'research'], auth: [
     { method: 'apiKey', evidence: 'verified_documentation', documentationUrl: 'https://platform.claude.com/docs/en/api/overview' }

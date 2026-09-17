@@ -21,7 +21,7 @@ it('multiple named accounts remain isolated, selection is explicit and local con
  const local=await add({providerId:'local',label:'Offline model',authMethod:'apiKey',endpoint:'http://127.0.0.1:1/v1',modelId:'synthetic'});expect(local.statusCode).toBe(200);
  const initial=(await app.inject('/ai-connections')).json();expect(initial.preferences).toEqual({onboardingDismissed:0,selectedConnectionId:null});expect(initial.connections).toHaveLength(3);
  expect((await app.inject({method:'PUT',url:'/ai-connections/preferences',payload:{selectedConnectionId:a.json().id,onboardingDismissed:true}})).statusCode).toBe(200);
- expect((await app.inject({method:'POST',url:`/ai-connections/${a.json().id}/login`})).statusCode).toBe(409);
+ expect((await app.inject(`/ai-connections/${a.json().id}/account`)).json().connected).toBe(false);
  expect((await app.inject({method:'PUT',url:`/ai-connections/${b.json().id}`,payload:{label:'School account'}})).statusCode).toBe(200);
  expect((await app.inject({method:'DELETE',url:`/ai-connections/${a.json().id}`})).statusCode).toBe(200);
  const result=(await app.inject('/ai-connections')).json();expect(result.preferences.selectedConnectionId).toBe(null);expect(result.connections.map((c:{label:string})=>c.label)).toContain('School account');

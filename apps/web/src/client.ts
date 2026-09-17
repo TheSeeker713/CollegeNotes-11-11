@@ -34,10 +34,11 @@ export const api = {
  preferences:(body:{onboardingDismissed?:boolean;selectedConnectionId?:string|null})=>req('/ai-connections/preferences',{method:'PUT',body:JSON.stringify(body)}),
  update:(id:string,body:{label?:string;enabled?:boolean})=>req(`/ai-connections/${id}`,{method:'PUT',body:JSON.stringify(body)}),
  remove:(id:string)=>req(`/ai-connections/${id}`,{method:'DELETE'}),
- status:(id:string)=>req<{connected:boolean;plan:string|null;loginPending:boolean}>(`/ai-connections/${id}/account`),
+ status:(id:string)=>req<{connected:boolean;plan:string|null;loginPending:boolean;error?:string|null;needsRefresh?:boolean;cleanupPending?:boolean;loginDetails?:{authUrl:string;userCode:string}|null}>(`/ai-connections/${id}/account`),
  saveCredential:(id:string,secret:string)=>req(`/ai-connections/${id}/credential`,{method:'POST',body:JSON.stringify({secret})}),
- login:(id:string)=>req<{authUrl:string}>(`/ai-connections/${id}/login`,{method:'POST'}),
+ login:(id:string)=>req<{authUrl:string;userCode?:string}>(`/ai-connections/${id}/login`,{method:'POST'}),
  cancel:(id:string)=>req(`/ai-connections/${id}/cancel`,{method:'POST'}),
+ revoke:(id:string)=>req<{revoked:boolean;localAccessRemoved:boolean}>(`/ai-connections/${id}/revoke`,{method:'POST'}),
  disconnect:(id:string)=>req(`/ai-connections/${id}/disconnect`,{method:'POST'})
  },
  offlinePack:(c:string,sourceIds:string[])=>req<import('./offline-cache').OfflinePack>(`/courses/${c}/offline-pack`,{method:'POST',body:JSON.stringify({sourceIds})}),

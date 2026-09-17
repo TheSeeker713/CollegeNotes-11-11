@@ -2,18 +2,18 @@ import path from 'node:path';
 import fs from 'node:fs';
 import {randomUUID} from 'node:crypto';
 import type {FastifyInstance,FastifyRequest} from 'fastify';
-import {CodexAccount, MacKeychain, type CredentialStore, PROVIDERS, connectionSetup, connectionSummary, type Connection} from '@collegenotes/providers';
+import {CodexAccount, GrokAccount, MacKeychain, type CredentialStore, PROVIDERS, connectionSetup, connectionSummary, type Connection} from '@collegenotes/providers';
 import {CourseError,saveProviderDefinition,saveConnection,listConnections,getConnection,deleteConnectionConfiguration,type Store} from '@collegenotes/storage';
-type AccountPort=Pick<CodexAccount,'status'|'login'|'cancel'|'logout'|'stop'>;
-export function accountRoutes(app:FastifyInstance,store:Store,makeAccount:(directory:string)=>AccountPort=directory=>new CodexAccount(directory),credentials:CredentialStore=new MacKeychain()){
+type AccountPort=Pick<CodexAccount,'status'|'login'|'cancel'|'logout'|'stop'> & {revoke?:()=>Promise<{revoked:boolean;localAccessRemoved:boolean}>};
+export function accountRoutes(app:FastifyInstance,store:Store,makeAccount:(directory:string)=>AccountPort=directory=>new CodexAccount(directory),credentials:CredentialStore=new MacKeychain(),makeGrok?:((id:string,onStored:()=>void,cleanupPending:boolean)=>AccountPort)){
  for(const p of PROVIDERS)saveProviderDefinition(store,p);
  const accounts=new Map<string,AccountPort>();let signingIn:string|null=null;
  let writes:Promise<unknown>=Promise.resolve();
  const mutation=(handler:(req:FastifyRequest)=>Promise<unknown>)=>(req:FastifyRequest)=>{const next=writes.catch(()=>undefined).then(()=>handler(req));writes=next;return next;};
  const get=(id:string)=>{const c=getConnection(store,id);if(!c)throw new CourseError('connection_not_found',404);return c;};
- const account=(id:string)=>{const c=get(id);if(c.providerId!=='openai'||c.authMethod!=='oauth')throw new CourseError('account_route_unavailable',409);let a=accounts.get(id);if(!a){a=makeAccount(path.join(store.dataDir,'accounts',id));accounts.set(id,a);}return a;};
+ const account=(id:string)=>{const c=get(id);if(!['openai','xai'].includes(c.providerId)||c.authMethod!=='oauth')throw new CourseError('account_route_unavailable',409);let a=accounts.get(id);if(!a){const stored=()=>saveConnection(store,{...get(id),health:'untested'});a=c.providerId==='xai'?(makeGrok?.(id,stored,c.health==='cleanup_pending')??new GrokAccount(id,credentials,{onStored:stored,cleanupPending:c.health==='cleanup_pending'})):makeAccount(path.join(store.dataDir,'accounts',id));accounts.set(id,a);}return a;};
  const preferences=()=>store.db.prepare('select onboarding_dismissed as onboardingDismissed,selected_connection_id as selectedConnectionId from ai_preferences where id=1').get();
- app.addHook('onClose',async()=>{for(const a of accounts.values())a.stop();});
+ app.addHook('onClose',async()=>{await Promise.allSettled([...accounts.values()].map(async a=>{try{await a.cancel();}finally{a.stop();}}));});
  app.get('/ai-connections',async()=>({connections:listConnections(store).map(connectionSummary),providers:PROVIDERS,preferences:preferences()}));
  app.post('/ai-connections',mutation(async req=>{
   if(listConnections(store).length>=50)throw new CourseError('connection_limit',409);
@@ -46,25 +46,32 @@ export function accountRoutes(app:FastifyInstance,store:Store,makeAccount:(direc
   if(body.enabled!==undefined){if(typeof body.enabled!=='boolean')throw new CourseError('invalid_connection_update',400);if(body.enabled)throw new CourseError('inference_adapter_not_ready',409);c.enabled=false;}
   saveConnection(store,c);return connectionSummary(c);
  }));
- app.get('/ai-connections/:id/account',async req=>{const id=(req.params as {id:string}).id;const status=await account(id).status();if(signingIn===id&&!status.loginPending)signingIn=null;return status;});
+ app.get('/ai-connections/:id/account',async req=>{const id=(req.params as {id:string}).id;const c=get(id);if(c.providerId==='xai'&&c.authMethod==='oauth'&&!c.credential)return {connected:false,method:null,plan:null,loginPending:false};const status=await account(id).status();if(signingIn===id&&!status.loginPending)signingIn=null;return status;});
  app.post('/ai-connections/:id/login',mutation(async req=>{
-  const id=(req.params as {id:string}).id,a=account(id);if(signingIn)throw new CourseError('another_sign_in_pending',409);signingIn=id;
-  saveConnection(store,{...get(id),enabled:false,revocation:'not_requested'});
+  const id=(req.params as {id:string}).id,a=account(id);if(signingIn&&!(await account(signingIn).status()).loginPending)signingIn=null;if(signingIn)throw new CourseError('another_sign_in_pending',409);signingIn=id;
+  const c=get(id);saveConnection(store,{...c,credential:c.providerId==='xai'?{store:'macos-keychain',id}:c.credential,health:c.providerId==='xai'?'cleanup_pending':c.health,enabled:false,revocation:'not_requested'});
   try{return await a.login();}catch(e){signingIn=null;throw e;}
  }));
- app.post('/ai-connections/:id/cancel',mutation(async req=>{const id=(req.params as {id:string}).id;const result=await account(id).cancel();if(signingIn===id)signingIn=null;return result;}));
+ app.post('/ai-connections/:id/cancel',mutation(async req=>{const id=(req.params as {id:string}).id;const a=account(id),result=await a.cancel(),c=get(id);if(c.providerId==='xai'){const status=await a.status();if(!status.connected&&!('cleanupPending' in status&&status.cleanupPending))saveConnection(store,{...c,credential:null,health:'untested'});}if(signingIn===id)signingIn=null;return result;}));
+ app.post('/ai-connections/:id/revoke',mutation(async req=>{
+  const id=(req.params as {id:string}).id,c=get(id),a=account(id);
+  if(!a.revoke)throw new CourseError('revocation_unavailable',409);
+  const result=await a.revoke();
+  saveConnection(store,{...c,credential:null,enabled:false,health:'untested',revocation:result.revoked?'complete':'pending'});
+  a.stop();accounts.delete(id);if(signingIn===id)signingIn=null;return result;
+ }));
  app.post('/ai-connections/:id/disconnect',mutation(async req=>{
   const id=(req.params as {id:string}).id,c=get(id);
-  if(c.authMethod==='oauth'&&c.providerId==='openai')await account(id).logout();
-  if(c.credential)await credentials.remove(c.credential);
-  saveConnection(store,{...c,credential:null,enabled:false,health:'untested',revocation:'complete'});
+  if(c.authMethod==='oauth')await account(id).logout();
+  else if(c.credential)await credentials.remove(c.credential);
+  saveConnection(store,{...c,credential:null,enabled:false,health:'untested',revocation:c.providerId==='xai'&&c.authMethod==='oauth'?'not_requested':'complete'});
   accounts.get(id)?.stop();accounts.delete(id);if(signingIn===id)signingIn=null;return {disconnected:true};
  }));
  app.delete('/ai-connections/:id',mutation(async req=>{
   const id=(req.params as {id:string}).id,c=get(id);
   // Login status is not inferred from configuration; vendor logout must finish before removal.
-  if(c.authMethod==='oauth'&&c.providerId==='openai'&&c.revocation!=='complete'&&(accounts.has(id)||fs.existsSync(path.join(store.dataDir,'accounts',id))))await account(id).logout();
-  if(c.credential){await credentials.remove(c.credential);saveConnection(store,{...c,credential:null,enabled:false,health:'untested'});}
+  if(c.authMethod==='oauth'&&(c.credential||accounts.has(id)||c.providerId==='openai'&&fs.existsSync(path.join(store.dataDir,'accounts',id))))await account(id).logout();
+  if(c.credential){if(c.authMethod!=='oauth')await credentials.remove(c.credential);saveConnection(store,{...c,credential:null,enabled:false,health:'untested'});}
   deleteConnectionConfiguration(store,id);accounts.get(id)?.stop();accounts.delete(id);if(signingIn===id)signingIn=null;return {removed:true};
  }));
 }

@@ -15,8 +15,8 @@ describe('provider foundation', () => {
     }
   });
   it('rejects unverified account routes and permits documented method selection', () => {
-    for (const id of ['xai', 'anthropic', 'google', 'local']) expect(() => newConnection('test', PROVIDERS.find((p) => p.id === id)!, 'Test', 'oauth')).toThrow('auth_method_unverified');
-    for (const id of ['openai']) expect(newConnection('test', PROVIDERS.find((p) => p.id === id)!, 'Test', 'oauth').enabled).toBe(false);
+    for (const id of ['anthropic', 'google', 'local']) expect(() => newConnection('test', PROVIDERS.find((p) => p.id === id)!, 'Test', 'oauth')).toThrow('auth_method_unverified');
+    for (const id of ['openai', 'xai']) expect(newConnection('test', PROVIDERS.find((p) => p.id === id)!, 'Test', 'oauth').enabled).toBe(false);
   });
   it('requires matching provider, enabled connection/capability, health, credentials and model', () => {
     expect(requestEligibility(provider, ready(), 'tutor', 0).allowed).toBe(true);
