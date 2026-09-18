@@ -11,3 +11,5 @@ export function detectGraphics(gl?: { getContext?: (name: string) => unknown } |
 export function textEquivalent(label: string): string {
   return `Text equivalent: ${label}`;
 }
+
+export { shellGraphicsMode, type ShellGraphicsMode } from './shell-graphics.js';

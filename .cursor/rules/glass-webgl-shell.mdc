@@ -1,0 +1,13 @@
+---
+description: WebGL Botanical/Brutalist glass shell with accessible 2D fallback
+globs: packages/visuals/**/*,packages/ui/**/*,apps/web/src/**/*
+alwaysApply: false
+---
+
+# Glass shell (CHANGE-GUI-WEBGL-SHELL)
+
+- Live shell must match Botanical/Brutalist glass concepts using WebGL2/R3F/Three.js (and compatible effects) with accessible 2D fallback.
+- Interactive text/controls stay semantic HTML; canvas is decorative atmosphere behind/around UI.
+- Honor reduce-transparency, reduce-motion, and missing WebGL2 by disabling the canvas path without losing data.
+- No VR/AR, navigable campus, ocean or free-roam world. Phase 12 aids remain separate instructional features.
+- Owner visual acceptance is still pending after implementation.

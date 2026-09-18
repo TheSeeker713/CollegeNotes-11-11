@@ -121,7 +121,9 @@ The app opens to the user's courses or an empty “Create your first course” s
 
 The desktop reference is 1440×900. The app must also remain usable in an agreed minimum Mac desktop window and at 200% zoom. Phone, tablet, touch, 290px, and 390px design captures are not required.
 
-The visual direction remains Botanical Organic Glass and Brutalist Glass Lab, each with Light and Dark modes, unless the owner changes it. Ordinary reading and controls remain semantic 2D UI. React Three Fiber and Three.js are reserved for optional, subject-correct visual explanations with an accessible 2D equivalent.
+The visual direction remains Botanical Organic Glass and Brutalist Glass Lab, each with Light and Dark modes, unless the owner changes it. The live application shell must match the owner-approved glass design concepts: thick translucent panels, rim lighting, depth, atmospheric backgrounds and restrained motion.
+
+Owner amendment (September 18, 2026): the presentation layer may use WebGL2 through React Three Fiber, Three.js and compatible effect libraries to realize that shell. Interactive text and controls remain semantic HTML above or beside the canvas so keyboard, VoiceOver and reduced-motion preferences still work. When WebGL2 is unavailable, reduce-transparency or reduce-motion is enabled, or graphics fail, the app must fall back to an accessible 2D glass equivalent without losing courses or settings. React Three Fiber and Three.js also remain available for optional, subject-correct Phase 12 visual explanations with a non-graphics alternative. No VR/AR, navigable campus, ocean or free-roam world.
 
 ## Technical direction
 
@@ -129,7 +131,7 @@ The current foundation uses React, TypeScript, Vite, Node.js, Fastify, SQLite, R
 
 The architecture separates:
 
-- the macOS/local-browser presentation layer;
+- the macOS/local-browser presentation layer, including the WebGL glass shell and its 2D fallback;
 - the loopback local service;
 - course and source domain models;
 - SQLite records and original local files;
@@ -161,7 +163,7 @@ Install and verify the approved compatible stack, test harnesses, document worke
 
 ### Phase 4 — local application foundation
 
-Build the desktop/local-browser shell, routing, local database, file ownership, job lifecycle, recovery, course-neutral domain contracts, credential-store boundary, and provider registry foundation.
+Build the desktop/local-browser shell, routing, local database, file ownership, job lifecycle, recovery, course-neutral domain contracts, credential-store boundary, and provider registry foundation. Owner amendment September 18, 2026: the shell’s Botanical/Brutalist glass presentation may use WebGL2/R3F/Three.js with an accessible 2D fallback; this does not replace later Phase 12 instructional aids.
 
 ### Phase 5 — user-created courses and modules
 
@@ -241,3 +243,7 @@ Historical work exists for Phases 0–4. This revision does not accept that work
 All AI connections are bring-your-own. OpenAI and xAI are the two optional OAuth/account choices; other providers use APIs. OpenAI is the initial onboarding choice, never automatically authenticated or mandatory. Onboarding asks the user to sign in inside the app and offers another connection or skip. The Connections module supports multiple separately named accounts for the same provider, explicit connection selection, removal and configurable API endpoints including local model servers. Local API use does not authorize model downloads or automatic server discovery.
 
 Development agents must not request, enter or test API keys, borrow existing personal logins, or make live credential checks. Synthetic transport/security tests remain required and must be identified as synthetic. Owner testing stays deferred until after Phase 8. This supersedes prior requirements for developer-run actual sign-in, authenticated smoke requests and API-key tests. It does not permit unsupported OAuth claims: xAI account sign-in remains a required integration whose official embeddable route and secure multi-account storage must be established before it can be offered as working.
+
+## Owner amendment — WebGL glass shell (September 18, 2026)
+
+The owner authorizes amending this plan so the live GUI must match the Botanical/Brutalist glass design concepts using WebGL, React Three Fiber, Three.js and compatible advanced-effect libraries, with an accessible 2D fallback. Interactive reading and controls stay as semantic HTML. This authorizes the planning change and the visual implementation pass; it does not authorize Phase 9 or claim manual UI acceptance.

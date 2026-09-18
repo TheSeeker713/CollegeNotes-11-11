@@ -12,6 +12,7 @@ export default defineConfig({
     alias: {
       '@collegenotes/domain': path.join(root, 'packages/domain/src/index.ts'),
       '@collegenotes/ui': path.join(root, 'packages/ui/src/index.ts'),
+      '@collegenotes/visuals/atmosphere': path.join(root, 'packages/visuals/src/atmosphere.ts'),
       '@collegenotes/visuals': path.join(root, 'packages/visuals/src/index.ts'),
 
     }

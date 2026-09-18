@@ -29,6 +29,8 @@ import { Materials } from './Materials';
 import { CourseManager } from './CourseManager';
 import { ResearchWorkspace } from './ResearchWorkspace';
 import { TutorWorkspace } from './TutorWorkspace';
+import { GlassAtmosphere } from '@collegenotes/visuals/atmosphere';
+
 const NAV_LABEL: Record<string, string> = {
   home: 'Home',
   courses: 'Courses',
@@ -255,6 +257,8 @@ export function App() {
 
   return (
     <>
+      <GlassAtmosphere appearance={appearance} />
+      <div className="app-frame">
       <a className="skip" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus(); }}>Skip to main content</a>
       <div className="preview-strip"><span className="status-dot" aria-hidden="true" /> Your private learning workspace <span>Stored on this Mac</span></div>
       <div className="app-shell">
@@ -367,6 +371,7 @@ export function App() {
             ) : null}
           </main>
         </div>
+      </div>
       </div>
     </>
   );

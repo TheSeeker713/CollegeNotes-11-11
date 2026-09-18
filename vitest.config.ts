@@ -7,6 +7,7 @@ const alias = {
   '@collegenotes/domain': path.join(root, 'packages/domain/src/index.ts'),
   '@collegenotes/ui': path.join(root, 'packages/ui/src/index.ts'),
   '@collegenotes/learning': path.join(root, 'packages/learning/src/index.ts'),
+  '@collegenotes/visuals/atmosphere': path.join(root, 'packages/visuals/src/atmosphere.ts'),
   '@collegenotes/visuals': path.join(root, 'packages/visuals/src/index.ts'),
   '@collegenotes/storage': path.join(root, 'packages/storage/src/index.ts'),
   '@collegenotes/providers': path.join(root, 'packages/providers/src/index.ts'),

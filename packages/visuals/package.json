@@ -8,9 +8,14 @@
     ".": {
       "types": "./src/index.ts",
       "default": "./dist/index.js"
+    },
+    "./atmosphere": {
+      "types": "./src/atmosphere.ts",
+      "default": "./dist/atmosphere.js"
     }
   },
   "dependencies": {
+    "@collegenotes/domain": "0.0.0",
     "@react-three/fiber": "9.7.0",
     "three": "0.186.0"
   },

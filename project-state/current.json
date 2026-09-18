@@ -1,6 +1,6 @@
 {
   "phase": 8,
-  "phase_status": "complete",
+  "phase_status": "awaiting_user_review",
   "step": "8.4",
   "step_status": "complete",
   "pass_id": "PASS-2026-09-17-P8",
@@ -110,7 +110,7 @@
     "8.3": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
     "8.4": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0"
   },
-  "next_action": "Phase 8 engineering complete. Owner manual testing deferred; stop before Phase 9 until explicit authorization.",
+  "next_action": "Owner visual review of CHANGE-GUI-WEBGL-SHELL glass shell; do not start Phase 9 until authorized.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -236,7 +236,7 @@
   "owner_feedback": [
     {
       "quote": "Is the GUI intended to look this bad at this phase?",
-      "status": "unresolved owner visual acceptance; source improvements in Phase 5; no agent UI tests"
+      "status": "addressed by CHANGE-GUI-WEBGL-SHELL engineering pass; owner visual acceptance still pending"
     }
   ],
   "phase5_delivery": {
@@ -338,5 +338,24 @@
     "production_report": "docs/phase-8-production-report.md",
     "manual_guide": "docs/phase-8-manual-tests.md",
     "final_receipt": "docs/phases/phase8-final-receipt.md"
+  },
+  "visual_shell_pass": {
+    "approval_ref": "CHANGE-GUI-WEBGL-SHELL",
+    "implementation_status": "engineering_complete",
+    "manual_acceptance": "pending_owner_only",
+    "receipt": "docs/phases/change-gui-webgl-shell-receipt.md",
+    "scope": [
+      "Official plan amended for WebGL/R3F/Three.js Botanical/Brutalist shell with 2D fallback",
+      "GlassAtmosphere R3F scene wired into app shell",
+      "CSS glass tokens and shell restyle",
+      "Connections form layout fixes"
+    ],
+    "non_ui_test_counts": {
+      "unit": 30,
+      "integration": 160,
+      "evals": 1,
+      "planning": 6,
+      "workflow": 44
+    }
   }
 }

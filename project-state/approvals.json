@@ -354,6 +354,27 @@
         "Resolve the Grok account integration within Phase 8 while retaining Keychain-only secret persistence and separate accounts.",
         "Existing no API-key entry/testing and owner-only deferred manual acceptance remain unchanged."
       ]
+    },
+    {
+      "id": "CHANGE-GUI-WEBGL-SHELL",
+      "kind": "scope_clarification",
+      "phases": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        12,
+        14
+      ],
+      "source": "Owner message September 18, 2026",
+      "quote": "I authorize amending the official plan so the live GUI must match these Botanical/Brutalist concepts using WebGL/R3F/Three.js (with accessible fallback), then implement that visual pass.",
+      "conditions": [
+        "Amend PROJECT-PLAN.md so the live shell matches Botanical/Brutalist glass concepts via WebGL2, React Three Fiber, Three.js and compatible effect libraries.",
+        "Keep semantic HTML for interactive text/controls; provide accessible 2D fallback when WebGL is unavailable or reduce-transparency/reduce-motion requires it.",
+        "Implement the visual pass now; do not authorize Phase 9; do not fabricate manual UI acceptance."
+      ]
     }
   ]
 }
