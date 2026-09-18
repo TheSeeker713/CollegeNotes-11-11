@@ -48,4 +48,4 @@ Four owner-supplied backdrop photos converted to WebP and stored under `apps/web
 
 ## Remote checkpoint
 
-Verified origin/main SHA: `53d34021cb25b3f218a84753cf901a963a5364ac`.
+Verified origin/main SHA: `5751048cb9212d0abdfef3843d973f1eddada6ee`.

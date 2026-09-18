@@ -31,6 +31,8 @@ Owner texture assets and pointer-driven shell effects were integrated into the l
 
 Non-UI: `check:types`, `check:lint`, targeted unit tests, web build. Owner visual acceptance remains pending.
 
+**Remote:** `5751048cb9212d0abdfef3843d973f1eddada6ee` on `origin/main`.
+
 ## Files of note
 
 - `packages/visuals/src/{GlassAtmosphere,backdrop-effects,liquid-glass-shader,shell-textures}.ts(x)`
