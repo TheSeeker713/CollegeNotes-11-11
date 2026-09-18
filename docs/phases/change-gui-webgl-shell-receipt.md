@@ -17,9 +17,18 @@ September 18, 2026. Owner authorization `CHANGE-GUI-WEBGL-SHELL`. This records t
 
 Required non-UI checks executed for this pass: types, lint, web build, unit (30), integration (with OS network-denial cases under unrestricted local execution), evals (1), planning (6/6), workflow (44/44). Manual visual acceptance remains pending with the owner. No live provider login, paid request or model download was part of this pass.
 
-## Boundary
+## Visual fidelity follow-up
 
-Stop before Phase 9. Owner UI review is required before treating the glass shell as accepted.
+Owner compared the live shell to Botanical/Brutalist concept images and requested a closer match. Engineering response:
+
+- Procedural foliage/concrete/leaf-shadow/silhouette textures behind the UI
+- Room-environment IBL + physical glass slabs (transmission/clearcoat)
+- Thicker frosted HTML glass (higher blur, lower opacity, rim + sheen)
+- Brand lockup `CollegeNotes{11:11}` with leaf mark; soft botanical nav active pill
+- Appearance controls placed on a glass card
+
+Owner visual acceptance remains pending. No Phase 9 work.
+
 
 ## Remote checkpoint
 

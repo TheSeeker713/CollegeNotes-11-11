@@ -263,7 +263,17 @@ export function App() {
       <div className="preview-strip"><span className="status-dot" aria-hidden="true" /> Your private learning workspace <span>Stored on this Mac</span></div>
       <div className="app-shell">
         <aside id="navigation" className={menuOpen ? 'open' : undefined} aria-label="Main navigation" onKeyDown={(event) => { if (event.key === 'Escape') { setMenuOpen(false); document.getElementById('menu')?.focus(); } }}>
-          <div className="brand"><span className="brand-symbol" aria-hidden="true">cn.</span>CollegeNotes<small>A little structure. More room to learn.</small></div>
+          <div className="brand">
+            <span className="brand-symbol" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 19c4-1 7-4 8-9 1 5 4 8 8 9" />
+                <path d="M12 3v8" />
+                <path d="M9 8c1.5-2 3-3 3-5 0 2 1.5 3 3 5" />
+              </svg>
+            </span>
+            CollegeNotes{'{11:11}'}
+            <small>A little structure. More room to learn.</small>
+          </div>
           <p className="nav-caption">Workspace</p>
           {NAV_DESTINATIONS.map((id) => (
             <a
@@ -325,7 +335,7 @@ export function App() {
               </section>
             ) : null}
             {screen === 'settings' ? (
-              <section>
+              <section className="glass glass-card appearance-panel">
                 <h1>Appearance</h1>
                 <div className="form-stack">
                   <label>
@@ -335,7 +345,7 @@ export function App() {
                       <option value="brutalist">Brutalist Glass Lab</option>
                     </select>
                   </label>
-                  <label>
+                  <label className="check-label">
                     <input type="checkbox" checked={appearance.mode === 'dark'} onChange={(event) => void saveAppearance({ ...appearance, mode: event.target.checked ? 'dark' : 'light' })} />
                     Dark mode
                   </label>
@@ -346,11 +356,11 @@ export function App() {
                       <option value="compact">Compact</option>
                     </select>
                   </label>
-                  <label>
+                  <label className="check-label">
                     <input type="checkbox" checked={appearance.reduceMotion} onChange={(event) => void saveAppearance({ ...appearance, reduceMotion: event.target.checked })} />
                     Reduce motion
                   </label>
-                  <label>
+                  <label className="check-label">
                     <input type="checkbox" checked={appearance.reduceTransparency} onChange={(event) => void saveAppearance({ ...appearance, reduceTransparency: event.target.checked })} />
                     Reduce transparency
                   </label>
