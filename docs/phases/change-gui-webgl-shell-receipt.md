@@ -28,7 +28,23 @@ Owner feedback on live samples vs concepts:
 
 Owner visual acceptance remains pending.
 
+## Owner texture assets
 
+Four owner-supplied backdrop photos converted to WebP and stored under `apps/web/public/assets/shell/`:
+
+- botanical-light / botanical-dark
+- brutalist-light / brutalist-dark
+
+`GlassAtmosphere` loads them via Three.js `TextureLoader`; CSS 2D fallback uses the same URLs. Procedural canvas foliage/concrete remain available only as offline helpers, not the live backdrop.
+
+## Pointer interaction effects
+
+- Botanical: idle looping light breeze always on; mouse-speed wind energy scales from barely-visible shiver to full-screen leaf shake. Leaves stay animated under glass.
+- Botanical dark: lifted foliage exposure + stronger cursor spotlight so leaves read; pointer light is green-tinted.
+- Over botanical glass: water-bottle refraction (barrel/caustic + chromatic sheen) on the backdrop behind the card.
+- Brutalist: concrete grind still mutes while over `.glass`.
+- Glass cards: subtle corner/rim specular only (masked edge highlight).
+- Botanical light: denser frost and deeper text for contrast; backdrop further muted after owner “too bright” feedback (canvas `#B5AF9A`, stronger vignette/shader darken).
 
 ## Remote checkpoint
 

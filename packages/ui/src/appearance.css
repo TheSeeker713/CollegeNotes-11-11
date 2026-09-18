@@ -1,23 +1,23 @@
 :root {
-  /* Frosted glass with solidarity — match Botanical Light concepts (~50% body + strong blur) */
-  --cn-canvas: #E8E4D6;
-  --cn-surface: rgba(255, 252, 246, 0.58);
-  --cn-surface-solid: #FFFCF4;
-  --cn-text: #2A3328;
-  --cn-secondary: #5A6454;
-  --cn-accent: #3D5A3C;
+  /* Botanical light — muted parchment + denser frost (not blown-out cream) */
+  --cn-canvas: #B5AF9A;
+  --cn-surface: rgba(236, 232, 220, 0.86);
+  --cn-surface-solid: #E8E4D6;
+  --cn-text: #161E14;
+  --cn-secondary: #3A4234;
+  --cn-accent: #2A4228;
   --cn-on-accent: #FFFFFF;
-  --cn-border: rgba(255, 255, 255, 0.65);
-  --cn-focus: #3D5A3C;
+  --cn-border: rgba(70, 80, 60, 0.32);
+  --cn-focus: #2A4228;
   --cn-radius: 28px;
   --cn-font-ui: "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --cn-font-heading: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --cn-glass-blur: 40px;
-  --cn-rim: rgba(255, 255, 255, 0.9);
-  --cn-shadow: 0 20px 50px rgba(40, 50, 35, 0.18), 0 4px 12px rgba(40, 50, 35, 0.08);
-  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(60, 70, 50, 0.06);
-  --cn-nav-active: rgba(107, 112, 92, 0.28);
-  --cn-input: rgba(255, 255, 255, 0.55);
+  --cn-glass-blur: 36px;
+  --cn-rim: rgba(255, 255, 255, 0.45);
+  --cn-shadow: 0 18px 42px rgba(30, 36, 24, 0.26), 0 4px 12px rgba(30, 36, 24, 0.12);
+  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 0 rgba(45, 52, 36, 0.12);
+  --cn-nav-active: rgba(70, 80, 60, 0.34);
+  --cn-input: rgba(250, 247, 238, 0.78);
 }
 html[data-theme='botanical'][data-mode='dark'] {
   --cn-canvas: #0A1410;
@@ -96,36 +96,42 @@ html, body {
     linear-gradient(165deg, var(--cn-canvas), color-mix(in srgb, var(--cn-canvas) 90%, var(--cn-accent)));
 }
 html[data-theme='botanical'][data-mode='light'] .glass-atmosphere-fallback {
-  background-color: #F5F2E9;
+  background-color: #B5AF9A;
   background-image:
-    radial-gradient(ellipse 50% 40% at 15% 80%, rgba(107, 112, 92, 0.18), transparent 60%),
-    radial-gradient(ellipse 45% 35% at 90% 85%, rgba(143, 168, 118, 0.2), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 70% 10%, rgba(197, 212, 168, 0.25), transparent 50%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='700' viewBox='0 0 900 700'%3E%3Cg fill='none' stroke='%236B705C' stroke-width='2' opacity='0.45'%3E%3Cpath d='M40 680 C80 520 60 400 120 280'/%3E%3Cpath d='M120 280 C90 250 40 260 30 230'/%3E%3Cpath d='M120 280 C160 250 200 270 220 230'/%3E%3Cpath d='M100 360 C60 340 30 350 20 320'/%3E%3Cpath d='M100 360 C150 340 180 360 200 330'/%3E%3Cpath d='M820 690 C780 520 840 420 760 300'/%3E%3Cpath d='M760 300 C800 270 850 290 870 250'/%3E%3Cpath d='M760 300 C720 270 680 290 660 250'/%3E%3C/g%3E%3C/svg%3E"),
-    linear-gradient(180deg, #F7F4EC, #EDE8DC);
-  background-size: auto, auto, auto, min(70vw, 720px) auto, auto;
-  background-position: 0 0, 0 0, 0 0, left bottom, 0 0;
+    linear-gradient(180deg, rgba(150, 144, 120, 0.45), rgba(130, 124, 100, 0.32)),
+    url('/assets/shell/botanical-light.webp');
+  background-size: cover, cover;
+  background-position: center;
   background-repeat: no-repeat;
+  filter: brightness(0.88) saturate(0.95);
 }
 html[data-theme='botanical'][data-mode='dark'] .glass-atmosphere-fallback {
+  background-color: #0F1C14;
   background-image:
-    radial-gradient(circle at 20% 30%, rgba(47, 90, 58, 0.55), transparent 45%),
-    radial-gradient(circle at 80% 70%, rgba(20, 50, 32, 0.7), transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(15, 35, 24, 0.4), transparent 60%),
-    linear-gradient(160deg, #07110C, #0F1C15 40%, #13261B);
+    linear-gradient(160deg, rgba(7, 17, 12, 0.15), rgba(20, 45, 30, 0.08)),
+    url('/assets/shell/botanical-dark.webp');
+  background-size: cover, cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(1.35) saturate(1.15);
 }
-html[data-theme='brutalist'] .glass-atmosphere-fallback {
-  background-color: var(--cn-canvas);
+html[data-theme='brutalist'][data-mode='light'] .glass-atmosphere-fallback {
+  background-color: #D8D7D1;
   background-image:
-    radial-gradient(ellipse 55% 45% at 50% 18%, rgba(255,255,255,.14), transparent 60%),
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.045) 2px, rgba(0,0,0,.045) 3px),
-    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,.025) 3px, rgba(0,0,0,.025) 4px);
+    radial-gradient(ellipse 55% 45% at 50% 18%, rgba(255, 255, 255, 0.12), transparent 60%),
+    url('/assets/shell/brutalist-light.webp');
+  background-size: auto, cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 html[data-theme='brutalist'][data-mode='dark'] .glass-atmosphere-fallback {
+  background-color: #121212;
   background-image:
-    radial-gradient(ellipse 50% 40% at 50% 12%, rgba(255,255,255,.1), transparent 55%),
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,.03) 2px, rgba(255,255,255,.03) 3px),
-    linear-gradient(180deg, #1a1a1a, #0a0a0a);
+    radial-gradient(ellipse 50% 40% at 50% 12%, rgba(255, 255, 255, 0.08), transparent 55%),
+    url('/assets/shell/brutalist-dark.webp');
+  background-size: auto, cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 html[data-theme='brutalist'] button.primary,
 html[data-theme='brutalist'] .button.primary {
@@ -146,11 +152,11 @@ html[data-theme='botanical'][data-mode='light'] .app-frame::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.22;
   background:
-    radial-gradient(ellipse 30% 25% at 25% 20%, rgba(60, 70, 45, 0.18), transparent 70%),
-    radial-gradient(ellipse 35% 30% at 70% 35%, rgba(50, 60, 40, 0.14), transparent 70%),
-    radial-gradient(ellipse 40% 35% at 40% 70%, rgba(45, 55, 35, 0.12), transparent 70%);
+    radial-gradient(ellipse 30% 25% at 25% 20%, rgba(45, 55, 35, 0.28), transparent 70%),
+    radial-gradient(ellipse 35% 30% at 70% 35%, rgba(40, 50, 32, 0.2), transparent 70%),
+    radial-gradient(ellipse 40% 35% at 40% 70%, rgba(35, 45, 28, 0.18), transparent 70%);
   mix-blend-mode: multiply;
 }
 .glass {
@@ -160,11 +166,12 @@ html[data-theme='botanical'][data-mode='light'] .app-frame::before {
   box-shadow: var(--cn-shadow), var(--cn-inset);
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 .glass > * { position: relative; z-index: 1; }
 html:not(.reduce-transparency) .glass {
-  backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.45) brightness(1.02);
-  -webkit-backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.45) brightness(1.02);
+  backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.25) brightness(0.99);
+  -webkit-backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.25) brightness(0.99);
 }
 html:not(.reduce-transparency) .glass::before {
   content: "";
@@ -172,19 +179,45 @@ html:not(.reduce-transparency) .glass::before {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  box-shadow:
-    inset 0 1.5px 0 var(--cn-rim),
-    inset 1px 0 0 rgba(255,255,255,.25),
-    inset 0 -1px 0 rgba(0,0,0,.08);
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0) 38%,
+    rgba(255, 255, 255, 0) 62%,
+    rgba(255, 255, 255, 0.18)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.85;
 }
+/* Edge-only specular: light catches glass rim/corners, not a face spotlight */
 html:not(.reduce-transparency) .glass::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(255,255,255,.2), transparent 40%);
+  padding: 2px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 36%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   opacity: 0.7;
+}
+html:not(.reduce-transparency):not(.reduce-motion) .glass[data-glass-lit='true']::after {
+  background: radial-gradient(
+    circle 72px at var(--glass-mx, 8%) var(--glass-my, 8%),
+    rgba(255, 255, 255, 0.42),
+    rgba(255, 255, 255, 0.12) 38%,
+    transparent 68%
+  );
+  opacity: 0.9;
 }
 html.reduce-transparency .glass {
   background: var(--cn-surface-solid);

@@ -26,9 +26,9 @@ export type SemanticTokens = {
 
 export const VARIANTS: Record<VariantKey, SemanticTokens> = {
   'botanical-light': {
-    canvas: '#E8E4D6', surface: '#FFFCF4', notes: '#E6EDD9', study: '#F1E1D3', listen: '#DEEAF0',
-    text: '#2A3328', secondary: '#5A6454', border: '#596352', accent: '#3D5A3C', onAccent: '#FFFFFF',
-    error: '#A02628', warning: '#704500', titleSurface: '#E6EDD9', titleText: '#2A3328', focus: '#3D5A3C',
+    canvas: '#B5AF9A', surface: '#E8E4D6', notes: '#E6EDD9', study: '#F1E1D3', listen: '#DEEAF0',
+    text: '#161E14', secondary: '#3A4234', border: '#596352', accent: '#2A4228', onAccent: '#FFFFFF',
+    error: '#A02628', warning: '#704500', titleSurface: '#E6EDD9', titleText: '#161E14', focus: '#2A4228',
     fontUi: 'system-ui, sans-serif', fontReading: 'system-ui, sans-serif', fontHeading: 'Georgia, serif', cardRadiusPx: 28
   },
   'botanical-dark': {

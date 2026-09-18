@@ -1,28 +1,36 @@
 import { Canvas, createPortal, useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
 import type { Appearance } from '@collegenotes/domain';
-import type { Group, Mesh, ShaderMaterial } from 'three';
+import type { Group, Mesh, ShaderMaterial, Texture } from 'three';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { shellGraphicsMode } from './shell-graphics.js';
 import { createLiquidGlassMaterial } from './liquid-glass-shader.js';
+import { shellTextureUrl } from './shell-textures.js';
+import { makeLeafShadowTexture } from './procedural-textures.js';
 import {
-  makeBotanicalSilhouette,
-  makeConcreteTexture,
-  makeFoliageTexture,
-  makeLeafShadowTexture
-} from './procedural-textures.js';
+  createBotanicalWindMaterial,
+  createBrutalistCrumbleMaterial,
+  syncBackdropEffect
+} from './backdrop-effects.js';
 
 type Props = { appearance: Appearance };
 type Colors = ReturnType<typeof palette>;
-type MotionState = { mouse: THREE.Vector2; scroll: number; scrollTarget: number };
+type MotionState = {
+  mouse: THREE.Vector2;
+  velocity: THREE.Vector2;
+  scroll: number;
+  scrollTarget: number;
+  overGlass: boolean;
+  windEnergy: number;
+};
 
 function palette(appearance: Appearance) {
   if (appearance.theme === 'botanical' && appearance.mode === 'light') {
-    return { bg: '#E8E4D6', a: '#6B705C', b: '#8FA876', c: '#C9B896', light: '#FFF8EC', accent: '#3D5A3C', glass: '#F7F4EC' };
+    return { bg: '#B5AF9A', a: '#5A604E', b: '#6F8560', c: '#A89870', light: '#E6DFC8', accent: '#2A4228', glass: '#E8E4D6' };
   }
   if (appearance.theme === 'botanical' && appearance.mode === 'dark') {
-    return { bg: '#0A1410', a: '#1A3A28', b: '#2F5A3A', c: '#0C1C14', light: '#BBD5AB', accent: '#7CBB86', glass: '#1A2B22' };
+    return { bg: '#0F1C14', a: '#1A3A28', b: '#2F5A3A', c: '#0C1C14', light: '#D0E8C0', accent: '#7CBB86', glass: '#1A2B22' };
   }
   if (appearance.theme === 'brutalist' && appearance.mode === 'light') {
     return { bg: '#D8D7D1', a: '#B0B0A8', b: '#C8C8C0', c: '#9A9A92', light: '#FFFFFF', accent: '#1A1A1A', glass: '#FFFFFF' };
@@ -45,15 +53,96 @@ function EnvironmentMap() {
   return null;
 }
 
-function PointerLight({ motion, reduceMotion }: { motion: MutableRefObject<MotionState>; reduceMotion: boolean }) {
+function PointerLight({
+  motion,
+  reduceMotion,
+  botanicalLight,
+  botanicalDark
+}: {
+  motion: MutableRefObject<MotionState>;
+  reduceMotion: boolean;
+  botanicalLight: boolean;
+  botanicalDark: boolean;
+}) {
   const light = useRef<THREE.PointLight>(null);
   useFrame(() => {
     if (!light.current || reduceMotion) return;
     const x = (motion.current.mouse.x - 0.5) * 6.5;
     const y = (motion.current.mouse.y - 0.5) * 4.2;
     light.current.position.lerp(new THREE.Vector3(x, y, 2.6), 0.18);
+    const base = botanicalDark ? 1.85 : botanicalLight ? 0.35 : 1.0;
+    // Over botanical glass: keep some light so bottle refraction stays readable
+    const overMul = motion.current.overGlass ? (botanicalDark ? 0.75 : botanicalLight ? 0.2 : 0.2) : 1;
+    const target = base * overMul;
+    light.current.intensity = THREE.MathUtils.lerp(light.current.intensity, target, 0.12);
   });
-  return <pointLight ref={light} intensity={1.1} distance={10} decay={2} color="#ffffff" />;
+  return (
+    <pointLight
+      ref={light}
+      intensity={botanicalDark ? 1.85 : botanicalLight ? 0.35 : 1.0}
+      distance={botanicalDark ? 14 : 10}
+      decay={2}
+      color={botanicalDark ? '#b8e0b0' : '#ffffff'}
+    />
+  );
+}
+
+function useShellTexture(appearance: Appearance): Texture | null {
+  const url = shellTextureUrl(appearance);
+  const [texture, setTexture] = useState<Texture | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    const loader = new THREE.TextureLoader();
+    loader.load(
+      url,
+      (tex) => {
+        if (cancelled) {
+          tex.dispose();
+          return;
+        }
+        tex.colorSpace = THREE.SRGBColorSpace;
+        tex.wrapS = tex.wrapT = THREE.MirroredRepeatWrapping;
+        tex.anisotropy = 4;
+        tex.needsUpdate = true;
+        setTexture((prev) => {
+          prev?.dispose();
+          return tex;
+        });
+      },
+      undefined,
+      () => {
+        if (!cancelled) setTexture(null);
+      }
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [url]);
+  useEffect(() => () => texture?.dispose(), [texture]);
+  return texture;
+}
+
+function clearGlassLit(el: HTMLElement | null) {
+  if (!el) return;
+  el.removeAttribute('data-glass-lit');
+  el.style.removeProperty('--glass-mx');
+  el.style.removeProperty('--glass-my');
+}
+
+function lightGlassCard(el: HTMLElement, clientX: number, clientY: number) {
+  const rect = el.getBoundingClientRect();
+  const w = Math.max(1, rect.width);
+  const h = Math.max(1, rect.height);
+  const lx = (clientX - rect.left) / w;
+  const ly = (clientY - rect.top) / h;
+  // Real glass catches specular at the nearest rim/corner, not as a face bloom
+  const cornerX = lx < 0.5 ? 0 : 1;
+  const cornerY = ly < 0.5 ? 0 : 1;
+  const rimX = THREE.MathUtils.lerp(cornerX, lx, 0.22);
+  const rimY = THREE.MathUtils.lerp(cornerY, ly, 0.22);
+  el.style.setProperty('--glass-mx', `${rimX * 100}%`);
+  el.style.setProperty('--glass-my', `${rimY * 100}%`);
+  el.setAttribute('data-glass-lit', 'true');
 }
 
 function World({
@@ -66,6 +155,7 @@ function World({
   motion: MutableRefObject<MotionState>;
 }) {
   const botanical = appearance.theme === 'botanical';
+  const backdrop = useShellTexture(appearance);
   const root = useRef<Group>(null);
   useFrame(() => {
     if (!root.current || appearance.reduceMotion) return;
@@ -78,117 +168,128 @@ function World({
     <group ref={root}>
       <color attach="background" args={[colors.bg]} />
       <EnvironmentMap />
-      <ambientLight intensity={botanical ? (appearance.mode === 'light' ? 0.6 : 0.4) : appearance.mode === 'light' ? 0.5 : 0.28} />
+      <ambientLight intensity={botanical ? (appearance.mode === 'light' ? 0.38 : 0.55) : appearance.mode === 'light' ? 0.55 : 0.3} />
       <directionalLight
         position={botanical ? [5, 8, 4] : [0, 10, 3]}
-        intensity={appearance.mode === 'light' ? 1.4 : botanical ? 1.1 : 1.6}
+        intensity={appearance.mode === 'light' ? (botanical ? 0.65 : 1.25) : botanical ? 1.35 : 1.5}
         color={colors.light}
       />
       {!botanical ? <directionalLight position={[-2, 4, 2]} intensity={0.25} color="#888888" /> : (
-        <directionalLight position={[-5, 2, 1]} intensity={0.4} color={colors.accent} />
+        <directionalLight position={[-5, 2, 1]} intensity={appearance.mode === 'light' ? 0.12 : 0.45} color={colors.accent} />
       )}
-      <PointerLight motion={motion} reduceMotion={appearance.reduceMotion} />
-      {botanical ? <BotanicalWorld colors={colors} mode={appearance.mode} /> : <BrutalistWorld colors={colors} mode={appearance.mode} />}
-      {botanical ? <BotanicalGlass accents={colors} reduceMotion={appearance.reduceMotion} lightMode={appearance.mode === 'light'} /> : null}
+      <PointerLight
+        motion={motion}
+        reduceMotion={appearance.reduceMotion}
+        botanicalLight={botanical && appearance.mode === 'light'}
+        botanicalDark={botanical && appearance.mode === 'dark'}
+      />
+      {botanical
+        ? <BotanicalWorld mode={appearance.mode} map={backdrop} motion={motion} reduceMotion={appearance.reduceMotion} />
+        : <BrutalistWorld colors={colors} mode={appearance.mode} map={backdrop} motion={motion} reduceMotion={appearance.reduceMotion} />}
     </group>
   );
 }
 
-function BotanicalWorld({ mode }: { colors: Colors; mode: 'light' | 'dark' }) {
-  const foliage = useMemo(() => makeFoliageTexture(mode), [mode]);
+function BotanicalWorld({
+  mode,
+  map,
+  motion,
+  reduceMotion
+}: {
+  mode: 'light' | 'dark';
+  map: Texture | null;
+  motion: MutableRefObject<MotionState>;
+  reduceMotion: boolean;
+}) {
   const shadows = useMemo(() => (mode === 'light' ? makeLeafShadowTexture() : null), [mode]);
-  const silhouette = useMemo(() => makeBotanicalSilhouette(mode === 'light' ? '#6B705C' : '#3A6B48'), [mode]);
+  const material = useMemo(() => createBotanicalWindMaterial(mode), [mode]);
   useEffect(() => () => {
-    foliage.dispose();
     shadows?.dispose();
-    silhouette.dispose();
-  }, [foliage, shadows, silhouette]);
+    material.dispose();
+  }, [shadows, material]);
+
+  useFrame((state) => {
+    syncBackdropEffect(material, {
+      map,
+      mouse: motion.current.mouse,
+      velocity: motion.current.velocity,
+      time: state.clock.elapsedTime,
+      // Wind keeps running under glass; bottle refraction is compositor-side
+      active: !reduceMotion,
+      lightMode: mode === 'light',
+      windEnergy: motion.current.windEnergy
+    });
+  });
+
   return (
     <>
-      <mesh position={[0, 0, -3.2]} scale={[1.2, 1.2, 1]}>
-        <planeGeometry args={[18, 12]} />
-        <meshStandardMaterial map={foliage} roughness={0.92} metalness={0} color={mode === 'dark' ? '#c8d4c0' : '#ffffff'} />
+      <mesh position={[0, 0, -3.2]}>
+        <planeGeometry args={[16, 11]} />
+        <primitive object={material} attach="material" />
       </mesh>
-      {shadows ? (
-        <mesh position={[0.3, 0.5, -3.0]} scale={[1.25, 1.25, 1]}>
+      {map ? (
+        <mesh position={[0.4, -0.2, -3.35]} scale={[1.15, 1.15, 1]}>
           <planeGeometry args={[16, 11]} />
-          <meshBasicMaterial map={shadows} transparent opacity={0.55} depthWrite={false} />
+          <meshBasicMaterial
+            map={map}
+            transparent
+            opacity={mode === 'dark' ? 0.55 : 0.35}
+            depthWrite={false}
+            color={mode === 'dark' ? '#c8e0c0' : '#ffffff'}
+          />
         </mesh>
       ) : null}
-      {(
-        [
-          [-5.2, -2.4, -2.4, 1.15],
-          [5.1, -2.2, -2.5, 1.05],
-          [-4.8, 2.6, -2.6, 0.85],
-          [4.6, 2.4, -2.55, 0.9]
-        ] as const
-      ).map(([x, y, z, s], i) => (
-        <mesh key={i} position={[x, y, z]} scale={[s * (i % 2 ? -1 : 1), s, 1]}>
-          <planeGeometry args={[3.2, 3.2]} />
-          <meshBasicMaterial map={silhouette} transparent opacity={mode === 'light' ? 0.5 : 0.38} depthWrite={false} />
+      {shadows ? (
+        <mesh position={[0.2, 0.35, -3.05]} scale={[1.2, 1.2, 1]}>
+          <planeGeometry args={[15, 10]} />
+          <meshBasicMaterial map={shadows} transparent opacity={0.4} depthWrite={false} />
         </mesh>
-      ))}
+      ) : null}
     </>
   );
 }
 
-function BotanicalGlass({
-  accents,
-  reduceMotion,
-  lightMode
+function BrutalistWorld({
+  colors,
+  mode,
+  map,
+  motion,
+  reduceMotion
 }: {
-  accents: Colors;
+  colors: Colors;
+  mode: 'light' | 'dark';
+  map: Texture | null;
+  motion: MutableRefObject<MotionState>;
   reduceMotion: boolean;
-  lightMode: boolean;
 }) {
-  const group = useRef<Group>(null);
-  useFrame((state) => {
-    if (!group.current || reduceMotion) return;
-    const t = state.clock.elapsedTime;
-    group.current.position.y = Math.sin(t * 0.18) * 0.03;
-  });
-  return (
-    <group ref={group}>
-      {[[-2.4, 0.2, -1.9], [2.5, -0.4, -2.0]].map((p, i) => (
-        <mesh key={i} position={p as [number, number, number]} scale={0.7 + i * 0.08}>
-          <icosahedronGeometry args={[0.95, 1]} />
-          <meshPhysicalMaterial
-            color={i % 2 ? accents.a : accents.b}
-            roughness={0.45}
-            transmission={lightMode ? 0.4 : 0.2}
-            thickness={0.9}
-            transparent
-            opacity={0.45}
-            clearcoat={0.5}
-          />
-        </mesh>
-      ))}
-    </group>
-  );
-}
+  const material = useMemo(() => createBrutalistCrumbleMaterial(mode), [mode]);
+  useEffect(() => () => material.dispose(), [material]);
 
-function BrutalistWorld({ colors, mode }: { colors: Colors; mode: 'light' | 'dark' }) {
-  const concrete = useMemo(() => makeConcreteTexture(mode), [mode]);
-  useEffect(() => () => concrete.dispose(), [concrete]);
+  useFrame((state) => {
+    syncBackdropEffect(material, {
+      map,
+      mouse: motion.current.mouse,
+      velocity: motion.current.velocity,
+      time: state.clock.elapsedTime,
+      active: !reduceMotion && !motion.current.overGlass,
+      lightMode: mode === 'light'
+    });
+  });
+
   return (
     <>
       <mesh position={[0, 0, -3.15]}>
-        <planeGeometry args={[20, 14]} />
-        <meshStandardMaterial map={concrete} roughness={1} metalness={0.02} color={mode === 'dark' ? '#c8c8c8' : '#ffffff'} />
+        <planeGeometry args={[18, 12]} />
+        <primitive object={material} attach="material" />
       </mesh>
-      <mesh position={[0, 0.4, -3.05]}>
-        <planeGeometry args={[10, 8]} />
-        <meshBasicMaterial
-          color="#ffffff"
-          transparent
-          opacity={mode === 'dark' ? 0.07 : 0.12}
-          depthWrite={false}
-        />
+      <mesh position={[0, 0.5, -3.05]}>
+        <planeGeometry args={[11, 8]} />
+        <meshBasicMaterial color="#ffffff" transparent opacity={mode === 'dark' ? 0.06 : 0.1} depthWrite={false} />
       </mesh>
-      {[[-3.2, 1.1, -2.3], [3.0, -0.9, -2.4]].map((p, i) => (
+      {[[-3.2, 1.1, -2.35], [3.0, -0.9, -2.45]].map((p, i) => (
         <mesh key={i} position={p as [number, number, number]} rotation={[0.02, 0.08 * (i ? -1 : 1), 0]}>
-          <boxGeometry args={[2.8, 2.0, 0.12]} />
-          <meshStandardMaterial color={colors.a} roughness={0.95} metalness={0.06} />
+          <boxGeometry args={[2.6, 1.8, 0.1]} />
+          <meshStandardMaterial color={colors.a} roughness={0.96} metalness={0.04} />
         </mesh>
       ))}
     </>
@@ -201,9 +302,14 @@ function AtmosphereCompositor({ appearance }: Props) {
   const [scene] = useState(() => new THREE.Scene());
   const motion = useRef<MotionState>({
     mouse: new THREE.Vector2(0.5, 0.5),
+    velocity: new THREE.Vector2(0, 0),
     scroll: 0,
-    scrollTarget: 0
+    scrollTarget: 0,
+    overGlass: false,
+    windEnergy: 0
   });
+  const litGlass = useRef<HTMLElement | null>(null);
+  const lastPointer = useRef<{ x: number; y: number; t: number } | null>(null);
   const target = useMemo(() => {
     const rt = new THREE.WebGLRenderTarget(1, 1, {
       minFilter: THREE.LinearFilter,
@@ -223,24 +329,55 @@ function AtmosphereCompositor({ appearance }: Props) {
 
   useEffect(() => {
     const onMove = (event: PointerEvent) => {
-      // UV origin bottom-left to match shader vUv / FBO with flipY=false
-      motion.current.mouse.set(
-        event.clientX / Math.max(1, window.innerWidth),
-        1 - event.clientY / Math.max(1, window.innerHeight)
-      );
+      const nx = event.clientX / Math.max(1, window.innerWidth);
+      const ny = 1 - event.clientY / Math.max(1, window.innerHeight);
+      const now = performance.now();
+      if (lastPointer.current) {
+        const dt = Math.max(0.008, (now - lastPointer.current.t) / 1000);
+        const vx = (nx - lastPointer.current.x) / dt;
+        const vy = (ny - lastPointer.current.y) / dt;
+        motion.current.velocity.x = THREE.MathUtils.clamp(vx * 0.04, -1.5, 1.5);
+        motion.current.velocity.y = THREE.MathUtils.clamp(vy * 0.04, -1.5, 1.5);
+      }
+      lastPointer.current = { x: nx, y: ny, t: now };
+
+      motion.current.mouse.set(nx, ny);
+
+      const hit = document.elementFromPoint(event.clientX, event.clientY);
+      const glass = hit instanceof Element ? (hit.closest('.glass') as HTMLElement | null) : null;
+      motion.current.overGlass = Boolean(glass);
+
+      if (litGlass.current && litGlass.current !== glass) clearGlassLit(litGlass.current);
+      if (glass && !appearance.reduceMotion) {
+        lightGlassCard(glass, event.clientX, event.clientY);
+        litGlass.current = glass;
+      } else {
+        clearGlassLit(litGlass.current);
+        litGlass.current = null;
+      }
+    };
+    const onLeave = () => {
+      motion.current.overGlass = false;
+      motion.current.velocity.set(0, 0);
+      clearGlassLit(litGlass.current);
+      litGlass.current = null;
     };
     const onWheel = (event: WheelEvent) => {
-      // Mouse wheel and two-finger trackpad both fire wheel
       motion.current.scrollTarget += event.deltaY * 0.004;
       motion.current.scrollTarget = THREE.MathUtils.clamp(motion.current.scrollTarget, -8, 8);
     };
     window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('pointerleave', onLeave);
+    window.addEventListener('blur', onLeave);
     window.addEventListener('wheel', onWheel, { passive: true });
     return () => {
       window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerleave', onLeave);
+      window.removeEventListener('blur', onLeave);
       window.removeEventListener('wheel', onWheel);
+      clearGlassLit(litGlass.current);
     };
-  }, []);
+  }, [appearance.reduceMotion]);
 
   useEffect(() => () => {
     target.dispose();
@@ -256,20 +393,28 @@ function AtmosphereCompositor({ appearance }: Props) {
       camera.updateProjectionMatrix();
     }
 
-    motion.current.scroll = THREE.MathUtils.damp(
-      motion.current.scroll,
-      motion.current.scrollTarget,
-      4,
-      state.clock.getDelta()
+    const dt = state.clock.getDelta();
+    motion.current.scroll = THREE.MathUtils.damp(motion.current.scroll, motion.current.scrollTarget, 4, dt);
+    motion.current.scrollTarget = THREE.MathUtils.damp(motion.current.scrollTarget, 0, 0.6, dt);
+    motion.current.velocity.multiplyScalar(Math.exp(-dt * 3.2));
+
+    // Wind energy from mouse speed: slow ≈ 0, flick ≈ 1; decays when still
+    const speed = motion.current.velocity.length();
+    const targetEnergy = THREE.MathUtils.clamp(Math.pow(speed * 2.4, 1.15), 0, 1);
+    motion.current.windEnergy = THREE.MathUtils.damp(
+      motion.current.windEnergy,
+      targetEnergy,
+      targetEnergy > motion.current.windEnergy ? 8 : 2.2,
+      dt
     );
-    // Settle scroll target slowly so warp eases out
-    motion.current.scrollTarget = THREE.MathUtils.damp(motion.current.scrollTarget, 0, 0.6, state.clock.getDelta());
 
     material.uniforms.uLightMode!.value = appearance.mode === 'light' ? 1 : 0;
     material.uniforms.uBrutalist!.value = appearance.theme === 'brutalist' ? 1 : 0;
     material.uniforms.uReduceMotion!.value = appearance.reduceMotion ? 1 : 0;
+    material.uniforms.uOverGlass!.value = motion.current.overGlass ? 1 : 0;
     material.uniforms.uTime!.value = state.clock.elapsedTime;
     material.uniforms.uMouse!.value.copy(motion.current.mouse);
+    material.uniforms.uVelocity!.value.copy(motion.current.velocity);
     material.uniforms.uScroll!.value = motion.current.scroll;
 
     gl.setRenderTarget(target);
@@ -322,7 +467,6 @@ export function GlassAtmosphere({ appearance }: Props) {
           gl.outputColorSpace = THREE.SRGBColorSpace;
         }}
       >
-        {/* Fullscreen NDC quad ignores default camera; compositor owns FBO camera */}
         <AtmosphereCompositor appearance={appearance} />
       </Canvas>
     </div>
