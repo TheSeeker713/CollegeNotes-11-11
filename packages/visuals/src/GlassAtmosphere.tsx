@@ -1,5 +1,5 @@
 import { Canvas, createPortal, useFrame, useThree } from '@react-three/fiber';
-import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
+import { useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
 import type { Appearance } from '@collegenotes/domain';
 import type { Group, Mesh, ShaderMaterial } from 'three';
 import * as THREE from 'three';
@@ -15,18 +15,19 @@ import {
 
 type Props = { appearance: Appearance };
 type Colors = ReturnType<typeof palette>;
+type MotionState = { mouse: THREE.Vector2; scroll: number; scrollTarget: number };
 
 function palette(appearance: Appearance) {
   if (appearance.theme === 'botanical' && appearance.mode === 'light') {
-    return { bg: '#D9E4C8', a: '#4F7340', b: '#7FA86A', c: '#C4B48A', light: '#FFF9E8', accent: '#2F5A28', glass: '#FFFFFF' };
+    return { bg: '#E8E4D6', a: '#6B705C', b: '#8FA876', c: '#C9B896', light: '#FFF8EC', accent: '#3D5A3C', glass: '#F7F4EC' };
   }
   if (appearance.theme === 'botanical' && appearance.mode === 'dark') {
-    return { bg: '#07110C', a: '#1A3A28', b: '#2F5A3A', c: '#0C1C14', light: '#BBD5AB', accent: '#7CBB86', glass: '#1A2B22' };
+    return { bg: '#0A1410', a: '#1A3A28', b: '#2F5A3A', c: '#0C1C14', light: '#BBD5AB', accent: '#7CBB86', glass: '#1A2B22' };
   }
   if (appearance.theme === 'brutalist' && appearance.mode === 'light') {
-    return { bg: '#D2D1CB', a: '#A8A9A2', b: '#C4C5BE', c: '#8E8E86', light: '#FFFFFF', accent: '#15191C', glass: '#FFFFFF' };
+    return { bg: '#D8D7D1', a: '#B0B0A8', b: '#C8C8C0', c: '#9A9A92', light: '#FFFFFF', accent: '#1A1A1A', glass: '#FFFFFF' };
   }
-  return { bg: '#0A0C10', a: '#2A2E35', b: '#1A1D22', c: '#3A4048', light: '#E8ECF2', accent: '#B9CEFF', glass: '#202328' };
+  return { bg: '#121212', a: '#2A2A2A', b: '#1A1A1A', c: '#3A3A3A', light: '#F0F0F0', accent: '#FFFFFF', glass: '#2A2A2A' };
 }
 
 function EnvironmentMap() {
@@ -44,37 +45,59 @@ function EnvironmentMap() {
   return null;
 }
 
-function PointerLight({ reduceMotion }: { reduceMotion: boolean }) {
+function PointerLight({ motion, reduceMotion }: { motion: MutableRefObject<MotionState>; reduceMotion: boolean }) {
   const light = useRef<THREE.PointLight>(null);
-  useFrame((state) => {
+  useFrame(() => {
     if (!light.current || reduceMotion) return;
-    const x = (state.pointer.x) * 3.2;
-    const y = (state.pointer.y) * 2.2;
-    light.current.position.lerp(new THREE.Vector3(x, y, 2.4), 0.12);
+    const x = (motion.current.mouse.x - 0.5) * 6.5;
+    const y = (motion.current.mouse.y - 0.5) * 4.2;
+    light.current.position.lerp(new THREE.Vector3(x, y, 2.6), 0.18);
   });
-  return <pointLight ref={light} intensity={0.85} distance={8} decay={2} color="#ffffff" />;
+  return <pointLight ref={light} intensity={1.1} distance={10} decay={2} color="#ffffff" />;
 }
 
-function World({ appearance, colors }: { appearance: Appearance; colors: Colors }) {
+function World({
+  appearance,
+  colors,
+  motion
+}: {
+  appearance: Appearance;
+  colors: Colors;
+  motion: MutableRefObject<MotionState>;
+}) {
   const botanical = appearance.theme === 'botanical';
+  const root = useRef<Group>(null);
+  useFrame(() => {
+    if (!root.current || appearance.reduceMotion) return;
+    const s = motion.current.scroll;
+    root.current.position.x = THREE.MathUtils.lerp(root.current.position.x, s * 0.015, 0.08);
+    root.current.position.y = THREE.MathUtils.lerp(root.current.position.y, -s * 0.02, 0.08);
+    root.current.rotation.z = THREE.MathUtils.lerp(root.current.rotation.z, s * 0.002, 0.08);
+  });
   return (
-    <group>
+    <group ref={root}>
       <color attach="background" args={[colors.bg]} />
       <EnvironmentMap />
-      <ambientLight intensity={botanical ? (appearance.mode === 'light' ? 0.55 : 0.45) : 0.35} />
-      <directionalLight position={[5, 8, 4]} intensity={appearance.mode === 'light' ? 1.55 : 1.15} color={colors.light} />
-      <directionalLight position={[-5, 2, 1]} intensity={0.45} color={colors.accent} />
-      <PointerLight reduceMotion={appearance.reduceMotion} />
+      <ambientLight intensity={botanical ? (appearance.mode === 'light' ? 0.6 : 0.4) : appearance.mode === 'light' ? 0.5 : 0.28} />
+      <directionalLight
+        position={botanical ? [5, 8, 4] : [0, 10, 3]}
+        intensity={appearance.mode === 'light' ? 1.4 : botanical ? 1.1 : 1.6}
+        color={colors.light}
+      />
+      {!botanical ? <directionalLight position={[-2, 4, 2]} intensity={0.25} color="#888888" /> : (
+        <directionalLight position={[-5, 2, 1]} intensity={0.4} color={colors.accent} />
+      )}
+      <PointerLight motion={motion} reduceMotion={appearance.reduceMotion} />
       {botanical ? <BotanicalWorld colors={colors} mode={appearance.mode} /> : <BrutalistWorld colors={colors} mode={appearance.mode} />}
-      <RefractiveSlabs colors={colors} reduceMotion={appearance.reduceMotion} lightMode={appearance.mode === 'light'} />
+      {botanical ? <BotanicalGlass accents={colors} reduceMotion={appearance.reduceMotion} lightMode={appearance.mode === 'light'} /> : null}
     </group>
   );
 }
 
-function BotanicalWorld({ colors, mode }: { colors: Colors; mode: 'light' | 'dark' }) {
+function BotanicalWorld({ mode }: { colors: Colors; mode: 'light' | 'dark' }) {
   const foliage = useMemo(() => makeFoliageTexture(mode), [mode]);
   const shadows = useMemo(() => (mode === 'light' ? makeLeafShadowTexture() : null), [mode]);
-  const silhouette = useMemo(() => makeBotanicalSilhouette(mode === 'light' ? '#4F7340' : '#3A6B48'), [mode]);
+  const silhouette = useMemo(() => makeBotanicalSilhouette(mode === 'light' ? '#6B705C' : '#3A6B48'), [mode]);
   useEffect(() => () => {
     foliage.dispose();
     shadows?.dispose();
@@ -84,43 +107,63 @@ function BotanicalWorld({ colors, mode }: { colors: Colors; mode: 'light' | 'dar
     <>
       <mesh position={[0, 0, -3.2]} scale={[1.2, 1.2, 1]}>
         <planeGeometry args={[18, 12]} />
-        <meshStandardMaterial map={foliage} roughness={0.92} metalness={0} color={mode === 'dark' ? '#c8d4c0' : '#eef5e4'} />
+        <meshStandardMaterial map={foliage} roughness={0.92} metalness={0} color={mode === 'dark' ? '#c8d4c0' : '#ffffff'} />
       </mesh>
       {shadows ? (
         <mesh position={[0.3, 0.5, -3.0]} scale={[1.25, 1.25, 1]}>
           <planeGeometry args={[16, 11]} />
-          <meshBasicMaterial map={shadows} transparent opacity={0.7} depthWrite={false} />
+          <meshBasicMaterial map={shadows} transparent opacity={0.55} depthWrite={false} />
         </mesh>
       ) : null}
       {(
         [
-          [-5.2, -2.4, -2.4, 1.2],
-          [5.1, -2.2, -2.5, 1.1],
-          [-4.8, 2.6, -2.6, 0.9],
-          [4.6, 2.4, -2.55, 0.95]
+          [-5.2, -2.4, -2.4, 1.15],
+          [5.1, -2.2, -2.5, 1.05],
+          [-4.8, 2.6, -2.6, 0.85],
+          [4.6, 2.4, -2.55, 0.9]
         ] as const
       ).map(([x, y, z, s], i) => (
         <mesh key={i} position={[x, y, z]} scale={[s * (i % 2 ? -1 : 1), s, 1]}>
-          <planeGeometry args={[3.4, 3.4]} />
-          <meshBasicMaterial map={silhouette} transparent opacity={mode === 'light' ? 0.62 : 0.4} depthWrite={false} />
-        </mesh>
-      ))}
-      {[[-2.6, 0.3, -2.0], [2.8, -0.5, -2.1], [0.1, 1.35, -2.25], [-1.2, -1.4, -1.9]].map((p, i) => (
-        <mesh key={`orb-${i}`} position={p as [number, number, number]} scale={0.65 + i * 0.1}>
-          <icosahedronGeometry args={[1.05, 1]} />
-          <meshPhysicalMaterial
-            color={i % 2 ? colors.a : colors.b}
-            roughness={0.35}
-            transmission={mode === 'light' ? 0.55 : 0.25}
-            thickness={1.1}
-            transparent
-            opacity={mode === 'light' ? 0.7 : 0.6}
-            clearcoat={0.8}
-            ior={1.4}
-          />
+          <planeGeometry args={[3.2, 3.2]} />
+          <meshBasicMaterial map={silhouette} transparent opacity={mode === 'light' ? 0.5 : 0.38} depthWrite={false} />
         </mesh>
       ))}
     </>
+  );
+}
+
+function BotanicalGlass({
+  accents,
+  reduceMotion,
+  lightMode
+}: {
+  accents: Colors;
+  reduceMotion: boolean;
+  lightMode: boolean;
+}) {
+  const group = useRef<Group>(null);
+  useFrame((state) => {
+    if (!group.current || reduceMotion) return;
+    const t = state.clock.elapsedTime;
+    group.current.position.y = Math.sin(t * 0.18) * 0.03;
+  });
+  return (
+    <group ref={group}>
+      {[[-2.4, 0.2, -1.9], [2.5, -0.4, -2.0]].map((p, i) => (
+        <mesh key={i} position={p as [number, number, number]} scale={0.7 + i * 0.08}>
+          <icosahedronGeometry args={[0.95, 1]} />
+          <meshPhysicalMaterial
+            color={i % 2 ? accents.a : accents.b}
+            roughness={0.45}
+            transmission={lightMode ? 0.4 : 0.2}
+            thickness={0.9}
+            transparent
+            opacity={0.45}
+            clearcoat={0.5}
+          />
+        </mesh>
+      ))}
+    </group>
   );
 }
 
@@ -129,74 +172,45 @@ function BrutalistWorld({ colors, mode }: { colors: Colors; mode: 'light' | 'dar
   useEffect(() => () => concrete.dispose(), [concrete]);
   return (
     <>
-      <mesh position={[0, 0, -3.1]}>
-        <planeGeometry args={[18, 12]} />
-        <meshStandardMaterial map={concrete} roughness={0.98} metalness={0.05} />
+      <mesh position={[0, 0, -3.15]}>
+        <planeGeometry args={[20, 14]} />
+        <meshStandardMaterial map={concrete} roughness={1} metalness={0.02} color={mode === 'dark' ? '#c8c8c8' : '#ffffff'} />
       </mesh>
-      {[[-2.4, 0.8, -2.15], [2.5, -0.7, -2.3], [0.1, 0.15, -2.45]].map((p, i) => (
-        <mesh key={i} position={p as [number, number, number]} rotation={[0.04 * i, 0.1, 0]}>
-          <boxGeometry args={[3.8, 2.5, 0.16]} />
-          <meshStandardMaterial color={colors.a} roughness={0.9} metalness={0.1} />
+      <mesh position={[0, 0.4, -3.05]}>
+        <planeGeometry args={[10, 8]} />
+        <meshBasicMaterial
+          color="#ffffff"
+          transparent
+          opacity={mode === 'dark' ? 0.07 : 0.12}
+          depthWrite={false}
+        />
+      </mesh>
+      {[[-3.2, 1.1, -2.3], [3.0, -0.9, -2.4]].map((p, i) => (
+        <mesh key={i} position={p as [number, number, number]} rotation={[0.02, 0.08 * (i ? -1 : 1), 0]}>
+          <boxGeometry args={[2.8, 2.0, 0.12]} />
+          <meshStandardMaterial color={colors.a} roughness={0.95} metalness={0.06} />
         </mesh>
       ))}
     </>
   );
 }
 
-function RefractiveSlabs({
-  colors,
-  reduceMotion,
-  lightMode
-}: {
-  colors: Colors;
-  reduceMotion: boolean;
-  lightMode: boolean;
-}) {
-  const group = useRef<Group>(null);
-  useFrame((state) => {
-    if (!group.current || reduceMotion) return;
-    const t = state.clock.elapsedTime;
-    group.current.rotation.y = Math.sin(t * 0.12) * 0.04;
-    group.current.position.y = Math.sin(t * 0.2) * 0.04;
-  });
-  const props = {
-    color: new THREE.Color(lightMode ? '#ffffff' : colors.glass),
-    roughness: lightMode ? 0.05 : 0.12,
-    metalness: 0,
-    transmission: lightMode ? 0.98 : 0.88,
-    thickness: lightMode ? 1.6 : 1.3,
-    transparent: true,
-    opacity: lightMode ? 0.22 : 0.38,
-    clearcoat: 1,
-    clearcoatRoughness: 0.04,
-    ior: 1.45,
-    envMapIntensity: lightMode ? 1.4 : 1.0
-  } as const;
-  return (
-    <group ref={group}>
-      <mesh position={[-2.0, 0.2, -0.35]} rotation={[0.05, 0.4, -0.03]}>
-        <boxGeometry args={[2.0, 2.8, 0.14]} />
-        <meshPhysicalMaterial {...props} />
-      </mesh>
-      <mesh position={[2.1, -0.35, -0.5]} rotation={[-0.04, -0.3, 0.05]}>
-        <boxGeometry args={[2.5, 1.8, 0.14]} />
-        <meshPhysicalMaterial {...props} opacity={lightMode ? 0.18 : 0.32} />
-      </mesh>
-    </group>
-  );
-}
-
-function LiquidGlassCompositor({ appearance }: Props) {
+function AtmosphereCompositor({ appearance }: Props) {
   const { gl, size } = useThree();
   const colors = useMemo(() => palette(appearance), [appearance.theme, appearance.mode]);
   const [scene] = useState(() => new THREE.Scene());
-  const mouse = useRef(new THREE.Vector2(0.72, 0.28));
+  const motion = useRef<MotionState>({
+    mouse: new THREE.Vector2(0.5, 0.5),
+    scroll: 0,
+    scrollTarget: 0
+  });
   const target = useMemo(() => {
     const rt = new THREE.WebGLRenderTarget(1, 1, {
       minFilter: THREE.LinearFilter,
       magFilter: THREE.LinearFilter,
       colorSpace: THREE.SRGBColorSpace
     });
+    rt.texture.flipY = false;
     return rt;
   }, []);
   const material = useMemo(() => createLiquidGlassMaterial(), []);
@@ -209,10 +223,23 @@ function LiquidGlassCompositor({ appearance }: Props) {
 
   useEffect(() => {
     const onMove = (event: PointerEvent) => {
-      mouse.current.set(event.clientX / Math.max(1, window.innerWidth), 1 - event.clientY / Math.max(1, window.innerHeight));
+      // UV origin bottom-left to match shader vUv / FBO with flipY=false
+      motion.current.mouse.set(
+        event.clientX / Math.max(1, window.innerWidth),
+        1 - event.clientY / Math.max(1, window.innerHeight)
+      );
+    };
+    const onWheel = (event: WheelEvent) => {
+      // Mouse wheel and two-finger trackpad both fire wheel
+      motion.current.scrollTarget += event.deltaY * 0.004;
+      motion.current.scrollTarget = THREE.MathUtils.clamp(motion.current.scrollTarget, -8, 8);
     };
     window.addEventListener('pointermove', onMove, { passive: true });
-    return () => window.removeEventListener('pointermove', onMove);
+    window.addEventListener('wheel', onWheel, { passive: true });
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('wheel', onWheel);
+    };
   }, []);
 
   useEffect(() => () => {
@@ -227,18 +254,23 @@ function LiquidGlassCompositor({ appearance }: Props) {
       target.setSize(w, h);
       camera.aspect = size.width / Math.max(1, size.height);
       camera.updateProjectionMatrix();
-      material.uniforms.uResolution!.value.set(w, h);
     }
 
-    const wide = size.width > 900;
-    material.uniforms.uPanelA!.value.set(wide ? 0.135 : 0.5, 0.5, wide ? 0.115 : 0.42, wide ? 0.4 : 0.08);
-    material.uniforms.uPanelB!.value.set(wide ? 0.62 : 0.5, 0.9, wide ? 0.3 : 0.42, 0.04);
-    material.uniforms.uPanelC!.value.set(wide ? 0.62 : 0.5, 0.48, wide ? 0.32 : 0.42, wide ? 0.34 : 0.36);
-    material.uniforms.uRadius!.value = wide ? 0.032 : 0.04;
+    motion.current.scroll = THREE.MathUtils.damp(
+      motion.current.scroll,
+      motion.current.scrollTarget,
+      4,
+      state.clock.getDelta()
+    );
+    // Settle scroll target slowly so warp eases out
+    motion.current.scrollTarget = THREE.MathUtils.damp(motion.current.scrollTarget, 0, 0.6, state.clock.getDelta());
+
     material.uniforms.uLightMode!.value = appearance.mode === 'light' ? 1 : 0;
+    material.uniforms.uBrutalist!.value = appearance.theme === 'brutalist' ? 1 : 0;
     material.uniforms.uReduceMotion!.value = appearance.reduceMotion ? 1 : 0;
     material.uniforms.uTime!.value = state.clock.elapsedTime;
-    material.uniforms.uMouse!.value.copy(mouse.current);
+    material.uniforms.uMouse!.value.copy(motion.current.mouse);
+    material.uniforms.uScroll!.value = motion.current.scroll;
 
     gl.setRenderTarget(target);
     gl.clear();
@@ -246,37 +278,18 @@ function LiquidGlassCompositor({ appearance }: Props) {
     gl.setRenderTarget(null);
 
     material.uniforms.tScene!.value = target.texture;
-    if (quad.current) {
-      (quad.current.material as ShaderMaterial).uniformsNeedUpdate = true;
-    }
+    if (quad.current) (quad.current.material as ShaderMaterial).uniformsNeedUpdate = true;
   });
 
   return (
     <>
-      {createPortal(<World appearance={appearance} colors={colors} />, scene)}
-      <mesh ref={quad} frustumCulled={false} renderOrder={10}>
+      {createPortal(<World appearance={appearance} colors={colors} motion={motion} />, scene)}
+      <mesh ref={quad} frustumCulled={false}>
         <planeGeometry args={[2, 2]} />
         <primitive object={material} attach="material" />
       </mesh>
-      <FullscreenQuadBinder meshRef={quad} />
     </>
   );
-}
-
-function FullscreenQuadBinder({ meshRef }: { meshRef: RefObject<Mesh | null> }) {
-  const { camera } = useThree();
-  useFrame(() => {
-    const mesh = meshRef.current;
-    if (!mesh || !(camera instanceof THREE.PerspectiveCamera)) return;
-    mesh.position.copy(camera.position);
-    mesh.quaternion.copy(camera.quaternion);
-    mesh.translateZ(-0.5);
-    const dist = 0.5;
-    const height = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * dist;
-    const width = height * camera.aspect;
-    mesh.scale.set(width, height, 1);
-  });
-  return null;
 }
 
 export function GlassAtmosphere({ appearance }: Props) {
@@ -300,14 +313,17 @@ export function GlassAtmosphere({ appearance }: Props) {
       <Canvas
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
-        camera={{ position: [0, 0, 4.6], fov: 40 }}
+        camera={{ position: [0, 0, 1], fov: 50 }}
+        orthographic={false}
         style={{ width: '100%', height: '100%' }}
         onCreated={({ gl }) => {
-          gl.toneMapping = THREE.NoToneMapping;
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.toneMappingExposure = 1.05;
           gl.outputColorSpace = THREE.SRGBColorSpace;
         }}
       >
-        <LiquidGlassCompositor appearance={appearance} />
+        {/* Fullscreen NDC quad ignores default camera; compositor owns FBO camera */}
+        <AtmosphereCompositor appearance={appearance} />
       </Canvas>
     </div>
   );

@@ -17,14 +17,14 @@ September 18, 2026. Owner authorization `CHANGE-GUI-WEBGL-SHELL`. This records t
 
 Required non-UI checks executed for this pass: types, lint, web build, unit (30), integration (with OS network-denial cases under unrestricted local execution), evals (1), planning (6/6), workflow (44/44). Manual visual acceptance remains pending with the owner. No live provider login, paid request or model download was part of this pass.
 
-## Liquid Glass pass (macOS-aligned)
+## Solidarity + scroll-warp fix
 
-Follow-up after owner feedback that light mode still read as milky CSS and WebGL did not feel optical:
+Owner feedback on live samples vs concepts:
 
-- Full-scene FBO + custom GLSL liquid-glass compositor (refraction, chromatic fringe, Fresnel rim, pointer specular, liquid micro-warp)
-- Glass panel SDF masks aligned to sidebar / topbar / main card regions
-- HTML chrome switched to Apple Clear-style near-transparent surfaces so WebGL optics show through
-- Light-mode backdrop saturation increased so clear glass has content to refract
+- Removed panel-center lens pinch (misread as misaligned cursor light); cursor now drives a soft spotlight only
+- Raised frosted card opacity (~58–62%) and rim/shadow so panels match concept “solidarity”
+- Wheel / two-finger trackpad scroll warps and parallax-shifts the WebGL backdrop
+- Brutalist light/dark rebuilt as monochrome concrete + overhead pool (no botanical green bleed)
 
 Owner visual acceptance remains pending.
 

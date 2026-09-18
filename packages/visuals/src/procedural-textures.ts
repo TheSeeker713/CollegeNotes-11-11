@@ -78,16 +78,24 @@ export function makeFoliageTexture(mode: 'light' | 'dark'): THREE.CanvasTexture 
 export function makeConcreteTexture(mode: 'light' | 'dark'): THREE.CanvasTexture {
   const size = 1024;
   const [el, ctx] = canvas(size);
-  ctx.fillStyle = mode === 'dark' ? '#121418' : '#E6E5DF';
+  ctx.fillStyle = mode === 'dark' ? '#141414' : '#D6D5CF';
   ctx.fillRect(0, 0, size, size);
-  noise(ctx, size, mode === 'dark' ? 0.35 : 0.28, mode === 'dark' ? '090B0D' : '9A9A92');
-  for (let i = 0; i < 120; i++) {
-    ctx.fillStyle = mode === 'dark' ? `rgba(255,255,255,${0.01 + Math.random() * 0.03})` : `rgba(0,0,0,${0.02 + Math.random() * 0.04})`;
-    ctx.fillRect(Math.random() * size, Math.random() * size, 1 + Math.random() * 8, 1 + Math.random() * 3);
+  noise(ctx, size, mode === 'dark' ? 0.45 : 0.32, mode === 'dark' ? '050505' : '8A8A82');
+  for (let i = 0; i < 220; i++) {
+    ctx.fillStyle = mode === 'dark' ? `rgba(255,255,255,${0.01 + Math.random() * 0.04})` : `rgba(0,0,0,${0.02 + Math.random() * 0.05})`;
+    const x = Math.random() * size;
+    const y = Math.random() * size;
+    ctx.fillRect(x, y, 1 + Math.random() * 10, 1 + Math.random() * 4);
+    if (Math.random() > 0.7) {
+      ctx.beginPath();
+      ctx.arc(x, y, Math.random() * 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
-  const vignette = ctx.createRadialGradient(size / 2, size / 2, size * 0.2, size / 2, size / 2, size * 0.75);
-  vignette.addColorStop(0, 'transparent');
-  vignette.addColorStop(1, mode === 'dark' ? 'rgba(0,0,0,0.55)' : 'rgba(40,40,35,0.18)');
+  const vignette = ctx.createRadialGradient(size / 2, size * 0.28, size * 0.1, size / 2, size / 2, size * 0.78);
+  vignette.addColorStop(0, mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.2)');
+  vignette.addColorStop(0.45, 'transparent');
+  vignette.addColorStop(1, mode === 'dark' ? 'rgba(0,0,0,0.65)' : 'rgba(40,40,35,0.22)');
   ctx.fillStyle = vignette;
   ctx.fillRect(0, 0, size, size);
   const tex = new THREE.CanvasTexture(el);

@@ -1,77 +1,77 @@
 :root {
-  /* Apple Liquid Glass–inspired Clear: nearly transparent so WebGL refraction shows through */
-  --cn-canvas: #D9E4C8;
-  --cn-surface: rgba(255, 255, 255, 0.1);
+  /* Frosted glass with solidarity — match Botanical Light concepts (~50% body + strong blur) */
+  --cn-canvas: #E8E4D6;
+  --cn-surface: rgba(255, 252, 246, 0.58);
   --cn-surface-solid: #FFFCF4;
-  --cn-text: #243028;
-  --cn-secondary: #4F5C4A;
-  --cn-accent: #2F5A28;
+  --cn-text: #2A3328;
+  --cn-secondary: #5A6454;
+  --cn-accent: #3D5A3C;
   --cn-on-accent: #FFFFFF;
-  --cn-border: rgba(255, 255, 255, 0.42);
-  --cn-focus: #2F5A28;
+  --cn-border: rgba(255, 255, 255, 0.65);
+  --cn-focus: #3D5A3C;
   --cn-radius: 28px;
   --cn-font-ui: "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --cn-font-heading: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --cn-glass-blur: 28px;
-  --cn-rim: rgba(255, 255, 255, 0.72);
-  --cn-shadow: 0 18px 48px rgba(30, 45, 28, 0.14), 0 2px 6px rgba(30, 45, 28, 0.05);
-  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 0 rgba(255, 255, 255, 0.08);
-  --cn-nav-active: rgba(255, 255, 255, 0.28);
-  --cn-input: rgba(255, 255, 255, 0.28);
+  --cn-glass-blur: 40px;
+  --cn-rim: rgba(255, 255, 255, 0.9);
+  --cn-shadow: 0 20px 50px rgba(40, 50, 35, 0.18), 0 4px 12px rgba(40, 50, 35, 0.08);
+  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(60, 70, 50, 0.06);
+  --cn-nav-active: rgba(107, 112, 92, 0.28);
+  --cn-input: rgba(255, 255, 255, 0.55);
 }
 html[data-theme='botanical'][data-mode='dark'] {
-  --cn-canvas: #07110C;
-  --cn-surface: rgba(255, 255, 255, 0.06);
+  --cn-canvas: #0A1410;
+  --cn-surface: rgba(22, 38, 30, 0.62);
   --cn-surface-solid: #14241B;
   --cn-text: #F2F5EE;
   --cn-secondary: #B7C6B4;
   --cn-accent: #7CBB86;
   --cn-on-accent: #0C1811;
-  --cn-border: rgba(255, 255, 255, 0.16);
+  --cn-border: rgba(200, 230, 205, 0.28);
   --cn-focus: #7CBB86;
-  --cn-rim: rgba(220, 255, 230, 0.32);
-  --cn-shadow: 0 24px 56px rgba(0, 0, 0, 0.5);
-  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
-  --cn-nav-active: rgba(124, 187, 134, 0.2);
-  --cn-input: rgba(0, 0, 0, 0.28);
+  --cn-rim: rgba(220, 255, 230, 0.35);
+  --cn-shadow: 0 24px 56px rgba(0, 0, 0, 0.55);
+  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  --cn-nav-active: rgba(124, 187, 134, 0.28);
+  --cn-input: rgba(8, 16, 12, 0.45);
 }
 html[data-theme='brutalist'][data-mode='light'] {
-  --cn-canvas: #D2D1CB;
-  --cn-surface: rgba(255, 255, 255, 0.12);
+  --cn-canvas: #D8D7D1;
+  --cn-surface: rgba(255, 255, 255, 0.62);
   --cn-surface-solid: #FFFFFF;
   --cn-text: #15191C;
   --cn-secondary: #4A5056;
-  --cn-accent: #15191C;
+  --cn-accent: #1A1A1A;
   --cn-on-accent: #FFFFFF;
-  --cn-border: rgba(255, 255, 255, 0.5);
-  --cn-focus: #153FBA;
-  --cn-radius: 24px;
+  --cn-border: rgba(255, 255, 255, 0.75);
+  --cn-focus: #1A1A1A;
+  --cn-radius: 22px;
   --cn-font-heading: "Avenir Next Condensed", "Arial Narrow", Impact, sans-serif;
-  --cn-rim: rgba(255, 255, 255, 0.85);
-  --cn-shadow: 0 28px 64px rgba(20, 22, 24, 0.22);
-  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 0 rgba(255, 255, 255, 0.1);
-  --cn-nav-active: rgba(21, 25, 28, 0.82);
-  --cn-input: rgba(255, 255, 255, 0.35);
-  --cn-glass-blur: 24px;
+  --cn-rim: rgba(255, 255, 255, 0.95);
+  --cn-shadow: 0 28px 60px rgba(20, 22, 24, 0.28);
+  --cn-inset: inset 0 1.5px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  --cn-nav-active: rgba(26, 26, 26, 0.9);
+  --cn-input: rgba(236, 236, 232, 0.85);
+  --cn-glass-blur: 36px;
 }
 html[data-theme='brutalist'][data-mode='dark'] {
-  --cn-canvas: #0A0C10;
-  --cn-surface: rgba(255, 255, 255, 0.07);
-  --cn-surface-solid: #1A1E24;
-  --cn-text: #F5F6F7;
-  --cn-secondary: #C8D0DA;
+  --cn-canvas: #121212;
+  --cn-surface: rgba(40, 40, 42, 0.58);
+  --cn-surface-solid: #1C1C1E;
+  --cn-text: #F5F5F5;
+  --cn-secondary: #B0B0B0;
   --cn-accent: #FFFFFF;
-  --cn-on-accent: #111316;
-  --cn-border: rgba(255, 255, 255, 0.18);
-  --cn-focus: #B9CEFF;
-  --cn-radius: 24px;
+  --cn-on-accent: #111111;
+  --cn-border: rgba(255, 255, 255, 0.28);
+  --cn-focus: #FFFFFF;
+  --cn-radius: 22px;
   --cn-font-heading: "Avenir Next Condensed", "Arial Narrow", Impact, sans-serif;
-  --cn-rim: rgba(255, 255, 255, 0.36);
-  --cn-shadow: 0 30px 70px rgba(0, 0, 0, 0.62);
-  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.26), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
-  --cn-nav-active: rgba(255, 255, 255, 0.12);
-  --cn-input: rgba(0, 0, 0, 0.35);
-  --cn-glass-blur: 24px;
+  --cn-rim: rgba(255, 255, 255, 0.45);
+  --cn-shadow: 0 32px 70px rgba(0, 0, 0, 0.7);
+  --cn-inset: inset 0 1.5px 0 rgba(255, 255, 255, 0.32), inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+  --cn-nav-active: rgba(255, 255, 255, 0.14);
+  --cn-input: rgba(0, 0, 0, 0.4);
+  --cn-glass-blur: 36px;
 }
 html, body {
   background: var(--cn-canvas);
@@ -115,11 +115,29 @@ html[data-theme='botanical'][data-mode='dark'] .glass-atmosphere-fallback {
     linear-gradient(160deg, #07110C, #0F1C15 40%, #13261B);
 }
 html[data-theme='brutalist'] .glass-atmosphere-fallback {
+  background-color: var(--cn-canvas);
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.04) 2px, rgba(0,0,0,.04) 3px),
-    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,.02) 3px, rgba(0,0,0,.02) 4px),
-    radial-gradient(ellipse at 50% 30%, rgba(255,255,255,.1), transparent 55%),
-    linear-gradient(180deg, var(--cn-canvas), color-mix(in srgb, var(--cn-canvas) 80%, #000));
+    radial-gradient(ellipse 55% 45% at 50% 18%, rgba(255,255,255,.14), transparent 60%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.045) 2px, rgba(0,0,0,.045) 3px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,.025) 3px, rgba(0,0,0,.025) 4px);
+}
+html[data-theme='brutalist'][data-mode='dark'] .glass-atmosphere-fallback {
+  background-image:
+    radial-gradient(ellipse 50% 40% at 50% 12%, rgba(255,255,255,.1), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,.03) 2px, rgba(255,255,255,.03) 3px),
+    linear-gradient(180deg, #1a1a1a, #0a0a0a);
+}
+html[data-theme='brutalist'] button.primary,
+html[data-theme='brutalist'] .button.primary {
+  background: var(--cn-accent);
+  color: var(--cn-on-accent);
+  border-color: transparent;
+  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+}
+html[data-theme='brutalist'][data-mode='dark'] button.primary,
+html[data-theme='brutalist'][data-mode='dark'] .button.primary {
+  background: #fff;
+  color: #111;
 }
 .app-frame { position: relative; z-index: 1; min-height: 100vh; }
 html[data-theme='botanical'][data-mode='light'] .app-frame::before {
@@ -145,8 +163,8 @@ html[data-theme='botanical'][data-mode='light'] .app-frame::before {
 }
 .glass > * { position: relative; z-index: 1; }
 html:not(.reduce-transparency) .glass {
-  backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.8) brightness(1.08);
-  -webkit-backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.8) brightness(1.08);
+  backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.45) brightness(1.02);
+  -webkit-backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.45) brightness(1.02);
 }
 html:not(.reduce-transparency) .glass::before {
   content: "";
@@ -154,7 +172,10 @@ html:not(.reduce-transparency) .glass::before {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  box-shadow: inset 0 1px 0 var(--cn-rim), inset 0 -0.5px 0 rgba(255,255,255,.08);
+  box-shadow:
+    inset 0 1.5px 0 var(--cn-rim),
+    inset 1px 0 0 rgba(255,255,255,.25),
+    inset 0 -1px 0 rgba(0,0,0,.08);
 }
 html:not(.reduce-transparency) .glass::after {
   content: "";
@@ -162,11 +183,8 @@ html:not(.reduce-transparency) .glass::after {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.28), transparent 36%),
-    radial-gradient(120% 80% at 12% 0%, rgba(255,255,255,.22), transparent 45%);
-  opacity: 0.85;
-  mix-blend-mode: soft-light;
+  background: linear-gradient(180deg, rgba(255,255,255,.2), transparent 40%);
+  opacity: 0.7;
 }
 html.reduce-transparency .glass {
   background: var(--cn-surface-solid);
