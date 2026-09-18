@@ -1,76 +1,77 @@
 :root {
-  --cn-canvas: #F5F2E9;
-  --cn-surface: rgba(255, 252, 246, 0.34);
+  /* Apple Liquid Glass–inspired Clear: nearly transparent so WebGL refraction shows through */
+  --cn-canvas: #D9E4C8;
+  --cn-surface: rgba(255, 255, 255, 0.1);
   --cn-surface-solid: #FFFCF4;
-  --cn-text: #2A3328;
-  --cn-secondary: #5A6454;
-  --cn-accent: #3D5A3C;
+  --cn-text: #243028;
+  --cn-secondary: #4F5C4A;
+  --cn-accent: #2F5A28;
   --cn-on-accent: #FFFFFF;
-  --cn-border: rgba(255, 255, 255, 0.55);
-  --cn-focus: #3D5A3C;
-  --cn-radius: 26px;
+  --cn-border: rgba(255, 255, 255, 0.42);
+  --cn-focus: #2F5A28;
+  --cn-radius: 28px;
   --cn-font-ui: "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --cn-font-heading: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --cn-glass-blur: 44px;
-  --cn-rim: rgba(255, 255, 255, 0.88);
-  --cn-shadow: 0 22px 50px rgba(45, 55, 40, 0.16), 0 2px 8px rgba(45, 55, 40, 0.06);
-  --cn-inset: inset 1px 1px 0 rgba(255, 255, 255, 0.85), inset -1px -1px 0 rgba(60, 70, 50, 0.08);
-  --cn-nav-active: rgba(107, 112, 92, 0.28);
-  --cn-input: rgba(255, 255, 255, 0.45);
+  --cn-glass-blur: 28px;
+  --cn-rim: rgba(255, 255, 255, 0.72);
+  --cn-shadow: 0 18px 48px rgba(30, 45, 28, 0.14), 0 2px 6px rgba(30, 45, 28, 0.05);
+  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+  --cn-nav-active: rgba(255, 255, 255, 0.28);
+  --cn-input: rgba(255, 255, 255, 0.28);
 }
 html[data-theme='botanical'][data-mode='dark'] {
-  --cn-canvas: #0A1410;
-  --cn-surface: rgba(18, 34, 26, 0.42);
+  --cn-canvas: #07110C;
+  --cn-surface: rgba(255, 255, 255, 0.06);
   --cn-surface-solid: #14241B;
   --cn-text: #F2F5EE;
   --cn-secondary: #B7C6B4;
   --cn-accent: #7CBB86;
   --cn-on-accent: #0C1811;
-  --cn-border: rgba(180, 210, 185, 0.22);
+  --cn-border: rgba(255, 255, 255, 0.16);
   --cn-focus: #7CBB86;
-  --cn-rim: rgba(220, 255, 230, 0.28);
-  --cn-shadow: 0 28px 60px rgba(0, 0, 0, 0.55);
-  --cn-inset: inset 1px 1px 0 rgba(255, 255, 255, 0.2), inset -1px -1px 0 rgba(0, 0, 0, 0.4);
-  --cn-nav-active: rgba(124, 187, 134, 0.22);
-  --cn-input: rgba(10, 20, 14, 0.45);
+  --cn-rim: rgba(220, 255, 230, 0.32);
+  --cn-shadow: 0 24px 56px rgba(0, 0, 0, 0.5);
+  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+  --cn-nav-active: rgba(124, 187, 134, 0.2);
+  --cn-input: rgba(0, 0, 0, 0.28);
 }
 html[data-theme='brutalist'][data-mode='light'] {
-  --cn-canvas: #E6E5DF;
-  --cn-surface: rgba(255, 255, 255, 0.4);
+  --cn-canvas: #D2D1CB;
+  --cn-surface: rgba(255, 255, 255, 0.12);
   --cn-surface-solid: #FFFFFF;
   --cn-text: #15191C;
   --cn-secondary: #4A5056;
   --cn-accent: #15191C;
   --cn-on-accent: #FFFFFF;
-  --cn-border: rgba(255, 255, 255, 0.7);
+  --cn-border: rgba(255, 255, 255, 0.5);
   --cn-focus: #153FBA;
-  --cn-radius: 22px;
+  --cn-radius: 24px;
   --cn-font-heading: "Avenir Next Condensed", "Arial Narrow", Impact, sans-serif;
-  --cn-rim: rgba(255, 255, 255, 0.95);
-  --cn-shadow: 0 30px 70px rgba(20, 22, 24, 0.28);
-  --cn-inset: inset 1px 1px 0 rgba(255, 255, 255, 0.95), inset -1px -1px 0 rgba(0, 0, 0, 0.08);
-  --cn-nav-active: rgba(21, 25, 28, 0.88);
-  --cn-input: rgba(230, 230, 225, 0.7);
-  --cn-glass-blur: 36px;
+  --cn-rim: rgba(255, 255, 255, 0.85);
+  --cn-shadow: 0 28px 64px rgba(20, 22, 24, 0.22);
+  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  --cn-nav-active: rgba(21, 25, 28, 0.82);
+  --cn-input: rgba(255, 255, 255, 0.35);
+  --cn-glass-blur: 24px;
 }
 html[data-theme='brutalist'][data-mode='dark'] {
-  --cn-canvas: #111316;
-  --cn-surface: rgba(28, 32, 38, 0.38);
+  --cn-canvas: #0A0C10;
+  --cn-surface: rgba(255, 255, 255, 0.07);
   --cn-surface-solid: #1A1E24;
   --cn-text: #F5F6F7;
   --cn-secondary: #C8D0DA;
   --cn-accent: #FFFFFF;
   --cn-on-accent: #111316;
-  --cn-border: rgba(255, 255, 255, 0.22);
+  --cn-border: rgba(255, 255, 255, 0.18);
   --cn-focus: #B9CEFF;
-  --cn-radius: 22px;
+  --cn-radius: 24px;
   --cn-font-heading: "Avenir Next Condensed", "Arial Narrow", Impact, sans-serif;
-  --cn-rim: rgba(255, 255, 255, 0.4);
-  --cn-shadow: 0 32px 70px rgba(0, 0, 0, 0.65);
-  --cn-inset: inset 1px 1px 0 rgba(255, 255, 255, 0.28), inset -1px -1px 0 rgba(0, 0, 0, 0.5);
+  --cn-rim: rgba(255, 255, 255, 0.36);
+  --cn-shadow: 0 30px 70px rgba(0, 0, 0, 0.62);
+  --cn-inset: inset 0 1px 0 rgba(255, 255, 255, 0.26), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
   --cn-nav-active: rgba(255, 255, 255, 0.12);
-  --cn-input: rgba(8, 10, 12, 0.55);
-  --cn-glass-blur: 36px;
+  --cn-input: rgba(0, 0, 0, 0.35);
+  --cn-glass-blur: 24px;
 }
 html, body {
   background: var(--cn-canvas);
@@ -144,8 +145,8 @@ html[data-theme='botanical'][data-mode='light'] .app-frame::before {
 }
 .glass > * { position: relative; z-index: 1; }
 html:not(.reduce-transparency) .glass {
-  backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.35) brightness(1.05);
-  -webkit-backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.35) brightness(1.05);
+  backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.8) brightness(1.08);
+  -webkit-backdrop-filter: blur(var(--cn-glass-blur)) saturate(1.8) brightness(1.08);
 }
 html:not(.reduce-transparency) .glass::before {
   content: "";
@@ -153,7 +154,7 @@ html:not(.reduce-transparency) .glass::before {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  box-shadow: inset 1.5px 1.5px 0 var(--cn-rim), inset -1px -1px 0 rgba(0,0,0,.1);
+  box-shadow: inset 0 1px 0 var(--cn-rim), inset 0 -0.5px 0 rgba(255,255,255,.08);
 }
 html:not(.reduce-transparency) .glass::after {
   content: "";
@@ -161,7 +162,11 @@ html:not(.reduce-transparency) .glass::after {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(135deg, rgba(255,255,255,.22), transparent 42%, transparent 60%, rgba(0,0,0,.04));
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.28), transparent 36%),
+    radial-gradient(120% 80% at 12% 0%, rgba(255,255,255,.22), transparent 45%);
+  opacity: 0.85;
+  mix-blend-mode: soft-light;
 }
 html.reduce-transparency .glass {
   background: var(--cn-surface-solid);

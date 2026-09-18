@@ -51,8 +51,8 @@ export function makeFoliageTexture(mode: 'light' | 'dark'): THREE.CanvasTexture 
   const blobs =
     mode === 'dark'
       ? ['#16301F', '#1F4630', '#0E2218', '#2A5A3C', '#112818', '#3A6B48']
-      : ['#9BB48A', '#6F8F5C', '#C5D4A8', '#8FA876', '#A8C090', '#D5DEC0'];
-  for (let i = 0; i < 48; i++) {
+      : ['#6B9A4E', '#4F7340', '#A8C86A', '#3D6B32', '#8FBF5C', '#C5D48A', '#2F5A28'];
+  for (let i = 0; i < (mode === 'light' ? 64 : 48); i++) {
     const x = Math.random() * size;
     const y = Math.random() * size;
     const r = 40 + Math.random() * 180;

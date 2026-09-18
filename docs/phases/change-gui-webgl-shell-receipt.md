@@ -17,17 +17,17 @@ September 18, 2026. Owner authorization `CHANGE-GUI-WEBGL-SHELL`. This records t
 
 Required non-UI checks executed for this pass: types, lint, web build, unit (30), integration (with OS network-denial cases under unrestricted local execution), evals (1), planning (6/6), workflow (44/44). Manual visual acceptance remains pending with the owner. No live provider login, paid request or model download was part of this pass.
 
-## Visual fidelity follow-up
+## Liquid Glass pass (macOS-aligned)
 
-Owner compared the live shell to Botanical/Brutalist concept images and requested a closer match. Engineering response:
+Follow-up after owner feedback that light mode still read as milky CSS and WebGL did not feel optical:
 
-- Procedural foliage/concrete/leaf-shadow/silhouette textures behind the UI
-- Room-environment IBL + physical glass slabs (transmission/clearcoat)
-- Thicker frosted HTML glass (higher blur, lower opacity, rim + sheen)
-- Brand lockup `CollegeNotes{11:11}` with leaf mark; soft botanical nav active pill
-- Appearance controls placed on a glass card
+- Full-scene FBO + custom GLSL liquid-glass compositor (refraction, chromatic fringe, Fresnel rim, pointer specular, liquid micro-warp)
+- Glass panel SDF masks aligned to sidebar / topbar / main card regions
+- HTML chrome switched to Apple Clear-style near-transparent surfaces so WebGL optics show through
+- Light-mode backdrop saturation increased so clear glass has content to refract
 
-Owner visual acceptance remains pending. No Phase 9 work.
+Owner visual acceptance remains pending.
+
 
 
 ## Remote checkpoint

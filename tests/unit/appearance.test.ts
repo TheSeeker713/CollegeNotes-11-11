@@ -16,7 +16,7 @@ describe('appearance fixtures', () => {
   it('saved preference keeps independent theme and mode', () => {
     const saved = parseAppearance({ theme: 'brutalist', mode: 'dark' });
     expect(variantKey(saved)).toBe('brutalist-dark');
-    expect(tokensFor(saved).canvas).toBe('#111316');
+    expect(tokensFor(saved).canvas).toBe('#0A0C10');
   });
 
   it('uses only local fonts', () => {
