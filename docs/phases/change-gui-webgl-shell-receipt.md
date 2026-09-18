@@ -20,3 +20,7 @@ Required non-UI checks executed for this pass: types, lint, web build, unit (30)
 ## Boundary
 
 Stop before Phase 9. Owner UI review is required before treating the glass shell as accepted.
+
+## Remote checkpoint
+
+Verified origin/main SHA: `53d34021cb25b3f218a84753cf901a963a5364ac`.

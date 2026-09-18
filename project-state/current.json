@@ -356,6 +356,8 @@
       "evals": 1,
       "planning": 6,
       "workflow": 44
-    }
+    },
+    "implementation_candidate": "53d34021cb25b3f218a84753cf901a963a5364ac",
+    "verified_remote_sha": "53d34021cb25b3f218a84753cf901a963a5364ac"
   }
 }
