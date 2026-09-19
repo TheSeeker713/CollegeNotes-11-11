@@ -10,7 +10,7 @@ import {
   indexStatus, recoverIndexes, cancelIndex,
   queueImport, listImportTasks, changeImportTask, recoverImportTasks,
   createCourse,
-  exportCourse, deleteCourse,
+  exportCourse, deleteCourse, createPortableBackup, previewPortableBackup, restorePortableBackup,
   courseModules, setCourseModule,
   courseCollection, courseInput, editCourse, archiveCourse, requireCourse, CourseError,
   defaultDataDir,
@@ -122,6 +122,17 @@ export function createService(store?: Store) {
     const id = (request.params as { id: string }).id;
     const result = exportCourse(opened, id);
     return reply.header('content-disposition', `attachment; filename="course-${result.data.course.id}.json"`).send(result);
+  });
+  app.get('/courses/:id/backup', async (request, reply) => {
+    const id=(request.params as {id:string}).id;
+    const query=request.query as {media?:string;preferences?:string};
+    const result=createPortableBackup(opened,id,{includeMedia:query.media!=='exclude',includePreferences:query.preferences==='include'});
+    return reply.header('content-disposition',`attachment; filename="backup-${id}.json"`).send(result);
+  });
+  app.post('/backup/preview',{bodyLimit:160*1024*1024},async(request)=>previewPortableBackup(opened,request.body));
+  app.post('/backup/restore',{bodyLimit:160*1024*1024},async(request)=>{
+    const body=request.body as {backup?:unknown;restorePreferences?:unknown}|null;
+    return restorePortableBackup(opened,body?.backup,{restorePreferences:body?.restorePreferences===true});
   });
   app.delete('/courses/:id', async (request) => deleteCourse(opened, (request.params as { id: string }).id, request.body));
   app.get('/course-collection', async () => courseCollection(opened));

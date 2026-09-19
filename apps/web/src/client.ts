@@ -157,6 +157,9 @@ export const api = {
     archive: (id: string) => req<Course>(`/courses/${id}/archive`, { method: 'POST' }),
     restore: (id: string) => req<Course>(`/courses/${id}/restore`, { method: 'POST' }),
     export: async (id: string) => { await writes; return req<unknown>(`/courses/${id}/export`); },
+    backup: async (id:string,includeMedia:boolean,includePreferences:boolean)=>{await writes;return req<unknown>(`/courses/${id}/backup?media=${includeMedia?'include':'exclude'}&preferences=${includePreferences?'include':'exclude'}`);},
+    previewBackup: (backup:unknown)=>req<{courseId:string;courseName:string;sourceCount:number;recordCount:number;fileCount:number;mediaPolicy:string;appearanceAvailable:boolean;conflicts:string[];canRestore:boolean}>('/backup/preview',{method:'POST',body:JSON.stringify(backup)}),
+    restoreBackup: (backup:unknown,restorePreferences:boolean)=>req<{restored:true;courseId:string;preferencesRestored:boolean}>('/backup/restore',{method:'POST',body:JSON.stringify({backup,restorePreferences})}),
     delete: (id: string, confirmation: string, backupsAcknowledged: boolean) => req<{ deleted: true }>(`/courses/${id}`, { method: 'DELETE', body: JSON.stringify({ confirmation, backupsAcknowledged }) }),
     modules: (id: string) => req<ModuleSelection[]>(`/courses/${id}/modules`),
     setModule: (id: string, moduleId: CourseModuleId, enabled: boolean) => req<ModuleSelection[]>(`/courses/${id}/modules/${moduleId}`, { method: 'PUT', body: JSON.stringify({ enabled }) })
