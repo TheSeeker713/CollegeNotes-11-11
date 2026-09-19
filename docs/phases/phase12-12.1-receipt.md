@@ -6,4 +6,4 @@ Domain visual-aid API (`packages/domain/src/visuals.ts`), `visuals` module enabl
 
 Non-UI gate: types, lint, build, 32 unit, 256 integration, 2 evaluation, 6 planning, 44 workflow. Private evidence: `.local/verification/phase12/12.1/`.
 
-Verified origin/main checkpoint: _(filled after push)_.
+Verified origin/main checkpoint: `6da90b854aad17946c5859fa0c7246dd4d567a07`.
