@@ -1,7 +1,7 @@
 {
   "phase": 10,
-  "phase_status": "in_progress",
-  "step": "10.3",
+  "phase_status": "awaiting_user_review",
+  "step": "10.4",
   "step_status": "complete",
   "pass_id": "PASS-2026-09-18-P10",
   "authorization_ref": "AUTH-P10",
@@ -54,7 +54,7 @@
     "10.1": "complete",
     "10.2": "complete",
     "10.3": "complete",
-    "10.4": "not_started",
+    "10.4": "complete",
     "11.1": "not_started",
     "11.2": "not_started",
     "11.3": "not_started",
@@ -114,9 +114,10 @@
     "9.3": "3726fece0bb772dd41b9660beb327eb455620f32",
     "9.4": "9564d7ee386e8c8c27def4d700b5ea6e2b7da8cc",
     "10.1": "e2b03dbd7c26b2b8b9b2f85bdfcad51f240edbba",
-    "10.2": "390f82bdd863a7f6dab11693acd0dd2138b1c691"
+    "10.2": "390f82bdd863a7f6dab11693acd0dd2138b1c691",
+    "10.3": "256d5df63068f18a06a56c609e035a54c626b5de"
   },
-  "next_action": "Continue Phase 10 step 10.4 under AUTH-P10.",
+  "next_action": "Owner-only Phase 10 manual UI/listening review. Stop before Phase 11; no next-phase authorization.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -130,7 +131,7 @@
     "7": "complete",
     "8": "complete",
     "9": "complete",
-    "10": "in_progress"
+    "10": "complete"
   },
   "manual_acceptances": [
     {
@@ -389,5 +390,28 @@
       "gate_harness": 6
     },
     "dependency_audit_vulnerabilities": 0
+  },
+  "phase10_delivery": {
+    "implementation_candidate": "e2b03dbd7c26b2b8b9b2f85bdfcad51f240edbba",
+    "verified_remote_sha": null,
+    "implementation_status": "engineering_complete",
+    "manual_acceptance": "pending_owner_only",
+    "pending_checks": [
+      "Human listening naturalness",
+      "Rendered Listen UI theme/accessibility review"
+    ],
+    "production_report": "docs/phase-10-production-report.md",
+    "manual_guide": "docs/phase-10-manual-tests.md",
+    "final_receipt": "docs/phases/phase10-final-receipt.md",
+    "non_ui_test_counts": {
+      "unit": 32,
+      "integration": 209,
+      "evals": 2,
+      "planning": 6,
+      "workflow": 44
+    },
+    "model_downloads": false,
+    "tts": "macos-say",
+    "stt": "synthetic-offline"
   }
 }
