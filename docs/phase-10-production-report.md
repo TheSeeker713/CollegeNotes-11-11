@@ -33,7 +33,7 @@ Phase 10 adds narration, synchronized listening, microphone/recognition contract
 | 10.1 | Narration providers | `e2b03dbd7c26b2b8b9b2f85bdfcad51f240edbba` |
 | 10.2 | Synchronized playback | `390f82bdd863a7f6dab11693acd0dd2138b1c691` |
 | 10.3 | Microphone + recognition | `256d5df63068f18a06a56c609e035a54c626b5de` |
-| 10.4 | Interrupt + teach-back + delivery | _(this commit)_ |
+| 10.4 | Interrupt + teach-back + delivery |  |
 
 ## Non-UI verification
 

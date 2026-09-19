@@ -5,7 +5,7 @@ AUTH-P10 / PASS-2026-09-18-P10. All four ordered engineering checkpoints were co
 - 10.1: `e2b03dbd7c26b2b8b9b2f85bdfcad51f240edbba`
 - 10.2: `390f82bdd863a7f6dab11693acd0dd2138b1c691`
 - 10.3: `256d5df63068f18a06a56c609e035a54c626b5de`
-- 10.4 delivery documents: _(recorded after this commit’s remote confirmation)_
+- 10.4 delivery documents: 
 
 Final gate: types/lint/build passed, 32 unit, 209 integration, 2 evaluation, 6 planning, 44 workflow. No private course material, credentials, model weights or raw device evidence was staged. No agent UI tests, live provider calls or model downloads occurred.
 

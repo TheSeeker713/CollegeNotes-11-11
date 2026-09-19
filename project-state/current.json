@@ -115,7 +115,8 @@
     "9.4": "9564d7ee386e8c8c27def4d700b5ea6e2b7da8cc",
     "10.1": "e2b03dbd7c26b2b8b9b2f85bdfcad51f240edbba",
     "10.2": "390f82bdd863a7f6dab11693acd0dd2138b1c691",
-    "10.3": "256d5df63068f18a06a56c609e035a54c626b5de"
+    "10.3": "256d5df63068f18a06a56c609e035a54c626b5de",
+    "10.4": "07c52d8be80fad41471e931d6663613b52714002"
   },
   "next_action": "Owner-only Phase 10 manual UI/listening review. Stop before Phase 11; no next-phase authorization.",
   "schema_version": 1,
@@ -392,8 +393,8 @@
     "dependency_audit_vulnerabilities": 0
   },
   "phase10_delivery": {
-    "implementation_candidate": "e2b03dbd7c26b2b8b9b2f85bdfcad51f240edbba",
-    "verified_remote_sha": null,
+    "implementation_candidate": "07c52d8be80fad41471e931d6663613b52714002",
+    "verified_remote_sha": "07c52d8be80fad41471e931d6663613b52714002",
     "implementation_status": "engineering_complete",
     "manual_acceptance": "pending_owner_only",
     "pending_checks": [
