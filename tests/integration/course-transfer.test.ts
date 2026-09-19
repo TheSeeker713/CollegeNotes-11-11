@@ -1,12 +1,22 @@
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { afterEach, expect, it, vi } from 'vitest';
-import { openStore, createCourse, storeOriginal, setDraft, setCourseModule, exportCourse, deleteCourse, checksum, courseCollection, listCourses, readOriginal, getDraft, setSession, getSession } from '@collegenotes/storage';
+import { openStore, createCourse, storeOriginal, setDraft, setCourseModule, importPracticeMedia, exportCourse, deleteCourse, checksum, courseCollection, listCourses, readOriginal, getDraft, setSession, getSession } from '@collegenotes/storage';
 import { createService } from '../../apps/local-service/src/index.js';
 const dirs: string[] = [];
-function fixture() { const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cn-transfer-')); dirs.push(dir); return openStore(dir); }
+function fixture() { const root = path.join(process.cwd(), '.local', 'tests'); fs.mkdirSync(root, { recursive: true }); const dir = fs.mkdtempSync(path.join(root, 'cn-transfer-')); dirs.push(dir); return openStore(dir); }
 afterEach(() => { vi.restoreAllMocks(); for (const dir of dirs.splice(0)) fs.rmSync(dir,{recursive:true,force:true}); });
+function addNarration(s: ReturnType<typeof fixture>, courseId: string, sourceId: string) {
+  const id = 'narration-audit';
+  const relPath = path.join('narration', courseId, `${id}.wav`);
+  const file = path.join(s.dataDir, relPath);
+  const bytes = Buffer.from('RIFF-synthetic-narration');
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, bytes);
+  s.db.prepare(`insert into narration_assets(id,course_id,source_id,source_revision,voice_id,settings_hash,text_hash,rel_path,duration_ms,byte_length,anchors_json,provider_id,status,created_at)
+    values (?,?,?,1,'Synthetic','settings','text',?,1000,?,'[]','local','ready',?)`).run(id, courseId, sourceId, relPath, bytes.length, new Date().toISOString());
+  return { id, file, bytes };
+}
 it('CHK-5.3-01 exports original bytes, metadata, revisions, notes, modules and checksum', () => {
   const s = fixture(); const a = createCourse(s,'Synthetic export'); const bytes = Buffer.from([0,255,12,1]); const doc = storeOriginal(s,a.id,'bytes.bin',bytes);
   setDraft(s,{key:'note',courseId:a.id,body:'My words'}); setCourseModule(s,a.id,'notes',true);
@@ -26,6 +36,85 @@ it('CHK-5.3-02 exports only the selected course without connection records or se
   s.db.prepare("insert into credential_references values ('connection','macos-keychain','OPAQUE_SECRET_REFERENCE')").run();
   const json = JSON.stringify(exportCourse(s,a.id));
   for (const sentinel of ['OTHER_COURSE_SENTINEL','NEVER_EXPORT_CREDENTIAL','OPAQUE_SECRET_REFERENCE',b.id]) expect(json).not.toContain(sentinel);
+  s.db.close();
+});
+it('exports later-phase tutor, claim, study provenance and both media payloads without cross-course data', () => {
+  const s = fixture(); const a = createCourse(s, 'A'); const b = createCourse(s, 'B');
+  setCourseModule(s, a.id, 'practice', true); setCourseModule(s, b.id, 'practice', true);
+  const source = storeOriginal(s, a.id, 'source.txt', Buffer.from('source'));
+  const narration = addNarration(s, a.id, source.id);
+  const media = importPracticeMedia(s, a.id, { filename: 'sample.wav', contentBase64: Buffer.from('synthetic practice audio').toString('base64') });
+  importPracticeMedia(s, b.id, { filename: 'other.wav', contentBase64: Buffer.from('OTHER_COURSE_MEDIA').toString('base64') });
+  const now = new Date().toISOString();
+  s.db.prepare("insert into tutor_sessions(id,course_id,status,offline,unfinished_question,context_json,created_at,updated_at) values ('tutor-audit',?,'active',1,'question','null',?,?)").run(a.id,now,now);
+  s.db.prepare("insert into tutor_turns(id,session_id,course_id,client_request_id,action,request_json,response_json,created_at) values ('turn-audit','tutor-audit',?,'request','explain','{}','{}',?)").run(a.id,now);
+  s.db.prepare("insert into research_sessions(id,course_id,provider_id,query,created_at,initiated_by,shared_context,status) values ('research-audit',?,'synthetic','question',?,'user','[]','complete')").run(a.id,now);
+  s.db.prepare("insert into research_claims(id,session_id,course_id,statement,supported,source_ids) values ('claim-audit','research-audit',?,'claim',0,'[]')").run(a.id);
+  s.db.prepare("insert into study_activities(id,course_id,payload,status,created_at) values ('activity-audit',?,'{}','ready',?)").run(a.id,now);
+  s.db.prepare("insert into study_sources(activity_id,source_id,revision) values ('activity-audit',?,1)").run(source.id);
+  const exported = exportCourse(s, a.id);
+  expect(exported.data.records.tutor_sessions).toHaveLength(1);
+  expect(exported.data.records.tutor_turns).toHaveLength(1);
+  expect(exported.data.records.research_claims).toHaveLength(1);
+  expect(exported.data.records.study_sources).toHaveLength(1);
+  expect(exported.data.files).toEqual(expect.arrayContaining([
+    expect.objectContaining({ kind: 'narration', id: narration.id, contentBase64: narration.bytes.toString('base64') }),
+    expect.objectContaining({ kind: 'practice', id: media.id, contentBase64: Buffer.from('synthetic practice audio').toString('base64') })
+  ]));
+  expect(exported.dataChecksum).toBe(checksum(Buffer.from(JSON.stringify(exported.data))));
+  expect(JSON.stringify(exported)).not.toContain('OTHER_COURSE_MEDIA');
+  s.db.close();
+});
+it('deletes tutor history, narration and practice files, including interrupted orphan files', () => {
+  const s = fixture(); const a = createCourse(s, 'A'); const b = createCourse(s, 'B');
+  setCourseModule(s, a.id, 'practice', true); setCourseModule(s, b.id, 'practice', true);
+  const source = storeOriginal(s, a.id, 'source.txt', Buffer.from('source'));
+  const narration = addNarration(s, a.id, source.id);
+  const media = importPracticeMedia(s, a.id, { filename: 'sample.wav', contentBase64: Buffer.from('synthetic practice audio').toString('base64') });
+  const other = importPracticeMedia(s, b.id, { filename: 'other.wav', contentBase64: Buffer.from('other audio').toString('base64') });
+  const orphan = path.join(s.dataDir, 'practice', a.id, 'orphan.wav'); fs.writeFileSync(orphan, 'orphan');
+  const now = new Date().toISOString();
+  s.db.prepare("insert into tutor_sessions(id,course_id,status,offline,unfinished_question,context_json,created_at,updated_at) values ('tutor-audit',?,'active',1,'','null',?,?)").run(a.id,now,now);
+  s.db.prepare("insert into tutor_turns(id,session_id,course_id,client_request_id,action,request_json,response_json,created_at) values ('turn-audit','tutor-audit',?,'request','explain','{}','{}',?)").run(a.id,now);
+  expect(deleteCourse(s, a.id, { confirmation: a.name, backupsAcknowledged: true }).deleted).toBe(true);
+  for (const file of [path.join(s.dataDir, source.storedRelPath), narration.file, path.join(s.dataDir, media.relPath), orphan]) expect(fs.existsSync(file)).toBe(false);
+  expect(s.db.prepare("select count(*) as n from tutor_sessions where course_id=?").get(a.id)).toEqual({ n: 0 });
+  expect(s.db.prepare("select count(*) as n from tutor_turns where course_id=?").get(a.id)).toEqual({ n: 0 });
+  expect(fs.existsSync(path.join(s.dataDir, other.relPath))).toBe(true);
+  expect(s.db.pragma('foreign_key_check')).toEqual([]);
+  s.db.close();
+});
+it('retries an interrupted media deletion without losing another course', () => {
+  let s = fixture(); const dir = s.dataDir; const a = createCourse(s, 'A'); const b = createCourse(s, 'B');
+  setCourseModule(s, a.id, 'practice', true); setCourseModule(s, b.id, 'practice', true);
+  const source = storeOriginal(s, a.id, 'source.txt', Buffer.from('source'));
+  const media = importPracticeMedia(s, a.id, { filename: 'sample.wav', contentBase64: Buffer.from('synthetic practice audio').toString('base64') });
+  const other = importPracticeMedia(s, b.id, { filename: 'other.wav', contentBase64: Buffer.from('other audio').toString('base64') });
+  const unlink = fs.unlinkSync.bind(fs);
+  const spy = vi.spyOn(fs, 'unlinkSync').mockImplementation((file) => {
+    if (file === path.join(dir, media.relPath)) throw new Error('Synthetic interrupted media deletion');
+    unlink(file);
+  });
+  expect(() => deleteCourse(s, a.id, { confirmation: a.name, backupsAcknowledged: true })).toThrow('deletion_incomplete_retry');
+  expect(listCourses(s).some((course) => course.id === a.id)).toBe(false);
+  expect(fs.existsSync(path.join(dir, source.storedRelPath))).toBe(false);
+  expect(fs.existsSync(path.join(dir, media.relPath))).toBe(true);
+  spy.mockRestore(); s.db.close(); s = openStore(dir);
+  expect(deleteCourse(s, a.id, { confirmation: a.name, backupsAcknowledged: true }).deleted).toBe(true);
+  expect(fs.existsSync(path.join(dir, media.relPath))).toBe(false);
+  expect(fs.existsSync(path.join(dir, other.relPath))).toBe(true);
+  s.db.close();
+});
+it('rejects a symlink in course media before deleting any original', () => {
+  const s = fixture(); const a = createCourse(s, 'A'); const b = createCourse(s, 'B');
+  const source = storeOriginal(s, a.id, 'source.txt', Buffer.from('source'));
+  const other = storeOriginal(s, b.id, 'other.txt', Buffer.from('other'));
+  const dir = path.join(s.dataDir, 'practice', a.id); fs.mkdirSync(dir, { recursive: true });
+  fs.symlinkSync(path.join(s.dataDir, other.storedRelPath), path.join(dir, 'link.wav'));
+  expect(() => deleteCourse(s, a.id, { confirmation: a.name, backupsAcknowledged: true })).toThrow('unsafe_media_path');
+  expect(fs.existsSync(path.join(s.dataDir, source.storedRelPath))).toBe(true);
+  expect(fs.existsSync(path.join(s.dataDir, other.storedRelPath))).toBe(true);
+  expect(courseCollection(s).find((c) => c.id === a.id)?.trashedAt).toBeNull();
   s.db.close();
 });
 it('CHK-5.3-03 requires exact confirmation and backup acknowledgement over HTTP', async () => {
