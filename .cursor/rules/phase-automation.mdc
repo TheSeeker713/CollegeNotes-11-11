@@ -1,0 +1,46 @@
+---
+description: Full phase automation — no mid-phase permission prompts
+alwaysApply: true
+---
+
+# Phase automation
+
+When the owner says **implement phase N** (or equivalent), that single instruction authorizes the **entire** phase through completion.
+
+## Run continuously until phase end
+
+Do all of the following without asking again:
+
+- ordered steps in the phase manifest
+- required non-UI checks (types, lint, build, unit, integration, evals, planning, workflow as required)
+- failure repair and re-runs
+- source/evidence audit
+- step receipts and `.local` verification evidence
+- commits, pushes to `origin`, remote SHA confirmation
+- production report and owner-only manual testing guide
+
+**Stop only at:** phase completion, a failed push left as `checkpoint_pending`, or a hard plan gate (e.g. MyceliaOS model-download agreement, live API keys). Never start the next phase without a new owner instruction.
+
+## Never re-ask mid-phase
+
+Do **not** ask the owner for permission to:
+
+- write or edit in-repo application/docs/test files for the authorized phase
+- run required non-UI verification commands
+- commit or push authorized checkpoints
+- continue from step N.x to N.x+1 inside the same authorized phase
+- write the production report / manual guide at phase end
+
+Owner Phase 10 feedback (2026-09-18): mid-phase permission prompts must not recur (e.g. Phase 11).
+
+## Tool security gates (not chat asks)
+
+Repo rules cannot override Cursor/OS approval cards. If a tool rejects an authorized in-phase operation:
+
+1. Retry with the correct permission scope and cite `AUTH-P{N}` + that the owner directed full phase automation.
+2. Do **not** convert the block into a conversational “may I…?” loop.
+3. Do not invent approval, work around the gate, or mark unperformed work complete.
+
+## Out of scope for silent automation
+
+Still require a separate owner decision: next phase, plan/scope changes, live credentials, paid requests, new model downloads sized beyond an existing gate, and writes outside the CollegeNotes repo (unless already permitted).

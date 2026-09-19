@@ -42,7 +42,7 @@ export const api = {
   advanceInterrupt: (c: string, id: string, body: unknown) => req<import('@collegenotes/domain').VoiceInterruptSession>(`/courses/${c}/audio/interrupt/${id}`, { method: 'POST', body: JSON.stringify(body) }),
   echo: (c: string, id: string) => req<{ suppressed: boolean }>(`/courses/${c}/audio/interrupt/${id}/echo`)
  },
- study: {
+  study: {
   session:(c:string)=>req<import('@collegenotes/domain').StudySession|null>(`/courses/${c}/study/session`),
   openSession:(c:string,limit:number)=>req<import('@collegenotes/domain').StudySession>(`/courses/${c}/study/sessions`,{method:'POST',body:JSON.stringify({limit})}),
   changeSession:(c:string,id:string,version:number,action:string)=>req<import('@collegenotes/domain').StudySession>(`/courses/${c}/study/sessions/${id}`,{method:'PUT',body:JSON.stringify({version,action})}),
@@ -56,6 +56,34 @@ export const api = {
   activities:(c:string)=>req<import('@collegenotes/domain').StudyActivitySummary[]>(`/courses/${c}/study/activities`),
   create:(c:string,body:import('@collegenotes/domain').ActivityTemplate)=>req<import('@collegenotes/domain').StudyActivity>(`/courses/${c}/study/activities`,{method:'POST',body:JSON.stringify(body)}),
   remove:(c:string,id:string)=>req(`/courses/${c}/study/activities/${id}`,{method:'DELETE'})
+ },
+ practice: {
+  observations: (c: string) => req<import('@collegenotes/domain').PracticeObservation[]>(`/courses/${c}/practice/observations`),
+  createObservation: (c: string, body: unknown) => req<import('@collegenotes/domain').PracticeObservation>(`/courses/${c}/practice/observations`, { method: 'POST', body: JSON.stringify(body) }),
+  updateObservation: (c: string, id: string, body: unknown) => req<import('@collegenotes/domain').PracticeObservation>(`/courses/${c}/practice/observations/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
+  wordCount: (c: string, text: string) => req<{ wordCount: number; maximum: null; note: string }>(`/courses/${c}/practice/word-count`, { method: 'POST', body: JSON.stringify({ text }) }),
+  media: (c: string) => req<import('@collegenotes/domain').PracticeMedia[]>(`/courses/${c}/practice/media`),
+  importMedia: (c: string, body: unknown) => req<import('@collegenotes/domain').PracticeMedia>(`/courses/${c}/practice/media`, { method: 'POST', body: JSON.stringify(body) }),
+  mediaFileUrl: (c: string, id: string) => `${BASE}/courses/${c}/practice/media/${id}/file`,
+  transcript: (c: string, mediaId: string, body?: unknown) => req<import('@collegenotes/domain').PracticeTranscript>(`/courses/${c}/practice/media/${mediaId}/transcript`, { method: 'POST', body: JSON.stringify(body ?? {}) }),
+  updateTranscript: (c: string, id: string, body: unknown) => req<import('@collegenotes/domain').PracticeTranscript>(`/courses/${c}/practice/transcripts/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
+  annotations: (c: string, mediaId?: string) => req<import('@collegenotes/domain').PracticeAnnotation[]>(`/courses/${c}/practice/annotations${mediaId ? `?mediaId=${encodeURIComponent(mediaId)}` : ''}`),
+  createAnnotation: (c: string, body: unknown) => req<import('@collegenotes/domain').PracticeAnnotation>(`/courses/${c}/practice/annotations`, { method: 'POST', body: JSON.stringify(body) }),
+  visualClaim: (c: string, mediaId: string, claim: string) => req<{ allowed: boolean; reason: string | null }>(`/courses/${c}/practice/media/${mediaId}/visual-claim`, { method: 'POST', body: JSON.stringify({ claim }) }),
+  cues: (c: string) => req<import('@collegenotes/domain').PracticeCueCard[]>(`/courses/${c}/practice/cues`),
+  createCue: (c: string, body: unknown) => req<import('@collegenotes/domain').PracticeCueCard>(`/courses/${c}/practice/cues`, { method: 'POST', body: JSON.stringify(body) }),
+  updateCue: (c: string, id: string, body: unknown) => req<import('@collegenotes/domain').PracticeCueCard>(`/courses/${c}/practice/cues/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
+  rehearsals: (c: string) => req<import('@collegenotes/domain').PracticeRehearsal[]>(`/courses/${c}/practice/rehearsals`),
+  createRehearsal: (c: string, body?: unknown) => req<import('@collegenotes/domain').PracticeRehearsal>(`/courses/${c}/practice/rehearsals`, { method: 'POST', body: JSON.stringify(body ?? {}) }),
+  advanceRehearsal: (c: string, id: string, body: unknown) => req<import('@collegenotes/domain').PracticeRehearsal>(`/courses/${c}/practice/rehearsals/${id}`, { method: 'POST', body: JSON.stringify(body) }),
+  slideInspect: (c: string, body: unknown) => req<import('@collegenotes/domain').PracticeSlideInspection>(`/courses/${c}/practice/slide-inspect`, { method: 'POST', body: JSON.stringify(body) }),
+  tutorQuestion: (c: string, topic: string) => req<{ allowed: boolean; prompt: string | null; reason: string | null }>(`/courses/${c}/practice/tutor-question`, { method: 'POST', body: JSON.stringify({ topic }) }),
+  checklist: (c: string) => req<import('@collegenotes/domain').PracticeChecklistItem[]>(`/courses/${c}/practice/checklist`),
+  createChecklist: (c: string, body: unknown) => req<import('@collegenotes/domain').PracticeChecklistItem>(`/courses/${c}/practice/checklist`, { method: 'POST', body: JSON.stringify(body) }),
+  updateChecklist: (c: string, id: string, body: unknown) => req<import('@collegenotes/domain').PracticeChecklistItem>(`/courses/${c}/practice/checklist/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
+  history: (c: string) => req<import('@collegenotes/domain').PracticeHistoryEntry[]>(`/courses/${c}/practice/history`),
+  setAssignmentStatus: (c: string, id: string, assignmentStatus: string | null) => req<import('@collegenotes/domain').PracticeHistoryEntry>(`/courses/${c}/practice/history/${id}/assignment-status`, { method: 'PUT', body: JSON.stringify({ assignmentStatus }) }),
+  export: (c: string) => req<import('@collegenotes/domain').PracticeExportRecord>(`/courses/${c}/practice/export`)
  },
  aiConnections:{
  endpoint:(id:string,endpoint:string)=>req(`/ai-connections/${id}/endpoint`,{method:'PUT',body:JSON.stringify({endpoint})}),

@@ -40,11 +40,15 @@ AUTH-P6 authorizes Phase 6 implementation and its ordered engineering/Git checkp
 
 ## Owner-directed phase automation
 
-When the owner instructs an agent to implement a phase, execute the entire authorized phase autonomously: implementation, required non-UI checks, failure repair, source/evidence audit, commits, pushes to the existing CollegeNotes origin, remote SHA confirmation, and the requested production report/manual UI guide. Do not repeatedly ask for permission for these routine in-phase operations. Stop at phase completion; never infer authorization for the next phase.
+When the owner instructs an agent to implement a phase (for example “implement phase 11”), that single instruction authorizes the **entire** phase through completion. Execute it autonomously end-to-end: ordered steps, implementation, required non-UI checks, failure repair, source/evidence audit, step receipts, commits, pushes to the existing CollegeNotes origin, remote SHA confirmation, and the production report plus owner-only manual UI/listening guide. Do **not** pause between steps to ask whether to continue, commit, push, run checks, or write the report.
 
-This instruction follows the owner's direct response to the Phase 6 checkpoint permission question: “You are supposed to have full automation per phase and only stop if there is a phase completion.” The existing origin is the public TheSeeker713/CollegeNotes-11-11 repository. Push reviewed project source, synthetic tests and public project documentation only; never private course data, credentials, models, caches or raw device evidence. File writes remain confined to CollegeNotes unless the owner separately permits otherwise. UI/UX testing remains exclusively the owner's work.
+Never re-ask mid-phase for permission to write in-repo files for the authorized work, run required non-UI verification, commit/push checkpoints, or advance to the next step **inside** the same authorized phase. Owner feedback after Phase 10 (2026-09-18): repeated mid-phase permission prompts must not happen again.
 
-Repository instructions cannot override tool-enforced security gates. If an authorized operation is rejected, provide its actual authorization and scope to the approval mechanism; do not seek a workaround, invent approval or report an unperformed operation as complete.
+Stop only when the phase is complete, a push failure leaves `checkpoint_pending`, or a hard plan gate blocks progress (MyceliaOS model-download agreement, live API keys, paid requests, or writes outside CollegeNotes without separate permission). Never infer authorization for the next phase.
+
+This instruction follows the owner's direct response to the Phase 6 checkpoint permission question: “You are supposed to have full automation per phase and only stop if there is a phase completion,” and the Phase 10 follow-up that mid-phase asks must not recur. The existing origin is the public TheSeeker713/CollegeNotes-11-11 repository. Push reviewed project source, synthetic tests and public project documentation only; never private course data, credentials, models, caches or raw device evidence. File writes remain confined to CollegeNotes unless the owner separately permits otherwise. UI/UX testing remains exclusively the owner's work.
+
+Repository instructions cannot override tool-enforced security gates (sandbox, git write, network, OS approval cards). If an authorized in-phase operation is rejected, retry with the correct scope and present `AUTH-P{N}` plus full phase-automation authority to the approval mechanism; do **not** turn the rejection into a conversational permission loop, seek a workaround, invent approval, or report an unperformed operation as complete.
 
 ## Phase 8 external AI storage gate
 
@@ -71,3 +75,7 @@ AUTH-P9 authorizes all four ordered Phase 9 engineering checkpoints, repository 
 ## Current Phase 10 authorization
 
 AUTH-P10 authorizes all four ordered Phase 10 engineering checkpoints, repository pushes, production report and owner-only manual testing guide. Stop before Phase 11. No live API keys, paid requests, or model downloads. Use macOS `/usr/bin/say` for local TTS and synthetic offline recognition. Human listening naturalness and UI/UX acceptance remain owner-pending.
+
+## Current Phase 11 authorization
+
+AUTH-P11 authorizes all four ordered Phase 11 engineering checkpoints, repository pushes, production report and owner-only manual testing guide. Stop before Phase 12. Implement course-neutral presentation practice only—recording, transcript review, timing, cue cards, and user-authored feedback—without embedding COMM 110, PQP curriculum, a syllabus, or assignment content. Praise/Question/Polish are generic category labels for user writing. No live API keys, paid requests, or model downloads. UI/UX acceptance remains owner-pending.

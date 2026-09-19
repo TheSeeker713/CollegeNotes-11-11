@@ -42,3 +42,4 @@ export * from './study-sessions.js';
 export * from './narration.js';
 export * from './recognition.js';
 export * from './voice-interrupt.js';
+export * from './practice.js';

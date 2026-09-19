@@ -256,7 +256,111 @@ export const MIGRATIONS = [
     unique(id, course_id),
     unique(course_id, client_request_id),
     foreign key(asset_id, course_id) references narration_assets(id, course_id) on delete cascade
-  );`
+  );`,
+  `create table practice_observations (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    category text not null check(category in ('praise','question','polish')),
+    body text not null,
+    word_count integer not null check(word_count >= 0),
+    rationale text not null default '',
+    media_id text,
+    timestamp_ms integer,
+    status text not null check(status in ('draft','submitted')),
+    created_at text not null,
+    updated_at text not null,
+    unique(id, course_id)
+  );
+  create index practice_observations_course on practice_observations(course_id, created_at);
+  create table practice_media (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    filename text not null,
+    mime_type text not null,
+    kind text not null check(kind in ('audio','video')),
+    rel_path text not null,
+    duration_ms integer,
+    byte_length integer not null check(byte_length > 0),
+    created_at text not null,
+    unique(id, course_id)
+  );
+  create index practice_media_course on practice_media(course_id, created_at);
+  create table practice_transcripts (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    media_id text not null,
+    segments_json text not null check(json_valid(segments_json)),
+    raw_text text not null,
+    edited_text text not null,
+    seek_ms integer not null default 0 check(seek_ms >= 0),
+    created_at text not null,
+    updated_at text not null,
+    unique(id, course_id),
+    unique(course_id, media_id),
+    foreign key(media_id, course_id) references practice_media(id, course_id) on delete cascade
+  );
+  create table practice_annotations (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    media_id text not null,
+    offset_ms integer not null check(offset_ms >= 0),
+    body text not null,
+    observation_id text,
+    created_at text not null,
+    updated_at text not null,
+    unique(id, course_id),
+    foreign key(media_id, course_id) references practice_media(id, course_id) on delete cascade
+  );
+  create index practice_annotations_media on practice_annotations(course_id, media_id, offset_ms);
+  create table practice_cue_cards (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    sort_order integer not null check(sort_order >= 0),
+    title text not null,
+    notes text not null,
+    created_at text not null,
+    updated_at text not null,
+    unique(id, course_id)
+  );
+  create index practice_cue_cards_course on practice_cue_cards(course_id, sort_order);
+  create table practice_rehearsals (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    status text not null check(status in ('idle','recording','stopped','cancelled')),
+    started_at text,
+    ended_at text,
+    elapsed_ms integer not null default 0 check(elapsed_ms >= 0),
+    cue_index integer not null default 0 check(cue_index >= 0),
+    media_id text,
+    configured_duration_ms integer,
+    created_at text not null,
+    updated_at text not null,
+    unique(id, course_id)
+  );
+  create index practice_rehearsals_course on practice_rehearsals(course_id, created_at);
+  create table practice_checklist (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    label text not null,
+    done integer not null default 0 check(done in (0,1)),
+    sort_order integer not null check(sort_order >= 0),
+    created_at text not null,
+    updated_at text not null,
+    unique(id, course_id)
+  );
+  create index practice_checklist_course on practice_checklist(course_id, sort_order);
+  create table practice_history (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    kind text not null check(kind in ('observation','rehearsal','checklist')),
+    ref_id text not null,
+    summary text not null,
+    practice_status text not null check(practice_status in ('draft','complete','cancelled')),
+    assignment_status text,
+    created_at text not null,
+    unique(id, course_id)
+  );
+  create index practice_history_course on practice_history(course_id, created_at);`
 ];
 
 export function migrate(db: Database.Database): number {

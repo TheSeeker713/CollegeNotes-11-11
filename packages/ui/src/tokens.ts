@@ -8,6 +8,7 @@ export type SemanticTokens = {
   notes: string;
   study: string;
   listen: string;
+  practice: string;
   text: string;
   secondary: string;
   border: string;
@@ -26,25 +27,25 @@ export type SemanticTokens = {
 
 export const VARIANTS: Record<VariantKey, SemanticTokens> = {
   'botanical-light': {
-    canvas: '#B5AF9A', surface: '#E8E4D6', notes: '#E6EDD9', study: '#F1E1D3', listen: '#DEEAF0',
+    canvas: '#B5AF9A', surface: '#E8E4D6', notes: '#E6EDD9', study: '#F1E1D3', listen: '#DEEAF0', practice: '#E4E8D8',
     text: '#161E14', secondary: '#3A4234', border: '#596352', accent: '#2A4228', onAccent: '#FFFFFF',
     error: '#A02628', warning: '#704500', titleSurface: '#E6EDD9', titleText: '#161E14', focus: '#2A4228',
     fontUi: 'system-ui, sans-serif', fontReading: 'system-ui, sans-serif', fontHeading: 'Georgia, serif', cardRadiusPx: 28
   },
   'botanical-dark': {
-    canvas: '#0A1410', surface: '#14241B', notes: '#24362A', study: '#352A25', listen: '#1E3039',
+    canvas: '#0A1410', surface: '#14241B', notes: '#24362A', study: '#352A25', listen: '#1E3039', practice: '#2A3528',
     text: '#F2F5EE', secondary: '#B7C6B4', border: '#819C89', accent: '#7CBB86', onAccent: '#0C1811',
     error: '#FFB4A6', warning: '#F6D58A', titleSurface: '#24362A', titleText: '#F2F5EE', focus: '#7CBB86',
     fontUi: 'system-ui, sans-serif', fontReading: 'system-ui, sans-serif', fontHeading: 'Georgia, serif', cardRadiusPx: 28
   },
   'brutalist-light': {
-    canvas: '#D8D7D1', surface: '#FFFFFF', notes: '#F1F3F7', study: '#E4EBFC', listen: '#E8EBEF',
+    canvas: '#D8D7D1', surface: '#FFFFFF', notes: '#F1F3F7', study: '#E4EBFC', listen: '#E8EBEF', practice: '#EEF0E8',
     text: '#15191C', secondary: '#4A5056', border: '#626971', accent: '#1A1A1A', onAccent: '#FFFFFF',
     error: '#9F2027', warning: '#704300', titleSurface: '#15191C', titleText: '#FFFFFF', focus: '#1A1A1A',
     fontUi: 'system-ui, sans-serif', fontReading: 'system-ui, sans-serif', fontHeading: 'Impact, Haettenschweiler, Arial Narrow, sans-serif', cardRadiusPx: 22
   },
   'brutalist-dark': {
-    canvas: '#121212', surface: '#1C1C1E', notes: '#242831', study: '#202C40', listen: '#1C2730',
+    canvas: '#121212', surface: '#1C1C1E', notes: '#242831', study: '#202C40', listen: '#1C2730', practice: '#222820',
     text: '#F5F5F5', secondary: '#B0B0B0', border: '#8E9BAC', accent: '#FFFFFF', onAccent: '#111111',
     error: '#FFB4BA', warning: '#F3D29A', titleSurface: '#090B0D', titleText: '#F5F5F5', focus: '#FFFFFF',
     fontUi: 'system-ui, sans-serif', fontReading: 'system-ui, sans-serif', fontHeading: 'Impact, Haettenschweiler, Arial Narrow, sans-serif', cardRadiusPx: 22

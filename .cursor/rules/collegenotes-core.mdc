@@ -7,8 +7,8 @@ alwaysApply: true
 
 1. Read `PROJECT-PLAN.md`, `project-state/current.json`, `project-state/approvals.json`, the active `docs/phases/phase-*.json`, and the latest receipt before mutating code.
 2. Only the owner changes product scope, phases, providers, privacy, budgets, or acceptance. Plan edits need explicit owner direction. Tests/prior chat never authorize work.
-3. Execute only the authorized phase (`AUTH-P8` for Phase 8). Stop at phase completion; never start the next phase.
-4. When the owner says implement a phase: implement, run required non-UI checks, audit, commit, push to `origin`, confirm remote SHA, write the production report + manual guide. Do not re-ask for routine in-phase ops.
+3. Execute only the currently authorized phase (see `approvals.json` / `AUTH-P*`). Stop at phase completion; never start the next phase without a new owner instruction.
+4. When the owner says implement a phase: run it **fully automated to phase end** — steps, non-UI checks, repair, audit, commits, pushes, remote SHA confirm, production report + manual guide. Do **not** re-ask mid-phase to continue, commit, push, or run checks. Tool approval cards: cite `AUTH-P{N}` + full phase automation; no conversational permission loops. Stop only at phase end, failed push, or a hard plan gate.
 5. UI/UX/browser/accessibility/usability testing is owner-only. Keep manual checks pending; never fabricate acceptance.
 6. No embedded real courses (including COMM 110). No secrets, private course data, models, or raw device evidence in Git.
 7. MyceliaOS external SSD is the designated local-AI home. Verify mount before Phase 8 local-AI work; no silent internal-disk fallback for new AI assets.

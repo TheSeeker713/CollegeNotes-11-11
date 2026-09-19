@@ -32,6 +32,7 @@ import { ResearchWorkspace } from './ResearchWorkspace';
 import { StudyWorkspace } from './StudyWorkspace';
 import { ListenWorkspace } from './ListenWorkspace';
 import { TutorWorkspace } from './TutorWorkspace';
+import { PracticeWorkspace } from './PracticeWorkspace';
 import { GlassAtmosphere } from '@collegenotes/visuals/atmosphere';
 
 const NAV_LABEL: Record<string, string> = {
@@ -336,7 +337,14 @@ export function App() {
             {screen === 'reading' && courseId ? modules===null?<p>Loading reading module…</p>:enabledModules.includes('reading')?<Reader key={courseId} courseId={courseId} />:<section><h1>Reading</h1><p>Enable the Reading module for this course to use the reader. Your saved material and annotations remain intact when a module is disabled.</p><a href="#/courses">Manage course modules</a></section> : null}
             {screen === 'sources' && courseId ? <Materials key={courseId} courseId={courseId} /> : null}
             {screen === 'progress' && courseId ? enabledModules.includes('study') ? <StudyProgressPanel key={courseId} courseId={courseId}/> : <section><h1>Progress</h1><p>Enable the Study module to view learning history.</p><a href="#/courses">Manage course modules</a></section> : null}
-            {['practice', 'requirements'].includes(screen) || (screen === 'study' && !(courseId && (enabledModules.includes('study') || enabledModules.includes('tutoring')))) ? (
+            {screen === 'practice' && courseId ? (
+              modules === null
+                ? <p>Loading practice module…</p>
+                : enabledModules.includes('practice')
+                  ? <PracticeWorkspace key={courseId} courseId={courseId} />
+                  : <section><h1>Practice</h1><p>Enable Presentation practice for this course to rehearse with your own material.</p><a href="#/courses">Manage course modules</a></section>
+            ) : null}
+            {screen === 'requirements' || (screen === 'study' && !(courseId && (enabledModules.includes('study') || enabledModules.includes('tutoring')))) ? (
               <section>
                 <h1>{NAV_LABEL[screen]}</h1>
                 <p>{screen === 'study' ? 'Enable the Study module for prepared activities or Tutoring for structured tutoring.' : 'This tool is planned for a later phase. Manage your course to select the modules you want to use.'}</p>

@@ -416,6 +416,26 @@
         "Owner-only UI/UX and human listening naturalness remain pending.",
         "Deliver production report and manual testing guide; stop before Phase 11."
       ]
+    },
+    {
+      "id": "AUTH-P11",
+      "kind": "phase_authorization",
+      "phases": [
+        11
+      ],
+      "source": "Owner message in current task, September 18, 2026",
+      "quote": "implement phase 11",
+      "pass_id": "PASS-2026-09-18-P11",
+      "boundary_exception": {
+        "from": 10,
+        "to": 11
+      },
+      "conditions": [
+        "Implement all four Phase 11 steps with ordered engineering, audit, commit, push and remote verification checkpoints.",
+        "Course-neutral presentation practice only; no embedded COMM 110, PQP curriculum, syllabus, or assignment content.",
+        "Owner-only UI/UX testing remains pending; no agent UI tests or live provider requests.",
+        "Deliver production report and manual testing guide; stop before Phase 12."
+      ]
     }
   ]
 }

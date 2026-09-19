@@ -6,7 +6,11 @@ Before each step, freeze its acceptance/check IDs from the manifest. Implement, 
 
 After the gate, bind a source fingerprint to the evidence, commit, push and compare the remote SHA. Do not advance if push fails. Record complete only after the receipt; avoid recursive claims that a commit contains its own SHA. An incomplete design handoff can be committed as work-in-progress, explicitly without completing its step or advancing to the next one.
 
-Every phase normally requires user approval. The current AUTH-REPAIR-0-4 explicitly permits repair execution through Phase 4; it does not fabricate design acceptance. Owner UI/UX review follows the repair implementation, as the latest user instruction directs.
+## Full phase automation
+
+When the owner has instructed implementation of the current phase, treat that as standing authority through phase end. Do not interrupt the owner between steps for permission to continue, commit, push, run required non-UI checks, or write the closing report. Advance step-to-step inside the same `AUTH-P*` automatically. The only intentional stops are phase completion, `checkpoint_pending` after a failed push, or a hard plan gate (separate model-download agreement, live credentials, paid requests, writes outside CollegeNotes). Cursor/OS tool approval cards are not chat questions: supply `AUTH-P{N}` and full phase-automation scope to the gate; do not ask “may I…?” in conversation for routine in-phase work. See AGENTS.md “Owner-directed phase automation” and `.cursor/rules/phase-automation.mdc`.
+
+Every phase normally requires user approval to **begin**. The current AUTH-REPAIR-0-4 explicitly permits repair execution through Phase 4; it does not fabricate design acceptance. Owner UI/UX review follows the repair implementation, as the latest user instruction directs.
 
 Approval records quote or identify actual user messages. A validator cannot grant authority or prove a quote is authentic; the agent audits it against the conversation. GitHub cannot grant phase approval. No CI or PR gate is introduced.
 
