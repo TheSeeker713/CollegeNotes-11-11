@@ -1,12 +1,12 @@
 {
-  "phase": 12,
-  "phase_status": "awaiting_user_review",
-  "step": "12.4",
-  "step_status": "complete",
-  "pass_id": "PASS-2026-09-18-P12",
-  "authorization_ref": "AUTH-P12",
+  "phase": 13,
+  "phase_status": "active",
+  "step": "13.1",
+  "step_status": "in_progress",
+  "pass_id": "PASS-2026-09-19-P13",
+  "authorization_ref": "AUTH-P13",
   "authorized_phases_this_pass": [
-    12
+    13
   ],
   "phase_3_authorized": false,
   "next_phase_authorized": false,
@@ -63,7 +63,7 @@
     "12.2": "complete",
     "12.3": "complete",
     "12.4": "complete",
-    "13.1": "not_started",
+    "13.1": "in_progress",
     "13.2": "not_started",
     "13.3": "not_started",
     "13.4": "not_started",
@@ -126,7 +126,7 @@
     "12.3": "efc43372460c87ceec1a54a9dc137f2e6adece67",
     "12.4": "742799c568ccbaa6e28e31991b5d6dabb7d20afd"
   },
-  "next_action": "Owner-only Phase 12 manual UI review. Stop before Phase 13; no next-phase authorization.",
+  "next_action": "Implement Phase 13 steps 13.1–13.4 in order. Owner-only UI review remains pending; stop before Phase 14.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {

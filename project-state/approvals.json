@@ -457,6 +457,20 @@
         "Deliver production report and manual testing guide; stop before Phase 13.",
         "No live API keys, paid requests, or model downloads."
       ]
+    },
+    {
+      "id": "AUTH-P13",
+      "kind": "phase_authorization",
+      "phases": [13],
+      "source": "Owner message in current task, September 19, 2026",
+      "quote": "implement phase 13",
+      "pass_id": "PASS-2026-09-19-P13",
+      "boundary_exception": { "from": 12, "to": 13 },
+      "conditions": [
+        "Implement all four Phase 13 engineering steps in order with non-UI checks, audit, commit, push and remote SHA confirmation at each checkpoint.",
+        "Owner-only UI/UX testing and live provider credential use remain pending; do not claim manual acceptance.",
+        "No unapproved local generative model download or paid provider request; stop before Phase 14."
+      ]
     }
   ]
 }
