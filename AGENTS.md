@@ -79,3 +79,7 @@ AUTH-P10 authorizes all four ordered Phase 10 engineering checkpoints, repositor
 ## Current Phase 11 authorization
 
 AUTH-P11 authorizes all four ordered Phase 11 engineering checkpoints, repository pushes, production report and owner-only manual testing guide. Stop before Phase 12. Implement course-neutral presentation practice only—recording, transcript review, timing, cue cards, and user-authored feedback—without embedding COMM 110, PQP curriculum, a syllabus, or assignment content. Praise/Question/Polish are generic category labels for user writing. No live API keys, paid requests, or model downloads. UI/UX acceptance remains owner-pending.
+
+## Current Phase 12 authorization
+
+AUTH-P12 authorizes all four ordered Phase 12 engineering checkpoints, repository pushes, production report and owner-only manual testing guide. Stop before Phase 13. Implement a versioned visual-aid interface and course-neutral educational 2D/3D examples—process sequence, coordinated exploration, and an audience-view legibility inspector—without embedding COMM 110, a syllabus, or assignment content. Decorative WebGL shell glass remains separate from instructional aids. No live API keys, paid requests, or model downloads. UI/UX acceptance remains owner-pending.

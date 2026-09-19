@@ -360,7 +360,19 @@ export const MIGRATIONS = [
     created_at text not null,
     unique(id, course_id)
   );
-  create index practice_history_course on practice_history(course_id, created_at);`
+  create index practice_history_course on practice_history(course_id, created_at);`,
+  `create table visual_experiments (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    kind text not null check(kind in ('process_sequence','coordinated_exploration','legibility_inspector')),
+    title text not null,
+    state_json text not null,
+    prediction text,
+    created_at text not null,
+    updated_at text not null,
+    unique(id, course_id)
+  );
+  create index visual_experiments_course on visual_experiments(course_id, created_at);`
 ];
 
 export function migrate(db: Database.Database): number {

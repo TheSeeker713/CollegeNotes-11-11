@@ -436,6 +436,27 @@
         "Owner-only UI/UX testing remains pending; no agent UI tests or live provider requests.",
         "Deliver production report and manual testing guide; stop before Phase 12."
       ]
+    },
+    {
+      "id": "AUTH-P12",
+      "kind": "phase_authorization",
+      "phases": [
+        12
+      ],
+      "source": "Owner message in current task, September 18, 2026",
+      "quote": "implement phase 12",
+      "pass_id": "PASS-2026-09-18-P12",
+      "boundary_exception": {
+        "from": 11,
+        "to": 12
+      },
+      "conditions": [
+        "Implement all four Phase 12 steps with ordered engineering, audit, commit, push and remote verification checkpoints.",
+        "Course-neutral visual aids only; no embedded COMM 110, syllabus, or assignment content. Audience-view legibility inspector is generic.",
+        "Owner-only UI/UX testing remains pending; no agent UI tests or live provider requests.",
+        "Deliver production report and manual testing guide; stop before Phase 13.",
+        "No live API keys, paid requests, or model downloads."
+      ]
     }
   ]
 }

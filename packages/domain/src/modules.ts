@@ -6,7 +6,7 @@ export const COURSE_MODULES = [
   { id: 'tutoring', label: 'Tutoring', description: 'Work through your material with an optional AI service.', available: true },
   { id: 'audio', label: 'Audio', description: 'Listen to material and use voice tools.', available: true },
   { id: 'practice', label: 'Presentation practice', description: 'Rehearse presentations using your own material.', available: true },
-  { id: 'visuals', label: 'Subject visuals', description: 'Explore optional visual explanations.', available: false }
+  { id: 'visuals', label: 'Subject visuals', description: 'Explore optional visual explanations.', available: true }
 ] as const;
 export type CourseModuleId = typeof COURSE_MODULES[number]['id'];
 export type ModuleSelection = { moduleId: CourseModuleId; schemaVersion: 1; enabled: boolean };

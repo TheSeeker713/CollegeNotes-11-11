@@ -23,7 +23,7 @@ function checkedBytes(store: Store, doc: Original): Buffer {
   if (bytes.length !== doc.byte_length || checksum(bytes) !== doc.checksum) throw new CourseError('original_checksum_mismatch', 409);
   return bytes;
 }
-const exportTables = ['practice_history', 'practice_checklist', 'practice_rehearsals', 'practice_cue_cards', 'practice_annotations', 'practice_transcripts', 'practice_observations', 'practice_media', 'voice_interrupt_sessions', 'recognition_transcripts', 'narration_playback', 'narration_assets', 'study_sessions', 'study_schedule', 'study_preferences', 'study_attempts', 'study_activities', 'reading_annotations', 'reading_positions', 'material_revisions', 'semantic_chunks', 'derivatives', 'embedding_indexes', 'research_sessions', 'research_sources', 'drafts'] as const;
+const exportTables = ['visual_experiments', 'practice_history', 'practice_checklist', 'practice_rehearsals', 'practice_cue_cards', 'practice_annotations', 'practice_transcripts', 'practice_observations', 'practice_media', 'voice_interrupt_sessions', 'recognition_transcripts', 'narration_playback', 'narration_assets', 'study_sessions', 'study_schedule', 'study_preferences', 'study_attempts', 'study_activities', 'reading_annotations', 'reading_positions', 'material_revisions', 'semantic_chunks', 'derivatives', 'embedding_indexes', 'research_sessions', 'research_sources', 'drafts'] as const;
 export function exportCourse(store: Store, id: string) {
   return store.db.transaction(() => {
     const course = requireCourse(store, id);

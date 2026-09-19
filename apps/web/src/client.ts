@@ -85,6 +85,16 @@ export const api = {
   setAssignmentStatus: (c: string, id: string, assignmentStatus: string | null) => req<import('@collegenotes/domain').PracticeHistoryEntry>(`/courses/${c}/practice/history/${id}/assignment-status`, { method: 'PUT', body: JSON.stringify({ assignmentStatus }) }),
   export: (c: string) => req<import('@collegenotes/domain').PracticeExportRecord>(`/courses/${c}/practice/export`)
  },
+ visuals: {
+  experiments: (c: string) => req<import('@collegenotes/domain').VisualExperimentRecord[]>(`/courses/${c}/visuals/experiments`),
+  createExperiment: (c: string, body: unknown) => req<import('@collegenotes/domain').VisualExperimentRecord>(`/courses/${c}/visuals/experiments`, { method: 'POST', body: JSON.stringify(body) }),
+  getExperiment: (c: string, id: string) => req<import('@collegenotes/domain').VisualExperimentRecord>(`/courses/${c}/visuals/experiments/${id}`),
+  action: (c: string, id: string, body: unknown) => req<{ experiment: import('@collegenotes/domain').VisualExperimentRecord; narration: string }>(`/courses/${c}/visuals/experiments/${id}/actions`, { method: 'POST', body: JSON.stringify(body) }),
+  restore: (c: string, id: string, body: unknown) => req<import('@collegenotes/domain').VisualExperimentRecord>(`/courses/${c}/visuals/experiments/${id}/state`, { method: 'PUT', body: JSON.stringify(body) }),
+  narration: (c: string, id: string) => req<{ narration: string; state: import('@collegenotes/domain').VisualAidState }>(`/courses/${c}/visuals/experiments/${id}/narration`),
+  tutorAction: (c: string, body: unknown) => req<{ experiment: import('@collegenotes/domain').VisualExperimentRecord; narration: string }>(`/courses/${c}/visuals/tutor-action`, { method: 'POST', body: JSON.stringify(body) }),
+  export: (c: string) => req<import('@collegenotes/domain').VisualAidExportRecord>(`/courses/${c}/visuals/export`)
+ },
  aiConnections:{
  endpoint:(id:string,endpoint:string)=>req(`/ai-connections/${id}/endpoint`,{method:'PUT',body:JSON.stringify({endpoint})}),
   settings:(id:string,body:{modelId:string;billing:string;ceiling:number|null;capabilities:string[]})=>req(`/ai-connections/${id}/settings`,{method:'PUT',body:JSON.stringify(body)}),

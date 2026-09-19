@@ -163,6 +163,7 @@ html[data-theme='botanical'] .glass-card[data-card='notes'] { box-shadow: var(--
 html[data-theme='botanical'] .glass-card[data-card='study'] { box-shadow: var(--cn-shadow), var(--cn-inset), 0 0 0 1px color-mix(in srgb,#AE7C67 35%, transparent); }
 html[data-theme='botanical'] .glass-card[data-card='listen'] { box-shadow: var(--cn-shadow), var(--cn-inset), 0 0 0 1px color-mix(in srgb,#7994A7 35%, transparent); }
 html[data-theme='botanical'] .glass-card[data-card='practice'] { box-shadow: var(--cn-shadow), var(--cn-inset), 0 0 0 1px color-mix(in srgb,#7A8B6A 35%, transparent); }
+html[data-theme='botanical'] .glass-card[data-card='visuals'] { box-shadow: var(--cn-shadow), var(--cn-inset), 0 0 0 1px color-mix(in srgb,#6A8B7A 35%, transparent); }
 html[data-density='compact'] .course-tile, html[data-density='compact'] .course-editor, html[data-density='compact'] .course-home { padding: 20px; }
 @media (max-width:1100px) {
   .app-shell { grid-template-columns: 200px minmax(0,1fr); }

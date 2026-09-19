@@ -14,3 +14,5 @@ export function textEquivalent(label: string): string {
 
 export { shellGraphicsMode, type ShellGraphicsMode } from './shell-graphics.js';
 export { SHELL_TEXTURES, shellTextureKey, shellTextureUrl, type ShellTextureKey } from './shell-textures.js';
+export { sequenceNodeLabels, sequenceEdges, explorationSyncSnapshot } from './aid-models.js';
+export { LegibilityAidView, shouldRenderInstructionalLoop } from './LegibilityAid.js';

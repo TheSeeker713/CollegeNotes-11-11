@@ -33,6 +33,7 @@ import { StudyWorkspace } from './StudyWorkspace';
 import { ListenWorkspace } from './ListenWorkspace';
 import { TutorWorkspace } from './TutorWorkspace';
 import { PracticeWorkspace } from './PracticeWorkspace';
+import { VisualsWorkspace } from './VisualsWorkspace';
 import { GlassAtmosphere } from '@collegenotes/visuals/atmosphere';
 
 const NAV_LABEL: Record<string, string> = {
@@ -44,6 +45,7 @@ const NAV_LABEL: Record<string, string> = {
   reading: 'Reading',
   study: 'Study',
   practice: 'Practice',
+  visuals: 'Visuals',
   requirements: 'Requirements',
   progress: 'Progress',
   settings: 'Settings'
@@ -343,6 +345,13 @@ export function App() {
                 : enabledModules.includes('practice')
                   ? <PracticeWorkspace key={courseId} courseId={courseId} />
                   : <section><h1>Practice</h1><p>Enable Presentation practice for this course to rehearse with your own material.</p><a href="#/courses">Manage course modules</a></section>
+            ) : null}
+            {screen === 'visuals' && courseId ? (
+              modules === null
+                ? <p>Loading visuals module…</p>
+                : enabledModules.includes('visuals')
+                  ? <VisualsWorkspace key={courseId} courseId={courseId} />
+                  : <section><h1>Visuals</h1><p>Enable Subject visuals for this course to explore optional instructional aids.</p><a href="#/courses">Manage course modules</a></section>
             ) : null}
             {screen === 'requirements' || (screen === 'study' && !(courseId && (enabledModules.includes('study') || enabledModules.includes('tutoring')))) ? (
               <section>

@@ -1,4 +1,4 @@
-export const NAV_DESTINATIONS = ['home', 'courses', 'connections', 'research', 'sources', 'reading', 'study', 'practice', 'requirements', 'progress', 'settings'] as const;
+export const NAV_DESTINATIONS = ['home', 'courses', 'connections', 'research', 'sources', 'reading', 'study', 'practice', 'visuals', 'requirements', 'progress', 'settings'] as const;
 export type NavId = (typeof NAV_DESTINATIONS)[number];
 
 export type AppRoute =
@@ -8,6 +8,7 @@ export type AppRoute =
   | { name: 'reading'; courseId: string }
   | { name: 'study'; courseId: string }
   | { name: 'practice'; courseId: string }
+  | { name: 'visuals'; courseId: string }
   | { name: 'requirements'; courseId: string }
   | { name: 'progress'; courseId: string }
   | { name: 'settings' }
@@ -15,7 +16,7 @@ export type AppRoute =
   | { name: 'connections' }
   | { name: 'research' };
 
-const COURSE_SCREENS = new Set(['sources', 'reading', 'study', 'practice', 'requirements', 'progress']);
+const COURSE_SCREENS = new Set(['sources', 'reading', 'study', 'practice', 'visuals', 'requirements', 'progress']);
 
 export function parseHash(hash: string, knownCourseIds: string[]): { route: AppRoute; recovered: boolean } {
   const raw = hash.replace(/^#/, '');
