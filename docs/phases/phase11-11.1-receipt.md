@@ -6,4 +6,4 @@ Domain practice contracts, storage observations/migrations, local-service practi
 
 Non-UI gate: types, lint, build, 32 unit, 231 integration, 2 evaluation, 6 planning, 44 workflow. Private evidence: `.local/verification/phase11/11.1/`.
 
-Checkpoint is pending commit/push confirmation; the next step records the verified SHA without a recursive self-hash claim.
+Verified origin/main checkpoint: `8b47f02a917caddd5d431b6c2490b0c998835203`.
