@@ -1,7 +1,7 @@
 {
   "phase": 11,
-  "phase_status": "in_progress",
-  "step": "11.3",
+  "phase_status": "awaiting_user_review",
+  "step": "11.4",
   "step_status": "complete",
   "pass_id": "PASS-2026-09-18-P11",
   "authorization_ref": "AUTH-P11",
@@ -58,7 +58,7 @@
     "11.1": "complete",
     "11.2": "complete",
     "11.3": "complete",
-    "11.4": "not_started",
+    "11.4": "complete",
     "12.1": "not_started",
     "12.2": "not_started",
     "12.3": "not_started",
@@ -118,9 +118,10 @@
     "10.3": "256d5df63068f18a06a56c609e035a54c626b5de",
     "10.4": "07c52d8be80fad41471e931d6663613b52714002",
     "11.1": "8b47f02a917caddd5d431b6c2490b0c998835203",
-    "11.2": "b08ebfc0715cbe6099ad6e4fba01c78a605bda96"
+    "11.2": "b08ebfc0715cbe6099ad6e4fba01c78a605bda96",
+    "11.3": "4ca620ece3295fdcba493b9e6a89770117f917a5"
   },
-  "next_action": "Continue Phase 11 step 11.4 under AUTH-P11. Owner UI review remains pending. Stop before Phase 12.",
+  "next_action": "Owner-only Phase 11 manual UI review. Stop before Phase 12; no next-phase authorization.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -135,7 +136,7 @@
     "8": "complete",
     "9": "complete",
     "10": "complete",
-    "11": "in_progress"
+    "11": "complete"
   },
   "manual_acceptances": [
     {
@@ -417,5 +418,26 @@
     "model_downloads": false,
     "tts": "macos-say",
     "stt": "synthetic-offline"
+  },
+  "phase11_delivery": {
+    "implementation_candidate": "4ca620ece3295fdcba493b9e6a89770117f917a5",
+    "implementation_status": "engineering_complete",
+    "manual_acceptance": "pending_owner_only",
+    "pending_checks": [
+      "Rendered Practice UI theme/accessibility review",
+      "Owner judgment of course-neutral practice copy"
+    ],
+    "production_report": "docs/phase-11-production-report.md",
+    "manual_guide": "docs/phase-11-manual-tests.md",
+    "final_receipt": "docs/phases/phase11-final-receipt.md",
+    "non_ui_test_counts": {
+      "unit": 32,
+      "integration": 231,
+      "evals": 2,
+      "planning": 6,
+      "workflow": 44
+    },
+    "model_downloads": false,
+    "scope": "course-neutral presentation practice"
   }
 }
