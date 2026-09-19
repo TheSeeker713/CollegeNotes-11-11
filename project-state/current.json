@@ -394,7 +394,7 @@
   },
   "phase10_delivery": {
     "implementation_candidate": "07c52d8be80fad41471e931d6663613b52714002",
-    "verified_remote_sha": "029d4d0a3b8f471eae1ad0fe557e79373f1aceb8",
+    "verified_remote_sha": "62cfa0a33fe480d75c18286888bbfb4f265f01c3",
     "implementation_status": "engineering_complete",
     "manual_acceptance": "pending_owner_only",
     "pending_checks": [
