@@ -114,6 +114,12 @@ function validated(store:Store,input:unknown){
     return module as {moduleId:string;schemaVersion:1;enabled:boolean};
   });
   if(new Set(modules.map(module=>module.moduleId)).size!==modules.length)throw new CourseError('invalid_backup');
+  const moduleRecords=(Array.isArray(data.moduleRecords)?data.moduleRecords:modules.map(module=>({course_id:courseId,module_id:module.moduleId,schema_version:module.schemaVersion,enabled:module.enabled?1:0}))).map(raw=>{
+    const row=object(raw);
+    if(Object.keys(row).some(key=>!['course_id','module_id','schema_version','enabled'].includes(key))||row.course_id!==courseId||!safeId(row.module_id)||!Number.isInteger(row.schema_version)||(row.schema_version as number)<1||(row.enabled!==0&&row.enabled!==1))throw new CourseError('invalid_backup');
+    return row as {course_id:string;module_id:string;schema_version:number;enabled:0|1};
+  });
+  if(new Set(moduleRecords.map(row=>row.module_id)).size!==moduleRecords.length)throw new CourseError('invalid_backup');
   const layout=parseCardLayout(data.layout);
   let appearance=null;
   if(outer.appearance!==null){try{appearance=parseAppearance(outer.appearance);}catch{throw new CourseError('invalid_backup_appearance',409);}}
@@ -127,7 +133,7 @@ function validated(store:Store,input:unknown){
     }
   }
   for(const file of files){try{if(fs.existsSync(resolveInside(store.dataDir,file.rel)))conflicts.push('file_exists');}catch{conflicts.push('unsafe_path');}}
-  return {course,courseId,records,sources:sourceRows as Row[],files,appearance,modules,layout,conflicts:[...new Set(conflicts)],mediaPolicy:outer.mediaPolicy};
+  return {course,courseId,records,sources:sourceRows as Row[],files,appearance,moduleRecords,layout,conflicts:[...new Set(conflicts)],mediaPolicy:outer.mediaPolicy};
 }
 export function previewPortableBackup(store:Store,input:unknown){
   const value=validated(store,input);
@@ -154,7 +160,7 @@ export function restorePortableBackup(store:Store,input:unknown,options:{restore
     store.db.transaction(()=>{
       const c=value.course;
       store.db.prepare('insert into courses(id,name,description,created_at,updated_at,archived_at,trashed_at) values (?,?,?,?,?,?,?)').run(c.id,c.name,c.description,c.createdAt,c.updatedAt,c.archivedAt,c.trashedAt);
-      for(const module of value.modules)store.db.prepare('insert into course_modules(course_id,module_id,schema_version,enabled) values (?,?,?,?)').run(value.courseId,module.moduleId,module.schemaVersion,module.enabled?1:0);
+      for(const module of value.moduleRecords)store.db.prepare('insert into course_modules(course_id,module_id,schema_version,enabled) values (?,?,?,?)').run(value.courseId,module.module_id,module.schema_version,module.enabled);
       store.db.prepare('insert into card_layouts(course_id,payload) values (?,?)').run(value.courseId,JSON.stringify(value.layout));
       for(const source of value.sources){const row={...source};delete row.contentBase64;insertRow(store,'source_documents',{...row,stored_rel_path:path.join('originals',`${source.id}_restored.bin`)});}
       for(const table of recordOrder){for(const raw of value.records[table] as Row[]){

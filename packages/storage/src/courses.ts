@@ -1,4 +1,4 @@
-import { COURSE_MODULES, isCourseModuleId, type ModuleSelection, type Course } from '@collegenotes/domain';
+import { COURSE_MODULES, isCourseModuleId, type ModuleSelection, type Course, type ModuleRegistry } from '@collegenotes/domain';
 import type { Store } from './database.js';
 
 export class CourseError extends Error {
@@ -47,4 +47,24 @@ export function setCourseModule(store: Store, id: string, moduleId: unknown, ena
 }
 export function moduleEnabled(store: Store, id: string, moduleId: string): boolean {
   return courseModules(store, id).some((m) => m.moduleId === moduleId && m.enabled);
+}
+
+// Extension descriptors are data-only and explicitly registered by trusted app code.
+// This does not load a plugin or execute imported course content.
+export function setRegisteredCourseModule(store:Store,courseId:string,registry:ModuleRegistry,moduleId:string,enabled:boolean){
+  requireCourse(store,courseId,true);
+  const definition=registry.get(moduleId);
+  if(!definition||typeof enabled!=='boolean')throw new CourseError('invalid_module');
+  const current=store.db.prepare('select schema_version from course_modules where course_id=? and module_id=?').get(courseId,moduleId) as {schema_version:number}|undefined;
+  if(current&&current.schema_version!==definition.schemaVersion)throw new CourseError('module_version_mismatch',409);
+  store.db.prepare('insert into course_modules(course_id,module_id,schema_version,enabled) values (?,?,?,?) on conflict(course_id,module_id) do update set enabled=excluded.enabled').run(courseId,moduleId,definition.schemaVersion,enabled?1:0);
+  return {moduleId,schemaVersion:definition.schemaVersion,enabled};
+}
+export function registeredModuleEnabled(store:Store,courseId:string,registry:ModuleRegistry,moduleId:string){
+  requireCourse(store,courseId);
+  const definition=registry.get(moduleId);
+  if(!definition)throw new CourseError('invalid_module');
+  const row=store.db.prepare('select schema_version,enabled from course_modules where course_id=? and module_id=?').get(courseId,moduleId) as {schema_version:number;enabled:number}|undefined;
+  if(row&&row.schema_version!==definition.schemaVersion)throw new CourseError('module_version_mismatch',409);
+  return row?.enabled===1;
 }

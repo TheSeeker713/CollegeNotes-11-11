@@ -73,7 +73,8 @@ export function exportCourse(store: Store, id: string) {
       const bytes = checkedMedia(store, id, kind, row);
       return { kind, id: row.id, byteLength: bytes.length, checksum: checksum(bytes), contentBase64: bytes.toString('base64') };
     }));
-    const data = { course, modules: courseModules(store, id), layout: getLayout(store, id), sources, files, records };
+    const moduleRecords = store.db.prepare('select course_id,module_id,schema_version,enabled from course_modules where course_id=? order by module_id').all(id);
+    const data = { course, modules: courseModules(store, id), moduleRecords, layout: getLayout(store, id), sources, files, records };
     return { format: 'collegenotes-course', version: 1, exportedAt: new Date().toISOString(), checksumAlgorithm: 'sha256', dataChecksum: checksum(Buffer.from(JSON.stringify(data))), credentialPolicy: 'Connection configurations, credentials and credential references are excluded.', data };
   })();
 }
