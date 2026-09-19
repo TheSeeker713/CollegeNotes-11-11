@@ -38,9 +38,9 @@ Phase 12 adds a versioned visual-aid interface and a small set of course-neutral
 | Step | Theme | Remote SHA |
 | --- | --- | --- |
 | 12.1 | Visual-aid contract + process sequence | `6da90b854aad17946c5859fa0c7246dd4d567a07` |
-| 12.2 | Coordinated exploration |  |
-| 12.3 | Legibility inspector |  |
-| 12.4 | Tutor + saved activities + delivery |  |
+| 12.2 | Coordinated exploration | `5a37955bd32bc3ff761e7a87f691c58064b7c609` |
+| 12.3 | Legibility inspector | `efc43372460c87ceec1a54a9dc137f2e6adece67` |
+| 12.4 | Tutor + saved activities + delivery | `742799c568ccbaa6e28e31991b5d6dabb7d20afd` |
 
 ## Non-UI verification
 

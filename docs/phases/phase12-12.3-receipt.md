@@ -6,4 +6,4 @@ Course-neutral audience-view legibility inspector uses generated geometry only (
 
 Non-UI gate: types, lint, build, 32 unit, 256 integration, 2 evaluation, 6 planning, 44 workflow. Private evidence: `.local/verification/phase12/12.3/`.
 
-Verified origin/main checkpoint: .
+Verified origin/main checkpoint: `efc43372460c87ceec1a54a9dc137f2e6adece67`.
