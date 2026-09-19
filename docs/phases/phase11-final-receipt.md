@@ -5,7 +5,7 @@ AUTH-P11 / PASS-2026-09-18-P11. All four ordered engineering checkpoints were co
 - 11.1: `8b47f02a917caddd5d431b6c2490b0c998835203`
 - 11.2: `b08ebfc0715cbe6099ad6e4fba01c78a605bda96`
 - 11.3: `4ca620ece3295fdcba493b9e6a89770117f917a5`
-- 11.4: 
+- 11.4: `9915246a8f8603b7904c73b3165896d0fd3d3bce`
 
 Final gate: types/lint/build passed, 32 unit, 231 integration, 2 evaluation, 6 planning, 44 workflow. No private course material, credentials, model weights or raw device evidence was staged. No agent UI tests, live provider calls or model downloads occurred.
 
