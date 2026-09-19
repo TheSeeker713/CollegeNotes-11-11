@@ -1,12 +1,12 @@
 {
-  "phase": 8,
-  "phase_status": "awaiting_user_review",
-  "step": "8.4",
-  "step_status": "complete",
-  "pass_id": "PASS-2026-09-17-P8",
-  "authorization_ref": "AUTH-P8",
+  "phase": 9,
+  "phase_status": "active",
+  "step": "9.1",
+  "step_status": "checkpoint_pending",
+  "pass_id": "PASS-2026-09-18-P9",
+  "authorization_ref": "AUTH-P9",
   "authorized_phases_this_pass": [
-    8
+    9
   ],
   "phase_3_authorized": false,
   "next_phase_authorized": false,
@@ -47,7 +47,7 @@
     "8.2": "complete",
     "8.3": "complete",
     "8.4": "complete",
-    "9.1": "not_started",
+    "9.1": "checkpoint_pending",
     "9.2": "not_started",
     "9.3": "not_started",
     "9.4": "not_started",
@@ -110,7 +110,7 @@
     "8.3": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
     "8.4": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0"
   },
-  "next_action": "Owner visual review of CHANGE-GUI-WEBGL-SHELL glass shell; do not start Phase 9 until authorized.",
+  "next_action": "Implement Phase 9.1 activities; owner UI review pending.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -122,7 +122,8 @@
     "5": "complete",
     "6": "complete",
     "7": "complete",
-    "8": "complete"
+    "8": "complete",
+    "9": "in_progress"
   },
   "manual_acceptances": [
     {

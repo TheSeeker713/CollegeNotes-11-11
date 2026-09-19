@@ -1,3 +1,4 @@
+import { studyRoutes } from './study.js';
 import Fastify from 'fastify';
 import { parseAppearance, parseCardLayout, type SessionState } from '@collegenotes/domain';
 import {
@@ -79,6 +80,7 @@ export function createService(store?: Store) {
   accountRoutes(app,opened);
   retrievalRoutes(app,opened);
   learningRoutes(app,opened);
+  studyRoutes(app,opened);
 
   app.get('/health', async () => {
     const sqlite = probeSqlite();

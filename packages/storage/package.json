@@ -13,6 +13,7 @@
   "dependencies": {
     "@collegenotes/domain": "0.0.0",
     "better-sqlite3": "13.0.3",
-    "@collegenotes/providers": "0.0.0"
+    "@collegenotes/providers": "0.0.0",
+    "@collegenotes/learning": "0.0.0"
   }
 }

@@ -375,6 +375,26 @@
         "Keep semantic HTML for interactive text/controls; provide accessible 2D fallback when WebGL is unavailable or reduce-transparency/reduce-motion requires it.",
         "Implement the visual pass now; do not authorize Phase 9; do not fabricate manual UI acceptance."
       ]
+    },
+    {
+      "id": "AUTH-P9",
+      "kind": "phase_authorization",
+      "phases": [
+        9
+      ],
+      "source": "Owner message in current task, September 18, 2026",
+      "quote": "implement phase 9",
+      "pass_id": "PASS-2026-09-18-P9",
+      "boundary_exception": {
+        "from": 8,
+        "to": 9
+      },
+      "conditions": [
+        "Implement all four Phase 9 steps with ordered engineering, audit, commit, push and remote verification checkpoints.",
+        "Owner-only UI/UX testing remains pending; no prior visual acceptance is inferred.",
+        "Deliver production report and manual testing guide; stop before Phase 10.",
+        "No live provider authentication, paid requests, new external dependencies or model downloads."
+      ]
     }
   ]
 }

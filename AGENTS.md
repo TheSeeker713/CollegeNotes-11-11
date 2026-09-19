@@ -63,3 +63,7 @@ Cursor agents also load [`.cursor/rules/`](.cursor/rules/); those rules summariz
 ## Current visual shell authorization
 
 CHANGE-GUI-WEBGL-SHELL authorizes amending the official plan and implementing the Botanical/Brutalist WebGL/R3F/Three.js glass shell with accessible 2D fallback. It does not authorize Phase 9 or fabricate owner visual acceptance.
+
+## Current Phase 9 authorization
+
+AUTH-P9 authorizes all four ordered Phase 9 engineering checkpoints, repository pushes, production report and owner-only manual testing guide. Stop before Phase 10. UI/UX acceptance remains pending; no agent UI tests or live provider requests.

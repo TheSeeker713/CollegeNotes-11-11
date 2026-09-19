@@ -28,6 +28,7 @@ import { Reader } from './Reader';
 import { Materials } from './Materials';
 import { CourseManager } from './CourseManager';
 import { ResearchWorkspace } from './ResearchWorkspace';
+import { StudyWorkspace } from './StudyWorkspace';
 import { TutorWorkspace } from './TutorWorkspace';
 import { GlassAtmosphere } from '@collegenotes/visuals/atmosphere';
 
@@ -324,13 +325,14 @@ export function App() {
                 ? <ResearchWorkspace key={courseId} courseId={courseId} />
                 : <section><h1>Research</h1><p>{courseId ? 'Enable the Research module for this course, then assign a research connection.' : 'Open a course to start user-initiated internet research.'}</p><a href={courseId ? '#/courses' : '#/connections'}>{courseId ? 'Manage course modules' : 'View connections'}</a></section>
             ) : null}
+            {screen === 'study' && courseId && enabledModules.includes('study') ? <StudyWorkspace key={courseId} courseId={courseId} /> : null}
             {screen === 'study' && courseId && enabledModules.includes('tutoring') ? <TutorWorkspace key={courseId} courseId={courseId} /> : null}
             {screen === 'reading' && courseId ? modules===null?<p>Loading reading module…</p>:enabledModules.includes('reading')?<Reader key={courseId} courseId={courseId} />:<section><h1>Reading</h1><p>Enable the Reading module for this course to use the reader. Your saved material and annotations remain intact when a module is disabled.</p><a href="#/courses">Manage course modules</a></section> : null}
             {screen === 'sources' && courseId ? <Materials key={courseId} courseId={courseId} /> : null}
-            {['practice', 'requirements', 'progress'].includes(screen) || (screen === 'study' && !(courseId && enabledModules.includes('tutoring'))) ? (
+            {['practice', 'requirements', 'progress'].includes(screen) || (screen === 'study' && !(courseId && (enabledModules.includes('study') || enabledModules.includes('tutoring')))) ? (
               <section>
                 <h1>{NAV_LABEL[screen]}</h1>
-                <p>{screen === 'study' ? 'Enable the Tutoring module for this course to use structured tutoring, or choose Study activities in a later phase.' : 'This tool is planned for a later phase. Manage your course to select the modules you want to use.'}</p>
+                <p>{screen === 'study' ? 'Enable the Study module for prepared activities or Tutoring for structured tutoring.' : 'This tool is planned for a later phase. Manage your course to select the modules you want to use.'}</p>
                 {screen === 'study' && courseId ? <a href="#/courses">Manage course modules</a> : null}
               </section>
             ) : null}

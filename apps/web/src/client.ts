@@ -28,6 +28,11 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+ study: {
+  activities:(c:string)=>req<import('@collegenotes/domain').StudyActivity[]>(`/courses/${c}/study/activities`),
+  create:(c:string,body:import('@collegenotes/domain').ActivityTemplate)=>req<import('@collegenotes/domain').StudyActivity>(`/courses/${c}/study/activities`,{method:'POST',body:JSON.stringify(body)}),
+  remove:(c:string,id:string)=>req(`/courses/${c}/study/activities/${id}`,{method:'DELETE'})
+ },
  aiConnections:{
  endpoint:(id:string,endpoint:string)=>req(`/ai-connections/${id}/endpoint`,{method:'PUT',body:JSON.stringify({endpoint})}),
   settings:(id:string,body:{modelId:string;billing:string;ceiling:number|null;capabilities:string[]})=>req(`/ai-connections/${id}/settings`,{method:'PUT',body:JSON.stringify(body)}),

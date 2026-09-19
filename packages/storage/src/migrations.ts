@@ -153,7 +153,23 @@ export const MIGRATIONS = [
     created_at text not null,
     unique(session_id, client_request_id),
     foreign key(session_id, course_id) references tutor_sessions(id, course_id) on delete cascade
-  );`
+  );` ,
+  `create table study_activities (
+    id text primary key, course_id text not null references courses(id) on delete cascade,
+    payload text not null check(json_valid(payload)), status text not null check(status in ('ready','stale')),
+    created_at text not null, unique(id,course_id)
+  );
+  create table study_sources (
+    activity_id text not null references study_activities(id) on delete cascade,
+    source_id text not null references source_documents(id), revision integer not null,
+    primary key(activity_id,source_id)
+  );
+  create trigger study_source_changed after update of revision,approved_revision,trashed_at,deleted_at on source_documents begin
+    update study_activities set status='stale' where id in (select activity_id from study_sources where source_id=new.id);
+  end;
+  create trigger study_source_deleted before delete on source_documents begin
+    delete from study_activities where id in (select activity_id from study_sources where source_id=old.id);
+  end;`
 ];
 
 export function migrate(db: Database.Database): number {

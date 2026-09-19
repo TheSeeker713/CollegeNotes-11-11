@@ -23,7 +23,7 @@ function checkedBytes(store: Store, doc: Original): Buffer {
   if (bytes.length !== doc.byte_length || checksum(bytes) !== doc.checksum) throw new CourseError('original_checksum_mismatch', 409);
   return bytes;
 }
-const exportTables = ['reading_annotations', 'reading_positions', 'material_revisions', 'semantic_chunks', 'derivatives', 'embedding_indexes', 'research_sessions', 'research_sources', 'drafts'] as const;
+const exportTables = ['study_activities', 'reading_annotations', 'reading_positions', 'material_revisions', 'semantic_chunks', 'derivatives', 'embedding_indexes', 'research_sessions', 'research_sources', 'drafts'] as const;
 export function exportCourse(store: Store, id: string) {
   return store.db.transaction(() => {
     const course = requireCourse(store, id);
