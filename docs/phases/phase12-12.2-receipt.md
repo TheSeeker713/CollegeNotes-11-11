@@ -6,4 +6,4 @@ Coordinated exploration aid state, annotations, scrubbable process, prediction/c
 
 Non-UI gate: types, lint, build, 32 unit, 256 integration, 2 evaluation, 6 planning, 44 workflow. Private evidence: `.local/verification/phase12/12.2/`.
 
-Verified origin/main checkpoint: _(filled after push)_.
+Verified origin/main checkpoint: `5a37955bd32bc3ff761e7a87f691c58064b7c609`.
