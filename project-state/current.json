@@ -1,7 +1,7 @@
 {
   "phase": 13,
   "phase_status": "active",
-  "step": "13.1",
+  "step": "13.2",
   "step_status": "in_progress",
   "pass_id": "PASS-2026-09-19-P13",
   "authorization_ref": "AUTH-P13",
@@ -63,8 +63,8 @@
     "12.2": "complete",
     "12.3": "complete",
     "12.4": "complete",
-    "13.1": "in_progress",
-    "13.2": "not_started",
+    "13.1": "complete",
+    "13.2": "in_progress",
     "13.3": "not_started",
     "13.4": "not_started",
     "14.1": "not_started",
@@ -124,7 +124,8 @@
     "12.1": "6da90b854aad17946c5859fa0c7246dd4d567a07",
     "12.2": "5a37955bd32bc3ff761e7a87f691c58064b7c609",
     "12.3": "efc43372460c87ceec1a54a9dc137f2e6adece67",
-    "12.4": "742799c568ccbaa6e28e31991b5d6dabb7d20afd"
+    "12.4": "742799c568ccbaa6e28e31991b5d6dabb7d20afd",
+    "13.1": "3316e13b50c652e8ad4bc1a60fe2005d98b50fc8"
   },
   "next_action": "Implement Phase 13 steps 13.1–13.4 in order. Owner-only UI review remains pending; stop before Phase 14.",
   "schema_version": 1,

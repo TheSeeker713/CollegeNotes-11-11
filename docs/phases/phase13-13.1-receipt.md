@@ -6,4 +6,4 @@ CHK-13.1-01 through CHK-13.1-05 are covered by `tests/integration/phase13-offlin
 
 Non-UI gate: types, lint, build, 32 unit, 264 integration, 2 evaluation, 6 planning and 44 workflow checks passed. Owner-only rendered review remains pending.
 
-Checkpoint SHA is recorded in `project-state/current.json` after origin/main confirmation.
+Verified origin/main checkpoint: `3316e13b50c652e8ad4bc1a60fe2005d98b50fc8`.
