@@ -2,7 +2,7 @@
   "phase": 12,
   "phase_status": "in_progress",
   "step": "12.1",
-  "step_status": "in_progress",
+  "step_status": "complete",
   "pass_id": "PASS-2026-09-18-P12",
   "authorization_ref": "AUTH-P12",
   "authorized_phases_this_pass": [
@@ -59,7 +59,7 @@
     "11.2": "complete",
     "11.3": "complete",
     "11.4": "complete",
-    "12.1": "in_progress",
+    "12.1": "complete",
     "12.2": "not_started",
     "12.3": "not_started",
     "12.4": "not_started",
@@ -120,9 +120,10 @@
     "11.1": "8b47f02a917caddd5d431b6c2490b0c998835203",
     "11.2": "b08ebfc0715cbe6099ad6e4fba01c78a605bda96",
     "11.3": "4ca620ece3295fdcba493b9e6a89770117f917a5",
-    "11.4": "9915246a8f8603b7904c73b3165896d0fd3d3bce"
+    "11.4": "9915246a8f8603b7904c73b3165896d0fd3d3bce",
+    "12.1": "6da90b854aad17946c5859fa0c7246dd4d567a07"
   },
-  "next_action": "Execute Phase 12.1 visual-aid contract under AUTH-P12 full automation; stop before Phase 13.",
+  "next_action": "Continue Phase 12.2 coordinated exploration under AUTH-P12; stop before Phase 13.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
