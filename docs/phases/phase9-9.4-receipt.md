@@ -9,3 +9,5 @@ Final non-UI gate passed: types, lint, build, 32 unit, 185 integration, 2 evalua
 Separate source/evidence audit reviewed active-session uniqueness, optimistic session versions, submission idempotence, draft persistence, pause/resume/continue/retry, unavailable-source recovery, source/attempt/session deletion cascades, export, course/module isolation, and upgrade from the Phase 8 schema preserving existing writing. Added explicit regression cases for active-session deletion, schema upgrade and prediction explanation requirements. A test-only unused assignment was repaired after lint identified it. Prepared answers are excluded from library summaries and revealed explicitly after submission.
 
 Prior verified checkpoint: `3726fece0bb772dd41b9660beb327eb455620f32`. Commit/push confirmation follows this receipt. No Phase 10 work is authorized.
+
+Verified origin/main implementation checkpoint: `9564d7ee386e8c8c27def4d700b5ea6e2b7da8cc`.
