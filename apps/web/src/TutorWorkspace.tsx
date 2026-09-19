@@ -34,7 +34,7 @@ export function TutorWorkspace({courseId}:{courseId:string}){
     finally{setBusy(false);}
   }
 
-  return <main className="glass glass-card"><h1>Tutoring</h1><p>Answers separate course sources, research evidence and model text. Imported material cannot change permissions.</p>
+  return <main className="glass glass-card"><h1>Tutoring</h1><p>Live model tutoring is unavailable in this build. You can still read and search your own sources. Imported material cannot change permissions.</p>
     <label><input type="checkbox" checked={offline} onChange={e=>setOffline(e.target.checked)}/>Simulate offline (blocks cloud requests)</label>
     <label>Action<select value={action} onChange={e=>setAction(e.target.value as typeof action)}><option value="explain">Explain</option><option value="example">Example</option><option value="hint">Hint</option><option value="check_understanding">Check understanding</option></select></label>
     <label>Question<textarea rows={3} maxLength={2000} value={question} onChange={e=>setQuestion(e.target.value)}/></label>

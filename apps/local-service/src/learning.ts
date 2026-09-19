@@ -4,13 +4,14 @@ import {
   openTutorSession, getTutorSession, saveTutorContext, recordTutorTurn, buildTutorContext,
   type Store, CourseError
 } from '@collegenotes/storage';
-import {evaluateResearchClaims, structuredTutorReply, type ResearchTransport, syntheticResearchTransport} from '@collegenotes/providers';
+import {evaluateResearchClaims, structuredTutorReply, type ResearchTransport} from '@collegenotes/providers';
 import {embeddingWorker, LOCAL_MODEL} from './semantic.js';
 
 const running = new Map<string, AbortController>();
 
-export function learningRoutes(app: FastifyInstance, store: Store, researchTransport: ResearchTransport = defaultTransport()) {
+export function learningRoutes(app: FastifyInstance, store: Store, researchTransport: ResearchTransport | null = null) {
   app.post('/courses/:id/research/sessions', async (request) => {
+    if (!researchTransport) throw new CourseError('research_adapter_unavailable',409);
     const courseId = (request.params as { id: string }).id;
     const body = (request.body ?? {}) as Record<string, unknown>;
     const session = startResearchSession(store, courseId, {
@@ -52,6 +53,7 @@ export function learningRoutes(app: FastifyInstance, store: Store, researchTrans
   });
 
   app.post('/courses/:id/tutor/sessions', async (request) => {
+    if (!researchTransport) throw new CourseError('tutor_adapter_unavailable',409);
     const courseId = (request.params as { id: string }).id;
     const body = (request.body ?? {}) as { unfinishedQuestion?: string; researchSessionId?: string | null; offline?: boolean };
     return openTutorSession(store, courseId, body);
@@ -63,6 +65,7 @@ export function learningRoutes(app: FastifyInstance, store: Store, researchTrans
   });
 
   app.post('/courses/:id/tutor/sessions/:sessionId/turns', async (request) => {
+    if (!researchTransport) throw new CourseError('tutor_adapter_unavailable',409);
     const { id, sessionId } = request.params as { id: string; sessionId: string };
     const body = (request.body ?? {}) as Record<string, unknown>;
     const session = getTutorSession(store, id, sessionId);
@@ -81,15 +84,4 @@ export function learningRoutes(app: FastifyInstance, store: Store, researchTrans
       answer
     });
   });
-}
-
-function defaultTransport(): ResearchTransport {
-  return syntheticResearchTransport([
-    {
-      url: 'https://example.com/synthetic-research',
-      title: 'Synthetic research page',
-      publisher: 'Example',
-      text: 'This synthetic page explains photosynthesis converting sunlight into chemical energy for evaluation fixtures.'
-    }
-  ]);
 }

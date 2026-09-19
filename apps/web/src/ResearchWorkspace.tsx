@@ -34,10 +34,10 @@ export function ResearchWorkspace({courseId}:{courseId:string}){
   }
 
   return <main className="glass glass-card"><h1>Internet research</h1>
-    <p>User-initiated only. Results keep URL, title, retrieval time, excerpts and claim links. Web pages are untrusted data.</p>
+    <p>Live internet research is unavailable in this build. Saved sessions can still be reviewed below. No query is sent to a provider.</p>
     <label>Query<input maxLength={500} value={query} onChange={e=>setQuery(e.target.value)}/></label>
     <label><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}/>I understand a connected provider will receive this query (and only excerpts I attach).</label>
-    <button disabled={busy||!query.trim()||!consent} onClick={()=>void run()}>Start research</button>
+    <button disabled onClick={()=>void run()}>Start research when an adapter is available</button>
     <p role="status">{notice}</p>
     {active&&<section><h2>Current session · {active.status}</h2>{active.status==='running'&&<button disabled={busy} onClick={()=>void cancel(active.id)}>Cancel</button>}
       <ul>{(active.sources??[]).map(s=><li key={s.url}><a href={s.url} rel="noreferrer">{s.title}</a> · {s.retrievedAt}<pre>{s.excerpt}</pre>{s.uncertainty&&<p>{s.uncertainty}</p>}{s.conflicts?.length?<p>Conflicts: {s.conflicts.join(', ')}</p>:null}</li>)}</ul>

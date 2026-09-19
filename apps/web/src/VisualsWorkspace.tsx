@@ -100,7 +100,7 @@ export function VisualsWorkspace({ courseId }: Props) {
   return (
     <section className="glass glass-card" data-card="visuals" tabIndex={0} onKeyDown={(e) => void onKeyDown(e)}>
       <h1>Subject visuals</h1>
-      <p>Optional instructional aids. Decorative shell glass is separate from these experiments.</p>
+      <p>Optional course-neutral instructional aids. Background links explain the aid, but are not evidence from your imported course material. Decorative shell glass is separate from these experiments.</p>
       {notice ? <p role="status">{notice}</p> : null}
       <div>
         <button type="button" onClick={() => void createAid('process_sequence')}>Start process sequence</button>

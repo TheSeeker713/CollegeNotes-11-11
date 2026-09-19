@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { NarrationAsset, NarrationPlaybackState, RecognitionTranscript, VoiceInterruptSession, VoiceProfile } from '@collegenotes/domain';
+import type { NarrationAsset, NarrationPlaybackState, VoiceProfile } from '@collegenotes/domain';
 import { api, type MaterialSummary } from './client';
 
 const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2];
@@ -15,13 +15,6 @@ export function ListenWorkspace({ courseId }: { courseId: string }) {
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const [micPermission, setMicPermission] = useState('unknown');
-  const [capturing, setCapturing] = useState(false);
-  const [transcript, setTranscript] = useState<RecognitionTranscript | null>(null);
-  const [termFrom, setTermFrom] = useState('');
-  const [termTo, setTermTo] = useState('');
-  const [interrupt, setInterrupt] = useState<VoiceInterruptSession | null>(null);
-  const [echoBlocked, setEchoBlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const generationCount = useRef(0);
 
@@ -87,65 +80,6 @@ export function ListenWorkspace({ courseId }: { courseId: string }) {
     void persistPlayback({ offsetMs }).catch(() => undefined);
   }
 
-  async function startMic() {
-    setCapturing(true);
-    try {
-      const devices = await navigator.mediaDevices?.enumerateDevices?.() ?? [];
-      const hasMic = devices.some((d) => d.kind === 'audioinput');
-      if (!hasMic) {
-        setMicPermission('missing_device');
-        setCapturing(false);
-        setNotice('No microphone device is available.');
-        return;
-      }
-      if (micPermission === 'denied' || micPermission === 'revoked') {
-        setCapturing(false);
-        setNotice('Microphone permission was denied. Enable it in System Settings, then try again. No repeated prompts.');
-        return;
-      }
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      stream.getTracks().forEach((t) => t.stop());
-      setMicPermission('granted');
-      const created = await api.audio.recognize(courseId, { expectedText: 'Synthetic teach-back about the approved source.', terms: termFrom && termTo ? [{ from: termFrom, to: termTo }] : [] });
-      setTranscript(created);
-      setNotice('Capture released after stop. Transcript is editable.');
-    } catch {
-      setMicPermission('denied');
-      setNotice('Microphone permission denied.');
-    } finally {
-      setCapturing(false);
-    }
-  }
-
-  async function askWhileListening() {
-    if (!asset || !playback) return;
-    setBusy(true);
-    try {
-      const session = await api.audio.interrupt(courseId, { assetId: asset.id, offsetMs: playback.offsetMs, clientRequestId: `ask-${asset.id}-${playback.offsetMs}` });
-      setInterrupt(session);
-      audioRef.current?.pause();
-      setPlaying(false);
-      const asked = await api.audio.advanceInterrupt(courseId, session.id, { action: 'ask', tutorRequestId: `local-${Date.now()}`, networkAvailable: true });
-      setInterrupt(asked);
-      const echo = await api.audio.echo(courseId, asked.id);
-      setEchoBlocked(echo.suppressed);
-      setNotice('Narration paused for a tutor question. Echo suppression is on while tutor audio would play.');
-    } catch (e) {
-      setNotice(e instanceof Error ? e.message : 'Interrupt failed.');
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function resumeAfterAsk() {
-    if (!interrupt) return;
-    const resumed = await api.audio.advanceInterrupt(courseId, interrupt.id, { action: 'resume' });
-    setInterrupt(resumed);
-    setPlayback(await api.audio.playback(courseId, resumed.assetId));
-    setEchoBlocked(false);
-    setNotice(`Resumed at ${resumed.savedOffsetMs} ms.`);
-  }
-
   const activeSentence = asset && playback
     ? asset.anchors.find((a) => playback.offsetMs >= a.startMs && playback.offsetMs < a.endMs) ?? asset.anchors.at(-1)
     : null;
@@ -198,32 +132,10 @@ export function ListenWorkspace({ courseId }: { courseId: string }) {
             </select>
           </label>
           <button type="button" disabled={busy} onClick={() => void persistPlayback({ offsetMs: activeSentence?.startMs ?? 0 })}>Restart sentence</button>
-          <button type="button" disabled={busy} onClick={() => void askWhileListening()}>Ask a question (interrupt)</button>
-          {interrupt?.status === 'asking' || interrupt?.status === 'interrupted' ? (
-            <button type="button" disabled={busy} onClick={() => void resumeAfterAsk()}>Resume narration</button>
-          ) : null}
-          <p>Echo suppressed while tutor audio: {echoBlocked ? 'yes' : 'no'}</p>
+          <p>Spoken tutor interruptions are unavailable until a live tutor and speech route are connected.</p>
         </div>
       )}
-      <div className="form-stack">
-        <h2>Microphone and recognition</h2>
-        <p>Permission: {micPermission} · Capture: {capturing ? 'capturing' : 'idle'}</p>
-        <label>Technical term (from)<input value={termFrom} onChange={(e) => setTermFrom(e.target.value)} /></label>
-        <label>Corrected term (to)<input value={termTo} onChange={(e) => setTermTo(e.target.value)} /></label>
-        <button type="button" disabled={capturing} onClick={() => void startMic()}>{capturing ? 'Listening…' : 'Start then stop capture'}</button>
-        {transcript && (
-          <>
-            <label>Editable transcript
-              <textarea value={transcript.editedText} onChange={(e) => setTranscript({ ...transcript, editedText: e.target.value })} />
-            </label>
-            <button type="button" onClick={() => void api.audio.updateRecognition(courseId, transcript.id, {
-              editedText: transcript.editedText,
-              terms: termFrom && termTo ? [...transcript.terms, { from: termFrom, to: termTo }] : transcript.terms,
-              status: 'final'
-            }).then(setTranscript).then(() => setNotice('Transcript saved.'))}>Save transcript</button>
-          </>
-        )}
-      </div>
+      <div className="form-stack"><h2>Microphone and recognition</h2><p>Speech recognition is unavailable in this build. No microphone capture or transcript is created. Narration playback remains available above.</p></div>
     </section>
   );
 }

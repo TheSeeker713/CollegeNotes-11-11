@@ -4,7 +4,7 @@ import {createHash} from 'node:crypto';
 import {afterEach,expect,it,vi} from 'vitest';
 import {createService} from '../../apps/local-service/src/index.js';
 import {openStore,createCourse,setCourseModule,storeOriginal,importPracticeMedia,createPortableBackup,previewPortableBackup,restorePortableBackup,setAppearance,getAppearance,setLayout,getLayout,type Store} from '@collegenotes/storage';
-import {DEFAULT_APPEARANCE} from '@collegenotes/domain';
+import {DEFAULT_APPEARANCE,THEME_VARIANTS,type ThemeId,type ModeId} from '@collegenotes/domain';
 
 const stores:Store[]=[];
 afterEach(()=>{vi.restoreAllMocks();for(const store of stores.splice(0)){store.db.close();fs.rmSync(store.dataDir,{recursive:true,force:true});}});
@@ -50,6 +50,27 @@ it('backup keeps media bytes when selected and omits them when excluded',()=>{
   expect(excluded.data.courseExport.data.sources[0]?.id).toBe(original.id);
 });
 
+it('unknown backed-up theme falls back safely only when appearance restore is selected',()=>{
+  const {source,course}=fixture(),target=makeStore();
+  const backup=createPortableBackup(source,course.id,{includePreferences:true});
+  const changed=structuredClone(backup) as unknown as {data:{appearance:{theme:string;mode:string}};dataChecksum:string};
+  changed.data.appearance.theme='unknown-future-theme';
+  changed.dataChecksum=createHash('sha256').update(JSON.stringify(changed.data)).digest('hex');
+  restorePortableBackup(target,changed,{restorePreferences:true});
+  expect(getAppearance(target)).toMatchObject({theme:'botanical',mode:'dark'});
+});
+
+it('all four appearance combinations survive an explicit backup preferences restore',()=>{
+  const {source,course}=fixture();
+  for(const variant of THEME_VARIANTS){
+    const [theme,mode]=variant.split('-') as [ThemeId,ModeId];
+    setAppearance(source,{...DEFAULT_APPEARANCE,theme,mode,reduceMotion:true,reduceTransparency:true});
+    const target=makeStore();
+    restorePortableBackup(target,createPortableBackup(source,course.id,{includePreferences:true}),{restorePreferences:true});
+    expect(getAppearance(target)).toEqual({...DEFAULT_APPEARANCE,theme,mode,reduceMotion:true,reduceTransparency:true});
+  }
+});
+
 it('CHK-13.2-02/04 rejects corruption and unsupported versions without writing',()=>{
   const {source,course}=fixture(),target=makeStore();
   const backup=createPortableBackup(source,course.id);
@@ -57,6 +78,18 @@ it('CHK-13.2-02/04 rejects corruption and unsupported versions without writing',
   expect(()=>previewPortableBackup(target,corrupt)).toThrow('backup_corrupt');
   expect(()=>restorePortableBackup(target,corrupt)).toThrow('backup_corrupt');
   expect(()=>previewPortableBackup(target,{...backup,version:99})).toThrow('backup_version_unsupported');
+  expect(target.db.prepare('select count(*) as n from courses').get()).toEqual({n:0});
+});
+
+it('preview rejects a checksum-valid backup with malformed record shape',()=>{
+  const {source,course}=fixture(),target=makeStore();
+  const backup=createPortableBackup(source,course.id);
+  const changed=structuredClone(backup) as unknown as {data:{courseExport:{data:{records:{reading_annotations:Array<Record<string,unknown>>}};dataChecksum:string}};dataChecksum:string};
+  changed.data.courseExport.data.records.reading_annotations[0]!.unexpected='not a storage column';
+  const hash=(value:string)=>createHash('sha256').update(value).digest('hex');
+  changed.data.courseExport.dataChecksum=hash(JSON.stringify(changed.data.courseExport.data));
+  changed.dataChecksum=hash(JSON.stringify(changed.data));
+  expect(()=>previewPortableBackup(target,changed)).toThrow('backup_version_unsupported');
   expect(target.db.prepare('select count(*) as n from courses').get()).toEqual({n:0});
 });
 

@@ -3,7 +3,6 @@ import fs from 'node:fs';
 import {
   CourseError,
   advanceVoiceInterrupt,
-  createRecognitionTranscript,
   echoSuppressedWhileTutorAudio,
   generateNarration,
   getNarrationAsset,
@@ -46,7 +45,7 @@ export function audioRoutes(app: FastifyInstance, store: Store) {
     return savePlaybackState(store, id, assetId, r.body);
   });
   app.get('/courses/:id/audio/recognition', async (r) => listRecognitionTranscripts(store, (r.params as { id: string }).id));
-  app.post('/courses/:id/audio/recognition', async (r) => createRecognitionTranscript(store, (r.params as { id: string }).id, r.body));
+  app.post('/courses/:id/audio/recognition', async () => { throw new CourseError('speech_recognition_unavailable',409); });
   app.get('/courses/:id/audio/recognition/:transcriptId', async (r) => {
     const { id, transcriptId } = r.params as { id: string; transcriptId: string };
     return getRecognitionTranscript(store, id, transcriptId);

@@ -14,6 +14,9 @@ const errors: Record<string, string> = {
   deletion_incomplete_retry: 'Deletion is incomplete. The course is closed to new work. Use Retry deletion to finish cleanup after the file problem is resolved.',
   deletion_confirmation_required: 'Type the exact course name and acknowledge the separate backups.',
   backup_corrupt: 'The backup checksum does not match. Choose an intact backup file.',
+  invalid_backup: 'Choose a valid CollegeNotes backup JSON file.',
+  backup_too_large: 'This backup exceeds the current 150 MB limit.',
+  backup_path_rejected: 'This backup contains an unsafe file path and cannot be restored.',
   backup_version_unsupported: 'This backup version is not supported by this app.',
   backup_conflict: 'This backup contains an ID already on this Mac. Existing courses were preserved.',
   restore_failed_retry: 'Restore was interrupted. Existing courses were preserved; try again.'
@@ -97,7 +100,8 @@ export function CourseManager({ active, onCollection }: Props) {
     if(!file)return;
     await action(async()=>{
       if(file.size>150*1024*1024)throw new Error('backup_too_large');
-      const input:unknown=JSON.parse(await file.text());
+      let input:unknown;
+      try{input=JSON.parse(await file.text());}catch{throw new Error('invalid_backup');}
       const preview=await api.courses.previewBackup(input);
       backupInput.current=input;setBackupPreview(preview);
       setStatus(preview.canRestore?'Backup checked. Review its contents before restoring.':'Backup checked. Resolve the listed conflict before restoring.');

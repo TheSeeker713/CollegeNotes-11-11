@@ -1,7 +1,7 @@
 export const COURSE_MODULES = [
   { id: 'reading', label: 'Reading', description: 'Read and annotate your course sources.', available: true },
   { id: 'notes', label: 'Notes', description: 'Keep a local course note in your workspace.', available: true },
-  { id: 'study', label: 'Study', description: 'Practice with source-linked learning activities.', available: false },
+  { id: 'study', label: 'Study', description: 'Practice with source-linked learning activities.', available: true },
   { id: 'research', label: 'Research', description: 'Gather web evidence through a connection you choose.', available: true },
   { id: 'tutoring', label: 'Tutoring', description: 'Work through your material with an optional AI service.', available: true },
   { id: 'audio', label: 'Audio', description: 'Listen to material and use voice tools.', available: true },

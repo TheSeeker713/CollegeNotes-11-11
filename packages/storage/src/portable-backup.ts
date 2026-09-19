@@ -24,6 +24,11 @@ type FileEntry={kind:'original'|'narration'|'practice';id:string;rel:string;byte
 const sha=(value:Buffer|string)=>createHash('sha256').update(value).digest('hex');
 const safeId=(value:unknown):value is string=>typeof value==='string'&&/^[a-z][a-z0-9_-]{1,100}$/i.test(value);
 function object(value:unknown):Row{if(!value||typeof value!=='object'||Array.isArray(value))throw new CourseError('invalid_backup');return value as Row;}
+function checkedRow(store:Store,table:string,row:Row){
+  const columns=(store.db.prepare(`pragma table_info(${table})`).all() as Array<{name:string}>).map(column=>column.name);
+  if(Object.keys(row).some(key=>!columns.includes(key))||columns.some(key=>!(key in row))||Object.values(row).some(value=>value!==null&&!['string','number'].includes(typeof value)))throw new CourseError('backup_version_unsupported',409);
+  return columns;
+}
 function bytes(value:unknown,expectedLength:unknown,expectedHash:unknown):Buffer{
   if(typeof value!=='string'||!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(value))throw new CourseError('backup_corrupt');
   const buffer=Buffer.from(value,'base64');
@@ -69,6 +74,8 @@ function validated(store:Store,input:unknown){
   for(const source of sourceRows){
     const row=object(source);
     if(!safeId(row.id)||row.course_id!==courseId||'stored_rel_path'in row)throw new CourseError('invalid_backup');
+    const shape={...row};delete shape.contentBase64;
+    checkedRow(store,'source_documents',{...shape,stored_rel_path:path.join('originals',`${row.id}_restored.bin`)});
     if(row.contentBase64===null){
       if(row.deleted_at===null||row.cleanup_state!=='complete')throw new CourseError('backup_missing_original',409);
     }else{
@@ -102,9 +109,14 @@ function validated(store:Store,input:unknown){
   for(const table of recordOrder){
     for(const raw of records[table] as unknown[]){
       const row=object(raw);
+      checkedRow(store,table,row);
       if(table==='study_sources')continue;
       if(row.course_id!==courseId)throw new CourseError('backup_course_mismatch',409);
     }
+  }
+  const sourceIds=new Set(sourceRows.map(raw=>(raw as Row).id));
+  for(const table of recordOrder)for(const row of records[table] as Row[]){
+    if(typeof row.source_id==='string'&&!sourceIds.has(row.source_id))throw new CourseError('backup_course_mismatch',409);
   }
   const activityIds=new Set((records.study_activities as Row[]).map(row=>row.id));
   if((records.study_sources as Row[]).some(row=>!activityIds.has(row.activity_id)))throw new CourseError('backup_course_mismatch',409);
@@ -140,8 +152,7 @@ export function previewPortableBackup(store:Store,input:unknown){
   return {courseId:value.courseId,courseName:value.course.name,sourceCount:value.sources.length,recordCount:recordOrder.reduce((n,table)=>n+(value.records[table] as Row[]).length,0),fileCount:value.files.length,mediaPolicy:value.mediaPolicy,appearanceAvailable:value.appearance!==null,conflicts:value.conflicts,canRestore:value.conflicts.length===0};
 }
 function insertRow(store:Store,table:string,row:Row){
-  const columns=(store.db.prepare(`pragma table_info(${table})`).all() as Array<{name:string}>).map(column=>column.name);
-  if(Object.keys(row).some(key=>!columns.includes(key))||columns.some(key=>!(key in row)))throw new CourseError('backup_version_unsupported',409);
+  const columns=checkedRow(store,table,row);
   store.db.prepare(`insert into ${table} (${columns.join(',')}) values (${columns.map(()=>'?').join(',')})`).run(...columns.map(key=>row[key]));
 }
 export function restorePortableBackup(store:Store,input:unknown,options:{restorePreferences?:boolean}={}){
