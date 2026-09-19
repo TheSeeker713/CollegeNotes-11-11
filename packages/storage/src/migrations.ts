@@ -197,7 +197,66 @@ export const MIGRATIONS = [
     status text not null check(status in ('active','paused','complete')),
     version integer not null default 1, created_at text not null, updated_at text not null
   );
-  create unique index one_open_study_session on study_sessions(course_id) where status!='complete';`
+  create unique index one_open_study_session on study_sessions(course_id) where status!='complete';`,
+  `create table narration_assets (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    source_id text not null,
+    source_revision integer not null check(source_revision > 0),
+    voice_id text not null,
+    settings_hash text not null,
+    text_hash text not null,
+    rel_path text not null,
+    duration_ms integer not null check(duration_ms > 0),
+    byte_length integer not null check(byte_length > 0),
+    anchors_json text not null check(json_valid(anchors_json)),
+    provider_id text not null,
+    status text not null check(status in ('ready','stale','failed')),
+    created_at text not null,
+    unique(course_id, source_id, source_revision, voice_id, settings_hash),
+    unique(id, course_id),
+    foreign key(source_id, course_id) references source_documents(id, course_id) on delete cascade
+  );
+  create index narration_assets_course on narration_assets(course_id, source_id, source_revision);
+  create trigger narration_source_changed after update of revision,approved_revision,trashed_at,deleted_at on source_documents begin
+    update narration_assets set status='stale' where source_id=new.id;
+  end;
+  create table narration_playback (
+    course_id text not null,
+    asset_id text not null,
+    offset_ms integer not null default 0 check(offset_ms >= 0),
+    speed real not null default 1 check(speed > 0 and speed <= 3),
+    bookmarks_json text not null default '[]' check(json_valid(bookmarks_json)),
+    updated_at text not null,
+    primary key(course_id, asset_id),
+    foreign key(asset_id, course_id) references narration_assets(id, course_id) on delete cascade
+  );
+  create table recognition_transcripts (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    raw_text text not null,
+    edited_text text not null,
+    terms_json text not null check(json_valid(terms_json)),
+    status text not null check(status in ('draft','final')),
+    created_at text not null,
+    updated_at text not null,
+    unique(id, course_id)
+  );
+  create table voice_interrupt_sessions (
+    id text primary key,
+    course_id text not null references courses(id) on delete cascade,
+    asset_id text not null,
+    saved_offset_ms integer not null check(saved_offset_ms >= 0),
+    tutor_request_id text,
+    echo_suppressed integer not null default 1 check(echo_suppressed in (0,1)),
+    status text not null check(status in ('interrupted','asking','resumed','cancelled','failed')),
+    client_request_id text,
+    created_at text not null,
+    updated_at text not null,
+    unique(id, course_id),
+    unique(course_id, client_request_id),
+    foreign key(asset_id, course_id) references narration_assets(id, course_id) on delete cascade
+  );`
 ];
 
 export function migrate(db: Database.Database): number {

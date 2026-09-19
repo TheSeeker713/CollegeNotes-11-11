@@ -4,7 +4,7 @@ export const COURSE_MODULES = [
   { id: 'study', label: 'Study', description: 'Practice with source-linked learning activities.', available: false },
   { id: 'research', label: 'Research', description: 'Gather web evidence through a connection you choose.', available: true },
   { id: 'tutoring', label: 'Tutoring', description: 'Work through your material with an optional AI service.', available: true },
-  { id: 'audio', label: 'Audio', description: 'Listen to material and use voice tools.', available: false },
+  { id: 'audio', label: 'Audio', description: 'Listen to material and use voice tools.', available: true },
   { id: 'practice', label: 'Presentation practice', description: 'Rehearse presentations using your own material.', available: false },
   { id: 'visuals', label: 'Subject visuals', description: 'Explore optional visual explanations.', available: false }
 ] as const;

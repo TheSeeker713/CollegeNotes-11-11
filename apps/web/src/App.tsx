@@ -30,6 +30,7 @@ import { Materials } from './Materials';
 import { CourseManager } from './CourseManager';
 import { ResearchWorkspace } from './ResearchWorkspace';
 import { StudyWorkspace } from './StudyWorkspace';
+import { ListenWorkspace } from './ListenWorkspace';
 import { TutorWorkspace } from './TutorWorkspace';
 import { GlassAtmosphere } from '@collegenotes/visuals/atmosphere';
 
@@ -249,6 +250,8 @@ export function App() {
             if (courseId) void api.drafts.put({ key: `note:${courseId}`, courseId, body }).catch(() => setNotice('Note could not be saved. Keep this window open; your text remains here.'));
           }} />
         </label>
+      ) : id === 'listen' ? (
+        <p>Open Listen from the course home Audio tools, or enable Audio and use the Listen workspace for narration controls.</p>
       ) : (
         <p>{id === 'source' ? 'Reading is selected for this course. Import and reading tools arrive in later phases.' : 'Selected for this course. This tool is not available in the current build.'}</p>
       )}
@@ -316,7 +319,9 @@ export function App() {
             {screen === 'home' && course ? (
               <section className="course-home glass">
                 <div className="page-heading"><div><p className="eyebrow">Your course · {course.id.slice(-8)}</p><h1>{course.name}</h1><p>{course.description || 'Your space to collect ideas and make sense of what you learn.'}</p></div><a className="button" href="#/courses">Manage course</a></div>
-                {enabledModules.includes('reading')&&<a className="button" href={`#/courses/${courseId}/reading`}>Continue reading</a>}<div className="course-home-footer"><span className="badge">Local workspace</span><span>{modules === null ? 'Loading module selections…' : enabledModules.length ? COURSE_MODULES.filter(m=>enabledModules.includes(m.id)).map(m=>m.label).join(' · ') : 'No modules selected yet'}</span><span>No account required</span></div>
+                {enabledModules.includes('reading')&&<a className="button" href={`#/courses/${courseId}/reading`}>Continue reading</a>}
+                {enabledModules.includes('audio')&&courseId?<ListenWorkspace key={courseId} courseId={courseId}/>:null}
+                <div className="course-home-footer"><span className="badge">Local workspace</span><span>{modules === null ? 'Loading module selections…' : enabledModules.length ? COURSE_MODULES.filter(m=>enabledModules.includes(m.id)).map(m=>m.label).join(' · ') : 'No modules selected yet'}</span><span>No account required</span></div>
               </section>
             ) : null}
             {initialized ? <div hidden={screen !== 'courses' && !(screen === 'home' && !course && !empty)}><CourseManager active={screen === 'courses' || (screen === 'home' && !course && !empty)} onCollection={setCourses} /></div> : null}

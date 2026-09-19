@@ -29,3 +29,4 @@ export * from './lifecycle.js';
 export * from './modules.js';
 export * from './reading.js';
 export * from './study.js';
+export * from './audio.js';

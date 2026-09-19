@@ -52,7 +52,7 @@ export const PROVIDERS: readonly ProviderDefinition[] = [
   { id: 'google', label: 'Google / Gemini', capabilities: ['tutor', 'research', 'narration', 'transcription', 'realtimeVoice'], auth: [
     { method: 'apiKey', evidence: 'verified_documentation', documentationUrl: 'https://ai.google.dev/gemini-api/docs/api-key' }
   ], dataPolicyUrl: 'https://ai.google.dev/gemini-api/terms', models: [], implementation: 'not_implemented' },
-  { id: 'local', label: 'Local / compatible API', capabilities: ['tutor'], auth: [{method:'apiKey',evidence:'verified_documentation',documentationUrl:'https://docs.ollama.com/api/openai-compatibility'}], dataPolicyUrl:'', models:[], implementation:'not_implemented' }
+  { id: 'local', label: 'Local / compatible API', capabilities: ['tutor', 'narration', 'transcription'], auth: [{method:'apiKey',evidence:'verified_documentation',documentationUrl:'https://docs.ollama.com/api/openai-compatibility'}], dataPolicyUrl:'', models: [], implementation: 'installed' }
 ];
 
 export function newConnection(id: string, provider: ProviderDefinition, label: string, method: AuthMethod): Connection {

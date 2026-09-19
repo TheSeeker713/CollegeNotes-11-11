@@ -67,3 +67,7 @@ CHANGE-GUI-WEBGL-SHELL authorizes amending the official plan and implementing th
 ## Current Phase 9 authorization
 
 AUTH-P9 authorizes all four ordered Phase 9 engineering checkpoints, repository pushes, production report and owner-only manual testing guide. Stop before Phase 10. UI/UX acceptance remains pending; no agent UI tests or live provider requests.
+
+## Current Phase 10 authorization
+
+AUTH-P10 authorizes all four ordered Phase 10 engineering checkpoints, repository pushes, production report and owner-only manual testing guide. Stop before Phase 11. No live API keys, paid requests, or model downloads. Use macOS `/usr/bin/say` for local TTS and synthetic offline recognition. Human listening naturalness and UI/UX acceptance remain owner-pending.

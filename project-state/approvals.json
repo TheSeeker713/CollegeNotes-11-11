@@ -395,6 +395,27 @@
         "Deliver production report and manual testing guide; stop before Phase 10.",
         "No live provider authentication, paid requests, new external dependencies or model downloads."
       ]
+    },
+    {
+      "id": "AUTH-P10",
+      "kind": "phase_authorization",
+      "phases": [
+        10
+      ],
+      "source": "Owner message in current task, September 18, 2026",
+      "quote": "Implement phase 10 now",
+      "pass_id": "PASS-2026-09-18-P10",
+      "boundary_exception": {
+        "from": 9,
+        "to": 10
+      },
+      "conditions": [
+        "Implement all four Phase 10 steps with ordered engineering, audit, commit, push and remote verification checkpoints.",
+        "No live API keys, paid requests, or model downloads (no Kokoro/whisper).",
+        "Use macOS /usr/bin/say for local TTS; synthetic STT for offline recognition contracts.",
+        "Owner-only UI/UX and human listening naturalness remain pending.",
+        "Deliver production report and manual testing guide; stop before Phase 11."
+      ]
     }
   ]
 }

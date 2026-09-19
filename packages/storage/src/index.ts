@@ -39,3 +39,6 @@ export * from './research-tutor.js';
 export * from './study.js';
 export * from './study-review.js';
 export * from './study-sessions.js';
+export * from './narration.js';
+export * from './recognition.js';
+export * from './voice-interrupt.js';

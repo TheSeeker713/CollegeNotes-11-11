@@ -13,12 +13,12 @@ export function configureConnection(store:Store,id:string,input:unknown){
  if(c.authMethod==='apiKey'&&c.providerId!=='local'&&v.billing==='subscription')throw new CourseError('api_does_not_use_subscription');
  if(v.ceiling!==null&&(typeof v.ceiling!=='number'||!Number.isFinite(v.ceiling)||v.ceiling<0||v.ceiling>10000))throw new CourseError('invalid_usage_limit');
  if(!Array.isArray(v.capabilities)||v.capabilities.some(x=>!CAPABILITIES.includes(x)||!PROVIDERS.find(p=>p.id===c.providerId)!.capabilities.includes(x)))throw new CourseError('invalid_capabilities');
- if(v.capabilities.some(x=>!['tutor','research'].includes(x)))throw new CourseError('capability_not_implemented');
+ if(v.capabilities.some(x=>!['tutor','research','narration','transcription'].includes(x)))throw new CourseError('capability_not_implemented');
  const updated:Connection={...c,modelId:model,billing:v.billing as Connection['billing'],usageLimit:v.ceiling===null?null:{currency:'USD',ceiling:v.ceiling as number,spent:c.usageLimit?.spent??0},capabilities:Object.fromEntries(v.capabilities.map((cap:Capability)=>[cap,{enabled:true,modelId:model}]))};
  saveConnection(store,updated);return updated;
 }
 export function selectCapability(store:Store,capability:unknown,id:unknown){
- if(typeof capability!=='string'||!['tutor','research'].includes(capability))throw new CourseError('capability_not_implemented');
+ if(typeof capability!=='string'||!['tutor','research','narration','transcription'].includes(capability))throw new CourseError('capability_not_implemented');
  if(id===null){store.db.prepare('delete from capability_assignments where capability=?').run(capability);return;}
  if(typeof id!=='string')throw new CourseError('invalid_connection');
  const c=getConnection(store,id),p=listProviderDefinitions(store).find(p=>p.id===c?.providerId);

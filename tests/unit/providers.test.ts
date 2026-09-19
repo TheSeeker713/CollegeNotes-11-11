@@ -8,7 +8,10 @@ function ready() {
 describe('provider foundation', () => {
   it('starts every provider disabled without selecting models or credentials', () => {
     expect(PROVIDERS.map((p) => p.id)).toEqual(['openai', 'xai', 'anthropic', 'google', 'local']);
+    expect(PROVIDERS.find((p) => p.id === 'local')?.capabilities).toEqual(expect.arrayContaining(['narration', 'transcription', 'tutor']));
+    expect(PROVIDERS.find((p) => p.id === 'local')?.implementation).toBe('installed');
     for (const p of PROVIDERS) {
+      expect(p.auth.length).toBeGreaterThan(0);
       const c = newConnection('test', p, 'Synthetic', 'apiKey');
       expect(c.enabled).toBe(false); expect(c.credential).toBeNull();
       for (const cap of CAPABILITIES) expect(requestEligibility(p, c, cap, 0).allowed).toBe(false);

@@ -28,6 +28,20 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+ audio: {
+  voices: () => req<import('@collegenotes/domain').VoiceProfile[]>('/audio/voices'),
+  list: (c: string, sourceId?: string) => req<import('@collegenotes/domain').NarrationAsset[]>(`/courses/${c}/audio/narrations${sourceId ? `?sourceId=${encodeURIComponent(sourceId)}` : ''}`),
+  generate: (c: string, body: { sourceId: string; voiceId: string; rate?: number }) => req<import('@collegenotes/domain').NarrationAsset & { timing: { startupMs: number; throughputCharsPerSec: number; costUsd: 0; downloadedBytes: 0 }; reused: boolean }>(`/courses/${c}/audio/narrations`, { method: 'POST', body: JSON.stringify(body) }),
+  get: (c: string, id: string) => req<import('@collegenotes/domain').NarrationAsset>(`/courses/${c}/audio/narrations/${id}`),
+  fileUrl: (c: string, id: string) => `${BASE}/courses/${c}/audio/narrations/${id}/file`,
+  playback: (c: string, id: string) => req<import('@collegenotes/domain').NarrationPlaybackState>(`/courses/${c}/audio/narrations/${id}/playback`),
+  savePlayback: (c: string, id: string, body: unknown) => req<import('@collegenotes/domain').NarrationPlaybackState>(`/courses/${c}/audio/narrations/${id}/playback`, { method: 'PUT', body: JSON.stringify(body) }),
+  recognize: (c: string, body: unknown) => req<import('@collegenotes/domain').RecognitionTranscript>(`/courses/${c}/audio/recognition`, { method: 'POST', body: JSON.stringify(body) }),
+  updateRecognition: (c: string, id: string, body: unknown) => req<import('@collegenotes/domain').RecognitionTranscript>(`/courses/${c}/audio/recognition/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
+  interrupt: (c: string, body: unknown) => req<import('@collegenotes/domain').VoiceInterruptSession>(`/courses/${c}/audio/interrupt`, { method: 'POST', body: JSON.stringify(body) }),
+  advanceInterrupt: (c: string, id: string, body: unknown) => req<import('@collegenotes/domain').VoiceInterruptSession>(`/courses/${c}/audio/interrupt/${id}`, { method: 'POST', body: JSON.stringify(body) }),
+  echo: (c: string, id: string) => req<{ suppressed: boolean }>(`/courses/${c}/audio/interrupt/${id}/echo`)
+ },
  study: {
   session:(c:string)=>req<import('@collegenotes/domain').StudySession|null>(`/courses/${c}/study/session`),
   openSession:(c:string,limit:number)=>req<import('@collegenotes/domain').StudySession>(`/courses/${c}/study/sessions`,{method:'POST',body:JSON.stringify({limit})}),

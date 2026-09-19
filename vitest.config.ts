@@ -31,7 +31,9 @@ export default defineConfig({
         test: {
           name: 'integration',
           include: ['tests/integration/**/*.test.ts'],
-          environment: 'node'
+          environment: 'node',
+          // Native onnxruntime + macOS say are unstable under high fork parallelism.
+          maxWorkers: 2
         }
       },
       {
