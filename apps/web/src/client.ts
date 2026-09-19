@@ -29,6 +29,9 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
  study: {
+  progress:(c:string)=>req<import('@collegenotes/domain').StudyProgress>(`/courses/${c}/study/progress`),
+  workload:(c:string,dailyLimit:number)=>req<import('@collegenotes/domain').StudyProgress>(`/courses/${c}/study/workload`,{method:'PUT',body:JSON.stringify({dailyLimit})}),
+  review:(c:string,id:string,action:'reset'|'undo')=>req<import('@collegenotes/domain').StudyProgress>(`/courses/${c}/study/activities/${id}/review/${action}`,{method:'POST'}),
   attempts:(c:string)=>req<import('@collegenotes/domain').StudyAttempt[]>(`/courses/${c}/study/attempts`),
   start:(c:string,a:string)=>req<import('@collegenotes/domain').AttemptView>(`/courses/${c}/study/activities/${a}/attempts`,{method:'POST'}),
   attempt:(c:string,id:string)=>req<import('@collegenotes/domain').AttemptView>(`/courses/${c}/study/attempts/${id}`),

@@ -44,3 +44,11 @@ export function scoreActivity(activity: ActivityTemplate, response: string[]): S
   const score = response.filter((r, i) => r === activity.answer[i]).length / activity.answer.length;
   return { outcome: score === 1 ? 'correct' : 'incorrect', score, message: score === 1 ? 'Matches the prepared answer.' : 'Review the rationale and try a fresh attempt.', rubric: activity.rubric, authoritativeGrade: false };
 }
+
+/** UTC elapsed-day spacing avoids DST/nonexistent local-time ambiguity. */
+export function nextReview(now: string, previousDays: number, feedback: StudyFeedback, assisted: boolean) {
+  const time = Date.parse(now);
+  if (!Number.isFinite(time) || !Number.isInteger(previousDays) || previousDays < 0) throw Error('invalid_review_clock');
+  const intervalDays = feedback.outcome === 'correct' && !assisted ? Math.min(60, Math.max(1, previousDays * 2)) : 1;
+  return { intervalDays, dueAt: new Date(time + intervalDays * 86400000).toISOString() };
+}

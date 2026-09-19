@@ -23,3 +23,10 @@ export type AttemptView = {
   visibleHints: string[]; hintTotal: number;
   solution: { answer: string[]; rationale: string } | null;
 };
+
+export type ReviewItem = { activityId: string; title: string; dueAt: string; intervalDays: number; canUndo: boolean };
+export type StudyProgress = {
+ dailyLimit: number; due: ReviewItem[]; dueTotal: number; remainingToday: number;
+ history: StudyAttempt[]; submitted: number; correctUnaided: number; assisted: number; needsReview: number;
+ currentActivities: number; staleActivities: number; explanation: string;
+};

@@ -179,6 +179,16 @@ export const MIGRATIONS = [
     version integer not null default 1, created_at text not null, submitted_at text,
     foreign key(activity_id,course_id) references study_activities(id,course_id) on delete cascade,
     unique(id,course_id)
+  );` ,
+  `create table study_schedule (
+    activity_id text primary key, course_id text not null,
+    due_at text not null, interval_days integer not null default 0,
+    last_attempt_id text, undo_json text check(undo_json is null or json_valid(undo_json)),
+    foreign key(activity_id,course_id) references study_activities(id,course_id) on delete cascade
+  );
+  create table study_preferences (
+    course_id text primary key references courses(id) on delete cascade,
+    daily_limit integer not null default 5 check(daily_limit between 1 and 50)
   );`
 ];
 

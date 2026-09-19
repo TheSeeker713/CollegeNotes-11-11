@@ -40,6 +40,7 @@ export function deleteActivity(store: Store, courseId: string, id: string) {
   return { deleted: true };
 }
 
+import { scheduleAttempt } from './study-review.js';
 import { scoreActivity } from '@collegenotes/learning';
 import type { StudyAttempt, AttemptView } from '@collegenotes/domain';
 export function startAttempt(store: Store, courseId: string, activityId: string): AttemptView {
@@ -61,7 +62,7 @@ export function getAttempt(store:Store,courseId:string,id:string):AttemptView {
   const {answer,rationale,hints,...activity}=requireActivity(store,courseId,attempt.activityId);
   return {attempt,activity,visibleHints:hints.slice(0,attempt.hintCount),hintTotal:hints.length,solution:attempt.revealed?{answer,rationale}:null};
 }
-export function updateAttempt(store:Store,courseId:string,id:string,action:'save'|'hint'|'submit'|'reveal',input:unknown):AttemptView {
+export function updateAttempt(store:Store,courseId:string,id:string,action:'save'|'hint'|'submit'|'reveal',input:unknown,now=new Date().toISOString()):AttemptView {
   requireStudy(store,courseId,true);
   const body=input as {version?:unknown;response?:unknown;teachBack?:unknown}|null;
   return store.db.transaction(()=>{
@@ -83,7 +84,8 @@ export function updateAttempt(store:Store,courseId:string,id:string,action:'save
         const activity=requireActivity(store,courseId,a.activityId);
         if(activity.kind==='prediction'&&!a.teachBack.trim())throw new CourseError('prediction_explanation_required');
         let feedback;try{feedback=scoreActivity(activity,a.response);}catch{throw new CourseError('complete_response_required');}
-        store.db.prepare("update study_attempts set status='submitted',feedback=?,submitted_at=?,version=version+1 where id=?").run(JSON.stringify(feedback),new Date().toISOString(),id);
+        store.db.prepare("update study_attempts set status='submitted',feedback=?,submitted_at=?,version=version+1 where id=?").run(JSON.stringify(feedback),now,id);
+        scheduleAttempt(store,courseId,id,now);
       }
     }
     return getAttempt(store,courseId,id);

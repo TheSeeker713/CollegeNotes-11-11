@@ -1,3 +1,4 @@
+import { StudyProgressPanel } from './StudyProgress';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   COURSE_MODULES,
@@ -329,7 +330,8 @@ export function App() {
             {screen === 'study' && courseId && enabledModules.includes('tutoring') ? <TutorWorkspace key={courseId} courseId={courseId} /> : null}
             {screen === 'reading' && courseId ? modules===null?<p>Loading reading module…</p>:enabledModules.includes('reading')?<Reader key={courseId} courseId={courseId} />:<section><h1>Reading</h1><p>Enable the Reading module for this course to use the reader. Your saved material and annotations remain intact when a module is disabled.</p><a href="#/courses">Manage course modules</a></section> : null}
             {screen === 'sources' && courseId ? <Materials key={courseId} courseId={courseId} /> : null}
-            {['practice', 'requirements', 'progress'].includes(screen) || (screen === 'study' && !(courseId && (enabledModules.includes('study') || enabledModules.includes('tutoring')))) ? (
+            {screen === 'progress' && courseId ? enabledModules.includes('study') ? <StudyProgressPanel key={courseId} courseId={courseId}/> : <section><h1>Progress</h1><p>Enable the Study module to view learning history.</p><a href="#/courses">Manage course modules</a></section> : null}
+            {['practice', 'requirements'].includes(screen) || (screen === 'study' && !(courseId && (enabledModules.includes('study') || enabledModules.includes('tutoring')))) ? (
               <section>
                 <h1>{NAV_LABEL[screen]}</h1>
                 <p>{screen === 'study' ? 'Enable the Study module for prepared activities or Tutoring for structured tutoring.' : 'This tool is planned for a later phase. Manage your course to select the modules you want to use.'}</p>
