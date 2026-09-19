@@ -6,4 +6,4 @@ Domain audio contracts, local provider narration/transcription capabilities, `pa
 
 Non-UI gate: types, lint, build, 32 unit, 209 integration, 2 evaluation, 6 planning, 44 workflow. Integration `maxWorkers: 2` avoids native onnx/say fork crashes under high parallelism. Private evidence: `.local/verification/phase10/10.1/`.
 
-Checkpoint is pending commit/push confirmation; the next step records the verified SHA without a recursive self-hash claim.
+Verified origin/main checkpoint: `e2b03dbd7c26b2b8b9b2f85bdfcad51f240edbba`.
