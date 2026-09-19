@@ -6,4 +6,4 @@ Tutor may reference approved visual-aid actions only through validated data. Pro
 
 Non-UI gate: types, lint, build, 32 unit, 256 integration, 2 evaluation, 6 planning, 44 workflow. Private evidence: `.local/verification/phase12/12.4/`.
 
-Verified origin/main checkpoint: _(filled after push)_.
+Verified origin/main checkpoint: .

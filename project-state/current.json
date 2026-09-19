@@ -1,8 +1,8 @@
 {
   "phase": 12,
-  "phase_status": "in_progress",
+  "phase_status": "awaiting_user_review",
   "step": "12.4",
-  "step_status": "in_progress",
+  "step_status": "complete",
   "pass_id": "PASS-2026-09-18-P12",
   "authorization_ref": "AUTH-P12",
   "authorized_phases_this_pass": [
@@ -62,7 +62,7 @@
     "12.1": "complete",
     "12.2": "complete",
     "12.3": "complete",
-    "12.4": "in_progress",
+    "12.4": "complete",
     "13.1": "not_started",
     "13.2": "not_started",
     "13.3": "not_started",
@@ -123,9 +123,10 @@
     "11.4": "9915246a8f8603b7904c73b3165896d0fd3d3bce",
     "12.1": "6da90b854aad17946c5859fa0c7246dd4d567a07",
     "12.2": "5a37955bd32bc3ff761e7a87f691c58064b7c609",
-    "12.3": "efc43372460c87ceec1a54a9dc137f2e6adece67"
+    "12.3": "efc43372460c87ceec1a54a9dc137f2e6adece67",
+    "12.4": "742799c568ccbaa6e28e31991b5d6dabb7d20afd"
   },
-  "next_action": "Complete Phase 12.4 tutor integration and delivery under AUTH-P12; stop before Phase 13.",
+  "next_action": "Owner-only Phase 12 manual UI review. Stop before Phase 13; no next-phase authorization.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
@@ -141,7 +142,7 @@
     "9": "complete",
     "10": "complete",
     "11": "complete",
-    "12": "in_progress"
+    "12": "complete"
   },
   "manual_acceptances": [
     {
@@ -445,5 +446,28 @@
     "model_downloads": false,
     "scope": "course-neutral presentation practice",
     "verified_remote_sha": "4c567799111e8346a894f0bbfd85cff6fa8b6f39"
+  },
+  "phase12_delivery": {
+    "implementation_candidate": "742799c568ccbaa6e28e31991b5d6dabb7d20afd",
+    "implementation_status": "engineering_complete",
+    "manual_acceptance": "pending_owner_only",
+    "pending_checks": [
+      "Rendered Visuals UI theme/accessibility review",
+      "Owner judgment of instructional R3F vs no-GPU alternative",
+      "Confirm theme switch does not reset active experiment"
+    ],
+    "production_report": "docs/phase-12-production-report.md",
+    "manual_guide": "docs/phase-12-manual-tests.md",
+    "final_receipt": "docs/phases/phase12-final-receipt.md",
+    "non_ui_test_counts": {
+      "unit": 32,
+      "integration": 256,
+      "evals": 2,
+      "planning": 6,
+      "workflow": 44
+    },
+    "model_downloads": false,
+    "scope": "course-neutral visual aids",
+    "verified_remote_sha": null
   }
 }
