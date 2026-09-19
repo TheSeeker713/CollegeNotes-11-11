@@ -7,3 +7,5 @@ Non-UI gate passed: types, lint, build, 32 unit, 166 integration, 1 evaluation, 
 Separate source/evidence audit: reviewed schema bounds, course and module guards, exact source slice validation, transactionality, forward-only migration, source lifecycle triggers, export, ordinary form controls and absence of provider calls. Internal storage→learning workspace reference added; no dependency installed. Design specification: [phase9-design.md](phase9-design.md). Manual UI/UX review remains pending owner-only.
 
 Checkpoint is pending commit/push confirmation; the next step records the verified SHA without a recursive self-hash claim.
+
+Verified origin/main checkpoint: `72fb88b8a5bdc04e503df322d6023199c70e95aa`.

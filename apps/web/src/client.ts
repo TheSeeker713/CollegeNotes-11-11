@@ -29,6 +29,10 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
  study: {
+  attempts:(c:string)=>req<import('@collegenotes/domain').StudyAttempt[]>(`/courses/${c}/study/attempts`),
+  start:(c:string,a:string)=>req<import('@collegenotes/domain').AttemptView>(`/courses/${c}/study/activities/${a}/attempts`,{method:'POST'}),
+  attempt:(c:string,id:string)=>req<import('@collegenotes/domain').AttemptView>(`/courses/${c}/study/attempts/${id}`),
+  update:(c:string,id:string,action:string,body:unknown)=>req<import('@collegenotes/domain').AttemptView>(`/courses/${c}/study/attempts/${id}/${action}`,{method:'POST',body:JSON.stringify(body)}),
   activities:(c:string)=>req<import('@collegenotes/domain').StudyActivity[]>(`/courses/${c}/study/activities`),
   create:(c:string,body:import('@collegenotes/domain').ActivityTemplate)=>req<import('@collegenotes/domain').StudyActivity>(`/courses/${c}/study/activities`,{method:'POST',body:JSON.stringify(body)}),
   remove:(c:string,id:string)=>req(`/courses/${c}/study/activities/${id}`,{method:'DELETE'})

@@ -11,3 +11,15 @@ export type ActivityTemplate = {
 };
 export type StudyActivity = ActivityTemplate & { id: string; courseId: string; status: 'ready' | 'stale'; createdAt: string };
 export type StudyFeedback = { outcome: 'correct' | 'incorrect' | 'needs_review'; score: number | null; message: string; rubric: string[]; authoritativeGrade: false };
+
+export type StudyAttempt = {
+  id: string; courseId: string; activityId: string; response: string[]; teachBack: string;
+  hintCount: number; revealed: boolean; status: 'draft' | 'submitted'; feedback: StudyFeedback | null;
+  version: number; createdAt: string; submittedAt: string | null;
+};
+export type AttemptView = {
+  attempt: StudyAttempt;
+  activity: Omit<StudyActivity, 'answer' | 'rationale' | 'hints'>;
+  visibleHints: string[]; hintTotal: number;
+  solution: { answer: string[]; rationale: string } | null;
+};

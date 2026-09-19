@@ -169,7 +169,17 @@ export const MIGRATIONS = [
   end;
   create trigger study_source_deleted before delete on source_documents begin
     delete from study_activities where id in (select activity_id from study_sources where source_id=old.id);
-  end;`
+  end;` ,
+  `create table study_attempts (
+    id text primary key, course_id text not null, activity_id text not null,
+    response text not null check(json_valid(response)), teach_back text not null default '',
+    hint_count integer not null default 0, revealed integer not null default 0,
+    status text not null check(status in ('draft','submitted')),
+    feedback text check(feedback is null or json_valid(feedback)),
+    version integer not null default 1, created_at text not null, submitted_at text,
+    foreign key(activity_id,course_id) references study_activities(id,course_id) on delete cascade,
+    unique(id,course_id)
+  );`
 ];
 
 export function migrate(db: Database.Database): number {

@@ -1,7 +1,7 @@
 {
   "phase": 9,
   "phase_status": "active",
-  "step": "9.1",
+  "step": "9.2",
   "step_status": "checkpoint_pending",
   "pass_id": "PASS-2026-09-18-P9",
   "authorization_ref": "AUTH-P9",
@@ -47,8 +47,8 @@
     "8.2": "complete",
     "8.3": "complete",
     "8.4": "complete",
-    "9.1": "checkpoint_pending",
-    "9.2": "not_started",
+    "9.1": "complete",
+    "9.2": "checkpoint_pending",
     "9.3": "not_started",
     "9.4": "not_started",
     "10.1": "not_started",
@@ -108,9 +108,10 @@
     "8.1": "a35745282ce59fa96b662cffae28ac32f7d5dd20",
     "8.2": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
     "8.3": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
-    "8.4": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0"
+    "8.4": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
+    "9.1": "72fb88b8a5bdc04e503df322d6023199c70e95aa"
   },
-  "next_action": "Implement Phase 9.1 activities; owner UI review pending.",
+  "next_action": "Implement hints and teach-back; owner UI review pending.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {
