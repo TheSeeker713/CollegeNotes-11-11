@@ -6,4 +6,4 @@ CHK-13.4-01 through CHK-13.4-07 passed for Phase 13 engineering. CHK-13.4-05 is 
 
 Final non-UI gate: type check, lint, build, 32 unit, 280 integration, 2 evaluation, 6 planning and 44 workflow checks passed. No browser, screenshot, accessibility automation, live provider request, paid request, API-key entry or model download was performed. The [production report](../phase-13-production-report.md) and [owner-only manual guide](../phase-13-manual-tests.md) are delivered. Stop before Phase 14.
 
-Verified origin/main checkpoint SHA is recorded in `project-state/current.json` after the ordered push confirmation.
+Verified origin/main checkpoint SHA is `1b90999548afd262ed77caf6890c72203a991129` (confirmed on origin/main).

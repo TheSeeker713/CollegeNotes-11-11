@@ -12,7 +12,7 @@ The integrated audit exercised concurrent import/reading, interrupted work, low 
 - 13.1: `3316e13b50c652e8ad4bc1a60fe2005d98b50fc8`
 - 13.2: `ce548c3dce64b0a7a232fca548277ac8b5c0f813`
 - 13.3: `5090d756facb6c16a7ada758f1c39b7f8a30639a`
-- 13.4: recorded in `project-state/current.json` after remote SHA confirmation.
+- 13.4: `1b90999548afd262ed77caf6890c72203a991129` (confirmed on origin/main).
 
 ## Verification and limits
 
