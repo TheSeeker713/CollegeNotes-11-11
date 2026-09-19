@@ -119,7 +119,8 @@
     "10.4": "07c52d8be80fad41471e931d6663613b52714002",
     "11.1": "8b47f02a917caddd5d431b6c2490b0c998835203",
     "11.2": "b08ebfc0715cbe6099ad6e4fba01c78a605bda96",
-    "11.3": "4ca620ece3295fdcba493b9e6a89770117f917a5"
+    "11.3": "4ca620ece3295fdcba493b9e6a89770117f917a5",
+    "11.4": "9915246a8f8603b7904c73b3165896d0fd3d3bce"
   },
   "next_action": "Owner-only Phase 11 manual UI review. Stop before Phase 12; no next-phase authorization.",
   "schema_version": 1,
@@ -420,7 +421,7 @@
     "stt": "synthetic-offline"
   },
   "phase11_delivery": {
-    "implementation_candidate": "4ca620ece3295fdcba493b9e6a89770117f917a5",
+    "implementation_candidate": "9915246a8f8603b7904c73b3165896d0fd3d3bce",
     "implementation_status": "engineering_complete",
     "manual_acceptance": "pending_owner_only",
     "pending_checks": [
@@ -438,6 +439,7 @@
       "workflow": 44
     },
     "model_downloads": false,
-    "scope": "course-neutral presentation practice"
+    "scope": "course-neutral presentation practice",
+    "verified_remote_sha": "9915246a8f8603b7904c73b3165896d0fd3d3bce"
   }
 }

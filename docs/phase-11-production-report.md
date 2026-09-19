@@ -34,7 +34,7 @@ Phase 11 adds course-neutral presentation practice tools any user-created course
 | 11.1 | Practice observations + foundations | `8b47f02a917caddd5d431b6c2490b0c998835203` |
 | 11.2 | Synchronized speech review | `b08ebfc0715cbe6099ad6e4fba01c78a605bda96` |
 | 11.3 | Rehearsal, cues, slide inspection | `4ca620ece3295fdcba493b9e6a89770117f917a5` |
-| 11.4 | History + delivery | (recorded after push) |
+| 11.4 | History + delivery |  |
 
 ## Non-UI verification
 
