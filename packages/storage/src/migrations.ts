@@ -189,7 +189,15 @@ export const MIGRATIONS = [
   create table study_preferences (
     course_id text primary key references courses(id) on delete cascade,
     daily_limit integer not null default 5 check(daily_limit between 1 and 50)
-  );`
+  );` ,
+  `create table study_sessions (
+    id text primary key, course_id text not null references courses(id) on delete cascade,
+    activity_ids text not null check(json_valid(activity_ids)), cursor integer not null default 0,
+    attempt_id text references study_attempts(id) on delete set null,
+    status text not null check(status in ('active','paused','complete')),
+    version integer not null default 1, created_at text not null, updated_at text not null
+  );
+  create unique index one_open_study_session on study_sessions(course_id) where status!='complete';`
 ];
 
 export function migrate(db: Database.Database): number {

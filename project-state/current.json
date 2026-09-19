@@ -1,7 +1,7 @@
 {
   "phase": 9,
   "phase_status": "active",
-  "step": "9.3",
+  "step": "9.4",
   "step_status": "checkpoint_pending",
   "pass_id": "PASS-2026-09-18-P9",
   "authorization_ref": "AUTH-P9",
@@ -49,8 +49,8 @@
     "8.4": "complete",
     "9.1": "complete",
     "9.2": "complete",
-    "9.3": "checkpoint_pending",
-    "9.4": "not_started",
+    "9.3": "complete",
+    "9.4": "checkpoint_pending",
     "10.1": "not_started",
     "10.2": "not_started",
     "10.3": "not_started",
@@ -110,9 +110,10 @@
     "8.3": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
     "8.4": "a4eb7c7e2ae9fb007ff9de12fe01a4807c2e96b0",
     "9.1": "72fb88b8a5bdc04e503df322d6023199c70e95aa",
-    "9.2": "862483547c9adf5a31b7f55e2100bee02db2afe7"
+    "9.2": "862483547c9adf5a31b7f55e2100bee02db2afe7",
+    "9.3": "3726fece0bb772dd41b9660beb327eb455620f32"
   },
-  "next_action": "Implement review scheduling and progress evidence.",
+  "next_action": "Implement short sessions, run final non-UI regression and deliver reports.",
   "schema_version": 1,
   "pass_closed": false,
   "phase_completion": {

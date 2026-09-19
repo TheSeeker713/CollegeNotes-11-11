@@ -1,8 +1,8 @@
 import {useEffect,useState} from 'react';
-import type {StudyProgress as Progress,StudyActivity} from '@collegenotes/domain';
+import type {StudyProgress as Progress,StudyActivitySummary} from '@collegenotes/domain';
 import {api} from './client';
 export function StudyProgressPanel({courseId,onStart}:{courseId:string;onStart?:(id:string)=>void}) {
- const [progress,setProgress]=useState<Progress|null>(null),[activities,setActivities]=useState<StudyActivity[]>([]),[notice,setNotice]=useState(''),[limit,setLimit]=useState(5),[busy,setBusy]=useState(false);
+ const [progress,setProgress]=useState<Progress|null>(null),[activities,setActivities]=useState<StudyActivitySummary[]>([]),[notice,setNotice]=useState(''),[limit,setLimit]=useState(5),[busy,setBusy]=useState(false);
  useEffect(()=>{let active=true;void Promise.all([api.study.progress(courseId),api.study.activities(courseId)]).then(([p,a])=>{if(active){setProgress(p);setLimit(p.dailyLimit);setActivities(a);}}).catch(e=>{if(active)setNotice(e.message);});return()=>{active=false;};},[courseId]);
  async function action(work:()=>Promise<Progress>){setBusy(true);try{setProgress(await work());setNotice('Saved locally.');}catch(e){setNotice(e instanceof Error?e.message:'Could not update review queue.');}finally{setBusy(false);}}
  return <section className="glass glass-card"><h2>Review and learning history</h2><p role="status">{notice}</p>{!progress?<p>Loading progress. Enable the Study module if unavailable.</p>:<><p>{progress.explanation}</p><p>{progress.submitted} submitted attempts · {progress.correctUnaided} correct unassisted attempts on current sources · {progress.assisted} assisted attempts · {progress.needsReview} explanations needing review.</p><p>{progress.staleActivities} activities need rebuilding after a source change.</p>

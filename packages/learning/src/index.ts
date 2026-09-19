@@ -39,6 +39,8 @@ export function parseActivity(value: unknown): ActivityTemplate {
 }
 export function scoreActivity(activity: ActivityTemplate, response: string[]): StudyFeedback {
   if (!Array.isArray(response) || response.length !== activity.answer.length || response.some(r => typeof r !== 'string' || !r.trim() || r.length > 10000)) throw Error('invalid_study_response');
+  if (['multiple_choice','classification','evidence_matching'].includes(activity.kind) && response.some(r => !activity.choices.includes(r))) throw Error('invalid_study_choice');
+  if (activity.kind === 'ordering' && (new Set(response).size !== activity.items.length || response.some(r => !activity.items.includes(r)))) throw Error('invalid_study_order');
   const manual = activity.needsReview || activity.kind === 'prediction' || activity.kind === 'recall';
   if (manual) return { outcome: 'needs_review', score: null, message: 'Compare your explanation with the rubric and source. This is not an authoritative grade.', rubric: activity.rubric, authoritativeGrade: false };
   const score = response.filter((r, i) => r === activity.answer[i]).length / activity.answer.length;

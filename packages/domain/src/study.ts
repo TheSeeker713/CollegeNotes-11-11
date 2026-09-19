@@ -30,3 +30,10 @@ export type StudyProgress = {
  history: StudyAttempt[]; submitted: number; correctUnaided: number; assisted: number; needsReview: number;
  currentActivities: number; staleActivities: number; explanation: string;
 };
+
+export type StudySession = {
+ id: string; courseId: string; status: 'active' | 'paused' | 'complete';
+ position: number; total: number; version: number; current: AttemptView | null; unavailable: string | null;
+};
+
+export type StudyActivitySummary = Omit<StudyActivity, 'answer' | 'rationale' | 'hints'>;

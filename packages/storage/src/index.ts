@@ -38,3 +38,4 @@ export * from './hybrid-retrieval.js';
 export * from './research-tutor.js';
 export * from './study.js';
 export * from './study-review.js';
+export * from './study-sessions.js';

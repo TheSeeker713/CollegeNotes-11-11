@@ -7,3 +7,5 @@ Gate passed: types, lint, build, 32 unit, 177 integration, 1 evaluation, 6 plann
 Separate audit reviewed schedule/attempt atomicity, idempotence, workload bounds, stable UTC ordering, reset snapshots, later-attempt undo invalidation, course-scoped export and cascade deletion. Appearance is independent of scheduling. Review UI and history are implemented; owner UI/UX acceptance remains pending.
 
 Prior verified checkpoint: `862483547c9adf5a31b7f55e2100bee02db2afe7`. This checkpoint awaits commit/push confirmation.
+
+Verified origin/main checkpoint: `3726fece0bb772dd41b9660beb327eb455620f32`.

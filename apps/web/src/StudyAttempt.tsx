@@ -1,8 +1,9 @@
-import {useRef,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import type {AttemptView} from '@collegenotes/domain';
 import {api} from './client';
-export function StudyAttemptPanel({initial,onRetry,onSubmitted}:{initial:AttemptView;onRetry:()=>void;onSubmitted?:()=>void}) {
+export function StudyAttemptPanel({initial,onRetry,onSubmitted,onPending}:{initial:AttemptView;onRetry:()=>void;onSubmitted?:()=>void;onPending?:(pending:boolean)=>void}) {
  const [view,setView]=useState(initial),[response,setResponse]=useState(initial.attempt.response),[teachBack,setTeachBack]=useState(initial.attempt.teachBack),[notice,setNotice]=useState(''),[pending,setPending]=useState(0);
+ useEffect(()=>{onPending?.(pending>0);const warn=(event:BeforeUnloadEvent)=>{event.preventDefault();};if(pending>0)window.addEventListener('beforeunload',warn);return()=>window.removeEventListener('beforeunload',warn);},[pending,onPending]);
  const current=useRef(initial),queue=useRef(Promise.resolve()),failed=useRef(false);
  function enqueue(action:string,values?:{response:string[];teachBack:string}){
   setPending(n=>n+1);

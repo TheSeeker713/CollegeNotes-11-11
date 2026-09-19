@@ -29,6 +29,9 @@ function req<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
  study: {
+  session:(c:string)=>req<import('@collegenotes/domain').StudySession|null>(`/courses/${c}/study/session`),
+  openSession:(c:string,limit:number)=>req<import('@collegenotes/domain').StudySession>(`/courses/${c}/study/sessions`,{method:'POST',body:JSON.stringify({limit})}),
+  changeSession:(c:string,id:string,version:number,action:string)=>req<import('@collegenotes/domain').StudySession>(`/courses/${c}/study/sessions/${id}`,{method:'PUT',body:JSON.stringify({version,action})}),
   progress:(c:string)=>req<import('@collegenotes/domain').StudyProgress>(`/courses/${c}/study/progress`),
   workload:(c:string,dailyLimit:number)=>req<import('@collegenotes/domain').StudyProgress>(`/courses/${c}/study/workload`,{method:'PUT',body:JSON.stringify({dailyLimit})}),
   review:(c:string,id:string,action:'reset'|'undo')=>req<import('@collegenotes/domain').StudyProgress>(`/courses/${c}/study/activities/${id}/review/${action}`,{method:'POST'}),
@@ -36,7 +39,7 @@ export const api = {
   start:(c:string,a:string)=>req<import('@collegenotes/domain').AttemptView>(`/courses/${c}/study/activities/${a}/attempts`,{method:'POST'}),
   attempt:(c:string,id:string)=>req<import('@collegenotes/domain').AttemptView>(`/courses/${c}/study/attempts/${id}`),
   update:(c:string,id:string,action:string,body:unknown)=>req<import('@collegenotes/domain').AttemptView>(`/courses/${c}/study/attempts/${id}/${action}`,{method:'POST',body:JSON.stringify(body)}),
-  activities:(c:string)=>req<import('@collegenotes/domain').StudyActivity[]>(`/courses/${c}/study/activities`),
+  activities:(c:string)=>req<import('@collegenotes/domain').StudyActivitySummary[]>(`/courses/${c}/study/activities`),
   create:(c:string,body:import('@collegenotes/domain').ActivityTemplate)=>req<import('@collegenotes/domain').StudyActivity>(`/courses/${c}/study/activities`,{method:'POST',body:JSON.stringify(body)}),
   remove:(c:string,id:string)=>req(`/courses/${c}/study/activities/${id}`,{method:'DELETE'})
  },
